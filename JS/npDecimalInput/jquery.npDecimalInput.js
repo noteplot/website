@@ -1,9 +1,10 @@
 /*
 	Ф-ция npDecimalInput обеспечивает ввод чисел в формате decimal(p,s), аналогично ms sql 
-	Разделитель десятичных знаков может быть или точка или запятая. Допускается ввод орицательных значений.
+	Разделитель десятичных знаков может быть или точка или запятая. Допускается ввод орицательных значений.	
 	Все параметры формата: точность(precision), кол-во разрадов после запятой(scale), разделитель десятичных
 	знаков и принак возможности ввода отрицательного числа задаются в атрибутах элемента ввода:
 	np_dec_precision = "10" np_dec_scale = "2" np_dec_point='.' np_dec_minus
+	Если задан формат decumal(4,3) -  
 */
 (function( $ ) {
 	$.fn.npDecimalInput = function() {
@@ -50,7 +51,7 @@
 					scale 		= $(this).attr('np_dec_scale') ? parseInt($(this).attr('np_dec_scale')) : 0,
 					precision 	= $(this).attr('np_dec_precision') ? parseInt($(this).attr('np_dec_precision')) : 1,
 					minus 		= $(this).get(0).hasAttribute('np_dec_minus') ? true : false,
-					ix, len;
+					ix, len, s1, s2;
 						
 				// проверка на scale
 				ix = val.indexOf(point),
@@ -68,8 +69,8 @@
 				ix = val.lastIndexOf('-');
 				if ( minus && ix > 0)
 				{	len = len+1
-					var s1 = val.substring(0, ix)	
-					var s2 = val.substring(ix+1, len-1)
+					s1 = val.substring(0, ix)	
+					s2 = val.substring(ix+1, len-1)
 					$(this).val(s1+s2);
 				}
 
@@ -80,6 +81,13 @@
 					$(this).val(val.substr(0,1));
 				}						
 					
+				// проверка на начальный нуль
+				ix = val.lastIndexOf('0');					
+				if (ix == 0 && (val.indexOf(point) == -1 || val.indexOf(point) > 0) && len > 1)
+				{
+					$(this).val(val.substring(0, ix)+val.substring(ix+1, val.len));
+				}						
+		
 				// проверка на кол-во символов
 				len = precision				
 				if ((val.indexOf('-')>=0))
@@ -101,8 +109,7 @@
 			
 		});
 	}	
-
-	// общие функции
+	
 	// текущий десятичный разделитель
 	function DecPointDefault(){
 		var num = new Number(0.1)			
