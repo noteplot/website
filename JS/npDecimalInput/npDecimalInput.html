@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>input_mask</title>
+		<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="jquery.npDecimalInput.js"></script>
+    </head>
+    <body>
+        <form>
+			<div>
+				<label>ФОРМАТ DECIMAL(10,2) положительное чиcло, разделитель по-умолчанию(запятая)</label>
+				<div>
+				<input type="text" id = "test1" name="login1" np_dec_precision = "10" np_dec_scale = "2"/>
+				</div>
+			</div>
+			<div>
+				<label>ФОРМАТ DECIMAL(9,4) положительное число разделитель точка</label>
+				<div>
+				<input type="text" id = "test1" name="login1" np_dec_precision = "9" np_dec_scale = "4" np_dec_point="."/>
+				</div>
+			</div>
+			<div>
+				<label>ФОРМАТ DECIMAL(8,3) (может быть отрицательным), разделитель по-умолчанию(запятая)</label>
+				<div>
+				<input type="text" id = "test2" name="login2" np_dec_precision = "8" np_dec_scale = "3" decimal_minus/>
+				</div>
+			</div>
+			<div>
+				<label>ФОРМАТ DECIMAL(5,0) положительное</label>
+				<div>
+				<input type="text" id = "test3" name="login2" np_dec_precision = "5"/>
+				</div>
+			</div>
+			<div>				
+				<input type="submit" value="Войти" />
+			</div>
+        </form>		
+		<script type = "text/javascript">
+			$(document).ready(function(){
+				$('input').npDecimalInput();
+			});
+		</script>					
+    </body>
+</html> 
