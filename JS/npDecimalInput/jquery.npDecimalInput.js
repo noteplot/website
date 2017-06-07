@@ -16,7 +16,7 @@
 					e.preventDefault();
 			});
 
-			$(this).bind('keydown' , function(e){
+			$(this).bind('keydown.noteplot' , function(e){
 				var 
 					val 		= $(this).val(),
 					point 		= ($(this).attr('np_dec_point') && ($(this).attr('np_dec_point') == '.' || $(this).attr('np_dec_point') == ',')) ? $(this).attr('np_dec_point') : DecPointDefault(),
@@ -27,7 +27,7 @@
 					e.preventDefault();		
 			});
 				
-			$(this).bind('keypress' , function(e){
+			$(this).bind('keypress.noteplot' , function(e){
 				var 
 					val = $(this).val(),
 					point 		= ($(this).attr('np_dec_point') && ($(this).attr('np_dec_point') == '.' || $(this).attr('np_dec_point') == ',')) ? $(this).attr('np_dec_point') : DecPointDefault(),
@@ -43,7 +43,7 @@
                 }                
 			});
 
-			$(this).bind('keyup' , function(e){
+			$(this).bind('keyup.noteplot' , function(e){
 				var 
 					val 		= $(this).val(),
 					point 		= ($(this).attr('np_dec_point') && ($(this).attr('np_dec_point') == '.' || $(this).attr('np_dec_point') == ',')) ? $(this).attr('np_dec_point') : DecPointDefault(),					//point		= DecPointDefault(),
