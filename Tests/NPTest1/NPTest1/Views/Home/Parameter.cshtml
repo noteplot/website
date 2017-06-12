@@ -24,7 +24,9 @@
     </p>
     <p>
         <label>Может быть меньше нуля:</label><br>
-        <input id="IsNegative" name="IsNegative" type="checkbox" checked="@Model.IsNegative"/>
+        @*@Html.CheckBoxFor(m => m.IsNegative)*@
+        @*Дело в том, что браузер посылает значение флажка только тогда, когда флажок выбран или отмечен.*@ 
+        <input id="IsNegative" name="IsNegative" type="checkbox" checked="@Model.IsNegative" value="@Model.IsNegative"/>     
     </p>
      <p>
          <span id="errorBoard" class="errorMessage"></span>
@@ -36,6 +38,15 @@
     $(function () {
         $("#ParameterEditForm").submit(function (event) {
             event.preventDefault();
+            $("input:checkbox").each(function () { // this - это не объект jQuery , а html-element
+                if (this.checked == true) {
+                    this.value = true;
+                }
+                else {
+                    this.value = true;//$(this).val(false);
+                }
+            });
+
             $.ajax({
                 url: $("#ParameterEditForm").attr('action'),
                 data: $("#ParameterEditForm").serialize(),
