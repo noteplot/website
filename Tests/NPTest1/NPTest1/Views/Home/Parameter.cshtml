@@ -39,12 +39,7 @@
         $("#ParameterEditForm").submit(function (event) {
             event.preventDefault();
             $("input:checkbox").each(function () { // this - это не объект jQuery , а html-element
-                if (this.checked == true) {
-                    this.value = true;
-                }
-                else {
-                    this.value = true;//$(this).val(false);
-                }
+                this.value = (this.checked == true);
             });
 
             $.ajax({
