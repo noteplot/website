@@ -84,12 +84,12 @@ namespace NPTest1.Controllers
         [HttpPost]
         public ActionResult Edit(Test_Parameter par)
         {
-            /* ИЗВРАТ
+            //ИЗВРАТ
             if (HttpContext.Request.Form["IsNegative"] == "on")
                 par.IsNegative = true;
             else
                 par.IsNegative = false;
-            */
+            
             try {
                 repo.Update(par);
             }

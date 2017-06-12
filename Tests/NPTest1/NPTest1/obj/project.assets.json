@@ -10289,10 +10289,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\noteplot\\test\\NPTest1\\NPTest1\\NPTest1.csproj",
+      "projectUniqueName": "D:\\Projects\\noteplot\\WebSite\\Tests\\NPTest1\\NPTest1\\NPTest1.csproj",
       "projectName": "NPTest1",
-      "projectPath": "D:\\Projects\\noteplot\\test\\NPTest1\\NPTest1\\NPTest1.csproj",
-      "outputPath": "D:\\Projects\\noteplot\\test\\NPTest1\\NPTest1\\obj\\",
+      "projectPath": "D:\\Projects\\noteplot\\WebSite\\Tests\\NPTest1\\NPTest1\\NPTest1.csproj",
+      "outputPath": "D:\\Projects\\noteplot\\WebSite\\Tests\\NPTest1\\NPTest1\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

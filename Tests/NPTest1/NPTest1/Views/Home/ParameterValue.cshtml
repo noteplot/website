@@ -33,16 +33,10 @@
                     if ($(".ui-dialog").length > 0) {                        
                         $("#ParameterEditValueForm").parent().dialog("close");
                     }
-                    //$("#5 [name='ParameterValue']").html(obj.ParameterValue);
-                    //window.location.replace("/home/index");
-                    //window.location = data.redirectUrl; // открываем текущую страницу
                 },
                 error: function (jxqr) {
                     alert(jxqr.responseText);
                     $('#errorBoard').html(jxqr.responseText);
-                    //$('#result').html(data);
-                    //window.location.replace("/home/index");
-                    //window.location = data.redirectUrl; // открываем текущую страницу
                 }
             });
         });
