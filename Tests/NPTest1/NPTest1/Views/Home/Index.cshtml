@@ -1,0 +1,157 @@
+﻿@model IEnumerable<NPTest1.Models.Test_Parameter>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Монитор параметров</title>
+        @*
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="~/js/jquery.npDecimalInput.js"></script>
+        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/css/jquery-ui.theme.min.css" rel="stylesheet" />
+            *@
+                @*
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+                *@
+        
+        @*
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
+            *@
+        
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/sunny/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <style type="text/css">
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            [name="ParameterValue"] {
+                color: red;
+                font-weight: bold;
+            }
+           }
+        </style>        
+    </head>
+    <body>
+        <h3>Параметры</h3>
+        <table>
+            <tr>
+                <td>Параметр</td>
+                <td>Значение</td>
+                <td>Точность</td>
+                <td>Знаков после запятой</td>
+                <td>Может быть отрицательным</td>
+                <td></td>
+            </tr>
+            @foreach (var parameter in Model)
+                {
+                <tr id="@parameter.ParameterID">
+                    <td name ="ParameterName">@parameter.ParameterName</td>
+                    <td name ="ParameterValue">@parameter.ParameterValue</td>
+                    <td name ="ParameterPrecision">@parameter.ParameterPrecision</td>
+                    <td name ="ParameterScale">@parameter.ParameterScale</td>
+                    <td name ="IsNegative">@parameter.IsNegative</td>
+                    <td><a href="~/Home/Edit/@parameter.ParameterID" class="openDialog">Редактировать</a></td>
+                    <td><a href="~/Home/EditValue/@parameter.ParameterID" class="openDialog">Изменить значение</a></td>
+                    <td><a href="~/Home/Delete/@parameter.ParameterID">Удалить</a></td>
+                </tr>
+            }
+        </table>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.ajaxSetup({ cache: false }); 
+                $(".openDialog").on("click", function (e) {
+                    e.preventDefault();
+                    OpenDialog(this);
+                });
+
+                $(window).resize(function (event) {
+                    if ($(".ui-dialog").length > 0) {
+                        $('#masterDialog').dialog("widget").dialogCenter();
+                    }
+                });
+                    
+            });
+
+            // ф-ция для центрирования диалога при изменении окна в гаджетах
+            jQuery.fn.dialogCenter = function () {
+                //this.css("position", "fixed");
+                var y = ($(window).height() - this.outerHeight()) / 2;
+                var x = ($(window).width() - this.outerWidth())/2;
+                this.css("top", y + "px").css("left", x + "px");
+                return this;
+            }
+
+            function OpenDialog(hr) {
+                if ($('#masterDialog').length > 0)
+                    $('#masterDialog').dialog("close");
+                //alert($(hr).attr("href"));                
+                $("<div id = 'masterDialog'></div>")
+                    .addClass("dialog")                    
+                    .appendTo("body")
+                    .dialog({
+                        autoOpen: false,
+                        modal: true,
+                        draggable: false,
+                        resizable: false,
+                        title: "Параметр",
+                        close: function () {
+                            $(this).remove();
+                        }
+                    }).load(hr.href, function (){
+                        $(this).dialog("open"); // Открываем диалог только после загрузки формы, в пртивном случае не будет центрирования
+                    });
+            }
+        </script>
+    </body>
+</html>
+@*  // клик на любом поле ведет кзакрытию диалогаs
+    open: function (event, ui) {
+            $(".ui-widget-overlay").click(function(){
+                $(".ui-dialog-titlebar-close").trigger('click');
+            });
+            /*
+            function dialogCenter1() {
+                if ($('#masterDialog').length > 0) {
+                    var d = $('#masterDialog').dialog("widget");
+                    //var d = $('#masterDialog').parent();
+                    //d.css("position", "fixed");
+                    var h1 = d.outerHeight();
+                    var h = $(window).height() - h1;
+                    var w1 = d.outerWidth();
+                    var w = $(window).width() - w1;
+                    d.css("left", (w / 2).toFixed() + "px");
+                    d.css("top", (h / 2).toFixed() + "px");
+                    //alert(d.css("top"));
+                }
+            };
+            */
+            // в новых версиях НЕ работает
+            /*
+            function dialogCenter() {
+                //http://javascript.ru/forum/jquery/51275-jquery-dialog-mobilnaya-versiya.htmls
+                if ($(".ui-dialog").length > 0) {
+                    //$(".ui-dialog").each(function () {
+                    //    $(this).children('.ui-dialog-content').dialog("option", "position", 'center');//['center', 'center']);
+                    //});
+                    //$('#masterDialog').parent().position({ my: 'center', of: 'center', collison: 'fit' });
+                };
+            };
+            */
+        }*@
+

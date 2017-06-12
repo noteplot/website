@@ -1,0 +1,52 @@
+﻿@model NPTest1.Models.Test_Parameter
+
+@{
+    Layout = null;
+}
+
+<form action="/Home/EditValue" method ="POST" id="ParameterEditValueForm">
+    <input id="ParameterID" name="ParameterID" type="hidden" value="@Model.ParameterID" />
+    <div>
+        <label>Название параметра:</label><br>
+        <input id="ParameterName" name="ParameterName" type="text" value="@Model.ParameterName" readonly/>
+    </div>
+    <div>
+        <label>Значение параметра:</label><br>
+        <input id="ParameterValue" name="ParameterValue" type="text" value="@Model.ParameterValue"/>
+    </div>
+    <input id="ParameterSubmit" type="submit" value="Сохранить" />
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        $.ajaxSetup({ cache: false }); 
+        $("#ParameterEditValueForm").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: $("#ParameterEditValueForm").attr('action'),
+                data: $("#ParameterEditValueForm").serialize(),
+                type: 'POST',
+                success: function (data) {
+                    var obj = jQuery.parseJSON(data);                    
+                    // обновляем записанным параметром
+                    $("#" + obj.ParameterID+" [name='ParameterValue']").html(obj.ParameterValue);
+                    if ($(".ui-dialog").length > 0) {                        
+                        $("#ParameterEditValueForm").parent().dialog("close");
+                    }
+                    //$("#5 [name='ParameterValue']").html(obj.ParameterValue);
+                    //window.location.replace("/home/index");
+                    //window.location = data.redirectUrl; // открываем текущую страницу
+                },
+                error: function (jxqr) {
+                    alert(jxqr.responseText);
+                    $('#errorBoard').html(jxqr.responseText);
+                    //$('#result').html(data);
+                    //window.location.replace("/home/index");
+                    //window.location = data.redirectUrl; // открываем текущую страницу
+                }
+            });
+        });
+    });
+</script>
+
+

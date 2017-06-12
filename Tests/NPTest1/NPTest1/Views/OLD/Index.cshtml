@@ -1,0 +1,99 @@
+﻿@model IEnumerable<NPTest1.Models.Test_Parameter>
+@{
+    //ViewData["Title"] = "Список смартфонов";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Монитор параметров</title>
+    </head>
+    <body>
+        <h3>Параметры</h3>
+        <table>
+            <tr>
+                <td>Параметр</td>
+                <td>Значение</td>
+                <td>Точность</td>
+                <td>Знаков после запятой</td>
+                <td>Может быть отрицательным</td>
+                <td></td>
+            </tr>
+            @foreach (var parameter in Model)
+                {
+                <tr>
+                    <td>@parameter.ParameterName</td>
+                    <td>@parameter.ParameterValue</td>
+                    <td>@parameter.ParameterPrecision</td>
+                    <td>@parameter.ParameterScale</td>
+                    <td>@parameter.IsNegative</td>
+                    <td><a href="~/Home/Edit/@parameter.ParameterID" class="openDialog">Ввести</a></td>
+                    <td><a href="~/Home/Delete/@parameter.ParameterID">Удалить</a></td>
+                </tr>
+            }
+        </table>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                //$.ajaxSetup({ cache: false });
+                alert('SSSSD');
+                $(".openDialog").on("click", function (e) {
+                    e.preventDefault();                    
+                    OpenDialog(this);
+                });
+            });
+            //открытие диалога
+            function OpenDialog(hr) {
+                if ($('#masterDialog').length > 0)
+                    $('#masterDialog').dialog("close");
+                    $("<div id = 'masterDialog'></div>")
+                        .addClass("dialog")
+                        //.attr("id", $(this).attr("data-dialog-id"))
+                        .appendTo("body")
+                        .dialog({
+                            modal: true,
+                            draggable: false,
+                            resizable: false,
+                            //title: $(hr).attr("data-dialog-title"),
+                            //width: $(hr).attr("dialog-width"),
+                            //height: $(hr).attr("dialog-height"),
+                            close: function () {
+                                $(this).remove();
+                            }
+                            //,modal: true
+                    }).load(hr.href);
+                    alert(hr.href);
+/*
+                // default: width:300 px height:200px   
+                var _dialog = $(".ui-dialog");
+                var _w = _dialog.width() / -2 + 'px';
+                //var _h = (_dialog.height() / -2 - 26) + 'px';
+                // если высота задана autо то высота определяется всегда как постоянная величина
+                var _h = _dialog.height() / -2 - 4 + 'px';
+                _dialog.css({
+                    'top': '50%',
+                    'margin-top': _h,//'-100px',
+                    'left': '50%',
+                    'margin-left': _w,//'-150px'
+                    'position': 'absolute'
+                });
+                var _shadow = $(".ui-widget-overlay");
+                _shadow.css({
+                    'position': 'fixed',
+                    'top': 0,
+                    'left': 0,
+                    'width': '100%',
+                    'height': '100%'
+                });
+*/
+            }
+        </script>
+    </body>
+</html>
+@*  // клик на любом поле ведет кзакрытию диалога
+    open: function (event, ui) {
+            $(".ui-widget-overlay").click(function(){
+                $(".ui-dialog-titlebar-close").trigger('click');
+            });
+        }*@

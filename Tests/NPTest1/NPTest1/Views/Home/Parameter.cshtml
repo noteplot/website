@@ -1,0 +1,57 @@
+﻿@model NPTest1.Models.Test_Parameter
+
+@{
+    Layout = null;
+}
+
+<form action="/Home/Edit" method ="POST" id="ParameterEditForm">
+    <input id="ParameterID" name="ParameterID" type="hidden" value="@Model.ParameterID" />
+    <p>
+        <label>Название параметра:</label><br>
+        <input id="ParameterName" name="ParameterName" type="text" value="@Model.ParameterName"/>
+    </p>
+    <p>
+        <label>Значение параметра:</label><br>
+        <input id="ParameterValue" name="ParameterValue" type="text" value="@Model.ParameterValue"/>
+    </p>
+    <p>
+        <label>Количесво значащих цифр:</label><br>
+        <input id="ParameterPrecision" name="ParameterPrecision" type="text" value="@Model.ParameterPrecision"/>
+    </p>
+    <p>
+        <label>Количество дес.знаков после дес.разделителя:</label><br>
+        <input id="ParameterScale" name="ParameterScale" type="text" value="@Model.ParameterScale"/>
+    </p>
+    <p>
+        <label>Может быть меньше нуля:</label><br>
+        <input id="IsNegative" name="IsNegative" type="checkbox" value="@Model.IsNegative"/>
+    </p>
+     <p>
+         <span id="errorBoard" class="errorMessage"></span>
+     </p>
+    <input id="ParameterSubmit" type="submit" value="Сохранить" />
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        $("#ParameterEditForm").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: $("#ParameterEditForm").attr('action'),
+                data: $("#ParameterEditForm").serialize(),
+                type: 'POST',
+                cache: false,
+                async: false,
+                success: function (data) {
+                    window.location.replace("/home/index"); // переоткрываем текущую страницу
+                    //window.location = data.redirectUrl; // открываем текущую страницу
+                },
+                error: function (jxqr) {
+                    alert(jxqr.responseText);
+                    $('#errorBoard').html(jxqr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
