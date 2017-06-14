@@ -25,9 +25,11 @@
             $.ajax({
                 url: $("#ParameterEditValueForm").attr('action'),
                 data: $("#ParameterEditValueForm").serialize(),
+                //dataType: "json", // dataType is json format
                 type: 'POST',
                 success: function (data) {
-                    var obj = jQuery.parseJSON(data);                    
+                    alert(data);
+                    var obj = jQuery.parseJSON(data);
                     // обновляем записанным параметром
                     $("#" + obj.ParameterID+" [name='ParameterValue']").html(obj.ParameterValue);
                     if ($(".ui-dialog").length > 0) {                        

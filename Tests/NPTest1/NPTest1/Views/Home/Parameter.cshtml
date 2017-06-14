@@ -26,7 +26,8 @@
         <label>Может быть меньше нуля:</label><br>
         @*@Html.CheckBoxFor(m => m.IsNegative)*@
         @*Дело в том, что браузер посылает значение флажка только тогда, когда флажок выбран или отмечен.*@ 
-        <input id="IsNegative" name="IsNegative" type="checkbox" checked="@Model.IsNegative" value="@Model.IsNegative"/>     
+        @*<input id="IsNegative" name="IsNegative" type="checkbox" checked="@Model.IsNegative" value="@Model.IsNegative"/>*@
+        @Html.CheckBox("IsNegative", Model.IsNegative)
     </p>
      <p>
          <span id="errorBoard" class="errorMessage"></span>

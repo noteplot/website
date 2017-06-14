@@ -121,13 +121,13 @@ namespace NPTest1.Controllers
             catch
             {
                 return BadRequest("Ошибка записи!");
-            }            
-            //var s = "{" + $"\"ParameterID\":\"{par.ParameterID}\",\"ParameterValue\":\"{par.ParameterValue}\"" + "}";
-         // в виде JSON
-         return Content("{" + $"\"ParameterID\":\"{par.ParameterID}\",\"ParameterValue\":\"{par.ParameterValue}\"" + "}");
-            //return Content($"ParameterID: {par.ParameterID}  ParameterValue: {par.ParameterValue}");
+            }
+            // в виде JSON
+            return Content("{" + $"\"ParameterID\":\"{par.ParameterID}\",\"ParameterValue\":\"{par.ParameterValue}\"" + "}");
+            //return Json(new {ParameterID = par.ParameterID, ParameterValue = par.ParameterValue});
+            //return Json(par);            
         }
-
+         
         /*   
         [HttpGet]
         [ActionName("Delete")]
