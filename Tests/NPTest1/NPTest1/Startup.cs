@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NPTest1.Models;                   // пространство имен моделей
 using Microsoft.EntityFrameworkCore;    // пространство имен EntityFramework
-
+using Newtonsoft.Json.Serialization;    //.DefaultContractResolver
 
 namespace NPTest1
 {
@@ -34,7 +34,8 @@ namespace NPTest1
             services.AddDbContext<NPContext>(options => options.UseSqlServer(connection)); // Entity Framework
             services.AddTransient<IRepositoryParameter, RepositoryParameter>(provider => new RepositoryParameter(connection)); // Dapper
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); // ЭТО ОБЯЗАТЕЛЬНО, т.к. formatter по-умолчанию преобразует начальные символы ключей в lowecase             
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
