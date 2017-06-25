@@ -25,10 +25,13 @@
                 color: red;
                 font-weight: bold;
             }
-           }
         </style>        
     </head>
     <body>
+        <div class="np_loginBar">           
+            @*@Html.Partial("~/Views/UserAccount/LoginInputPanelView.cshtml")*@
+            @await Component.InvokeAsync("PanelLogin")
+        </div>
         <h3>Параметры</h3>
         <table>
             <tr>

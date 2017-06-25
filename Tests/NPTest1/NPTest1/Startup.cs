@@ -41,6 +41,10 @@ namespace NPTest1
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // ViewComponents
+            //app.UseStatusCodePages();
+            //app.UseMvcWithDefaultRoute();
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -59,7 +63,7 @@ namespace NPTest1
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
+                    name: "default",                    
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
