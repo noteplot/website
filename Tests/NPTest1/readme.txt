@@ -1,4 +1,6 @@
-1.Вместо @Html.Action -> ViewComponents
+1.Вместо @Html.Action -> ViewComponents очередной финт и тонкое место Microsoft. 
+Фактически  - класс это контроллер для встраиваемого представления.
+
 Класс ViewComponent размещение: /Components/Название класса (PanelLogin)
 public class PanelLogin:ViewComponent
 
