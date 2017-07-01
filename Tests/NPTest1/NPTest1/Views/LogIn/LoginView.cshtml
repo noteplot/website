@@ -1,4 +1,4 @@
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -100,17 +100,12 @@
     </style>
 }
 
-<div class="login">
-    @*<div class="page-header">
-        <div class="icon">
-            <span class="ico-arrow-right"></span>
-        </div>
-        <h1>Login <small>TEST LOGIN PANEL</small></h1>
-    </div>*@
+<form action="/Login/LoginInput" method="POST" id="loginInput">
+    @Html.AntiForgeryToken()
     <div class="row-fluid">
         <div class="row-form">
             <div class="span12">
-                <input type="text" name="login" placeholder="login" />
+                <input type="text" name="loginName" placeholder="login" />
             </div>
         </div>
         <div class="row-form">
@@ -120,14 +115,53 @@
         </div>
         <div class="row-form">
             <div class="span12">
-                <input type="checkbox" /> Keep me signed in
+                <input type="checkbox" /> Запомнить
             </div>
         </div>
-        <div class="row-form">
+        <div class="row-form"> 
             <div class="span12">
-                <button class="btn">Sign in <span class="icon-arrow-next icon-white"></span></button>
-                <button class="btn1">Register <span class="icon-arrow-next icon-white"></span></button>
+                <input class="btn" type="submit" value="Сохранить" />
+                @*<button class="btn">Sign in <span class="icon-arrow-next icon-white"></span></button>*@
+                @*<button class="btn1">Register <span class="icon-arrow-next icon-white"></span></button>*@
             </div>
         </div>
     </div>
-</div>
+</form>
+<p>
+    <span id="errorBoard" class="errorMessage"></span>
+</p>
+
+<script type="text/javascript">
+    var errmes;
+    $(function () {
+        $("#loginInput").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: $("#loginInput").attr('action'),
+                data: $("#loginInput").serialize(),
+                type: 'POST',
+                cache: false,
+                async: false,
+                beforeSend: function (jqXHR, settings) {
+                    alert($("#loginInput").attr('action'));
+                },
+                success: function (data) {
+                    window.location.replace("/home/index"); // переоткрываем текущую страницу
+                    //window.location = data.redirectUrl; // открываем текущую страницу
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    $('#errorBoard').html(jqXHR.responseText);
+                }
+                //error: function (qXHR, textStatus, errorThrown) {
+                //    var errmes = "Ошибка!";
+                //    //if (jxqr != null) {
+                //    //    errmes = qXHR. responseText;
+                //    //}
+                //    $('#errorBoard').empty();
+                //    $('#errorBoard').append("<h3>" + errmes + "</h3>");
+                //}
+            });
+        });
+    });
+</script>

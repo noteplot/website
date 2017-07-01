@@ -13,7 +13,7 @@ namespace NPTest1.Components
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 // если идентфицирован выводим панель с названием учетной записи
-                return View("LoginNamePanelView","User");
+                return View("LoginNamePanelView", User.Identity.Name);
             }
             else
                 // если нет, панель для регистрации

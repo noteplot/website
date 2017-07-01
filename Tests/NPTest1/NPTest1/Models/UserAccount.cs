@@ -14,15 +14,15 @@ namespace NPTest1.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Имя")]
+        //[Display(Name = "Имя")]
         public string LoginName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        //[Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Display(Name = "Запомнить?")]
+        //[Display(Name = "Запомнить?")]
         public bool RememberMe { get; set; }
     }
 

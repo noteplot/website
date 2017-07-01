@@ -43,6 +43,15 @@ namespace NPTest1
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // аутентификация куки
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationScheme = "NotePlotCookies", // случайное название
+                LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/LoginInput"),
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true
+            });
+
             // ViewComponents
             //app.UseStatusCodePages();
             //app.UseMvcWithDefaultRoute();

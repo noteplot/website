@@ -3,42 +3,89 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NPTest1.Models;
+using System.Security.Claims;
 
 namespace NPTest1.Controllers
 {
     public class LoginController : Controller
     {
+        IRepositoryLogin repo;
+        public LoginController(IRepositoryLogin r)
+        {
+            repo = r;
+        }
         [HttpGet]
-        public ActionResult InputLogin()
+        public ActionResult LoginInput()
         {
             //LoginViewModel lg = new LoginViewModel();
             return PartialView("Views/LogIn/LoginView.cshtml");
         }
 
-        // ЭТО
-        public ActionResult LoginPanel()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult LoginInput(LoginViewModel lg) // аутентификация TO DO: сделать асинхронным
         {
-            return PartialView("LoginInputPanelView");
-            /*
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (ModelState.IsValid)
             {
-                FormsIdentity id = (FormsIdentity)User.Identity;
-                FormsAuthenticationTicket ticket = id.Ticket;
                 try
                 {
-                    UserViewModel us = DBAuthentication.GetLoginById(Convert.ToInt32(ticket.UserData));
-                    if (us == null || us.LoginViewName == null)
-                        throw new Exception();
-                    return PartialView("LoginNamePanelView", us.LoginViewName);
+                    UserAccount us = repo.LogIn(lg.LoginName, lg.Password); // аутентификация TO DO: сделать асинхронным
+                    if (us != null)
+                    {
+                        try
+                        {
+                            Authenticate(lg.LoginName); // аутентификация TO DO: сделать асинхронным
+
+                            return RedirectToAction("Index", "Home");
+                            //return Ok();
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                            //ViewBag.ErrMessage = ex.Message;
+                            //return PartialView("LoginView", lg);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Пользователь с таким именем и паролем не найден!");
+                        //ViewBag.ErrMessage = "Пользователь с таким именем и паролем не найден!";
+                        //return PartialView("LoginView", lg);
+
+                    }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    return PartialView("LoginNamePanelView", HttpContext.User.Identity.Name);
+                    return BadRequest(ex.Message);
+                    //ViewBag.ErrMessage = ex.Message;
+                    //return PartialView("LoginView", lg);
                 }
             }
             else
-                return PartialView("LoginInputPanelView");
-            */
+            {
+                //ViewBag.ErrMessage = "Пользователь с таким именем и паролем не найден!";
+                //return PartialView("LoginView", lg);
+                return BadRequest("Пользователь с таким именем и паролем не найден!");
+            }
+        }
+
+        private void /*async Task*/ Authenticate(string userName)
+        {
+            // создаем один claim
+            var claims = new List<Claim>{new Claim(ClaimsIdentity.DefaultNameClaimType, userName)};
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);            
+            // установка аутентификационных куки
+            //await 
+                HttpContext.Authentication.SignInAsync("NotePlotCookies", new ClaimsPrincipal(id));
+        }
+
+        public async Task<IActionResult> LoginOut()
+        {
+            await HttpContext.Authentication.SignOutAsync("Cookies");
+            return RedirectToAction("Login", "Account");
         }
     }
 }
