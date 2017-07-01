@@ -25,7 +25,7 @@ namespace NPTest1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult LoginInput(LoginViewModel lg) // аутентификация TO DO: сделать асинхронным
+        public async Task<IActionResult> LoginInput(LoginViewModel lg) // аутентификация TO DO: сделать асинхронным
         {
             if (ModelState.IsValid)
             {
@@ -36,7 +36,7 @@ namespace NPTest1.Controllers
                     {
                         try
                         {
-                            Authenticate(lg.LoginName,lg.RememberMe); // аутентификация TO DO: сделать асинхронным
+                            await Authenticate(lg.LoginName,lg.RememberMe); // аутентификация TO DO: сделать асинхронным
 
                             return RedirectToAction("Index", "Home");
                             //return Ok();
@@ -71,16 +71,15 @@ namespace NPTest1.Controllers
             }
         }
 
-        private void /*async Task*/ Authenticate(string userName, bool IsPers)
+        private async Task Authenticate(string userName, bool IsPers)
         {
             // создаем один claim
             var claims = new List<Claim>{new Claim(ClaimsIdentity.DefaultNameClaimType, userName)};
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);            
+                ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки
-            //await 
-                HttpContext.Authentication.SignInAsync("NotePlotCookies", new ClaimsPrincipal(id), new AuthenticationProperties{
+            await HttpContext.Authentication.SignInAsync("NotePlotCookies", new ClaimsPrincipal(id), new AuthenticationProperties{
                     IsPersistent = IsPers,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(3)
                 });
