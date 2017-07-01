@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NPTest1.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http.Authentication;
 
 namespace NPTest1.Controllers
 {
@@ -35,7 +36,7 @@ namespace NPTest1.Controllers
                     {
                         try
                         {
-                            Authenticate(lg.LoginName); // аутентификация TO DO: сделать асинхронным
+                            Authenticate(lg.LoginName,lg.RememberMe); // аутентификация TO DO: сделать асинхронным
 
                             return RedirectToAction("Index", "Home");
                             //return Ok();
@@ -70,7 +71,7 @@ namespace NPTest1.Controllers
             }
         }
 
-        private void /*async Task*/ Authenticate(string userName)
+        private void /*async Task*/ Authenticate(string userName, bool IsPers)
         {
             // создаем один claim
             var claims = new List<Claim>{new Claim(ClaimsIdentity.DefaultNameClaimType, userName)};
@@ -79,13 +80,16 @@ namespace NPTest1.Controllers
                 ClaimsIdentity.DefaultRoleClaimType);            
             // установка аутентификационных куки
             //await 
-                HttpContext.Authentication.SignInAsync("NotePlotCookies", new ClaimsPrincipal(id));
+                HttpContext.Authentication.SignInAsync("NotePlotCookies", new ClaimsPrincipal(id), new AuthenticationProperties{
+                    IsPersistent = IsPers,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(3)
+                });
         }
 
         public async Task<IActionResult> LoginOut()
         {
-            await HttpContext.Authentication.SignOutAsync("Cookies");
-            return RedirectToAction("Login", "Account");
+            await HttpContext.Authentication.SignOutAsync("NotePlotCookies");
+            return RedirectToAction("Index", "Home");            
         }
     }
 }

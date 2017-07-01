@@ -14,3 +14,14 @@ Views/Shared/Components/PanelLogin/LoginInputPanelView.cshtml
 2.Вызов View :
 "~Views/LogIn/LoginView.cshtml" - так НЕ работает
  "Views/LogIn/LoginView.cshtml" -так работает, т.е. без "~"
+
+3.
+AntiForgeryToken 
+нужно указать и в атрибуте контроллера [ValidateAntiForgeryToken] и в форме  View,
+ @Html.AntiForgeryToken() , обязательно в двух местах сразу, без этого не работает
+
+4.Для CheckBox или использовать хелпер @Html.CheckBox("RememberMe", false)
+или перед POST устанваливать checked принудительно: 
+$("input:checkbox").each(function () { // this - это не объект jQuery , а html-element
+                this.value = (this.checked == true);
+});
