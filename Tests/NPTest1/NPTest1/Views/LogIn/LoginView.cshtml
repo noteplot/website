@@ -105,12 +105,12 @@
     <div class="row-fluid">
         <div class="row-form">
             <div class="span12">
-                <input type="text" name="loginName" placeholder="login" />
+                <input type="text" name="LoginName" placeholder="имя" />
             </div>
         </div>
         <div class="row-form">
             <div class="span12">
-                <input type="text" name="password" placeholder="password" />
+                <input type="text" name="Password" placeholder="пароль" />
             </div>
         </div>
         <div class="row-form">
@@ -142,15 +142,11 @@
                 type: 'POST',
                 cache: false,
                 async: false,
-                beforeSend: function (jqXHR, settings) {
-                    alert($("#loginInput").attr('action'));
-                },
                 success: function (data) {
                     window.location.replace("/home/index"); // переоткрываем текущую страницу
                     //window.location = data.redirectUrl; // открываем текущую страницу
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
+                error: function (jqXHR, textStatus, errorThrown) {                    
                     $('#errorBoard').html(jqXHR.responseText);
                 }
                 //error: function (qXHR, textStatus, errorThrown) {
