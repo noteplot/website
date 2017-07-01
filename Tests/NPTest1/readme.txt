@@ -10,3 +10,7 @@ Views/Shared/Components/<view_component_name>/<view_name>
 Views/Shared/Components/PanelLogin/LoginInputPanelView.cshtml
 
 вызывается из класса компонента: return View(LoginInputPanelView)
+
+2.Вызов View :
+"~Views/LogIn/LoginView.cshtml" - так НЕ работает
+ "Views/LogIn/LoginView.cshtml" -так работает, т.е. без "~"

@@ -8,6 +8,14 @@ namespace NPTest1.Controllers
 {
     public class LoginController : Controller
     {
+        [HttpGet]
+        public ActionResult InputLogin()
+        {
+            //LoginViewModel lg = new LoginViewModel();
+            return PartialView("Views/LogIn/LoginView.cshtml");
+        }
+
+        // ›“Œ
         public ActionResult LoginPanel()
         {
             return PartialView("LoginInputPanelView");
