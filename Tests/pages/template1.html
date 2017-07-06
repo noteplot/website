@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!-- <meta name="viewport" content="width=device-width" /> -->
+    <title>Шаблон страницы</title>
+    <style type="text/css">
+        html,body 
+        {
+	        margin:0;
+			padding:0;
+			height:100%;
+        }
+		div {
+			text-align:center;
+			vertical-align: middle;
+		}		
+		.np_sidebar{				
+			position: absolute;
+			left:0;
+			top:0;
+			background : black;
+			width:200px;
+			min-height:100%;
+        }	 							
+		.np_body{position: relative; margin-left: 200px;}
+			.np_bar{background-color: black;/*#B0C4DE; LightSteelBlue*/height:2em; overflow :hidden;min-width:350px}	 	
+		
+		.np_footer{
+			height:20px;
+			margin-top:-20px;
+			background-color: #B0C4DE;/*LightSteelBlue*/
+		}
+		.login{
+			float:right;
+		}
+		button.menu{
+			float:left;
+		}
+		.np_content{
+		border: 1px solid red; 
+		}
+	</style>
+  <script src="../js/jquery-3.2.1.min.js"></script>
+  <script src="../js/jquery-ui.min.js"></script>	
+</head>
+<body>
+	<div class="np_bar">
+			<button class="menu"  type="button">|||</button>
+			<button class="login" type="button">вход</button>
+			<button class="login" type="button">регистрация</button>
+	</div>
+	<div class="np_sidebar">
+		<button class="menu"  type="button">|||</button>		
+	</div>
+	<div class="np_body">
+		<div class = "np_content">
+			<span>np_content</span>	
+		</div>
+			
+	</div>
+	<!-- <div class="np_footer"> -->
+		<!-- footer -->
+	<!-- </div>	 -->
+	<script>
+	$(function() {
+		;
+	});	
+	$('button.menu').click(function(){
+		if ($('.np_sidebar').css('display') =='block')
+		{
+			$('.np_sidebar').css('display','none');
+			$('.np_body').css('margin-left',0);
+		}
+		else
+		{
+			$('.np_sidebar').css('display','block');
+			$('.np_body').css('margin-left','200px');
+		}		
+	})
+	</script>
+</body>
+</html>
+
