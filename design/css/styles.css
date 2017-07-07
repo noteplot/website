@@ -1,0 +1,81 @@
+body {
+  font-family: "Segoe UI", arial, sans-serif;
+  font-size: 12px;
+}
+.wrapper {
+  position: relative;
+  margin: 0px 20px 0px 0px;
+}
+.sidebar {
+  min-height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 220px;
+  padding: 0px 20px 0px 10px;
+  background: #191818;
+}
+.sidebar .navigation {
+  width: 220px;
+  margin: 10px 0px 20px;
+  padding: 0px;
+  list-style: none;
+  display: block;
+  float: left;
+  position: relative;
+}
+.sidebar .navigation > li {
+  position: relative;
+  width: 220px;
+  float: left;
+  display: block;
+}
+.sidebar .navigation > li > a {
+  font-size: 20px;
+  color: #C9C9C9;
+  display: block;
+  float: left;
+  width: 220px;
+  line-height: 24px;
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+.sidebar .navigation > li > a.active, .sidebar .navigation > li > a:hover {
+    color: #FFFFFF;
+}
+.sidebar .navigation li ul > li a {
+    font-size: 14px;
+    color: #C5C5C5;
+    display: block;
+    float: left;
+    width: 200px;
+    line-height: 16px;
+    text-decoration: none;
+}
+.sidebar .navigation li ul {
+  width: 200px;
+  padding-left: 20px;
+  list-style: none;
+  float: left;
+  margin: 5px 0px 10px;
+}
+.sidebar .navigation li ul > li a.active, .sidebar .navigation li ul > li a:hover {
+  color: #FFFFFF;
+}
+.body {
+    position: relative;
+    margin-left: 250px;
+    padding: 0px 0px 0px 20px;
+}
+.body .navigation > li {
+    margin-left: 3px;
+    margin-bottom: 3px;
+    display: block;
+    float: left;
+}
+@media only screen and (max-width: 1024px) {
+	.sidebar {
+		display: none;
+	}
+
+}
