@@ -26,8 +26,11 @@ jQuery.fn.dialogCenter = function () {
 function OpenDialog(hr) {
     if ($('#masterDialog').length > 0)
         $('#masterDialog').dialog("close");
-    //alert($(hr).attr("href"));                
-    //console.log($(hr).attr("href")); 
+    var wd = $(hr).attr("np_dialog_width"); // устанавливаем ширину диалога, если она задана
+    if (wd == undefined && wd == false) { 
+        wd = "300px";                       // по-умолчанию
+    }
+        
     $("<div id = 'masterDialog'></div>")        
         .addClass("dialog")
         .appendTo("body")
@@ -37,6 +40,7 @@ function OpenDialog(hr) {
             draggable: false,
             resizable: false,
             title: $(hr).attr("np_dialog_title"),   // читаем заголовок для диалогового окна
+            width: wd,
             close: function () {
                 $(this).remove();
             }

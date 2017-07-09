@@ -105,32 +105,24 @@
     @Html.AntiForgeryToken()
     <div class="row-fluid">
         <div class="row-form">
-            <div class="span12">
                 <input type="text" name="LoginName" placeholder="имя" />
-            </div>
         </div>
         <div class="row-form">
-            <div class="span12">
                 <input type="text" name="Password" placeholder="пароль" />
-            </div>
         </div>
         <div class="row-form">
-            <div class="span12">
-                <input type="checkbox" name="RememberMe" /> Запомнить
+                <input type="checkbox" name="RememberMe" /> <span>Запомнить</span>
                 @*@Html.CheckBox("RememberMe", false)*@
-            </div>
         </div>
         <div class="row-form">
-            <div class="span12">
                 <input class="btn" type="submit" value="Сохранить" />
                 @*<button class="btn">Sign in <span class="icon-arrow-next icon-white"></span></button>*@
                 <button class="btn1">Register <span class="icon-arrow-next icon-white"></span></button>
-            </div>
         </div>
     </div>
-    <p>
-        <span id="errorBoard" class="errorMessage"></span>
-    </p>
+    <div class="errorForm">
+        @*<span id="errorBoard" class="errorMessage"></span>*@
+    </div>
 </form>
 
 <script type="text/javascript">
@@ -154,23 +146,18 @@
                         //window.location = data.redirectUrl; // открываем текущую страницу
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        $('#errorBoard').html(jqXHR.responseText);
+                        $("<span></span>").appendTo(".errorForm");
+                        $('.errorForm span').html(jqXHR.responseText);
+                        //$('#errorBoard').html(jqXHR.responseText);
                     }
-                    //error: function (qXHR, textStatus, errorThrown) {
-                    //    var errmes = "Ошибка!";
-                    //    //if (jxqr != null) {
-                    //    //    errmes = qXHR. responseText;
-                    //    //}
-                    //    $('#errorBoard').empty();
-                    //    $('#errorBoard').append("<h3>" + errmes + "</h3>");
-                    //}
                 });
             };
         });
 
-        @*валидация*@
-        $("#loginInput input").click(function () {
-            $("fieldset label.error").remove();           
+        //валидация
+        $("#loginInput input").click(function () {  // очистка сообщений об ошибках
+            $("label.error").remove(); // это элемент валидатора
+            $(".errorForm span").remove();
         });
    
         $("#loginInput")

@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot/css\jquery-ui.css" />
     <Content Remove="wwwroot/css\jquery-ui.theme.css" />
     <Content Remove="wwwroot/css\Login.css" />
     <Content Remove="wwwroot/css\site.css" />
@@ -17,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\jquery-ui.css" />
     <Content Include="wwwroot\css\jquery-ui.min.css" />
     <Content Include="wwwroot\css\login.css" />
     <Content Include="wwwroot\css\masterpage.css" />
