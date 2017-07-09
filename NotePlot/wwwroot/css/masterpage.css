@@ -26,12 +26,19 @@
 
 }
 
+.np_bar a {
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 20px
+}
+
 .np_bar .login {
     display: inline-block;
     float: right;
     /*background: white;
     color: red;*/
 }
+
 
 button.dropdown-main-menu {
     float: left;
