@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>NotePlot</title>
+
+    @*библиотекми*@
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" /> @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/sunny/jquery-ui.css">*@
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/jquery-ui.js"></script> @*<script src="~/js/jquery-ui.min.js"> сжатая версия НЕ РАБОТАЕТ !!!????*@      
+    @*валидатор*@
+    <script src="~/js/jquery.validate.min.js"></script>
+    <script src="~/js/jquery.validate.ru.js"></script>
+    <script src="~/js/messages_ru.min.js"></script>
+
+    @*наши плагины*@
+    <script src="~/js/jquery.npDecimalInput.js"></script>
+
+    @* ресурсы сайта*@
+    <link href="~/css/login.css" rel="stylesheet" />
+    <link href="~/css/masterpage.css" rel="stylesheet" />
+    <script src="~/js/masterpage.js"></script>
+    <script src="~/js/noteplot.js"></script>
+
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="np_bar">
+        <button class="dropdown-main-menu" type="button">|||</button>
+        @await Component.InvokeAsync("PanelLogin");        
+    </div>
+    <div class="np_sidebar">
+        <button class="dropdown-main-menu" type="button">|||</button>
+    </div>
+    <div class="np_body">
+        <div class="np_content">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- <div class="np_footer"> -->
+    <!-- footer -->
+    <!-- </div>	 -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

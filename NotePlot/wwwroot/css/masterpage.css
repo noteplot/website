@@ -1,0 +1,51 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.np_sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: black;
+    width: 200px;
+    min-height: 100%;
+}
+
+.np_body {
+    position: relative;
+    margin-left: 200px;
+}
+
+.np_bar {
+    background-color: black; /*#B0C4DE; LightSteelBlue*/
+    height: 2em;
+    overflow: hidden;
+    min-width: 350px;
+
+}
+
+.np_bar .login {
+    display: inline-block;
+    float: right;
+    /*background: white;
+    color: red;*/
+}
+
+button.dropdown-main-menu {
+    float: left;
+}
+
+.np_content {
+    border: 1px solid red;
+}
+
+@media only screen and (max-width: 1024px) {
+    .np_sidebar {
+        display: none;
+    }
+    .np_body {
+        margin-left: 0;
+    }
+}
