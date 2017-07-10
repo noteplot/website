@@ -16,3 +16,7 @@ Tests/NPTest1/test_main1.html
 /.vs/NotePlot
 .vs
 /.vs
+bin/
+obj/
+lib/
+netcoreapp1.1/
