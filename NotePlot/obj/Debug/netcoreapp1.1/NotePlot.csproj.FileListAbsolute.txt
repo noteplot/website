@@ -7,3 +7,12 @@ D:\Projects\noteplot\WebSite\NotePlot\obj\Debug\netcoreapp1.1\NotePlot.AssemblyI
 D:\Projects\noteplot\WebSite\NotePlot\obj\Debug\netcoreapp1.1\NotePlot.dll
 D:\Projects\noteplot\WebSite\NotePlot\obj\Debug\netcoreapp1.1\NotePlot.pdb
 D:\Projects\noteplot\WebSite\NotePlot\obj\Debug\netcoreapp1.1\NotePlot.csprojResolveAssemblyReference.cache
+f:\Work\noteplot\NotePlot\bin\Debug\netcoreapp1.1\NotePlot.deps.json
+f:\Work\noteplot\NotePlot\bin\Debug\netcoreapp1.1\NotePlot.runtimeconfig.json
+f:\Work\noteplot\NotePlot\bin\Debug\netcoreapp1.1\NotePlot.runtimeconfig.dev.json
+f:\Work\noteplot\NotePlot\bin\Debug\netcoreapp1.1\NotePlot.dll
+f:\Work\noteplot\NotePlot\bin\Debug\netcoreapp1.1\NotePlot.pdb
+f:\Work\noteplot\NotePlot\obj\Debug\netcoreapp1.1\NotePlot.csprojResolveAssemblyReference.cache
+f:\Work\noteplot\NotePlot\obj\Debug\netcoreapp1.1\NotePlot.AssemblyInfo.cs
+f:\Work\noteplot\NotePlot\obj\Debug\netcoreapp1.1\NotePlot.dll
+f:\Work\noteplot\NotePlot\obj\Debug\netcoreapp1.1\NotePlot.pdb

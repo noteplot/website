@@ -4248,7 +4248,7 @@
       ]
     },
     "Microsoft.AspNetCore/1.1.2": {
-      "sha512": "ROw6hZb1HQGam8TpMwCNSyCx+FqOuQjSsTdvME36NIfsEz9/1zyghGwPkd9QIwdNIYTjZ2CzJqBIZdn2XkSWhA==",
+      "sha512": "vPoM8aWs/02ZIg4E1hcKUG5jbYVfKkuLKTnlhrp0Wg7c+VmhsthvhOECPM+GicCRVhpM8j++DfIDdwaH+aHmkg==",
       "type": "package",
       "path": "microsoft.aspnetcore/1.1.2",
       "files": [
@@ -4257,7 +4257,7 @@
       ]
     },
     "Microsoft.AspNetCore.Antiforgery/1.1.2": {
-      "sha512": "F3qYQSnHD5jKakg71L0ZGrrqoyXadM9cXJOxT3xkP16E7Q7M2up4vOV0Bs42WwdDdvwVz7xsNlWNyu57FqxReg==",
+      "sha512": "Fpz9znzsrPTZxWaQ9TMph7BsTCTikT1YtD9xkVpHsa/pDAmYxIMwQvVDO5HpGnIhZuv2mbz8EqTHSyaiSGQx9A==",
       "type": "package",
       "path": "microsoft.aspnetcore.antiforgery/1.1.2",
       "files": [
@@ -4270,7 +4270,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication/1.1.2": {
-      "sha512": "nG9AcO8Do23L/KcQayxx0r11wEPjB303TCV/0pqE8j3q1eMcamThFDQ3RtD/qXwk0rmMbyP3zGgZ+5I8TSLvCQ==",
+      "sha512": "q4Ya2l27mfjOfFIEwuqVbd+AlHMJW0gt69kAcly+iRkmOQLg22rXzcpdQeTmU8UeB4wsXDOgU/ca9QfdR3lrFg==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication/1.1.2",
       "files": [
@@ -4283,7 +4283,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication.Cookies/1.1.2": {
-      "sha512": "oqcuY3+r/vuanOnM1LulYMq3HJk7AGIxYYcmC6qRfLt2aEUQLzpwsgA3wYj456XbzNSXf51hu0m+fjj/V2LsVQ==",
+      "sha512": "7sj20k1YdpfujQZfOXTBnNHhKYSGv9WMiF8yOkJhQ3o6kgTPOas5Ftk+3cc2b7+KRBFSgHNceQE0ZHx9HOBk2A==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication.cookies/1.1.2",
       "files": [
@@ -4296,7 +4296,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authorization/1.1.2": {
-      "sha512": "AsU8htkFXX8VYb6Q+kz6c1n67AwAcPzgc0rnNiKuoDdcnj011b1uJrUp4IYMfmtsguJuhXi6+6q/p3zLJoYILg==",
+      "sha512": "p+ORWp9XgZlxVcCdJ1ll4rj56tenhP8JZ0MzcVcfvGKkbU31z3a4lGevPIJQmZrNAWMnow9wui2+QvyQeY9OlA==",
       "type": "package",
       "path": "microsoft.aspnetcore.authorization/1.1.2",
       "files": [
@@ -4309,7 +4309,7 @@
       ]
     },
     "Microsoft.AspNetCore.Cors/1.1.2": {
-      "sha512": "7xkLsqYLvXndgZ1+JprXFNJnAsRZW7ewnJfidA1zVv69y5iYxWZMRYP7xHo5x/OhH12eKWQYFrltFUXajE8IAg==",
+      "sha512": "WYlY5TDrV56CTiqnA3J6A/m4JbsP1uJZHAoLE/tL1Aimq0qh0BgyxFU2kpf+UX25yfMpXPnaqSR+FLDFcARgeg==",
       "type": "package",
       "path": "microsoft.aspnetcore.cors/1.1.2",
       "files": [
@@ -4322,7 +4322,7 @@
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/1.1.2": {
-      "sha512": "DeDm7XO+/QVlxp+tefXbt2Mm10mw3BpUWvN9YVgl1Ykg08nBox95ZQ9EKLt/CpaANFGp//nJqpc93NTMKlwNnQ==",
+      "sha512": "h5D+ikKRiYv8M3X+9ycJtOqYi0XVO6laDqehhxmnQmq7Uo/xoY8OiTKZxVjYl/FoBSWqvgy5w+nIOtVf5IDD6g==",
       "type": "package",
       "path": "microsoft.aspnetcore.cryptography.internal/1.1.2",
       "files": [
@@ -4335,7 +4335,7 @@
       ]
     },
     "Microsoft.AspNetCore.DataProtection/1.1.2": {
-      "sha512": "QY8ufMUZItjfwAkcR/TcQBj2DWl+Z3N2ItNwdVFlAQMsPa24Ya9u/NmrlkJHZo29nk52EQbH/iaKfic+LG66RA==",
+      "sha512": "zg+Nbk4IQOBNzUJ6Q+ghZwYTjC+zV9/xncqiboRgsX7Ems8GKq/eTUdx+0moPwHNeodHWQga14t89h1U+KF4og==",
       "type": "package",
       "path": "microsoft.aspnetcore.dataprotection/1.1.2",
       "files": [
@@ -4348,7 +4348,7 @@
       ]
     },
     "Microsoft.AspNetCore.DataProtection.Abstractions/1.1.2": {
-      "sha512": "zknV0YBRRzqwOkxIetiV0rstv8xI1qZZ86hIeBw9eiQGP61hWfEoSPHS5y/Dk6+TDwtU6OjPbKqdEBXQj2jYQQ==",
+      "sha512": "Wp5FYiNecYcMVtDXLWM5ErfXe2g4sfSMlGbSt6u4iW8WJ76CQiHiJv+C8h3drALvavRxvnYCVX5OmwmkQHyUuQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.dataprotection.abstractions/1.1.2",
       "files": [
@@ -4361,7 +4361,7 @@
       ]
     },
     "Microsoft.AspNetCore.Diagnostics/1.1.2": {
-      "sha512": "1mK1/Qj13GlTSUn/xyi9IdWUDc1yUlcYvMGhCuSVGKpjM5S5VwDO+trHXrUcvz87mvaV0C6Owoki9lzkZCUgeg==",
+      "sha512": "sIF3gZRwQV+WLr+bDOFL6En3KBwAmR/PzZHe+uwraMjXaSVqLWmPTFOI4E4MucQzrbfuaU/wMrl0FydVmMxGqQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.diagnostics/1.1.2",
       "files": [
@@ -4374,7 +4374,7 @@
       ]
     },
     "Microsoft.AspNetCore.Diagnostics.Abstractions/1.1.2": {
-      "sha512": "fTL5QPPnvaUE3rcAPMeC/cZZUbpzyXlk9FIQtiIM3mYjYtz50ZPvgJWgz4Fewcd5qEG+Dj8QcRm0DRP10LReBw==",
+      "sha512": "ABu7tuycaHMIKFMpyrxXKKF7QEub5HFluVjOuQRYkEtaIttljCKQ/6v3Z4VkUUC8A00S+yvbrqfM+mb3DSVyRA==",
       "type": "package",
       "path": "microsoft.aspnetcore.diagnostics.abstractions/1.1.2",
       "files": [
@@ -4385,7 +4385,7 @@
       ]
     },
     "Microsoft.AspNetCore.Hosting/1.1.2": {
-      "sha512": "DBG1p2fGtG7JIr9qJl3LjK+Owy1JZGCYJ7qvL293wzVfBVVOWS+T5t14BEFkEbx17Cdij/BYWv9/idA6rGu4zw==",
+      "sha512": "vXcq7oz2sJXVxlSN2NWHFGoCrGDNfiA6Li7HSyvrAj/1JLz0sxOn1txLeIfWRqMJ3c5Qv7vHdyw/UtMGnHfikQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.hosting/1.1.2",
       "files": [
@@ -4400,7 +4400,7 @@
       ]
     },
     "Microsoft.AspNetCore.Hosting.Abstractions/1.1.2": {
-      "sha512": "aYGMEERRtETBguFEk315gw+qdqNAUUpLsbnNDeNy38n9kgIrUR6n3T0irtYbXVZiDZ8p6SFvRZgZlyx0S9xLWQ==",
+      "sha512": "IJKjUXL5v4/ZQwUbxXvWlsnuV+m3q52GUlAWVlaZYULUCZBpCTfXMyy6Y44+bWTkEbET+Ddwbh1crrPg6HIKRQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.hosting.abstractions/1.1.2",
       "files": [
@@ -4413,7 +4413,7 @@
       ]
     },
     "Microsoft.AspNetCore.Hosting.Server.Abstractions/1.1.2": {
-      "sha512": "v86xpouHWDE56Zj/sJmhyy8aYi+iLAH8ClNqh3r3coIHWUQ7jDT/K7VE40k7dwThGBOVwmosCiEk3nfM+bH4Mg==",
+      "sha512": "fSRRfppGxRddFBC6bF8d+oHLF0P+646/HWjMnUx5GKrlc/nafOTiz5qP1VzKuYPad4GuRR3FClsceMSV9s9xuw==",
       "type": "package",
       "path": "microsoft.aspnetcore.hosting.server.abstractions/1.1.2",
       "files": [
@@ -4426,7 +4426,7 @@
       ]
     },
     "Microsoft.AspNetCore.Html.Abstractions/1.1.2": {
-      "sha512": "CUnhx2HWVnTTdOYFYMgz61EG73IUZlH0zML0ztFqUCmGB/n10GwskZbXjSPHoVqLqn6t4BybhFXqjigElsdJBw==",
+      "sha512": "dTHsJcOp4hIjPnVvNo5mwKUEi491qCC4DBBtZYhngBYW21kyeqP0RpX+kGJGFSHkLmd8mQq4YuPlTrxCSJUA7w==",
       "type": "package",
       "path": "microsoft.aspnetcore.html.abstractions/1.1.2",
       "files": [
@@ -4437,7 +4437,7 @@
       ]
     },
     "Microsoft.AspNetCore.Http/1.1.2": {
-      "sha512": "Vn62+hBlhNIz4+lskY06KGvlXE88QtB70v2y1/J28tsUsS6a82aKsaK0CWHXf7WakpMBgzQ2hmLMu5jcraGCBg==",
+      "sha512": "pEHo61XXZUX5jqZHrtK1xvMsAK/6OoEnkeJGTkvTzeXDIKQoAI4YmSz5c/pxSyhvpYyAxFZsWWqaKKqHYO2I+w==",
       "type": "package",
       "path": "microsoft.aspnetcore.http/1.1.2",
       "files": [
@@ -4450,7 +4450,7 @@
       ]
     },
     "Microsoft.AspNetCore.Http.Abstractions/1.1.2": {
-      "sha512": "Ab4xz9u7Ih4PtnoRB5CCSKEop2GydEzcuqkjaWrbs2wTHBg0xI+UBQQQKs7V1lDAfBxak4Wme3mG2UUCJilO9w==",
+      "sha512": "qViNzBv0gLm+vNv6CoKuP+laRwT9iAIhWzMzF0MUi0S1ynWBhvhoSxjms9G9grc4aOCuqTsVZQ4FsLxIcLvSZw==",
       "type": "package",
       "path": "microsoft.aspnetcore.http.abstractions/1.1.2",
       "files": [
@@ -4463,7 +4463,7 @@
       ]
     },
     "Microsoft.AspNetCore.Http.Extensions/1.1.2": {
-      "sha512": "Z+yvYvnCXEJt9e67dClOOlzvRf/JGLRo/Krk8UCvcCmk8qJRjg1DY4zcMvLN9lgxZRKjXOmT1pxf4UsrjIF6/w==",
+      "sha512": "eaKPtbuQNF+Q8ITV6FaMN7HK4h6IVq6NShLaQnobnbzrmeNf+nw1Gr4SuB0djRMVuVLPoFr8c5TcjTV2VVW3GA==",
       "type": "package",
       "path": "microsoft.aspnetcore.http.extensions/1.1.2",
       "files": [
@@ -4476,7 +4476,7 @@
       ]
     },
     "Microsoft.AspNetCore.Http.Features/1.1.2": {
-      "sha512": "Ib0ofcH4zkmGwoUOIMVwRd1iU2HrATiL3ozuqzAZgEqVBVbp6W7k0O72uQ3pkw3o/zS4S0Gyt5SQksxDBSDmcw==",
+      "sha512": "QAp4egj2A3MneCJ/3mm0hTln/5ZZjfpVwYr+CdYlz6K7H+beZzbxoaD8JfVB0NlGvlfwLpCg/AkU3Ewhuo/TlQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.http.features/1.1.2",
       "files": [
@@ -4489,7 +4489,7 @@
       ]
     },
     "Microsoft.AspNetCore.HttpOverrides/1.1.2": {
-      "sha512": "mChMmo5ynjaChOkFF70u4WWDGnNFpOe7nlqsTBWkfGSXYPSSdUF1u2T0JD02w7Z7F1upSCcthoa5CbYVEwL4/w==",
+      "sha512": "OZUiIBrCGIYin2St8du9M/zHkojTmg/aneCoFT1HfDUTS4eM/ccogxX0s6C5hcVbmoW2XOuDChqqBYE7k77CvQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.httpoverrides/1.1.2",
       "files": [
@@ -4502,7 +4502,7 @@
       ]
     },
     "Microsoft.AspNetCore.JsonPatch/1.1.2": {
-      "sha512": "PToSDCNLfVgE++zXjGA6lYc977IMvJSGfj5SoAttWHQ9lgCxxlw1ZyNUZNmmPvGdlbR6n8t1Sge7217oHD/Tew==",
+      "sha512": "ohpw8e1zCZOihm9uwAGWZcdlycrE82C/L/xvvPbIQenENjsvlRgIrjqPRJLTds9ELMFmtvy89yu0w1OBbStMGw==",
       "type": "package",
       "path": "microsoft.aspnetcore.jsonpatch/1.1.2",
       "files": [
@@ -4515,7 +4515,7 @@
       ]
     },
     "Microsoft.AspNetCore.Localization/1.1.2": {
-      "sha512": "Jz2Zx1BPyLcdV1UaLRheMk9W80OZd0A7oyr84tu5b7fI39KATAIkAMv2PAgTeDEy2oBz07WeVAyctvwHVR1+vQ==",
+      "sha512": "/obT5TmiWZ7Aw/ezCjGJfAUtlLIp4in7dr8BZ4RBXr+5Qm4A7jJ2SWAJ+747UDFZRcjzuyvCxdLl/Vofpl+PuA==",
       "type": "package",
       "path": "microsoft.aspnetcore.localization/1.1.2",
       "files": [
@@ -4528,7 +4528,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc/1.1.3": {
-      "sha512": "95J3nkdfLdwpJ4tlEtQU7IqsRKZiZN9A8JkRT6FL4Aip8KpI79P1zaApxJhb+QToFbWwj7E27GZmeY8aiDEK8A==",
+      "sha512": "Ay9WkXarYw2jG/fQqMGTfP87g/eHJbm1CGD8YLJ6y0l54TCtakwLpVKDrWnfpimg2FHcp6a0rf4MjM/PNfNCVQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc/1.1.3",
       "files": [
@@ -4541,7 +4541,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.Abstractions/1.1.3": {
-      "sha512": "kPtcE6q65JbqM/Kpc0R59aGW8LAhN3h9oOA9lhapt+3f2uxJU2tV4CgXfhpjtMwb6ji7ziDFal/hZuSkWm5ykQ==",
+      "sha512": "M0ZrT+N264Vk+hl0CcaOXdjn/aJ1HHCZ2W6H/HRVttq8YDY00AxTzdy/6tF33eHVlaD2Bn3Wh8N5dcR4FJyNPA==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.abstractions/1.1.3",
       "files": [
@@ -4554,7 +4554,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.ApiExplorer/1.1.3": {
-      "sha512": "n8tnYhd+ZqPg9uZGKtdX9+QGMp7DWSugx8eJeqFwIBYleqL/lga8NnuApRbPchBS/58TEZ+aSnvXH4OlKClRsQ==",
+      "sha512": "bBcI4zHGvsgHkZb1nZzmyijFtcUMoCnatP3ked55SmVdJ+B9oI7wPnJlonm2t098nmudb9uCSOTNcuOyAvPjUw==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.apiexplorer/1.1.3",
       "files": [
@@ -4567,7 +4567,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.Core/1.1.3": {
-      "sha512": "zzmQ8gAVWXfFsLCmDmaa4KYDFpTgMb9cKI7wcJpkafllYIw6q+iodfftElntmUCDVV+klrEPsoPev1ZWT1w2dA==",
+      "sha512": "xtKv3uWXbo0aNxxEipqmVL/BCzEA4mkVBQ/y9LnIwlqQd0BLmzhsOMopphrNTgfavkLb8m77dGkWSuKWnQH75w==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.core/1.1.3",
       "files": [
@@ -4580,7 +4580,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.Cors/1.1.3": {
-      "sha512": "tPzTvWOQBqhgpMsOXyUfmEdfFqEOP22yTzXdy8s2Dq+GyDd1ThSeEX1XCmGpu7y9JVs5fjgb7yX8T0UInzd+5g==",
+      "sha512": "8feFb2DL9qiqaZfK79Uh95oyHu0nrxBHR8vFhi2GjZ3KOTe6eMZFxsAUjvT4FOLBSMaN652k1sVjxLTT46ik7g==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.cors/1.1.3",
       "files": [
@@ -4593,7 +4593,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.DataAnnotations/1.1.3": {
-      "sha512": "Ns1PgNn7mN/OM6P/ctaRG4/Xg7rNepTTLTxS/rW/jEKSD+RGPu8lvbrfVLY+1AxoYZnDmE2Xp6oB19aY37uYaA==",
+      "sha512": "4zzSpYpSgkfpPXEoF/fFo8uIs2xyWmgBKuUsU2py6xwpBgyW3FW143/XKp08USSWfXr0IIHdHzLIOdHNUuO0fw==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.dataannotations/1.1.3",
       "files": [
@@ -4606,7 +4606,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.Formatters.Json/1.1.3": {
-      "sha512": "oiGDJIy7JybmQn9IswXy1mS3A5L7D2ZpCVuUpzfqW4+Se9xaFqODlHeLH+h2i9hPG0azrU65tBQRkFRGR5oiIA==",
+      "sha512": "F51S1DShn3zznqj7q5Gqw8kgiKC2LS6WzyKdurQkyUXT06Bpep84w57NLHlL/a7Bt2f74uY3up1aPvMAnVhNug==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.formatters.json/1.1.3",
       "files": [
@@ -4619,7 +4619,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.Localization/1.1.3": {
-      "sha512": "R0TBOIQaE3b6x3QTJPuiKpcoDbsZr0/NLazNi6R58ztZ5Td2ZmfY8vZycgdpBEgXr1AkaAZxjfwvOePiSV9mwA==",
+      "sha512": "SCTPGeKszD2tljp69vLLXnFL+VTAj1BKQB9RSsOjx0wcTvoGgprZ5+S1Gd9BCNURJDhy2aSSMxAUG+BB6QKWXg==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.localization/1.1.3",
       "files": [
@@ -4632,7 +4632,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.Razor/1.1.3": {
-      "sha512": "mxO+qO3xW6IyqLvLqPrOX2accauL7AGTrF5jgHkUaJqO5xgIG9ZhNFT2dM7lTJ9WHZc8y8si8/WWO4Rc/dkKyA==",
+      "sha512": "q1rNGRRT1av89PK6XCSzkoO2zWGaHFi3iMHmxbsp0OfYxKETAWGdoPgyAdv0PkNzAKaE4oI8aNapzYHkKybqyg==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.razor/1.1.3",
       "files": [
@@ -4645,7 +4645,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.Razor.Host/1.1.3": {
-      "sha512": "iY4l+4az/pWdgM5xTIhW5VcHzMsc8e0+0zNUc3srxINvTFYUI9h/iQEsSY10Ctgrc4FLXvhEBn7QvCkeNyPoqQ==",
+      "sha512": "kZeLoegNO/0DuKh0I8J+y85g6d0+ftuCDr6YcuEfEqA01+d+cVezsHdpzortP7bwLcCRM1gFaJR528k501wDjw==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.razor.host/1.1.3",
       "files": [
@@ -4658,7 +4658,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.TagHelpers/1.1.3": {
-      "sha512": "uO2GlKQBnEUG9cwsFAMddA6927uuRVMDevTJEv9rVuCEMU8PblgXX5ndyyFIL3ysRcnJNA/FyNJmmC6wjmmDYQ==",
+      "sha512": "3ElOeTUpmkhwr3i6GUkWUprJcHHIxhdl2KTtkyDBOMFwxr9TzvIBEVQxuAZtraFjbGtUT1ZVi5kXllyC1ahh6w==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.taghelpers/1.1.3",
       "files": [
@@ -4671,7 +4671,7 @@
       ]
     },
     "Microsoft.AspNetCore.Mvc.ViewFeatures/1.1.3": {
-      "sha512": "CZU/pS3Db3kvo4fr5oxAl/2IwH7XTxdBpPINGJ0nFSZYVrWIODW60tNj8oQIDk+2AaNDbOEvPXQc9QpqyqLpEg==",
+      "sha512": "aW/hKisBTvl3AeTk+TWd06tuRCIyvY1HvvNj6Fs5ibiHzbm5TDkU4yyNQ3w4eWdULAIrzArC0mWeBTX3pV+wXw==",
       "type": "package",
       "path": "microsoft.aspnetcore.mvc.viewfeatures/1.1.3",
       "files": [
@@ -4684,7 +4684,7 @@
       ]
     },
     "Microsoft.AspNetCore.Razor/1.1.2": {
-      "sha512": "C4+SxFz84XqaMxHatuQAqPi8BHhbxLcW1ReiXcE7GcHFAMaWb3RsARkEnJA7b68fdYr1j+t+ZdQ4ETiussGzHg==",
+      "sha512": "jIruT8Bks9I9sdhZ8g7nUk8sVZKbj7dTt9o5QLV8FznKl2i/0AItT93eBghgWOWFmQpePXIctb2BP3LiketswA==",
       "type": "package",
       "path": "microsoft.aspnetcore.razor/1.1.2",
       "files": [
@@ -4697,7 +4697,7 @@
       ]
     },
     "Microsoft.AspNetCore.Razor.Runtime/1.1.2": {
-      "sha512": "eM6fHiwoK09N8dMQY4vEkkY8T/fAYytMie9Z5Gpu8E1OKulGXNsQoAHoPKT3COVdztV20683y7pE3RQGTeb09Q==",
+      "sha512": "mkFmcY3ZP3je47ynU2/57CwLKBBtzN9vWnaTLpmQ0wYH4O6TbZEDiPA90ygSl/Bm3TPmgQV/YvqSn/5e3T5KiA==",
       "type": "package",
       "path": "microsoft.aspnetcore.razor.runtime/1.1.2",
       "files": [
@@ -4710,7 +4710,7 @@
       ]
     },
     "Microsoft.AspNetCore.ResponseCaching.Abstractions/1.1.2": {
-      "sha512": "Le+B5WCKxZmHAxqBSWcYWQMUmzwTroIVTLR8uEsxo2Jw4dQFvZnCwVHlGtZx1qvtgVuU/N5NoLz0HCxTwOmfvA==",
+      "sha512": "kCnfnA1mrK5nYAdOXbpDkULZgPT/6HmjRo/wwWIYaeDzjqK5CEITIXKNCb9et3qFkhBnutT5t7I5uJ5AHrWLFA==",
       "type": "package",
       "path": "microsoft.aspnetcore.responsecaching.abstractions/1.1.2",
       "files": [
@@ -4723,7 +4723,7 @@
       ]
     },
     "Microsoft.AspNetCore.Routing/1.1.2": {
-      "sha512": "SZ5g1Evk9vZXCxzdpa8W1WVih9VSo3wUfET5FvHKotVJiXX+Q7MN1QtE+OeE+xZ242ivf0X3dVcPp3yF5izskg==",
+      "sha512": "olhsC7zIbTCFJqXFCVudJwVYm/f0rfn0nFzaZEYLGnOwWZBIkE5h1EZFxgOBkNpNb/7rW2NvnpHqNRIqxUWm7g==",
       "type": "package",
       "path": "microsoft.aspnetcore.routing/1.1.2",
       "files": [
@@ -4736,7 +4736,7 @@
       ]
     },
     "Microsoft.AspNetCore.Routing.Abstractions/1.1.2": {
-      "sha512": "YDEJbSzjnt3z3uhifjWZko/2JXguTsasHTNeBWqTugJ1GKovzHCCdewqQuYIgwnrRs9hbxlgE8c6obbtPJCxlw==",
+      "sha512": "GJWC22xsQtghs+2s38/GN1tuy7bE7D7h2b5tz3qNTUKRI2K2mq6BwqVVsLnBY6+wnHBVA8tu964y6GinswwgMQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.routing.abstractions/1.1.2",
       "files": [
@@ -4749,7 +4749,7 @@
       ]
     },
     "Microsoft.AspNetCore.Server.IISIntegration/1.1.2": {
-      "sha512": "5AiLQQeJz98E92PSr8pm+/d3wOX3okQgWKb1xwMVJQK39LdQUXPnEpqfF9VgpPagtno/Catm9oODXJ2vKNZx9Q==",
+      "sha512": "1BhSIisZ4fot9hEEjYfVFKT4/nhRT9oSaTAq/P34wTuAaMnsvqyyrCIQ5hWHNBzowvgI50juvTb0UHXmfDUSSw==",
       "type": "package",
       "path": "microsoft.aspnetcore.server.iisintegration/1.1.2",
       "files": [
@@ -4762,7 +4762,7 @@
       ]
     },
     "Microsoft.AspNetCore.Server.Kestrel/1.1.2": {
-      "sha512": "kcMTNivtOjrfWL7zqP2VO7mOt5pcHYR7717GfVLN0DlHs//hLLiodxBS2qJqu2hXZfmLJMbbFYJkl/OCMu7HCA==",
+      "sha512": "GS4CxmTir0yt7L157qlt8e5z6B63Pko1EBuK7TddhhPidlkyr85bcoH36cW9pFkKkUaKzJ4kHCeHcYKFcfi+Uw==",
       "type": "package",
       "path": "microsoft.aspnetcore.server.kestrel/1.1.2",
       "files": [
@@ -4775,7 +4775,7 @@
       ]
     },
     "Microsoft.AspNetCore.StaticFiles/1.1.2": {
-      "sha512": "JtfaHhKqhjZXvVfDUkpOwZJ9t/64v8MeGQ9Te+5GKajCUswv49DjZcS5oF8qu8kqv35eeTYmhOWd0VxIu6rGXQ==",
+      "sha512": "lcYPd0bSXJZAiwbDV+5cqY4NcqlE2Ow9kCkXC6zoHxSUiEGGW5u9UagAB5/hqNQqV04vvPtLEaaeHxrLb3yFug==",
       "type": "package",
       "path": "microsoft.aspnetcore.staticfiles/1.1.2",
       "files": [
@@ -4788,7 +4788,7 @@
       ]
     },
     "Microsoft.AspNetCore.WebUtilities/1.1.2": {
-      "sha512": "8j+1rkTQ47lzUKpH3O2Odt3f6YdYcfnY8hpVG14riZaqEfuO+n+CjZPTYh/3mbQ0+ZhT/3JqUD9gHP3gIGZ0PQ==",
+      "sha512": "LzJlyUs3dz4XlTdrMpOKXCDvRDOniHcX/JFM37qBsF874pSsTDSulb53U9J244He4ZMCW7xod/JuQ0M/VCdEFQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.webutilities/1.1.2",
       "files": [
@@ -4801,7 +4801,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
-      "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
+      "sha512": "uyi3vRvqP76DM4ZpyQy3xq2rltWM8gXlxbmz8zpHwDeVmKk2wpZLx0ko3NqHsIaNQUxnWIXDredCIlBdK1lQXQ==",
       "type": "package",
       "path": "microsoft.codeanalysis.analyzers/1.1.0",
       "files": [
@@ -4817,7 +4817,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.Common/1.3.0": {
-      "sha512": "V09G35cs0CT1C4Dr1IEOh8IGfnWALEVAOO5JXsqagxXwmYR012TlorQ+vx2eXxfZRKs3gAS/r92gN9kRBLba5A==",
+      "sha512": "AZYCDKUyGQ8OdrGV7wqKU0YSA5v4hkACeg27jPlE5D2JwtbycfNDBnhsIJWcwL+BLplNUjMfHamJY6budbqDXA==",
       "type": "package",
       "path": "microsoft.codeanalysis.common/1.3.0",
       "files": [
@@ -4833,7 +4833,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.CSharp/1.3.0": {
-      "sha512": "BgWDIAbSFsHuGeLSn/rljLi51nXqkSo4DZ0qEIrHyPVasrhxEVq7aV8KKZ3HEfSFB+GIhBmOogE+mlOLYg19eg==",
+      "sha512": "t1roj6CNXSgTb7SKzY3NgYT5KPSdBrGMvg2xGW9ja4Tjw0LkDhA2qGcWXwWl/m83isxvOZjB+MMWSMxkSMJIFw==",
       "type": "package",
       "path": "microsoft.codeanalysis.csharp/1.3.0",
       "files": [
@@ -4865,7 +4865,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.VisualBasic/1.3.0": {
-      "sha512": "Sf3k8PkTkWqBmXnnblJbvb7ewO6mJzX6WO2t7m04BmOY5qBq6yhhyXnn/BMM+QCec3Arw3X35Zd8f9eBql0qgg==",
+      "sha512": "uUlt+mA/MkSmLNkbpeg0mGVqHakdr8U9Kybj1MstnStYMOjkirdKx4kDnarg26frPawy0FCS7TWjcOAf/qmENQ==",
       "type": "package",
       "path": "microsoft.codeanalysis.visualbasic/1.3.0",
       "files": [
@@ -4992,7 +4992,7 @@
       ]
     },
     "Microsoft.DotNet.PlatformAbstractions/1.1.2": {
-      "sha512": "z4CSzQKBFokkmcJgeEGC0n6RNpxHs6/kMpzFPwIh0U6zQN4/wZqK4r96IU9e7yRMTm3kFah9k4LEn3/Ecz6/5A==",
+      "sha512": "qjEIecUnOiwO6SA7+ZJsJc/l+Uggn+fQadl34Ij0Zs9V7P3VxZr/8+uCKk7ZnRS4NtLjkVkp71kZgXaYfAA0wQ==",
       "type": "package",
       "path": "microsoft.dotnet.platformabstractions/1.1.2",
       "files": [
@@ -5003,7 +5003,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore/1.1.2": {
-      "sha512": "2oY1cQ3DEhpbRjlDBE1zb7IngKyPC4fslAX5WL1mnVQOLX/8BPOAjgYM2inzNK2z8ld/DxBUZEwc3xfNc8qhbw==",
+      "sha512": "TT9fwG1vOCpym/2FKIJThgTTMXI5TbVae95u329W1jqlzc8N79h6X6a96wNMj8nAAE5YCeDhtp7dCnqmql4xzw==",
       "type": "package",
       "path": "microsoft.entityframeworkcore/1.1.2",
       "files": [
@@ -5016,7 +5016,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Design/1.1.2": {
-      "sha512": "TFbj0fFE5BWJptL0BKhYOED0QOqY4VxApeLn8r9q8cINxyEj0XgjORl/a3Cp96CeASE5zsQeyMwaQCBRH+roag==",
+      "sha512": "Sr3vk45p8gKq9P20nQSfhZYT0rHBYkNwbwdDhlCGquEQ61Mqb822Rbncp0yRQGGT4os/mBmJli8dVR1+gF/Jkg==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.design/1.1.2",
       "files": [
@@ -5029,7 +5029,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/1.1.2": {
-      "sha512": "oiPXaIMk8cPbEmtcChzhPzM1ZyEYMoy8sMYWgWfv292Q0e0U2v7CIrtGylrORVZOA4lb9M0gWjbfKPtj7iDbxA==",
+      "sha512": "j75OeLWSjx/mzhuBxj2t6H9H9OsaAyN1TLbLntsnecjgGFOaf7L18Ve36Pnuamtg0dwLXT3+iKyUxCvwRE3XNQ==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.relational/1.1.2",
       "files": [
@@ -5042,7 +5042,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational.Design/1.1.2": {
-      "sha512": "pu2Jxndzv3slY6Ch9mdqVfL3AFhH5XzM02Rrnf9h5lKoViprYx1O+nNqT3BxmGrPkYadY9OddG2b9+sUO3Xuzw==",
+      "sha512": "iZDcOIL8nA6Q2PQZcbnY13WVDPhWN6iwBLuqo9JBPcIRYAgfduhLFwcgRU7gas8gGb+bx+L7YQYXbnDApQaOyA==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.relational.design/1.1.2",
       "files": [
@@ -5068,7 +5068,7 @@
       ]
     },
     "Microsoft.Extensions.Caching.Abstractions/1.1.2": {
-      "sha512": "MxqN+PwNo1QebCeBBdW5vAL0QRY5DyoYFgwKqpMLt76f8P0Bzc8hUcEQjxy2667yt9xIUen4lW2aZfs+TF/99A==",
+      "sha512": "fY/VgRmI5NagsHfMJKiSnFYJCljUlHgc96qXRC8eN3Dw/KPAq2yyp5BqdGlkSNVAjtegUopk5uNTtScBFy2E9Q==",
       "type": "package",
       "path": "microsoft.extensions.caching.abstractions/1.1.2",
       "files": [
@@ -5079,7 +5079,7 @@
       ]
     },
     "Microsoft.Extensions.Caching.Memory/1.1.2": {
-      "sha512": "tumv9vtio6Q/hPHA0i0fYjc0F3+WZRE5NT3E0wjXuZZG4WhwwHWMXZHnHWFF8SCLejJRSyo1b1YEd69DD2QduA==",
+      "sha512": "cXNKc5K6LVlBK4ZTodyTepkM+3MIIXYFAbFdSWKqWzfudHMG5Ml8/xPt4xiWW/huIHAPhnV7zoqtfToVIwUT6w==",
       "type": "package",
       "path": "microsoft.extensions.caching.memory/1.1.2",
       "files": [
@@ -5105,7 +5105,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration/1.1.2": {
-      "sha512": "eK5BHx/pHLGGO/WDo7CS070MGgx3N7B/ORO/oKeS0qgCyv+ZAR47YWKXmG5aF+lIrAJd3uJjMTdTKgXTU2UDWw==",
+      "sha512": "03tVSGRUZDzMMcw8UybDLWgOO9X9QTAqTB5vIJ6QhzBJZJBmYWsgvOZevH/UBOfF6A4/ht5g/+kBwxUMzBL7cQ==",
       "type": "package",
       "path": "microsoft.extensions.configuration/1.1.2",
       "files": [
@@ -5116,7 +5116,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration.Abstractions/1.1.2": {
-      "sha512": "I1BRk2OCjOondHFc0flHFMxLTbsOPQdB0CxexkZOHcAD1oAWC2KcpxvmmQ07kLUcYKbtSdtvPkm7YPdw8bdJ9Q==",
+      "sha512": "LCKYSW6Bq3VxKuUSlSr1seav8sHUPmev6r3NkxI658bFpZtx2GpulZtmVtJgGN+MbLXMgfl0keRwKJ1ZMDQQGQ==",
       "type": "package",
       "path": "microsoft.extensions.configuration.abstractions/1.1.2",
       "files": [
@@ -5127,7 +5127,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration.Binder/1.1.2": {
-      "sha512": "rhJm4Oznvr+WplIE/kQkaPjPgUxV60k1sPw17VaDrKYiUboZhnNLqzfQM3wR/XdZaf2LCtIsi7PnBUCX38gwyw==",
+      "sha512": "tIdWjnQEcRJRsUK5Uw0lgy29mwcL1biazZnU/w1+xeYVqUhkTPTCWbPYd9npzmh1RBqJPaVHsPwGfc1NuHB8mQ==",
       "type": "package",
       "path": "microsoft.extensions.configuration.binder/1.1.2",
       "files": [
@@ -5138,7 +5138,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration.EnvironmentVariables/1.1.2": {
-      "sha512": "ACd1s5tYblT0iGAaNFoOVKq8bgzcUYh/jYKdheRkVLGACSQ2iM977hMj8QyGexUvbFMgRY7lfvXTHLbEuBdwog==",
+      "sha512": "CjYPvfrye4e0kzXM5VHYz5CdbpR+KZqMIQbpnpyGwR/qHZE+5YN/8pDxsvQHa9kf3Vat8U7rrjW+oXNdNAusmg==",
       "type": "package",
       "path": "microsoft.extensions.configuration.environmentvariables/1.1.2",
       "files": [
@@ -5151,7 +5151,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration.FileExtensions/1.1.2": {
-      "sha512": "QYnwsXY/cBRno3XrNvfuldcZpNS/Nl2vV2uJsNtRh1hMBHYU3dLwJ4G/bKCMHgVmY/XOInDZhQ2bWadcwo+Ouw==",
+      "sha512": "/pahTSLxFBejqLNWENGVoMSFAb0QC4oPp51kVRubqno0IDrAQhe3TzFtCoGM9NhTc3wNSrmqF3m30YrN4K37eQ==",
       "type": "package",
       "path": "microsoft.extensions.configuration.fileextensions/1.1.2",
       "files": [
@@ -5164,7 +5164,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration.Json/1.1.2": {
-      "sha512": "ZDJulZ+K9Yai3YtAamk6hN3vneJAwZ+9cBmtJSND0C4PxX8jQSSTHAE3acG3qyubRJM9xbxG5JrVaLCGPxcrBg==",
+      "sha512": "yHZ/DmKGBW4yEaEOyFAel1ZBeeyE3czYGnq3j33wRCSJV+Tr3H1tFaLueoG6mFVpx2Pn+H0gYUFNXuo1DMo89g==",
       "type": "package",
       "path": "microsoft.extensions.configuration.json/1.1.2",
       "files": [
@@ -5177,7 +5177,7 @@
       ]
     },
     "Microsoft.Extensions.DependencyInjection/1.1.1": {
-      "sha512": "HPromF7+ssYXilQndxMbuPfn2w9C9mP2owmNC48/bgts/TWBMlvnUYsvOvTC8Ojn0DuiDDGmHNqOtxwwvFSpAA==",
+      "sha512": "pV57rN35qtH5vrTWy81Fj+Cvr16UvPfBXf+y8HjqIkRKEaA4X0CeoR1YnNj88yQ5XQR3vGnBOslmKogbfG4cKA==",
       "type": "package",
       "path": "microsoft.extensions.dependencyinjection/1.1.1",
       "files": [
@@ -5188,7 +5188,7 @@
       ]
     },
     "Microsoft.Extensions.DependencyInjection.Abstractions/1.1.1": {
-      "sha512": "sKsx2jEkabcI954cB6MoU2LUxv8YTByV8+ifqbFtIF8gFqPb4/CfPxwvxrYW+aXc4V44KKHOyeTDgyc4B7fjYg==",
+      "sha512": "loIImwivtNqYsJTT+0HHyAcR3XC0HT+NgSoX0RNnYwk6ysjVLIUBnTrwNmb2uBW99N7Ye9nq3vofwklEsyfoIg==",
       "type": "package",
       "path": "microsoft.extensions.dependencyinjection.abstractions/1.1.1",
       "files": [
@@ -5199,7 +5199,7 @@
       ]
     },
     "Microsoft.Extensions.DependencyModel/1.1.2": {
-      "sha512": "k1dsqK0Xy3jqCr4+1rzKdA94ki3AmYDQm3kExtyJR2SgJyF1vcDPuDhsYw0S0OhffDTlA2RF2B6EaiFIuP6QaQ==",
+      "sha512": "OQrfZOrrl57eUlT0jurkTTaqURiBEcbXKkiYyuutV+lz48AQf+E53QeYneGd7l6pubecLEKgS+SrUTizz3LX6Q==",
       "type": "package",
       "path": "microsoft.extensions.dependencymodel/1.1.2",
       "files": [
@@ -5222,7 +5222,7 @@
       ]
     },
     "Microsoft.Extensions.FileProviders.Abstractions/1.1.1": {
-      "sha512": "Z/XGMFZ8IuTcd8j5D/77jnajN5ZEs/NCH+LZkMUKKW2d9rpg10VtPhDsvMwKNhI+kcdTE00G/obXUF7Ruuwqlg==",
+      "sha512": "xfSgs6+jdGOVJ3/oPouWalXxxMepzodwbtDmT1idi1lWy3sPzc3LQmYAV7qqhTv7mZwyZoeZJJA2k6rsEA/2dw==",
       "type": "package",
       "path": "microsoft.extensions.fileproviders.abstractions/1.1.1",
       "files": [
@@ -5233,7 +5233,7 @@
       ]
     },
     "Microsoft.Extensions.FileProviders.Composite/1.1.1": {
-      "sha512": "nHGefPrdDsv0nUKAX+oox8njOCEoaQsq1WQdor9jZu+d24Uihj7O9gWKlPezbJq3K1HOLCBFFaVRVXBSHlggWQ==",
+      "sha512": "hyAmP5qi9XZWt4eHaYLxETCFhj4QemziMlMTJZVd3Gsa6xvKPWyA8wusbiY3e2M4KVShw/WN/M4vGoPwDzrTmA==",
       "type": "package",
       "path": "microsoft.extensions.fileproviders.composite/1.1.1",
       "files": [
@@ -5244,7 +5244,7 @@
       ]
     },
     "Microsoft.Extensions.FileProviders.Physical/1.1.1": {
-      "sha512": "oZXTzE3DdBkLgJqIOttIuEyNjufkZnK0V3reCO6WAJlFx+qgZlI9Eoi5+NhhGoUbEayU0Iyw9NtSCQI1SF8knQ==",
+      "sha512": "0SBUTM9gmMUdtajR26Krg7etjDAl6/eVQYeLAgXBoug4o7kP3msNyEprmBLN6+ilKNk10vxNiegiX/dXpc0CWQ==",
       "type": "package",
       "path": "microsoft.extensions.fileproviders.physical/1.1.1",
       "files": [
@@ -5257,7 +5257,7 @@
       ]
     },
     "Microsoft.Extensions.FileSystemGlobbing/1.1.1": {
-      "sha512": "aSnRFPBR2uHhhQgsUXaryw6BBYFGwIN/743L7lloxydcTTJylpSZjCjd8/w62e2xzyypCVa7fkc6IRzkUEIwyg==",
+      "sha512": "zeJuLCfHKEt2f4eizkwnKIUR4zBTkdwB0pVMOd9SaX4tuKzDc2v/Q5jbRiiv4nlziKGrXgCYRGMYWb4jPsOrXQ==",
       "type": "package",
       "path": "microsoft.extensions.filesystemglobbing/1.1.1",
       "files": [
@@ -5270,7 +5270,7 @@
       ]
     },
     "Microsoft.Extensions.Globalization.CultureInfoCache/1.1.2": {
-      "sha512": "RxobLQzwwUUY15EGmBRfXOG0KHc8Vv5JS4DQBocxZyA+SPPlwhhOdEyM0s+zCRXzvYZ/SVh0B8rmhMN0E7GKDQ==",
+      "sha512": "zxP71ijYsc3IpRC3TbdJEUz7nFNckF2hDnw/marg0WyaeyQRa5QVgD/XjXrSRHrecOZZDmWrfKYQXvwvP5Bwig==",
       "type": "package",
       "path": "microsoft.extensions.globalization.cultureinfocache/1.1.2",
       "files": [
@@ -5281,7 +5281,7 @@
       ]
     },
     "Microsoft.Extensions.Localization/1.1.2": {
-      "sha512": "8Gi66RQ+NNom78ZCcN3McW0CZ4PFO/31K6ZpcfIY4FXxcggi/UtkiPuNPJuItJiktGAcv+D7reTB7340TtXiAw==",
+      "sha512": "g0W/89D7irG/BpBmyAbs483ExruXYJ3uSw8pO2SJt6p10mzI1wjtYyclI7d0nYP1H6srMlSM6JRmCsPGQnVYqw==",
       "type": "package",
       "path": "microsoft.extensions.localization/1.1.2",
       "files": [
@@ -5294,7 +5294,7 @@
       ]
     },
     "Microsoft.Extensions.Localization.Abstractions/1.1.2": {
-      "sha512": "JhIaFrc0frBXyJXyGLbH2ISZ43WHmfewhZVZjA6akrTQ1q1uh4YMpKq5/T2UAU7BUbrZRzeyJOEr48MqDmQP9g==",
+      "sha512": "brecQeeXnpvgWh7XoIvLZtYd2WI2OyUzsBFGHyZSBJODv8AoxFWeKqNWFvIJj5c0hkjEoO/embeOaCfuUK3noQ==",
       "type": "package",
       "path": "microsoft.extensions.localization.abstractions/1.1.2",
       "files": [
@@ -5305,7 +5305,7 @@
       ]
     },
     "Microsoft.Extensions.Logging/1.1.2": {
-      "sha512": "LydGeNbeOBTLt3qYz8L3wpRl4TIE6sLBTROiWlU5uckJOaTBCtOTonTbUWrdYEvjOEDFlKySsKUI7HmS7sjrrA==",
+      "sha512": "KZA7yhySy1OKD3A5OdfHoaCZjHRrQ7s7968YhgT2C3w0Woh3JgR7XyVYccuIDeIzPHEtuN7wESAZFw22BGaBDw==",
       "type": "package",
       "path": "microsoft.extensions.logging/1.1.2",
       "files": [
@@ -5316,7 +5316,7 @@
       ]
     },
     "Microsoft.Extensions.Logging.Abstractions/1.1.2": {
-      "sha512": "hbMEC7HYh2JJK0sSrMXFdOc0tjjRq8kDiSGzXh07AVbMnReLqWa6hA0QJx7umneMK7/9L3sKJnkB+RLGTagkOg==",
+      "sha512": "BCvzHhW//DvH6XmHzyBUYKjrXJ1WU8P/ntHNqDkh0/RsxaSqGHWk1aqDtpmQX4B3gBdd0Clznp/RqmCAKMLTQA==",
       "type": "package",
       "path": "microsoft.extensions.logging.abstractions/1.1.2",
       "files": [
@@ -5327,7 +5327,7 @@
       ]
     },
     "Microsoft.Extensions.Logging.Console/1.1.2": {
-      "sha512": "pOHZgIXP90hcHxhwH1Yh53UsPEo8hrBJm/TBC5ehBKYub+Z08zBd4f1aVBJExveLysAzIV8reEatIg0wElNJGw==",
+      "sha512": "IywTTs1MKjdaHjTO5lKjOVh4AyDslc4GdanFnFsQkIY2TJdtdcpdFzVo1zumLhIZOviEuQCaLEKJT5qorhkxFQ==",
       "type": "package",
       "path": "microsoft.extensions.logging.console/1.1.2",
       "files": [
@@ -5340,7 +5340,7 @@
       ]
     },
     "Microsoft.Extensions.Logging.Debug/1.1.2": {
-      "sha512": "HJiIs2WN4g9pAxus8It/S2epy5ROVMbQM48NLi0EfL+N1uC2nkDQk9ITtJn2rvDmVaQb7AzBsGT3ziBQUQcuYg==",
+      "sha512": "d9DP6sZTIqL4oHY0s72C4H5AJFVQmh7PDj4YPKNzvEE3ncMwOZecdx5peoJ6e6wcjmmA6CFO5bBuU2PIhusKNw==",
       "type": "package",
       "path": "microsoft.extensions.logging.debug/1.1.2",
       "files": [
@@ -5353,7 +5353,7 @@
       ]
     },
     "Microsoft.Extensions.ObjectPool/1.1.1": {
-      "sha512": "Ex+iePf5X9XFCqm7u1hYAnZU/PJZp16Z6ve5EOY1doJQy3fHRvaO1cMpZf41TP71e0jMcfsNUSXX+PmlciWuJA==",
+      "sha512": "ke1RsHjvylh2tav6MmVZhkVpYyjwL2pLJPm9aCNgNh2xy+Z5FBzXfbiF5ThPUQsdyAJOyh2m1zMJpKZNIV3xcQ==",
       "type": "package",
       "path": "microsoft.extensions.objectpool/1.1.1",
       "files": [
@@ -5366,7 +5366,7 @@
       ]
     },
     "Microsoft.Extensions.Options/1.1.2": {
-      "sha512": "pzVDqipe6nIxcqtWdOxTtIcYhMG/5GoetbE1ZsOkykZIZugnlBW0eOhK5BDUci46zY79lwp8ginLrXEqWaMALg==",
+      "sha512": "+CF2A0JjnU+7Nc/+GQrII0qSe4qiaWuCDw+aQmaNUismTiMTrtrlM9xfnMhuntq/+pCFmAJv8UFGP4GJAf7e/Q==",
       "type": "package",
       "path": "microsoft.extensions.options/1.1.2",
       "files": [
@@ -5377,7 +5377,7 @@
       ]
     },
     "Microsoft.Extensions.Options.ConfigurationExtensions/1.1.2": {
-      "sha512": "RNst3tB30aeieLxxtaeJt9jvPSr4CAIFOP1ojYkB7Hrd9eRtddIWKx311xfWm4uT1A6Ia4NjRZkf9dYbnr2eqw==",
+      "sha512": "WmBxB/oYqqCAq0JYCXElUmD0w+Hm79XN/2nWG21EwKjx2HkusBpAmHL60vGPU1eCnAuE50fFcb5AfEoGnENxuw==",
       "type": "package",
       "path": "microsoft.extensions.options.configurationextensions/1.1.2",
       "files": [
@@ -5401,7 +5401,7 @@
       ]
     },
     "Microsoft.Extensions.Primitives/1.1.1": {
-      "sha512": "MrsHOyFpwT+LBzGWp/Oq3pV1Vku8FYE6hgO+2XR0WBRtoI9EaJcpRbtBabS7pXYrkIN1/LOXACpZ9Stqmbrs6A==",
+      "sha512": "pOKgxLGUh/3bjXMWOErTH1XMprYmJM2X/gTSS2ddrvH5zf0Pm+CQtc4A5K/aeyejZzFrfkXpnWEddCeWaeKq4g==",
       "type": "package",
       "path": "microsoft.extensions.primitives/1.1.1",
       "files": [
@@ -5412,7 +5412,7 @@
       ]
     },
     "Microsoft.Extensions.WebEncoders/1.1.2": {
-      "sha512": "ra3BKA+pkMsc2FFAKEZHp18r0N5PGxidn0ujTsfiN3GP16eFRPaiKrXU3xRUHOJtV/zK8HE0GMcOKLNK6XLYqw==",
+      "sha512": "RTTVxtGH/vLhF/te1QllJXhM43cCElHyPqkuv46t4ENP+qUNxIYuBsUgFBTLKw9HZJQGvNgoxT0TfBtXqdOT6g==",
       "type": "package",
       "path": "microsoft.extensions.webencoders/1.1.2",
       "files": [
@@ -5423,7 +5423,7 @@
       ]
     },
     "Microsoft.Net.Http.Headers/1.1.2": {
-      "sha512": "DWJdBZ40yFaDvpIcTzEARzybWyuUB2V9CbrNpIq0GaD0Tx9EHXx2rZcpG034PbAZXBp//CR+cmftwGOkZieP0g==",
+      "sha512": "CYl2JBJ1MbykmN8ro1E44miSmI72QaKf7e8BeMekbQq4GroVxij1iR/7dsbKZJmtXXjHv5prFibDH5Gk3RX1Tg==",
       "type": "package",
       "path": "microsoft.net.http.headers/1.1.2",
       "files": [
@@ -5434,7 +5434,7 @@
       ]
     },
     "Microsoft.NETCore.App/1.1.2": {
-      "sha512": "TUPK1xhef7WcbsIkhfZOz6J7DrG5aebjVRBswPfHe90eDhfnlWHaLiI1OtMB2O78bf5d37WO6ge+9nel2keKkA==",
+      "sha512": "mHKaAJ5ATfxCMD5RalJbOB7cz0muOKfksQ5RN0nsCGVdw2ArNNL4uQEoX92+Cvgc62AdlDc63Sc9PKQ6beJglw==",
       "type": "package",
       "path": "microsoft.netcore.app/1.1.2",
       "files": [
@@ -5458,7 +5458,7 @@
       ]
     },
     "Microsoft.NETCore.DotNetHostPolicy/1.1.2": {
-      "sha512": "fD2UWfXXY+FgPWVqvpNo2/d7b/LHYl1/aepVimYYkVsuF4CczP8hgCJIlKiUbWF/d98xCMtz7bbuv6LkGfdfeQ==",
+      "sha512": "1AjjY56V6HSOnVO3nJlfmbrmVHslCv6rucAwuscrvYG9y1M1oTuXPB1BsuU/we15jvuURJ0oLQ2AbNODaD5k5g==",
       "type": "package",
       "path": "microsoft.netcore.dotnethostpolicy/1.1.2",
       "files": [
@@ -5482,7 +5482,7 @@
       ]
     },
     "Microsoft.NETCore.Jit/1.1.2": {
-      "sha512": "mgCxxN+3/0tNuF29pUCbjS3ag4DDmgxwYQXvGW4wyD5N7bAUysxOvMw7Fx/eQZKoCh5cH5LQ0w/5/o6vQmMhRQ==",
+      "sha512": "uYa47Gjuig1yX4J3BRlMAaWZFR8PqMC1ZCz3gR4xnVHkYUUmaGD6MDk2N42lDYRjttVpfPtk0iDXFhg64v/S8Q==",
       "type": "package",
       "path": "microsoft.netcore.jit/1.1.2",
       "files": [
@@ -5507,7 +5507,7 @@
       ]
     },
     "Microsoft.NETCore.Runtime.CoreCLR/1.1.2": {
-      "sha512": "3O8EaWa5E+xDmNqVqmbrfxy6x+QQ87XPXv47sek1jkRrFac7j+ObsH0URWJRHJt/5nJpvEN7sb2KG0o/AM9nvg==",
+      "sha512": "3g7um+sQrcdYUQ+VfQtWf9zTlHVEVxZH/MPz5ynhJJmyQOYVrDMX40avgPF34dICqFbTfmfG6bUfNREAdLDqeg==",
       "type": "package",
       "path": "microsoft.netcore.runtime.coreclr/1.1.2",
       "files": [
@@ -5532,7 +5532,7 @@
       ]
     },
     "Microsoft.NETCore.Windows.ApiSets/1.0.1": {
-      "sha512": "SaToCvvsGMxTgtLv/BrFQ5IFMPRE1zpWbnqbpwykJa8W5XiX82CXI6K2o7yf5xS7EP6t/JzFLV0SIDuWpvBZVw==",
+      "sha512": "kaIeTOjwe2nR3XsRJHoO3kE2sh930hJpmiEXIKoG4781uI8Vzwq8Fa+EcDKNG3DXCBFSBUUXfxkp4gHyULzhIQ==",
       "type": "package",
       "path": "microsoft.netcore.windows.apisets/1.0.1",
       "files": [
@@ -5592,7 +5592,7 @@
       ]
     },
     "Microsoft.VisualStudio.Web.BrowserLink/1.1.2": {
-      "sha512": "QOu+6RH3j+ncittuC5iZNAhOWyYy1BqVb7KPzeRk/s94Yl23+TOUqzH7NBdchObenhGqmFXT654VJEdSF1JERQ==",
+      "sha512": "GPIRZhGfmV78Z5Z6P31oMwnXi4JxD5oYpfddJdSKJeOcSmGBmwxm/NzhcRAnv3AWSDl66fKiCgVxcJPJxveDaQ==",
       "type": "package",
       "path": "microsoft.visualstudio.web.browserlink/1.1.2",
       "files": [
@@ -5870,7 +5870,7 @@
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "oDfS0Alq+mluluapkR7A3rPd9bieNhwNzrJCPC2VEfJ2kzSm4tHuGObp+Ybk7l9jIyvM3K7SNNPtkphoGFA9jw==",
+      "sha512": "liBNCY9McNeDfzB0tFP3eKlfO7VS5wuumATQD5kspbjdBOYB3bEAllQXdS5oQmfXeXBjXsl/Cu5DxX1wVI2yIA==",
       "type": "package",
       "path": "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -5882,7 +5882,7 @@
       ]
     },
     "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "0dxcIxhroiZzcekjl4MmbubRN4oNx5XuegS09A1foTs4c9TS8EV5AEZJGkN/WiPKIF7RnRk3b8mRflnv2SQp5Q==",
+      "sha512": "Pb+ICHEXd8KUpKcxf9IfPXGhw9+yJaCOQOOZuyEQhkjcHjf8eQ7M12oBbCjp5fWuhhYX6INVjibx7NuuiSkfcQ==",
       "type": "package",
       "path": "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -5894,7 +5894,7 @@
       ]
     },
     "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "0k5qPXl0zs6yzc6IQYPbcQlrTdLEP2Mcs9AGcrMh8jq7pOfzL9B3xwc/e/EJPVITju3YsT+BNOI5voeOKY/KuA==",
+      "sha512": "ymhR3f3l6HCy8bERTRcq7971PAAq7C6O4U+G8jX+EaRhse9lBmV1PeSl5yF3rAqti97z6/Ul9tkJjsjHFPE+jw==",
       "type": "package",
       "path": "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -5977,7 +5977,7 @@
       ]
     },
     "runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "ZFr1MDwzRCYWA883RSjxB4exm8bHlqQjI+yRdYd7zCvFAh2t1107U0ONRgn1zf5Bte2kowThZHE9DVdvuKlBsw==",
+      "sha512": "7WCPWcs30RfVSyoLvxg5Hpd3nZE+m34J8kfOu0rsdMRQCu+eCYdzmT2IeKfbelclLZgiMfzXmZ+RhwcLdT7WcQ==",
       "type": "package",
       "path": "runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -5989,7 +5989,7 @@
       ]
     },
     "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "aNIww1R7bC0tk/2u4Gtrom6afjlJlGsFm7mko/ymrbmdYIyso5cPBXjGaj2qIHup8p53LTvX4ED9mxMaK4guLQ==",
+      "sha512": "4qUKZxrh2+dMoMMWmL5/AS8fgl99vCF0uNUJ2ZxdCfKe59QWhAJETlXF+9JetY2Ezzj7PvUTy79eMS6coMSkcQ==",
       "type": "package",
       "path": "runtime.opensuse.13.2-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -6001,7 +6001,7 @@
       ]
     },
     "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "ipj8GE8R8qgVm3ta13cTVQRR7LVj11x7SbC4Cpu5rgAEwoXcujwqHcWOhb+8KPMPNLTXWdZcwmv7d7HLayAF3w==",
+      "sha512": "JI0k6cnZOml2imDSIJm66R+KVuWd7foxPKPfvjwQOmVp44pFshGfGQii3GFaU8Gl3JLDREB0fieIusm4ZqDt0Q==",
       "type": "package",
       "path": "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -6025,7 +6025,7 @@
       ]
     },
     "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "l8EbzaU7q/YF/JArw7wzbKw7Bd3vxL4WUu9X4WGXfJYRIOe45i5wW+XbAVSkfghucM/eYKFb6/hNio7+N0AIkg==",
+      "sha512": "/SuUBKoRCTdN7ynzacFKS/0fwmXQF2jyN8hvKPqwPJtbxF7zQzmECs8H5i7UDugbNWzNuJOR6Lyv2NZdJJ+ttQ==",
       "type": "package",
       "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -6037,7 +6037,7 @@
       ]
     },
     "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "4S+URvA5tdIA8DxsYe/+Neffgzbfl4WaZK6I1nLEzqRxfSuTqjVySBagCQSCnGkJsSMrjbZwtRu8K1I1pbbSJg==",
+      "sha512": "YHE0e/D2uVhjDBTaTS+uRptJFyGmHuCLPQowLYQvERjlepUwjhhSH7njE+qhscVMz36VZLD4bglhIryEOZHi8A==",
       "type": "package",
       "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -6049,7 +6049,7 @@
       ]
     },
     "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "G1OTN/JU9rdQz9fj1eLHOLs7+8lFp7bp+H89h8AEV/Wa4kVZVwoi6DqnjEjJfFWjYZvGPDi9o95VWjeKG5gLkg==",
+      "sha512": "Q6ogrb0D2hvVxVYNk1J79HMLzvLjNzHt+YUWs+Nq+GQ9HC4bGFioixpbpm3N/PJLYZpXyoZbeC19Xj8LndkPeA==",
       "type": "package",
       "path": "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -6061,7 +6061,7 @@
       ]
     },
     "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "rbS6BNuxMvqAT0Sa4AlvHlHyWT4+1vtZHO9+R2A0udgOTIgIWu2+mKJVDO4AcHjCVVqB6WqSGcAQLx3QoXBy4Q==",
+      "sha512": "ed9jxwYTbqIr8D4b7nJ11CPpdC3omcoFze4orO1tbsRXy0TJ7mMWc1n6npnCipOeepCpfQMntO7wyN5Gf0hk6g==",
       "type": "package",
       "path": "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -6073,7 +6073,7 @@
       ]
     },
     "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.1": {
-      "sha512": "SjraAtZSVwYLpU+pFfSoflen6k9jZ8p7sojFfyXUKprFc7iSN+jjl0qUT1maZBQHv8bAX0nrUaQhZnWsLY8v9w==",
+      "sha512": "y4QhIBgbgYyXfbMeY518j6Q4Xx7sKypRGqUDIxhPP/8azERgRxVyOCFtXGshajyj5xiLBy2RpAudRAskPhGCGg==",
       "type": "package",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.1",
       "files": [
@@ -6882,7 +6882,7 @@
       ]
     },
     "System.Diagnostics.DiagnosticSource/4.3.1": {
-      "sha512": "j72A3mwamUXPgDIU1TWyzea7yqz59+iO2cmXuyzvcfuszWGq9JRbWify1k33lLQophaXOIyhPkEevfP0k4M3wg==",
+      "sha512": "f051iY8DzW2pq1aPhtbJ/Bhh7PNcxth63ZTll1cts40zOQGatqG0q5eHLy67Ed+SD2iD/kR8v/TYr8A7yJiiIA==",
       "type": "package",
       "path": "system.diagnostics.diagnosticsource/4.3.1",
       "files": [
@@ -6901,7 +6901,7 @@
       ]
     },
     "System.Diagnostics.FileVersionInfo/4.0.0": {
-      "sha512": "qjF74OTAU+mRhLaL4YSfiWy3vj6T3AOz8AW37l5zCwfbBfj0k7E94XnEsRaf2TnhE/7QaV6Hvqakoy2LoV8MVg==",
+      "sha512": "Wy6CTNkuOqYO8oabcLAyjMTqYDIhOlYgCjDTXi2PLqC2o93XXgQPcNdhHASI48/TVgLJuI8s1L+mIG4hObg1IA==",
       "type": "package",
       "path": "system.diagnostics.fileversioninfo/4.0.0",
       "files": [
@@ -7387,7 +7387,7 @@
       ]
     },
     "System.Interactive.Async/3.0.0": {
-      "sha512": "UEM+WmG1Oq0bNbPx/E1jaIQ83QOrPfVDUyuYBtG6D6DpB77ytv9flPterMujumpHuoRjSc0ilSB8w41fQc05dw==",
+      "sha512": "iyrgkZz9Dzm0fiPouQszFC3SO/46k6AYd/jG9bu+/o0AoDMaRXtlo3TIuWVNtOuJFd1noL963QouroJ0T3rImw==",
       "type": "package",
       "path": "system.interactive.async/3.0.0",
       "files": [
@@ -8068,7 +8068,7 @@
       ]
     },
     "System.Net.Http/4.3.2": {
-      "sha512": "y7hv0o0weI0j0mvEcBOdt1F3CAADiWlcw3e54m8TfYiRmBPDIsHElx8QUPDlY4x6yWXKPGN0Z2TuXCTPgkm5WQ==",
+      "sha512": "H+kGLj1hnR7KfWK8KWlQ3oAjpAe4RUBFAkjIRMKmdZwNbLLNZMlO3liA37BdFOqKzmvTPb/iBLMvLEE0Dwf6Ng==",
       "type": "package",
       "path": "system.net.http/4.3.2",
       "files": [
@@ -8306,7 +8306,7 @@
       ]
     },
     "System.Net.Security/4.3.1": {
-      "sha512": "qYnDntmrrHXUAhA+v2Kve8onMjJ2ZryQvx7kjGhW88c0IgA9B+q2M8b3l76HFBeotufDbAJfOvLEP32PS4XIKA==",
+      "sha512": "2OVFKZ5gnGlNsIdQZwcYV7ToOAFrrHg+XqzFWa/HiVVDvFjPRFEtec69lZ+Z1VglCDYV+/ltBF3XCS3DQYTkvw==",
       "type": "package",
       "path": "system.net.security/4.3.1",
       "files": [
@@ -10080,7 +10080,7 @@
       ]
     },
     "System.Text.Encodings.Web/4.3.1": {
-      "sha512": "tcfPv+q/nK+5EsAxCLauIOd0kL+lZsXQ4lPKRnh8ex6O1Rm8WAN3LtF2GDFHyD0glSmUpIrgTnLhHCkMAKo3Ug==",
+      "sha512": "RLIlGp4uagHaKJ96utvWGwq3PlZZfIf0twUx6iOaZndLm7aetebkeOhxwV2LToMeK9x1nnWgYNzyOmtwI10cFA==",
       "type": "package",
       "path": "system.text.encodings.web/4.3.1",
       "files": [
@@ -10729,7 +10729,7 @@
       ]
     },
     "System.Xml.XPath/4.0.1": {
-      "sha512": "UWd1H+1IJ9Wlq5nognZ/XJdyj8qPE4XufBUkAW59ijsCPjZkZe0MUzKKJFBr+ZWBe5Wq1u1d5f2CYgE93uH7DA==",
+      "sha512": "RKK8/upylQxohgzi54lr9kogSPIY1GgNNvQgaw5ZtDsNkhtjW21o/yOr5x2PsUZQWX1rX/fiO2YrDNaF4rQCyQ==",
       "type": "package",
       "path": "system.xml.xpath/4.0.1",
       "files": [
@@ -10766,7 +10766,7 @@
       ]
     },
     "System.Xml.XPath.XDocument/4.0.1": {
-      "sha512": "FLhdYJx4331oGovQypQ8JIw2kEmNzCsjVOVYY/16kZTUoquZG85oVn7yUhBE2OZt1yGPSXAL0HTEfzjlbNpM7Q==",
+      "sha512": "a8DhJVJlV7MnEFt+FnsYSysBeHiNliept7IFGIKIrB+qj7xPR3xEWxBtlX/na4IeWDc7c4oSHGGXMJF/hp5jEQ==",
       "type": "package",
       "path": "system.xml.xpath.xdocument/4.0.1",
       "files": [
@@ -10819,15 +10819,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Andrew\\.nuget\\packages\\": {}
+    "C:\\Users\\westw\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\noteplot\\WebSite\\NotePlot\\NotePlot.csproj",
+      "projectUniqueName": "F:\\Work\\noteplot\\NotePlot\\NotePlot.csproj",
       "projectName": "NotePlot",
-      "projectPath": "D:\\Projects\\noteplot\\WebSite\\NotePlot\\NotePlot.csproj",
-      "outputPath": "D:\\Projects\\noteplot\\WebSite\\NotePlot\\obj\\",
+      "projectPath": "F:\\Work\\noteplot\\NotePlot\\NotePlot.csproj",
+      "outputPath": "F:\\Work\\noteplot\\NotePlot\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
