@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Home\Components\PanelLogin\" />
+    <Folder Include="Views\UnitCategory\" />
   </ItemGroup>
 
 </Project>

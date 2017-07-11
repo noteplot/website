@@ -1,0 +1,61 @@
+@model IEnumerable<NotePlot.Models.UnitCategory>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitGroupId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitGroupName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitGroupShortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitGroupCode)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitGroupId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitGroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitGroupShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitGroupCode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.UnitGroupId }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

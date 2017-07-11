@@ -1,0 +1,62 @@
+@model NotePlot.Models.UnitCategory
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>UnitCategory</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="UnitGroupId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UnitGroupId" class="form-control" />
+                <span asp-validation-for="UnitGroupId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UnitGroupName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UnitGroupName" class="form-control" />
+                <span asp-validation-for="UnitGroupName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UnitGroupShortName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UnitGroupShortName" class="form-control" />
+                <span asp-validation-for="UnitGroupShortName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UnitGroupCode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UnitGroupCode" class="form-control" />
+                <span asp-validation-for="UnitGroupCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>
