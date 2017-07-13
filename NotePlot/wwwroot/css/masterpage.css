@@ -20,30 +20,36 @@
 
 .np_bar {
     background-color: black; /*#B0C4DE; LightSteelBlue*/
-    height: 2em;
     overflow: hidden;
     min-width: 350px;
 
 }
 
 .np_bar a {
-    color: #FFF;
+    color: #c9c9c9;
     text-decoration: none;
     padding-right: 20px
 }
 
-.np_bar .login {
+.np_bar .login, button.dropdown-main-menu {
+    background-color: #000;
+    border: 1px solid #333;
+	border-radius: 4px;
+    color: #c9c9c9;
     display: inline-block;
     float: right;
-    /*background: white;
-    color: red;*/
+    margin: 8px 15px 8px 10px;
 }
 
 
 button.dropdown-main-menu {
-    float: left;
+    display: none;
 }
 
+.np_bar .login:hover, button.dropdown-main-menu:hover {
+    color: #fff;
+    border-color: #fff;
+}
 .np_content {
     /*border: 1px solid red;*/
     padding: 10px;
@@ -55,7 +61,7 @@ button.dropdown-main-menu {
     .np_sidebar {
         display: none;
     }
-    .navbar-btn {
+    button.dropdown-main-menu {
         display: block;
     }
     .np_body {
