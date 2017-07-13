@@ -9,13 +9,13 @@
     left: 0;
     top: 0;
     background: black;
-    width: 200px;
+    width: 220px;
     min-height: 100%;
 }
 
 .np_body {
     position: relative;
-    margin-left: 200px;
+    margin-left: 220px;
 }
 
 .np_bar {
