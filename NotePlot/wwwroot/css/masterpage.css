@@ -51,20 +51,24 @@ button.dropdown-main-menu {
     border-color: #fff;
 }
 .np_content {
-    /*border: 1px solid red;*/
+    border: 1px solid red;
     padding: 10px;
 }
+
 .navbar-btn {
     display: none;
 }
+
 @media only screen and (max-width: 1024px) {
     .np_sidebar {
         display: none;
-    }
-    button.dropdown-main-menu {
-        display: block;
     }
     .np_body {
         margin-left: 0;
     }
 }
+
+button.dropdown-main-menu {
+    display: block;
+}
+

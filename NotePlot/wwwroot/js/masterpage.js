@@ -6,7 +6,7 @@
         }
         else {
             $('.np_sidebar').css('display', 'block');
-            $('.np_body').css('margin-left', '220px');
+            $('.np_body').css('margin-left', '200px');
         }
     })
 
