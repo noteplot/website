@@ -9,127 +9,62 @@
     left: 0;
     top: 0;
     background: black;
-    width: 220px;
+    width: 200px;
     min-height: 100%;
-    background: #191818;
 }
 
 .np_body {
     position: relative;
-    margin-left: 220px;
+    margin-left: 200px;
 }
 
 .np_bar {
     background-color: black; /*#B0C4DE; LightSteelBlue*/
-    height: 2em;
     overflow: hidden;
     min-width: 350px;
 
 }
 
 .np_bar a {
-    color: #FFF;
+    color: #c9c9c9;
     text-decoration: none;
     padding-right: 20px
 }
 
-.np_bar .login {
+.np_bar .login, button.dropdown-main-menu {
+    background-color: #000;
+    border: 1px solid #333;
+	border-radius: 4px;
+    color: #c9c9c9;
     display: inline-block;
     float: right;
-    /*background: white;
-    color: red;*/
+    margin: 8px 15px 8px 10px;
 }
 
 
 button.dropdown-main-menu {
-    float: left;
+    display: none;
 }
 
+.np_bar .login:hover, button.dropdown-main-menu:hover {
+    color: #fff;
+    border-color: #fff;
+}
 .np_content {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
+    padding: 10px;
 }
-
+.navbar-btn {
+    display: none;
+}
 @media only screen and (max-width: 1024px) {
     .np_sidebar {
         display: none;
     }
-
+    button.dropdown-main-menu {
+        display: block;
+    }
     .np_body {
         margin-left: 0;
     }
 }
-
-/*меню*/
-/*.np_sidebar {
-    min-height: 100%;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 220px;
-    padding: 0px 20px 0px 10px;
-    background: #191818;
-}*/
-
-.np_sidebar .navigation {
-    width: 220px;
-    margin: 0px 0px 0px;
-    padding: 0px;
-    list-style: none;
-    display: block;
-    float: left;
-    position: relative;
-}
-
-.np_sidebar .navigation > li {
-    position: relative;
-    width: 220px;
-    float: left;
-    display: block;
-}
-
-.np_sidebar .navigation > li > a {
-    font-size: 20px;
-    color: #C9C9C9;
-    display: block;
-    float: left;
-    width: 220px;
-    line-height: 24px;
-    margin-bottom: 5px;
-    text-decoration: none;
-}
-
-.np_sidebar .navigation > li > a.active, .np_sidebar .navigation > li > a:hover {
-    color: #FFFFFF;
-}
-
-.np_sidebar .navigation li ul > li a {
-    font-size: 14px;
-    color: #C5C5C5;
-    display: block;
-    float: left;
-    width: 200px;
-    line-height: 16px;
-    text-decoration: none !important;
-}
-
-.np_sidebar .navigation li ul {
-    width: 200px;
-    padding-left: 20px;
-    list-style: none;
-    float: left;
-    margin: 5px 0px 10px;
-}
-
-.np_sidebar .navigation li ul > li a.active, .np_sidebar .navigation li ul > li a:hover {
-    color: #FFFFFF;
-}
-
-.body .navigation > li {
-    margin-left: 3px;
-    margin-bottom: 3px;
-    display: block;
-    float: left;
-}
-
-
-

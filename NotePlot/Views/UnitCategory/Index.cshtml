@@ -1,21 +1,9 @@
 @model IEnumerable<NotePlot.Models.UnitCategory>
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Создать</a>
 </p>
-<table class="table">
+<table id="unitgroups" class="table">
     <thead>
         <tr>
                 <th>
@@ -49,13 +37,19 @@
                 @Html.DisplayFor(modelItem => item.UnitGroupCode)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.UnitGroupId }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Редактировать", "Edit", new { id=item.UnitGroupId }) |
+                @Html.ActionLink("Подробности", "Details", new { id = item.UnitGroupId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.UnitGroupId })
             </td>
         </tr>
 }
     </tbody>
 </table>
-</body>
-</html>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#unitgroups").DataTable();
+        });
+    </script>
+}

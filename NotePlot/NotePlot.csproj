@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\datatables\**" />
+    <Content Remove="wwwroot\lib\datatables\**" />
+    <EmbeddedResource Remove="wwwroot\lib\datatables\**" />
+    <None Remove="wwwroot\lib\datatables\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot/css\jquery-ui.theme.css" />
     <Content Remove="wwwroot/css\Login.css" />
     <Content Remove="wwwroot/css\site.css" />
@@ -16,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\css\jquery-ui.css" />
-    <Content Include="wwwroot\css\jquery-ui.min.css" />
     <Content Include="wwwroot\css\login.css" />
     <Content Include="wwwroot\css\masterpage.css" />
     <Content Include="wwwroot\js\masterpage.js" />
@@ -39,7 +44,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Home\Components\" />
     <Folder Include="Views\Shared\Components\PanelLogin\" />
     <Folder Include="Views\UnitCategory\" />
   </ItemGroup>
