@@ -50,10 +50,13 @@ input[type="text"], input[type="password"] {
 #loginInput {
     font-size: 12px;
 }
-.errorForm span, label.error {
+label.error {
     color: red;
 }
-.errorForm span {
+ 
+.errorForm span{
+    color: red;
+    font-size: 12px !important;
     display: inline-block;
 }
 
