@@ -4,7 +4,7 @@
     </style>
 }
 *@
-<form action="/Login/LoginInput" method="POST" id="loginInput">
+<form action="/Login/LoginInput" method="POST" id="loginInput" np_reload="true">
     @Html.AntiForgeryToken()
     <div class="row-fluid">
         <div class="row-form">
@@ -24,13 +24,12 @@
         </div>
     </div>
 </form>
-
 <script type="text/javascript">
     $(function () {
         // подписка на submit
         $("#loginInput").bind('submit', np_AjaxFormSubmit);             
         // очистка сообщений об ошибках по клику  
-        $("#loginInput input").bind('click', np_AjaxFormInputClick);    
+        $("#loginInput input").bind('click', np_AjaxFormInputClick);        
         $("#loginInput")
             .validate({
                 rules: {
@@ -44,5 +43,10 @@
                     }
                 }
             });
+
+        function np_AjaxOnSuccess(data) {
+            alert('OK');
+        };
     });
+
 </script>

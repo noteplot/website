@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NotePlot.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http.Authentication;
+using System.Threading;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,6 +30,7 @@ namespace NotePlot.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginInput(LoginViewModel lg) // аутентификация TO DO: сделать асинхронным
         {
+            //Thread.Sleep(7000);
             if (ModelState.IsValid)
             {
                 try

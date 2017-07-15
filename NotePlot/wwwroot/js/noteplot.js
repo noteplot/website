@@ -22,6 +22,7 @@ jQuery.fn.dialogCenter = function () {
     return this;
 }
 
+// создание диалоговой формы
 // входной параметр - элемент с атрибутом гиперссылки href
 function OpenDialog(hr) {
     if ($('#masterDialog').length > 0)
@@ -45,7 +46,7 @@ function OpenDialog(hr) {
      });
 }
 
-// для AjaxForm
+// для AjaxForm - если все OK перегружается текущая страница
 function np_AjaxFormSubmit(event) {
     event.preventDefault();
     var form_id = $(this).attr('id');
@@ -55,21 +56,26 @@ function np_AjaxFormSubmit(event) {
         this.value = (this.checked == true);
     });
     if ($(form_id + ' input').valid()) {
+        np_AjaxBeforeSend();
         $.ajax({
             url: $(form_id).attr('action'),
             data: $(form_id).serialize(),
             type: 'POST',
             cache: false,
             async: false,
-            success: function (data) {
-                //alert(document.location.href);
-                location.reload();
+            success: function (data){
+                //alert(document.location.href);                
+                np_AjaxComplete();
+                if ($(form_id).attr('np_reload') == "true") {
+                    location.reload();
+                }                
             },
             error: function (jqXHR, textStatus, errorThrown) { // панель ошибок формы
+                np_AjaxComplete();
                 $(form_id).after("<div class='errorForm'><span></span></div>");
                 $('.errorForm span').html(jqXHR.responseText);
             }
-        });
+        });        
     };
 };
 
@@ -77,4 +83,12 @@ function np_AjaxFormSubmit(event) {
 function np_AjaxFormInputClick(event) {  // очистка сообщений об ошибках
     $("label.error").remove();           // это элемент валидатора
     $(".errorForm").remove();            // это панель ошибок формы    
+};
+
+function np_AjaxBeforeSend() {
+    $('#loader').show();
+};
+
+function np_AjaxComplete() {
+    $('#loader').hide();
 };

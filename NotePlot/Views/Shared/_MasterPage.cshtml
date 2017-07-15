@@ -30,7 +30,8 @@
 
     @RenderSection("styles", required: false)
 </head>
-<body>
+<body>    
+    @Html.Partial("LoaderView")
     <div class="np_bar">
         <button class="dropdown-main-menu" type="button">|||</button>
         @await Component.InvokeAsync("PanelLogin");        
@@ -89,5 +90,10 @@
         </div>
     </div>
     @RenderSection("scripts", required: false)
+    @*<script>
+    // вешаем колбэки для всех jQuery.ajax-запросов
+    $('#loader').ajaxSend(function () { $(this).show() })
+        .ajaxStop(function () { $(this).hide() });
+    </script>*@
 </body>
 </html>
