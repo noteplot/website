@@ -64,7 +64,8 @@ function np_AjaxFormSubmit(event) {
             cache: false,
             async: false,
             success: function (data){
-                //alert(document.location.href);                
+                //alert(document.location.href); 
+                //event.data.onSuccess(data); // передача ф-ции через класс
                 np_AjaxComplete();
                 if ($(form_id).attr('np_reload') == "true") {
                     location.reload();

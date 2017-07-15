@@ -27,7 +27,15 @@
 <script type="text/javascript">
     $(function () {
         // подписка на submit
-        $("#loginInput").bind('submit', np_AjaxFormSubmit);             
+        /*
+        //Пример передачи обработчиков через методы класса
+        var adata = new Object();
+        adata.onSuccess = function (data) {
+            alert('OK');
+        $("#loginInput").bind('submit',test,np_AjaxFormSubmit);
+        }
+        */
+        $("#loginInput").bind('submit',np_AjaxFormSubmit);             
         // очистка сообщений об ошибках по клику  
         $("#loginInput input").bind('click', np_AjaxFormInputClick);        
         $("#loginInput")
