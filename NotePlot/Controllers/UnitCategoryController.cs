@@ -26,5 +26,10 @@ namespace NotePlot.Controllers
         {
             return View(repo.GetCategory(id));
         }
+
+        public IActionResult EditDialog(int id)
+        {
+            return PartialView("Edit",repo.GetCategory(id));
+        }
     }
 }

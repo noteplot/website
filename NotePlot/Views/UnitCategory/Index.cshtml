@@ -40,6 +40,7 @@
                 @Html.ActionLink("Редактировать", "Edit", new { id=item.UnitGroupId }) |
                 @Html.ActionLink("Подробности", "Details", new { id = item.UnitGroupId }) |
                 @Html.ActionLink("Удалить", "Delete", new { id = item.UnitGroupId })
+                @Html.ActionLink("Ред. диалог", "EditDialog", new { id = item.UnitGroupId }, new { @class = "openDialog" }) |
             </td>
         </tr>
 }
