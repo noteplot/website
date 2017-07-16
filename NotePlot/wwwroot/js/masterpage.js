@@ -10,4 +10,9 @@
         }
     })
 
+    $(window).resize(function (event) {
+        $('.np_sidebar').attr('style', '');
+        $('.np_body').attr('style', '');
+    });
+
 });
