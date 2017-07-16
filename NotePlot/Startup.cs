@@ -34,7 +34,8 @@ namespace NotePlot
             //services.AddTransient<IRepositoryParameter, RepositoryParameter>(provider => new RepositoryParameter(connection));  // Dapper
             services.AddTransient<IRepositoryLogin, RepositoryLogin>(provider => new RepositoryLogin(connection));              // Dapper - это login
             services.AddTransient<IUnitCategoryRepository, UnitCategoryRepository>(provider => new UnitCategoryRepository(connection));
-
+            services.AddTransient<IRepositoryParamValueType, RepositoryParamValueType>(provider => new RepositoryParamValueType(connection));
+            
             // Add framework services.
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); // ЭТО ОБЯЗАТЕЛЬНО, т.к. formatter по-умолчанию преобразует начальные символы ключей в lowecase             

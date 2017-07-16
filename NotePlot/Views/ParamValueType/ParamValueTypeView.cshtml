@@ -1,0 +1,58 @@
+﻿@model IEnumerable<NotePlot.Models.ParamValueType>
+
+<table id="paramValueType" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ParamValueTypeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParamValueTypeCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParamValueTypeShortName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsNumeric)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precision)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Item.ParamValueTypeID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Item.ParamValueTypeCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Item.ParamValueTypeShortName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Item.IsNumeric)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Item.Scale)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Item.Precision)
+                </td>
+            </tr>
+           }
+    </tbody>
+</table>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#paramValueType").DataTable();
+        });
+    </script>
+}
