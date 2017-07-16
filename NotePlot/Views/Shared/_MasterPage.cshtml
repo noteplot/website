@@ -48,42 +48,9 @@
                 </li>
             </ul>
             <div id="menuMonitor">
-                <ul class="navigation">
-                    <li>
-                        <a href="#" class="button">
-                            <div class="icon"><span class="ico-home"></span></div>
-                            <div class="name">Монитор</div>
-                        </a>
-                        <ul>
-                            <li><a href="#">Новый</a></li>
-                            <li><a href="#">Открыть</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="button">
-                            <div class="icon"><span class="ico-home"></span></div>
-                            <div class="name">Справочники</div>
-                        </a>
-                        <ul>
-                            <li><a href="#">Параметры измерения</a></li>
-                            <li><a href="#">Группы параметров</a></li>
-                            <li><a href="#">Пакеты параметров</a></li>
-                            <li><a href="#">Единицы измерения</a></li>
-                            <li>@Html.ActionLink("Группы ед.измерения", "Index", "UnitCategory")</li>
-                            <li>@Html.ActionLink("Типы значений", "Index", "ParamValueType")</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="button">
-                            <div class="icon"><span class="ico-home"></span></div>
-                            <div class="name">Аналитика</div>
-                        </a>
-                    </li>
-                </ul>
+                @await Component.InvokeAsync("MenuMonitor");  
             </div>
         </div>
-
-
     </div>
     <div class="np_body">
         <div class="np_content">
