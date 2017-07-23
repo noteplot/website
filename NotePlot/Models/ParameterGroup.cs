@@ -25,7 +25,7 @@ namespace NotePlot.Models
 
     public interface IRepositoryParameterGroup
     {
-        List<ParameterGroup> GetParameterGroups();
+        List<ParameterGroup> GetParameterGroups(long lgId);
         bool SetParameterGroup(ParameterGroup pg);
     }
 
@@ -37,11 +37,11 @@ namespace NotePlot.Models
             connectionString = conn;
         }
 
-        public List<ParameterGroup> GetParameterGroups()
+        public List<ParameterGroup> GetParameterGroups(long lgId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<ParameterGroup>("dbo.ParameterGroupsGet", commandType: CommandType.StoredProcedure).ToList();            }
+                return db.Query<ParameterGroup>("dbo.ParameterGroupsGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();            }
         }
 
         public bool SetParameterGroup(ParameterGroup pg)

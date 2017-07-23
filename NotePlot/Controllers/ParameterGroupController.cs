@@ -21,7 +21,26 @@ namespace NotePlot.Controllers
         // GET: ParameterGroup
         public ActionResult List()
         {
-            return View("List", repo.GetParameterGroups());
+            long loginID = -1;
+            Claim claimLoginId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "LoginID");
+            if (claimLoginId != null)
+            {
+                loginID = Convert.ToInt64(claimLoginId.Value);
+                try
+                {
+                    return View("List", repo.GetParameterGroups(loginID));
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+
+            
         }
 
         // GET: ParameterGroup/Details/5
