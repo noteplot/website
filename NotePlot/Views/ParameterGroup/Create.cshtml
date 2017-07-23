@@ -1,0 +1,70 @@
+@model NotePlot.Models.ParameterGroup
+
+<form asp-action="Create" id="group_edit">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <input type="hidden" asp-for="ParameterGroupID" class="form-control" />                
+        </div>
+        <label asp-for="ParameterGroupShortName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="ParameterGroupShortName" class="form-control" />                
+        </div>
+        <label asp-for="ParameterGroupName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="ParameterGroupName" class="form-control" />                
+        </div>
+        <div class="col-md-10">
+            <input type="hidden" asp-for="LoginID" class="form-control" />                
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="List">Back to List</a>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        // подписка на submit
+        /*
+        //Пример передачи обработчиков через методы класса
+        var adata = new Object();
+        adata.onSuccess = function (data) {
+            alert('OK');
+        $("#loginInput").bind('submit',adata,np_AjaxFormSubmit);
+        }
+        */
+        //$("#ParameterGroupCreate").bind('submit',np_AjaxFormSubmit);
+
+        var adata = new Object();
+        adata.onSuccess = function () {
+            location.reload();
+        }
+        $("#group_edit").bind('submit', adata, np_AjaxFormSubmit);
+        //$("#group_edit").bind('submit', np_AjaxFormSubmit);
+        // очистка сообщений об ошибках по клику
+        $("#group_edit").bind('click', np_AjaxFormInputClick);
+        $("#group_edit")
+            .validate({
+                rules: {
+                    ParameterGroupShortName: {
+                        required: true,
+                        minlength: 2
+                    },
+                    ParameterGroupName: {
+                        required: true,
+                        minlength: 2
+                    }
+                }
+            });
+
+        function np_AjaxOnSuccess(data) {
+            alert('OK');
+        };
+    });
+
+</script>

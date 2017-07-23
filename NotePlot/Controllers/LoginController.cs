@@ -40,7 +40,7 @@ namespace NotePlot.Controllers
                     {
                         try
                         {
-                            await Authenticate(lg.LoginName, lg.RememberMe); // аутентификация TO DO: сделать асинхронным
+                            await Authenticate(us.LoginID, lg.LoginName, lg.RememberMe); // аутентификация TO DO: сделать асинхронным
 
                             return RedirectToAction("Index", "Home");
                             //return Ok();
@@ -75,13 +75,15 @@ namespace NotePlot.Controllers
             }
         }
 
-        private async Task Authenticate(string userName, bool IsPers)
+        private async Task Authenticate(long userId, string userName, bool IsPers)
         {
             // создаем один claim
             var claims = new List<Claim> { new Claim(ClaimsIdentity.DefaultNameClaimType, userName) };
+            //claims.Add(new Claim(ClaimTypes.NameIdentifier, userId.ToString(), ClaimValueTypes.String));            
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
+            id.AddClaim(new Claim("LoginID", userId.ToString(), ClaimValueTypes.UInteger64));
             // установка аутентификационных куки
             await HttpContext.Authentication.SignInAsync("NotePlotCookies", new ClaimsPrincipal(id), new AuthenticationProperties
             {
@@ -95,5 +97,19 @@ namespace NotePlot.Controllers
             await HttpContext.Authentication.SignOutAsync("NotePlotCookies");
             return RedirectToAction("Index", "Home");
         }
-    }
+
+        public long GetLogin()
+        {
+            long LoginID = -1;
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                Claim claimLoginId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "LoginID");
+                if (claimLoginId != null)
+                {
+                    LoginID = Convert.ToInt64(claimLoginId.Value);
+                }
+            }
+            return LoginID;
+        }
+    }   
 }

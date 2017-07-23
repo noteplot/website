@@ -1,0 +1,54 @@
+﻿@model IEnumerable<NotePlot.Models.ParameterGroup>
+
+<p>
+    <a asp-action="Create" class="openDialog" np_dialog_title="Группа параметров и пакетов">Create New</a>
+</p>
+<table id="parameterGroups" class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterGroupID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterGroupShortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterGroupName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LoginID)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterGroupID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterGroupShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterGroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoginID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#parameterGroups").DataTable();
+        });
+    </script>
+}

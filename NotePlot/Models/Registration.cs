@@ -59,15 +59,15 @@ namespace NotePlot.Models
     [Table("Logins", Schema = "dbo")]
     public class UserAccount
     {
-        public long loginId;
-        public byte loginRoleId;
-        public string loginRoleName;
-        public string loginName;    // имя входа == email при регистрации
+        public long LoginID;
+        public byte LoginRoleID;
+        public string LoginRoleName;
+        public string LoginName;    // имя входа == email при регистрации
         public string ScreenName;   // псевдоним   
-        public string loginView;
-        public string loginEmail;
-        public string loginPassword;
-        public bool isConfirmed;
+        public string LoginView;
+        public string Email;
+        public string Password;
+        public bool IsConfirmed;
         public bool ShowScreenName;
     }
 
