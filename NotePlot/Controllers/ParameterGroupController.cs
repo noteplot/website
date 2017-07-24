@@ -21,26 +21,11 @@ namespace NotePlot.Controllers
         // GET: ParameterGroup
         public ActionResult List()
         {
-            long loginID = -1;
-            Claim claimLoginId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "LoginID");
-            if (claimLoginId != null)
-            {
-                loginID = Convert.ToInt64(claimLoginId.Value);
-                try
-                {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
                     return View("List", repo.GetParameterGroups(loginID));
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
-            else
-            {
-                return BadRequest("Нет аутентификации");
-            }
-
-            
+                else
+                    return BadRequest("Нет аутентификации!");
         }
 
         // GET: ParameterGroup/Details/5
@@ -63,21 +48,15 @@ namespace NotePlot.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
-                    Claim claimLoginId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "LoginID");
-                    if (claimLoginId != null)
+                    long loginID = LoginController.GetLogin(HttpContext.User);
+                    if (loginID >= 0)
                     {
-                        pg.LoginID = Convert.ToInt64(claimLoginId.Value);
-                        try
-                        {
-                            repo.SetParameterGroup(pg);
-                            return Ok(); // ajax диалог просто пустая строка
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest(ex.Message);
-                        }
+                        pg.LoginID = loginID;
+                        repo.SetParameterGroup(pg);
+                        return Ok(); // ajax диалог просто пустая строка
                     }
                     else
                     {

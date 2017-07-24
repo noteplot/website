@@ -98,15 +98,21 @@ namespace NotePlot.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public long GetLogin()
+        public static long GetLogin(ClaimsPrincipal cp) //HttpContext.User
         {
             long LoginID = -1;
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (cp.Identity.IsAuthenticated)
             {
-                Claim claimLoginId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "LoginID");
+                Claim claimLoginId = cp.Claims.FirstOrDefault(x => x.Type == "LoginID");
                 if (claimLoginId != null)
                 {
-                    LoginID = Convert.ToInt64(claimLoginId.Value);
+                    try
+                    {
+                        LoginID = Convert.ToInt64(claimLoginId.Value);
+                    }
+                    catch
+                    {
+                    }                    
                 }
             }
             return LoginID;
