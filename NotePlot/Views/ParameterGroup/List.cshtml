@@ -37,9 +37,8 @@
                 @Html.DisplayFor(modelItem => item.LoginID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ParameterGroupID }, new { @class = "openDialog" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ParameterGroupID }, new { @class = "np_deleteGroup" })
             </td>
         </tr>
 }
@@ -48,7 +47,45 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
+            $(".np_deleteGroup").bind("click", np_AjaxPost);
             $("#parameterGroups").DataTable();
-        });
+        });       
+        // AjaxPost - действие в href
+        function np_AjaxPost(event) {
+            event.preventDefault();
+            var _action = $(this).attr("href");
+            np_AjaxBeforeSend();
+            $.ajax({
+                url: _action,
+                type: 'POST',
+                success: function (data) {
+                    np_AjaxComplete();
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) { // панель ошибок формы
+                    np_AjaxComplete();
+                    np_ShowMessage(jqXHR.responseText);
+                }
+            });
+        };
+
+        // простое сообщение, например об ошибке TODO: сделать полноправный диалог
+        function np_ShowMessage(mes) {
+            if ($('#np_MessageDialog').length > 0)
+                $('#np_MessageDialog').dialog("close");
+            $("<div id = 'np_MessageDialog'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    autoOpen: false,
+                    modal: true,
+                    draggable: false,
+                    resizable: false,
+                    close: function () {
+                        $(this).remove();
+                    }
+                }).append(mes);
+        };
+
     </script>
 }

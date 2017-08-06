@@ -37,8 +37,9 @@ namespace NotePlot.Controllers
         // GET: ParameterGroup/Create
         public ActionResult Create()
         {
-            ParameterGroup pg = new ParameterGroup { ParameterGroupID = -1,LoginID = -1 };
-            return PartialView(pg);
+           ViewBag.Action = "/ParameterGroup/Create";
+           ParameterGroup pg = new ParameterGroup { ParameterGroupID = -1,LoginID = -1 };
+           return PartialView("Edit",pg);
         }
 
         // POST: ParameterGroup/Create
@@ -55,8 +56,15 @@ namespace NotePlot.Controllers
                     if (loginID >= 0)
                     {
                         pg.LoginID = loginID;
-                        repo.SetParameterGroup(pg);
-                        return Ok(); // ajax диалог просто пустая строка
+                        try
+                        {
+                            repo.SetParameterGroup(pg, 0);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
                     }
                     else
                     {
@@ -75,49 +83,86 @@ namespace NotePlot.Controllers
         }
 
         // GET: ParameterGroup/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
-            return View();
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0) {
+                ViewBag.Action = "/ParameterGroup/Edit";
+                return PartialView(repo.GetParameterGroup(id, loginID));
+            }
+            else
+                return BadRequest("Нет аутентификации!");
         }
 
-        // POST: ParameterGroup/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(ParameterGroup pg /*IFormCollection collection*/)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    long loginID = LoginController.GetLogin(HttpContext.User);
+                    if (loginID >= 0)
+                    {
+                        pg.LoginID = loginID;
+                        try
+                        {
+                            repo.SetParameterGroup(pg, 1);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Нет аутентификации");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
             }
-            catch
+            else
             {
-                return View();
+                return BadRequest("Не все обязательные поля заполнены!");
             }
         }
 
-        // GET: ParameterGroup/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         // POST: ParameterGroup/Delete/5
+        /*
+        [HttpGet]
+        public ActionResult Delete(long id)
+        {
+            long lgID = LoginController.GetLogin(HttpContext.User);
+            if (lgID >= 0)
+            {
+                ParameterGroup pg = new ParameterGroup { ParameterGroupID = id, LoginID = lgID };
+                repo.SetParameterGroup(pg, 2);
+                return Ok();
+            }
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+        */
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(long id)
         {
-            try
+            long lgID = LoginController.GetLogin(HttpContext.User);
+            if (lgID >= 0)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                ParameterGroup pg = new ParameterGroup { ParameterGroupID = id, LoginID = lgID };
+                repo.SetParameterGroup(pg, 2);
+                return Ok();
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return BadRequest("Нет аутентификации!");
         }
+
     }
 }

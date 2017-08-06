@@ -1,6 +1,6 @@
 @model NotePlot.Models.ParameterGroup
 
-<form asp-action="Create" id="group_edit">
+<form action=@ViewBag.Action method="POST" id="group_edit">
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <div class="col-md-10">

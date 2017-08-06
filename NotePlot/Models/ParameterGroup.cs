@@ -26,7 +26,9 @@ namespace NotePlot.Models
     public interface IRepositoryParameterGroup
     {
         List<ParameterGroup> GetParameterGroups(long lgId);
-        bool SetParameterGroup(ParameterGroup pg);
+        ParameterGroup GetParameterGroup(long pgId, long lgId);        
+        bool SetParameterGroup(ParameterGroup pg, int md);
+        //bool DelParameterGroup(long pgId);
     }
 
     public class RepositoryParameterGroup : IRepositoryParameterGroup
@@ -41,10 +43,17 @@ namespace NotePlot.Models
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<ParameterGroup>("dbo.ParameterGroupsGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();            }
+                return db.Query<ParameterGroup>("dbo.ParameterGroupGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();            }
         }
 
-        public bool SetParameterGroup(ParameterGroup pg)
+        public ParameterGroup GetParameterGroup(long pgId, long lgId)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<ParameterGroup>("dbo.ParameterGroupGet", new { ParameterGroupID = pgId, LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();            }
+        }
+
+        public bool SetParameterGroup(ParameterGroup pg, int md)
         {
             bool rt = false;
             using (IDbConnection db = new SqlConnection(connectionString))
@@ -52,8 +61,8 @@ namespace NotePlot.Models
                 //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();                //return gr;
                 try
                 { 
-                db.Execute("dbo.ParameterGroupsSet",
-                    new { ParameterGroupID = pg.ParameterGroupID, ParameterGroupShortName = pg.ParameterGroupShortName, ParameterGroupName = pg.ParameterGroupName, LoginID = pg.LoginID },
+                db.Execute("dbo.ParameterGroupSet",
+                    new { ParameterGroupID = pg.ParameterGroupID, ParameterGroupShortName = pg.ParameterGroupShortName, ParameterGroupName = pg.ParameterGroupName, LoginID = pg.LoginID, Mode = md },
                     commandType: CommandType.StoredProcedure);
                     rt = true;
                 }
