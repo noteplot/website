@@ -3,6 +3,7 @@
 <p>
     <a asp-action="Create" class="openDialog" np_dialog_title="Группа параметров и пакетов">Create New</a>
 </p>
+@Html.AntiForgeryToken()
 <table id="parameterGroups" class="table">
     <thead>
         <tr>
@@ -47,22 +48,27 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".np_deleteGroup").bind("click", np_AjaxPost);
             $("#parameterGroups").DataTable();
+            $(".np_deleteGroup").bind("click", np_AjaxPost);
         });       
         // AjaxPost - действие в href
         function np_AjaxPost(event) {
             event.preventDefault();
+            var _token = $("[name='__RequestVerificationToken']").val();
+            //var tokenField = $("input[type='hidden'][name$='RequestVerificationToken']");
             var _action = $(this).attr("href");
             np_AjaxBeforeSend();
             $.ajax({
                 url: _action,
                 type: 'POST',
+                cache: false,
+                async: false,
+                data: { __RequestVerificationToken: _token }, 
                 success: function (data) {
-                    np_AjaxComplete();
+                    np_AjaxComplete(); 
                     location.reload();
                 },
-                error: function (jqXHR, textStatus, errorThrown) { // панель ошибок формы
+                error: function (jqXHR, textStatus, errorThrown) {
                     np_AjaxComplete();
                     np_ShowMessage(jqXHR.responseText);
                 }
