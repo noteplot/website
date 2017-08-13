@@ -49,12 +49,17 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#parameterGroups").DataTable();
-            $(".np_deleteGroup").bind("click", np_AjaxPost);
+            var adata = new Object();
+            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+            adata.token = $("[name='__RequestVerificationToken']").val(); 
+            // привязываем событие к Post Request
+            $(".np_deleteGroup").bind("click", adata, np_AjaxPost);
         });       
+
         // AjaxPost - действие в href
         function np_AjaxPost(event) {
             event.preventDefault();
-            var _token = $("[name='__RequestVerificationToken']").val();
+            //var _token = $("[name='__RequestVerificationToken']").val();
             var _action = $(this).attr("href");
             np_AjaxBeforeSend();
             $.ajax({
@@ -62,7 +67,7 @@
                 type: 'POST',
                 cache: false,
                 async: false,
-                data: { __RequestVerificationToken: _token }, 
+                data: { __RequestVerificationToken: event.data.token }, 
                 success: function (data) {
                     location.reload();
                     np_AjaxComplete(); 
