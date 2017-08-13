@@ -55,29 +55,5 @@
             // привязываем событие к Post Request
             $(".np_deleteGroup").bind("click", adata, np_AjaxPost);
         });       
-
-        // AjaxPost - действие в href
-        function np_AjaxPost(event) {
-            event.preventDefault();
-            //var _token = $("[name='__RequestVerificationToken']").val();
-            var _action = $(this).attr("href");
-            np_AjaxBeforeSend();
-            $.ajax({
-                url: _action,
-                type: 'POST',
-                cache: false,
-                async: false,
-                data: { __RequestVerificationToken: event.data.token }, 
-                success: function (data) {
-                    location.reload();
-                    np_AjaxComplete(); 
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    np_AjaxComplete();
-                    np_ShowMessage(jqXHR.responseText);
-                }
-            });
-        };
-
     </script>
 }

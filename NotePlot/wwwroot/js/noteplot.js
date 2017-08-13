@@ -114,3 +114,25 @@ function np_ShowMessage(mes) {
             }
         }).append(mes);
 };
+
+// AjaxPost - действие в href
+function np_AjaxPost(event) {
+    event.preventDefault();
+    var _action = $(this).attr("href");
+    np_AjaxBeforeSend();
+    $.ajax({
+        url: _action,
+        type: 'POST',
+        cache: false,
+        async: false,
+        data: { __RequestVerificationToken: event.data.token },
+        success: function (data) {
+            location.reload();
+            np_AjaxComplete();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            np_AjaxComplete();
+            np_ShowMessage(jqXHR.responseText);
+        }
+    });
+};
