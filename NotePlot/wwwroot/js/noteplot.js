@@ -96,3 +96,21 @@ function np_AjaxBeforeSend() {
 function np_AjaxComplete() {
     $('#loader').hide();
 };
+
+// простое сообщение, например об ошибке TODO: сделать полноправный диалог
+function np_ShowMessage(mes) {
+    if ($('#np_MessageDialog').length > 0)
+        $('#np_MessageDialog').dialog("close");
+    $("<div id = 'np_MessageDialog'></div>")
+        .addClass("dialog")
+        .appendTo("body")
+        .dialog({
+            autoOpen: true,
+            modal: true,
+            draggable: false,
+            resizable: false,
+            close: function () {
+                $(this).remove();
+            }
+        }).append(mes);
+};

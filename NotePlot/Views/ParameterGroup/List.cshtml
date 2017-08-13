@@ -55,7 +55,6 @@
         function np_AjaxPost(event) {
             event.preventDefault();
             var _token = $("[name='__RequestVerificationToken']").val();
-            //var tokenField = $("input[type='hidden'][name$='RequestVerificationToken']");
             var _action = $(this).attr("href");
             np_AjaxBeforeSend();
             $.ajax({
@@ -65,32 +64,14 @@
                 async: false,
                 data: { __RequestVerificationToken: _token }, 
                 success: function (data) {
-                    np_AjaxComplete(); 
                     location.reload();
+                    np_AjaxComplete(); 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     np_AjaxComplete();
                     np_ShowMessage(jqXHR.responseText);
                 }
             });
-        };
-
-        // простое сообщение, например об ошибке TODO: сделать полноправный диалог
-        function np_ShowMessage(mes) {
-            if ($('#np_MessageDialog').length > 0)
-                $('#np_MessageDialog').dialog("close");
-            $("<div id = 'np_MessageDialog'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .dialog({
-                    autoOpen: true,
-                    modal: true,
-                    draggable: false,
-                    resizable: false,
-                    close: function () {
-                        $(this).remove();
-                    }
-                }).append(mes);
         };
 
     </script>
