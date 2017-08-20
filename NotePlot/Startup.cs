@@ -37,6 +37,8 @@ namespace NotePlot
             services.AddTransient<IRepositoryParamValueType, RepositoryParamValueType>(provider => new RepositoryParamValueType(connection));
             //Группы параметров и пакетов
             services.AddTransient<IRepositoryParameterGroup, RepositoryParameterGroup>(provider => new RepositoryParameterGroup(connection));
+            //Параметры
+            services.AddTransient<IRepositoryParameter, RepositoryParameter>(provider => new RepositoryParameter(connection));            
 
             // Add framework services.
             services.AddMvc()
