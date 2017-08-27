@@ -28,6 +28,16 @@ namespace NotePlot.Controllers
                     return BadRequest("Нет аутентификации!");
         }
 
+        // GET: ParameterGroup - диалог выбора группы
+        public ActionResult ListDialog()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("ListDialog", repo.GetParameterGroups(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
         // GET: ParameterGroup/Details/5
         public ActionResult Details(int id)
         {

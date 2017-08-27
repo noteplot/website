@@ -37,7 +37,7 @@
         <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value=@Model.ParameterValueTypeID/>
         <input type="hidden" id="LoginID" name="LoginID" value=@Model.LoginID/>
         <p>
-            <input type="button" class="np_label1" value="Группа" />
+            <input type="button" class="np_label1 openDialog" value="Группа" href="/ParameterGroup/ListDialog" np_dialog_title = "Выбор группы" np_dialog_width ="500px">
             <input type="text" readonly name="ParameterGroupShortName" size="24" value=@Model.ParameterGroupShortName/>
         </p>
         <p>
