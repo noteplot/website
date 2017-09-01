@@ -36,10 +36,11 @@
         <input type="hidden" id="ParameterUnitID" name="ParameterUnitID"  value=@Model.ParameterUnitID/>
         <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value=@Model.ParameterValueTypeID/>
         <input type="hidden" id="LoginID" name="LoginID" value=@Model.LoginID/>
-        <p>
-            <input type="button" class="np_label1" value="Группа" />
-            <input type="text" readonly name="ParameterGroupShortName" size="24" value=@Model.ParameterGroupShortName/>
-        </p>
+        <label class="lookupField">
+            <span class="button">Группа</span>
+            <mark>Группа не выбрана</mark>
+            <input type="text">
+        </label>
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
             <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName"/>
@@ -72,3 +73,30 @@
     </fieldset>
 </form>
 
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            var wrapper = $(".lookupField"),
+                inp = wrapper.find("input"),
+                btn = wrapper.find(".button"),
+                lbl = wrapper.find("mark");
+
+            // Crutches for the :focus style:
+            inp.focus(function () {
+                wrapper.addClass("focus");
+            }).blur(function () {
+                wrapper.removeClass("focus");
+            });
+
+            var file_api = (window.File && window.FileReader && window.FileList && window.Blob) ? true : false;
+
+            inp.change(function () {
+                var i = 0;
+            }).change();
+
+        });
+        $(window).resize(function () {
+            $(".lookupField input").triggerHandler("change");
+        });
+</script>
+}
