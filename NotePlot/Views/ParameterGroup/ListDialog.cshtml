@@ -1,0 +1,33 @@
+﻿@model IEnumerable<NotePlot.Models.ParameterGroup>
+
+<table class="table" id="parameterGroups">
+    <thead>
+        <tr>
+                <th>
+                    Группа
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr np_group_id =@item.ParameterGroupID np_login_id= @item.LoginID>
+            <td>
+               @item.ParameterGroupShortName
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script type="text/javascript">
+    $("#parameterGroups").DataTable();    
+    $('#parameterGroups tbody tr').on('click',function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        }
+        else {
+            $('#parameterGroups tbody tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+</script>
+
