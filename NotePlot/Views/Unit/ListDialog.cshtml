@@ -1,0 +1,32 @@
+﻿@model IEnumerable<NotePlot.Models.Unit>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    Группа
+                </th>
+                <th>
+                    Краткое название
+                </th>
+                <th>
+                    Полное название
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr np_unit_id =@item.UnitID np_login_id= @item.LoginID>
+            <td>
+                @item.UnitGroupShortName
+            </td>
+            <td>
+                @item.UnitShortName
+            </td>
+            <td>
+                @item.UnitName
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

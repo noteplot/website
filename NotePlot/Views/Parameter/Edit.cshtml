@@ -54,7 +54,7 @@
             <input type="text" id="ParameterName" name="ParameterName" size="48"  value="@Model.ParameterName"/>
         </p>
         <p>
-            <input type="button" class="np_label1" value="Ед.Изм." />
+            <input type="button" class="np_label1 openDialog" value="Ед.Изм." href="/ParameterUnit/ListDialog" np_dialog_title = "Выбор ед.изм" np_dialog_width ="600px"/>
             <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="16" value="@Model.ParameterUnitShortName" />            
         </p>
         @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
