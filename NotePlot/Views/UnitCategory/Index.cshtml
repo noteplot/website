@@ -37,6 +37,10 @@
                 @Html.DisplayFor(modelItem => item.UnitGroupCode)
             </td>
             <td>
+                <a href="@Url.Action("Action", "Controller")" class="btn btn-warning">
+                    link text
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                </a>
                 @Html.ActionLink("Редактировать", "Edit", new { id=item.UnitGroupId }) |
                 @Html.ActionLink("Подробности", "Details", new { id = item.UnitGroupId }) |
                 @Html.ActionLink("Удалить", "Delete", new { id = item.UnitGroupId })

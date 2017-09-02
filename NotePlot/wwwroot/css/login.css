@@ -1,4 +1,4 @@
-﻿.btn, .btn1 {
+﻿input[type="button"], button {
     display: inline-block;
     padding: 4px 12px;
     margin-bottom: 0;
@@ -67,3 +67,34 @@ input:focus {
     outline: 0 !important;
     border-color: #AAA !important;
 }
+.lookupField {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    height: 2em;
+    line-height: 2em;
+    border: 1px #ccc solid;
+    border-radius: 4px;
+    background-color: #fff;
+}
+.lookupField .button, .lookupField > mark {
+    display: block;
+    cursor: pointer;
+}
+
+    .lookupField .button {
+        float: left;
+        margin: 2px 10px -2px 2px;
+        box-sizing: border-box;
+        border-radius: 2px;
+        border: 1px #ccc solid;
+        -moz-box-sizing: border-box;
+        width: 5em;
+        height: 28px;
+        text-align: center
+    }
+
+    .lookupField > mark {
+        background: transparent;
+        padding-left: 1em
+    }

@@ -36,10 +36,18 @@
         <input type="hidden" id="ParameterUnitID" name="ParameterUnitID"  value=@Model.ParameterUnitID/>
         <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value=@Model.ParameterValueTypeID/>
         <input type="hidden" id="LoginID" name="LoginID" value=@Model.LoginID/>
+<<<<<<< HEAD
+        <label class="lookupField">
+            <span class="button">Группа</span>
+            <mark>Группа не выбрана</mark>
+            <input type="text">
+        </label>
+=======
         <p>
             <input type="button" class="np_label1 openDialog" value="Группа" href="/ParameterGroup/ListDialog" np_dialog_title = "Выбор группы" np_dialog_width ="500px">
             <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24" value=@Model.ParameterGroupShortName/>
         </p>
+>>>>>>> 3eaf2ffd0a63e1ee2f7254c1e2695a3f547b7d58
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
             <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName"/>
@@ -74,3 +82,30 @@
     </fieldset>
 </form>
 
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            var wrapper = $(".lookupField"),
+                inp = wrapper.find("input"),
+                btn = wrapper.find(".button"),
+                lbl = wrapper.find("mark");
+
+            // Crutches for the :focus style:
+            inp.focus(function () {
+                wrapper.addClass("focus");
+            }).blur(function () {
+                wrapper.removeClass("focus");
+            });
+
+            var file_api = (window.File && window.FileReader && window.FileList && window.Blob) ? true : false;
+
+            inp.change(function () {
+                var i = 0;
+            }).change();
+
+        });
+        $(window).resize(function () {
+            $(".lookupField input").triggerHandler("change");
+        });
+</script>
+}
