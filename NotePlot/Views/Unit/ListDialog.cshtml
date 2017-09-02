@@ -32,8 +32,14 @@
 </table>
 <button class="np_select">выбрать</button>
 <script type="text/javascript">
-    $("#parameterUnits").DataTable();
-    $('#parameterUnits tbody tr').on('click',function () {
+    $("#parameterUnits").DataTable({ rowReorder: true });
+    // при переключении страниц + сортировка + фильтр сбрасываем selected
+    $('#parameterUnits').on('page.dt order.dt search.dt', function (e) {
+        $('#parameterUnits tbody tr.selected').removeClass('selected');
+    });
+
+    //$('#parameterUnits tbody tr').on('click', function () { -- работает не корректно при пагинации и сортировке
+    $('#parameterUnits tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         }
