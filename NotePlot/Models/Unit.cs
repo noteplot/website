@@ -13,11 +13,11 @@ namespace NotePlot.Models
     public class Unit
     {
         [Column("UnitID")]
-        public int Id { get; set; }
+        public int UnitID { get; set; }
         [Column("UnitShortName")]
-        public string ShortName { get; set; }
+        public string UnitShortName { get; set; }
         [Column("UnitName")]
-        public string Name { get; set; }
+        public string UnitName { get; set; }
         public string UnitGroupShortName { get; set; }
         public string UnitGroupName { get; set; }
         public long LoginID { get; set; }

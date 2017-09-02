@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<NotePlot.Models.Unit>
 
-<table class="table">
+<table class="table" id="parameterUnits">
     <thead>
         <tr>
                 <th>
@@ -20,7 +20,7 @@
             <td>
                 @item.UnitGroupShortName
             </td>
-            <td>
+            <td class="ShortName">
                 @item.UnitShortName
             </td>
             <td>
@@ -30,3 +30,35 @@
 }
     </tbody>
 </table>
+<button class="np_select">выбрать</button>
+<script type="text/javascript">
+    $("#parameterUnits").DataTable();
+    $('#parameterUnits tbody tr').on('click',function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        }
+        else {
+            $('#parameterUnits tbody tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+    //кнопка выбора ед.изм
+    $("button.np_select").on('click', function () {
+        if ($('#parameterUnits tbody tr').hasClass('selected')) {
+            var _ParameterUnitID = $('#parameterUnits tbody tr.selected').attr('np_unit_id');
+            var _ParameterUnitShortName = $('#parameterUnits tbody tr.selected td.ShortName').text();
+            if ((_ParameterUnitID != undefined) && (_ParameterUnitShortName != undefined)) {
+                $('#ParameterUnitID').val(_ParameterUnitID);
+                $('#ParameterUnitShortName').val(_ParameterUnitShortName);
+                // определяем контейнер диалога
+                var _md = $('#parameterUnits').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+                //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
+                if (_md != undefined) {
+                    $('#'+_md).dialog("close");
+                }
+                //$('#masterDialog').dialog("close");
+            }
+        }
+    })
+</script>
+
