@@ -38,17 +38,19 @@
         <input type="hidden" id="LoginID" name="LoginID" value=@Model.LoginID/>
         <p>
             <input type="button" class="np_label1 openDialog" value="Группа" href="/ParameterGroup/ListDialog" np_dialog_title = "Выбор группы" np_dialog_width ="500px">
-            <input type="text" readonly name="ParameterGroupShortName" size="24" value=@Model.ParameterGroupShortName/>
+            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24" value=@Model.ParameterGroupShortName/>
         </p>
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
             <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName"/>
-            <input type="text" readonly name="ParameterUnitShortName" size="16" value="@Model.ParameterUnitShortName"/>
-            <input type="button" class="np_label1" value="Ед.Изм." />
         </p>
         <p>
             <label for="ParameterName" class="np_label">Описание</label>
             <input type="text" id="ParameterName" name="ParameterName" size="48"  value="@Model.ParameterName"/>
+        </p>
+        <p>
+            <input type="button" class="np_label1" value="Ед.Изм." />
+            <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="16" value="@Model.ParameterUnitShortName" />            
         </p>
         @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
         {

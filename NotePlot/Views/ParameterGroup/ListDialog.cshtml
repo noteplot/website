@@ -18,6 +18,7 @@
 }
     </tbody>
 </table>
+<button class="np_select">выбрать</button>
 <script type="text/javascript">
     $("#parameterGroups").DataTable();    
     $('#parameterGroups tbody tr').on('click',function () {
@@ -29,5 +30,23 @@
             $(this).addClass('selected');
         }
     });
+    //кнопка выбора группы
+    $("button.np_select").on('click', function () {                
+        if ($('#parameterGroups tbody tr').hasClass('selected')) {        
+            var _ParameterGroupID = $('#parameterGroups tbody tr.selected').attr('np_group_id');
+            var _ParameterGroupShortName = $('#parameterGroups tbody tr.selected td').text();
+            if ((_ParameterGroupID != undefined) && (_ParameterGroupShortName != undefined)) {
+                $('#ParameterGroupID').val(_ParameterGroupID);
+                $('#ParameterGroupShortName').val(_ParameterGroupShortName);
+                // определяем контейнер диалога
+                var _md = $('#parameterGroups').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+                //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
+                if (_md != undefined) {
+                    $('#'+_md).dialog("close");
+                }
+                //$('#masterDialog').dialog("close");
+            }
+        }
+    })
 </script>
 
