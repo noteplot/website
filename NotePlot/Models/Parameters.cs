@@ -28,7 +28,6 @@ namespace NotePlot.Models
         }
     }
 
-
     public class Parameter
     {
         public long ParameterID { get; set; }
@@ -55,6 +54,16 @@ namespace NotePlot.Models
         public decimal? ParameterValueMin { get; set; }
 
         public long LoginID { get; set; }
+
+        List<ParameterRelation> ParameterRelations;
+    }
+
+    public class ParameterRelation
+    {
+        public long ParameterID { get; set; }
+        public string ParameterShortName { get; set; }
+        public int  MathOperationID { get; set; }
+        public string MathOperationShortName { get; set; }
     }
 
     public interface IRepositoryParameter
@@ -62,6 +71,7 @@ namespace NotePlot.Models
         List<Parameter> GetParameters(long lgId);
         Parameter GetParameter(long prId, long lgId);
         bool SetParameter(Parameter pr, int md);
+        List<ParameterRelation> GetRelationParameters(long pId);
         //bool DelParameterGroup(long pgId);
     }
 
@@ -111,5 +121,18 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public List<ParameterRelation> GetRelationParameters(long pId)
+        {
+            if (pId > 0)
+                using (IDbConnection db = new SqlConnection(connectionString))
+                {
+                    return db.Query<ParameterRelation>("dbo.ParameterRelationsGet", new { PrimaryParamID = pId }, commandType: CommandType.StoredProcedure).ToList();
+                }
+            else
+            {
+                return new List<ParameterRelation>();
+            }
+                
+        }
     }
 }

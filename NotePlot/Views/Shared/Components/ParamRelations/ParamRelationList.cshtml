@@ -1,0 +1,17 @@
+﻿@model IEnumerable<NotePlot.Models.ParameterRelation>
+
+<table class="parameterRelations">
+    <thead>
+        <tr>
+            <th>Параметр</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td >@item. ParameterShortName</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -77,6 +77,10 @@
             <input type="text" id="ParameterValueMin" name="ParameterValueMin" size="28" />
         </p>
     </fieldset>
+    @if (Model.ParameterTypeID > 0)
+    {
+        <p>@await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID })</p>
+    }    
 </form>
 
 @section scripts{
