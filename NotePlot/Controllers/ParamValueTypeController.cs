@@ -14,11 +14,22 @@ namespace NotePlot.Controllers
         {
             repo = r;
         }
-        
+
         [HttpGet]
         public IActionResult Index()
         {
-            return View("ParamValueTypeView",repo.GetParamValueTypes());
+            return View("ParamValueTypeView", repo.GetParamValueTypes());
+        }
+
+        [HttpGet]
+        public ActionResult ListDialog()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("ListDialog", repo.GetParamValueTypes());
+            else
+                return BadRequest("Нет аутентификации!");
+
         }
     }
 }
