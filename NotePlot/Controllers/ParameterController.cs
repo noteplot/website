@@ -87,5 +87,11 @@ namespace NotePlot.Controllers
                 return View();
             }
         }
+
+        //загружаем ViewComponent на форме параметра
+        public IActionResult LoadRelations(long id)
+        {
+            return ViewComponent("ParamRelations", id);
+        }
     }
 }

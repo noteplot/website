@@ -77,12 +77,13 @@
             <input type="text" id="ParameterValueMin" name="ParameterValueMin" size="28" />
         </p>
     </fieldset>
+    <p id="relationSection">
     @if (Model.ParameterTypeID > 0)
     {
-        <p>@await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID })</p>
-    }    
+        @await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID })
+    } 
+    </p>
 </form>
-
 @section scripts{
     <script type="text/javascript">
         $(function () {
@@ -104,6 +105,16 @@
                 var i = 0;
             }).change();
 
+            $('input:radio[name = "ParameterTypeID"]').on('change', function (e) {
+                e.preventDefault();
+                if ($(this).val() > 0) {
+                    //alert($(this).val());
+                    var container = $("#relationSection");                    
+                    $.get("/Parameter/LoadRelations", { id: "1" },function (data) { container.html(data); });
+                }
+                else //чистим секцию связей
+                    $("#relationSection").empty();
+            });
         });
         $(window).resize(function () {
             $(".lookupField input").triggerHandler("change");

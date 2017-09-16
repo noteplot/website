@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<NotePlot.Models.ParameterRelation>
-
+<button id="np_relation_add">Добавить параметр</button>
+<button id="np_relation_add">Удалить параметр</button> 
 <table class="parameterRelations">
     <thead>
         <tr>
@@ -15,3 +16,12 @@
         }
     </tbody>
 </table>
+<script type="text/javascript">
+    $("#parameterRelations").DataTable({ rowReorder: true });
+    $('button#np_relation_add').on('click', function (e) {
+        e.preventDefault();
+    });
+    $('button#np_relation_delete').on('click', function (e) {
+        e.preventDefault();
+    });
+</script>
