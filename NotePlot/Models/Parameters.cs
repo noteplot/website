@@ -30,10 +30,10 @@ namespace NotePlot.Models
 
     public class Parameter
     {
-        public long ParameterID { get; set; }
+        public long? ParameterID { get; set; }
 
         [Required(ErrorMessage = "Группа должна быть установлена")]
-        public long ParameterGroupID { get; set; }
+        public long? ParameterGroupID { get; set; }
         public string ParameterGroupShortName { get; set; }
 
         [Required(ErrorMessage = "Название параметра должно быть установлено")]
@@ -41,20 +41,21 @@ namespace NotePlot.Models
         [Required(ErrorMessage = "Название параметра должно быть установлено")]
         public string ParameterName { get; set; }
         [Required(ErrorMessage = "Ед.изм. должна быть установлена")]
-        public long ParameterUnitID { get; set; }
+        public long? ParameterUnitID { get; set; }
         public string ParameterUnitShortName { get; set; }
-
-        public byte ParameterTypeID { get; set; }
+        [Required(ErrorMessage = "Тип параметра должен быть установлен")]
+        public byte? ParameterTypeID { get; set; }
         public string ParameterTypeName { get; set; }
-
-        public int ParameterValueTypeID { get; set; }
+        [Required(ErrorMessage = "Тип значение параметра должен быть установлен")]
+        public int? ParameterValueTypeID { get; set; }
         public string ParameterValueTypeShortName { get; set; }
 
         public decimal? ParameterValueMax { get; set; }
         public decimal? ParameterValueMin { get; set; }
 
-        public long LoginID { get; set; }
-
+        [Required(ErrorMessage = "Логин не определен")] // исключить из проверки?
+        public long? LoginID { get; set; }
+        
         List<ParameterRelation> ParameterRelations;
     }
 
@@ -109,7 +110,11 @@ namespace NotePlot.Models
                 try
                 {
                     db.Execute("dbo.ParameterSet",
-                        new { ParameterID = pr.ParameterID, ParameterShortName = pr.ParameterShortName, ParameterName = pr.ParameterName, LoginID = pr.LoginID, Mode = md },
+                        new { ParameterID = pr.ParameterID, ParamShortName = pr.ParameterShortName, ParamName = pr.ParameterName,
+                            ParamUnitID = pr.ParameterUnitID,ParamValueTypeID = pr.ParameterValueTypeID,
+                            ParamTypeID = pr.ParameterTypeID,ParameterGroupID = pr.ParameterGroupID,
+                            ParamValueMAX = pr.ParameterValueMax,ParamValueMIN = pr.ParameterValueMin,
+                            LoginID = pr.LoginID, Mode = md },
                         commandType: CommandType.StoredProcedure);
                     rt = true;
                 }

@@ -28,14 +28,14 @@
 
 <form id="np_parameter_edit" method="POST" action=@ViewBag.Action>
     @Html.AntiForgeryToken()
-    <input type="submit" value="Save" />
+    <input type="submit" value="Записать" id="np_parameter_save"/>
     <fieldset>
         <legend>Параметр</legend>
-        <input type="hidden" id="ParameterID" name="ParameterID" value=@Model.ParameterID />
-        <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value=@Model.ParameterGroupID/>
-        <input type="hidden" id="ParameterUnitID" name="ParameterUnitID"  value=@Model.ParameterUnitID/>
-        <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value=@Model.ParameterValueTypeID/>
-        <input type="hidden" id="LoginID" name="LoginID" value=@Model.LoginID/>
+        <input type="hidden" id="ParameterID" name="ParameterID" value="@Model.ParameterID" />
+        <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID"/>
+        <input type="hidden" id="ParameterUnitID" name="ParameterUnitID"  value="@Model.ParameterUnitID"/>
+        <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value="@Model.ParameterValueTypeID"/>
+        <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID"/>
         <label class="lookupField">
             <span class="button">Группа</span>
             <mark>Группа не выбрана</mark>
@@ -115,6 +115,60 @@
                 else //чистим секцию связей
                     $("#relationSection").empty();
             });
+            var adata = new Object();
+            adata.onSuccess = function () {
+                location.reload();
+                alert('OK'); // 
+            }
+            $("#np_parameter_edit").bind('submit', adata, np_AjaxFormSubmit);
+            // очистка сообщений об ошибках по клику 
+            $("#np_parameter_edit").bind('click', np_AjaxFormInputClick); 
+            $("#np_parameter_edit")
+                .validate({
+                    rules: {
+                        ParameterGroupShortName: {
+                            required: true
+                        },
+                        ParameterShortName: {
+                            required: true,
+                            minlength: 2
+                        },
+                        ParameterName: {
+                            required: true
+                        },
+                        ParameterUnitShortName: {
+                            required: true
+                        },
+                        ParameterTypeID: {
+                            required: true
+                        },
+                        ParameterValueTypeShortName: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        ParameterGroupShortName: {
+                            required: "поле не заполнено или заполнено не верно",
+                        },
+                        ParameterShortName: {
+                            required: "поле не заполнено или заполнено не верно",
+                            minlength: "в поле должно быть минимум 2 символа",
+                        },
+                        ParameterName: {
+                            required: "поле не заполнено или заполнено не верно",
+                            minlength: "в поле должно быть минимум 2 символа",
+                        },
+                        ParameterUnitShortName: {
+                            required: "поле не заполнено или заполнено не верно"
+                        },
+                        ParameterTypeID: {
+                            required: "поле не заполнено или заполнено не верно"
+                        },
+                        ParameterValueTypeShortName: {
+                            required: "поле не заполнено или заполнено не верно"
+                        }
+                    }
+                });
         });
         $(window).resize(function () {
             $(".lookupField input").triggerHandler("change");

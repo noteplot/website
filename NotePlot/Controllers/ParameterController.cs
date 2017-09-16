@@ -19,27 +19,15 @@ namespace NotePlot.Controllers
         // GET: ParameterGroup/Create
         public ActionResult New()
         {
-            ViewBag.Action = "/Parameter/New";
+            long? loginID = null;
+            ViewBag.Action = "/Parameter/Edit";
             ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
-            Parameter pr = new Parameter { ParameterID = -1, ParameterGroupID = -1, ParameterTypeID = 0, ParameterUnitID = -1, ParameterValueTypeID = -1, LoginID = -1 };
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                loginID = LoginController.GetLogin(HttpContext.User);
+            }
+            Parameter pr = new Parameter() { ParameterTypeID = 0, LoginID = loginID };// {ParameterGroupID = -1, ParameterTypeID = 0, ParameterUnitID = -1, ParameterValueTypeID = -1, LoginID = -1 };
             return View("Edit",pr);
-        }
-
-        // POST: Parameter/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Parameter/Edit/5
@@ -48,20 +36,49 @@ namespace NotePlot.Controllers
             return View();
         }
 
-        // POST: Parameter/Edit/5
+        // POST: Parameter/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+        public ActionResult Edit(Parameter pr)
+        {            
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    pr.LoginID = loginID;
+                    if (ModelState.IsValid)
+                    {
+                        int md = (pr.ParameterID == null) ? 0 : 1;
+                        try
+                        {
+                            repo.SetParameter(pr, md);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        string errmes = string.Empty;
+                        foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                        {
+                            errmes = errmes + error.ErrorMessage + ' ';
+                        }
+                        //return BadRequest("Не все обязательные поля заполнены!");
+                        return BadRequest(errmes);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
             }
-            catch
+            else
             {
-                return View();
+                return BadRequest("Нет аутентификации");
             }
         }
 
