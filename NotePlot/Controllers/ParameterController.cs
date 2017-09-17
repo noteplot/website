@@ -30,6 +30,16 @@ namespace NotePlot.Controllers
             return View("Edit",pr);
         }
 
+        // GET: ParameterGroup/Create
+        public ActionResult ParameterList()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return View("ParameterList", repo.GetParameters(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
         // GET: Parameter/Edit/5
         public ActionResult Edit(int id)
         {

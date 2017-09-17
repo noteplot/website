@@ -1,0 +1,119 @@
+﻿@model IEnumerable<NotePlot.Models.Parameter>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="parameterList">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterGroupID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterGroupShortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterShortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterUnitID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterUnitShortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterTypeID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterTypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterValueTypeID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterValueTypeShortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterValueMax)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParameterValueMin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LoginID)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterGroupID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterGroupShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterUnitID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterUnitShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterTypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterValueTypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterValueTypeShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterValueMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterValueMin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoginID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ParameterID }, new { @class = "np_deleteParameter" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#parameterList").DataTable();
+            var adata = new Object();
+            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+            adata.token = $("[name='__RequestVerificationToken']").val();
+            // привязываем событие к Post Request
+            $(".np_deleteParameter").bind("click", adata, np_AjaxPost);
+        });
+    </script>
+}
