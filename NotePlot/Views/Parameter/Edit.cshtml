@@ -118,8 +118,7 @@
             var adata = new Object();
             adata.onSuccess = function () {
                 //location.reload();
-                window.location.replace("/Parameter/ParameterList");
-                //alert('OK'); // 
+                window.location.replace("/Parameter/ParameterList"); // Перенаправление на список параметров + не сохраняем историю
             }
             $("#np_parameter_edit").bind('submit', adata, np_AjaxFormSubmit);
             // очистка сообщений об ошибках по клику 
