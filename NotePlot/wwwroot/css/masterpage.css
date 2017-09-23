@@ -53,6 +53,7 @@ button.dropdown-main-menu {
 .np_content {
     border: 1px solid red;
     padding: 10px;
+    overflow:auto;
 }
 
 .navbar-btn {

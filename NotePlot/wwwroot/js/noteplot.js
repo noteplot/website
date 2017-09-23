@@ -66,7 +66,7 @@ function np_AjaxFormSubmit(event) {
             success: function (data) {
                 //alert(document.location.href); 
                 //event.data.onSuccess(data); // передача ф-ции через класс
-                np_AjaxComplete();
+                np_AjaxComplete();             
                 if (event.data && event.data.onSuccess) {
                     event.data.onSuccess();
                 }

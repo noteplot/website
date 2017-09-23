@@ -72,6 +72,7 @@ namespace NotePlot.Models
         List<Parameter> GetParameters(long lgId);
         Parameter GetParameter(long prId, long lgId);
         bool SetParameter(Parameter pr, int md);
+        bool DeleteParameter(long prId, long lgId);
         List<ParameterRelation> GetRelationParameters(long pId);
         //bool DelParameterGroup(long pgId);
     }
@@ -115,6 +116,32 @@ namespace NotePlot.Models
                             ParamTypeID = pr.ParameterTypeID,ParameterGroupID = pr.ParameterGroupID,
                             ParamValueMAX = pr.ParameterValueMax,ParamValueMIN = pr.ParameterValueMin,
                             LoginID = pr.LoginID, Mode = md },
+                        commandType: CommandType.StoredProcedure);
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public bool DeleteParameter(long prId, long lgId)
+        {
+            bool rt = false;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
+                //return gr;
+                try
+                {
+                    db.Execute("dbo.ParameterDelete",
+                        new
+                        {
+                            ParameterID = prId,
+                            LoginID = lgId
+                        },
                         commandType: CommandType.StoredProcedure);
                     rt = true;
                 }

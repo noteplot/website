@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<NotePlot.Models.Parameter>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @Html.ActionLink("Новый параметр", "New", "Parameter")
 </p>
+@Html.AntiForgeryToken()
 <table class="table" id="parameterList">
     <thead>
         <tr>
+            <th></th>
                 <th>
                     @Html.DisplayNameFor(model => model.ParameterID)
                 </th>
@@ -48,12 +50,15 @@
                 <th>
                     @Html.DisplayNameFor(model => model.LoginID)
                 </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", "Parameter",new { id= item.ParameterID }) |
+                @Html.ActionLink("Удалить", "Delete", "Parameter",new { id = item.ParameterID }, new { @class = "np_deleteParameter" })
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ParameterID)
             </td>
@@ -95,11 +100,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LoginID)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ParameterID }, new { @class = "np_deleteParameter" })
             </td>
         </tr>
 }

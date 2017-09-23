@@ -41,9 +41,17 @@ namespace NotePlot.Controllers
         }
 
         // GET: Parameter/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
+        public ActionResult Edit(long id)
+        {            
+            ViewBag.Action = "/Parameter/Edit";
+            ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                return View("Edit", repo.GetParameter(id, loginID));
+            }
+            else
+                return BadRequest("Нет аутентификации!");
         }
 
         // POST: Parameter/Create
@@ -92,26 +100,35 @@ namespace NotePlot.Controllers
             }
         }
 
-        // GET: Parameter/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         // POST: Parameter/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(long id)
         {
-            try
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    try
+                    {
+                        repo.DeleteParameter(id, loginID);
+                        return View("ParameterList", repo.GetParameters(loginID));
+                        //return Ok(); // ajax диалог просто пустая строка
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
             }
-            catch
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
             {
-                return View();
+                return BadRequest("Нет аутентификации");
             }
         }
 
