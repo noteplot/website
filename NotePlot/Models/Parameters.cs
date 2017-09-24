@@ -67,6 +67,14 @@ namespace NotePlot.Models
         public string MathOperationShortName { get; set; }
     }
 
+    public class MathOperation
+    {
+        public int MathOperationID { get; set; }
+        public string MathOperationShortName { get; set; }
+        public string MathOperationName { get; set; }
+        public string MathOperationFullName { get; set; }
+    }
+
     public interface IRepositoryParameter
     {
         List<Parameter> GetParameters(long lgId);
@@ -74,6 +82,7 @@ namespace NotePlot.Models
         bool SetParameter(Parameter pr, int md);
         bool DeleteParameter(long prId, long lgId);
         List<ParameterRelation> GetRelationParameters(long pId);
+        List<MathOperation> GetMathOperations();
         //bool DelParameterGroup(long pgId);
     }
 
@@ -166,5 +175,14 @@ namespace NotePlot.Models
             }
                 
         }
+
+        public List<MathOperation> GetMathOperations()
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<MathOperation>("dbo.MathOperationsGet", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
     }
 }

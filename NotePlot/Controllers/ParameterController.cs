@@ -16,7 +16,7 @@ namespace NotePlot.Controllers
             repo = r;
         }
 
-        // GET: ParameterGroup/Create
+        // GET: Create
         public ActionResult New()
         {
             long? loginID = null;
@@ -30,12 +30,22 @@ namespace NotePlot.Controllers
             return View("Edit",pr);
         }
 
-        // GET: ParameterGroup/Create
+        // GET:
         public ActionResult ParameterList()
         {
             long loginID = LoginController.GetLogin(HttpContext.User);
             if (loginID >= 0)
                 return View("ParameterList", repo.GetParameters(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
+        public ActionResult ParameterListDialog()
+        {
+            ViewBag.operations = repo.GetMathOperations(); // операции
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("ParameterListDialog", repo.GetParameters(loginID));
             else
                 return BadRequest("Нет аутентификации!");
         }

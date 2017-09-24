@@ -1,26 +1,37 @@
 ﻿@model IEnumerable<NotePlot.Models.ParameterRelation>
-<button id="np_relation_add">Добавить параметр</button>
-<button id="np_relation_add">Удалить параметр</button> 
+
+<button id="np_relation_add" class = "openDialog" href="/Parameter/ParameterListDialog" np_dialog_title = "Параметры" np_dialog_width ="800px">Добавить параметр</button>
+<button id="np_relation_del">Удалить параметр</button> 
 <table class="parameterRelations">
     <thead>
         <tr>
+            <th hidden>ParameterID</th>
+            <th hidden>MathOperationID</th>
             <th>Параметр</th>
+            <th>Действие</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td >@item. ParameterShortName</td>
+                <td hidden>
+                    <input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" />
+                </td>
+                <td hidden>
+                    <input type="text" id="MathOperationID" name="MathOperationID" value="@item.MathOperationID" />
+                </td>
+                <td >@item.ParameterShortName</td>
+                <td>@item.MathOperationShortName</td>
             </tr>
         }
     </tbody>
 </table>
 <script type="text/javascript">
     $("#parameterRelations").DataTable({ rowReorder: true });
-    $('button#np_relation_add').on('click', function (e) {
-        e.preventDefault();
-    });
+    //$('button#np_relation_add').on('click', function (e) {
+    //    e.preventDefault();       
+    //});
     $('button#np_relation_delete').on('click', function (e) {
         e.preventDefault();
     });

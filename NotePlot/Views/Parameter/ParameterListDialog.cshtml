@@ -1,0 +1,99 @@
+﻿@model IEnumerable<NotePlot.Models.Parameter>
+
+<p>
+    Выберите операцию: 
+    <select id="mathOperation" name="mathOperation">
+        @*<option value="">Выберите операцию</option>*@
+@foreach (NotePlot.Models.MathOperation mo in @ViewBag.operations)
+{
+        <option value="@mo.MathOperationID">@mo.MathOperationFullName</option>
+}
+    </select>       
+</p>
+<table class="table" id="parameterListDialog">
+    <thead>
+        <tr>
+                <th hidden>
+                    ParameterID
+                </th>
+                <th hidden>
+                    LoginID
+                </th>
+                <th>
+                    Группа
+                </th>
+                <th>
+                    Параметр
+                </th>
+                <th>
+                    Ед.изм.
+                </th>
+                <th>
+                    Тип
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td hidden>
+                @item.ParameterID
+            </td>
+            <td hidden>
+                @item.LoginID
+            </td>
+            <td>
+                @item.ParameterGroupShortName
+            </td>
+            <td>
+                @item.ParameterShortName
+            </td>
+            <td>
+                @item.ParameterUnitShortName
+            </td>
+            <td>
+                @item.ParameterTypeName
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<button class="np_select">выбрать</button>
+<script type="text/javascript">
+    $("#parameterListDialog").DataTable();
+    // при переключении страниц + сортировка + фильтр сбрасываем selected
+    $('#parameterListDialog').on('page.dt order.dt search.dt', function () {
+        $('#parameterListDialog tbody tr.selected').removeClass('selected');
+    });
+
+    //$('#parameterGroups tbody tr').on('click', function () {
+    $('#parameterListDialog tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        }
+        else {
+            $('#parameterListDialog tbody tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+    //кнопка выбора группы
+    $("button.np_select").on('click', function () {
+        if ($('#parameterListDialog tbody tr').hasClass('selected')) {
+            var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_group_id');
+            var _ParameterShortName = $('#parameterListDialog tbody tr.selected td').text();
+            if ((_ParameterID != undefined) && (_ParameterShortName != undefined)) {
+                // ВСТАВКА НА ФОРМУ!!!
+                //$('#ParameterID').val(_ParameterGroupID);
+                //$('#ParameterShortName').val(_ParameterGroupShortName);
+                // определяем контейнер диалога
+                var _md = $('#parameterListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+                //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
+                if (_md != undefined) {
+                    $('#'+_md).dialog("close");
+                }
+                //$('#masterDialog').dialog("close");
+            }
+        }
+    })
+</script>

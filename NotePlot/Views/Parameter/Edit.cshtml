@@ -28,45 +28,45 @@
 
 <form id="np_parameter_edit" method="POST" action=@ViewBag.Action>
     @Html.AntiForgeryToken()
-    <input type="submit" value="Записать" id="np_parameter_save"/>
+    <input type="submit" value="Записать" id="np_parameter_save" />
     <fieldset>
         <legend>Параметр</legend>
         <input type="hidden" id="ParameterID" name="ParameterID" value="@Model.ParameterID" />
-        <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID"/>
-        <input type="hidden" id="ParameterUnitID" name="ParameterUnitID"  value="@Model.ParameterUnitID"/>
-        <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value="@Model.ParameterValueTypeID"/>
-        <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID"/>
+        <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
+        <input type="hidden" id="ParameterUnitID" name="ParameterUnitID" value="@Model.ParameterUnitID" />
+        <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value="@Model.ParameterValueTypeID" />
+        <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
         <label class="lookupField">
             <span class="button">Группа</span>
             <mark>Группа не выбрана</mark>
             <input type="text">
         </label>
         <p>
-            <input type="button" class="np_label1 openDialog" value="Группа" href="/ParameterGroup/ListDialog" np_dialog_title = "Выбор группы" np_dialog_width ="500px">
-            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24" value=@Model.ParameterGroupShortName/>
+            <input type="button" class="np_label1 openDialog" value="Группа" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px">
+            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24" value=@Model.ParameterGroupShortName />
         </p>
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
-            <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName"/>
+            <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName" />
         </p>
         <p>
             <label for="ParameterName" class="np_label">Описание</label>
-            <input type="text" id="ParameterName" name="ParameterName" size="48"  value="@Model.ParameterName"/>
+            <input type="text" id="ParameterName" name="ParameterName" size="48" value="@Model.ParameterName" />
         </p>
         <p>
-            <input type="button" class="np_label1 openDialog" value="Ед.Изм." href="/Unit/ListDialog" np_dialog_title = "Выбор ед.изм" np_dialog_width ="600px"/>
-            <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="16" value="@Model.ParameterUnitShortName" />            
+            <input type="button" class="np_label1 openDialog" value="Ед.Изм." href="/Unit/ListDialog" np_dialog_title="Выбор ед.изм" np_dialog_width="600px" />
+            <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="16" value="@Model.ParameterUnitShortName" />
         </p>
         @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
         {
-                <p>
-                    <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value=@pt.ParameterTypeID @if(pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked } />
-                    <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
-                </p>
+            <p>
+                <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value=@pt.ParameterTypeID @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked   } />
+                <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
+            </p>
         }
         <p>
-            <input type="button" value="Тип значения" class="openDialog" href="/ParamValueType/ListDialog" np_dialog_title = "Выбор типа значения" np_dialog_width ="600px"/>
-            <input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" size="24" value="@Model.ParameterValueTypeShortName"/>
+            <input type="button" value="Тип значения" class="openDialog" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" />
+            <input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" size="24" value="@Model.ParameterValueTypeShortName" />
         </p>
         <p>
             <label for="ParameterValueMax" class="np_label">Макс. значение</label>
@@ -78,10 +78,10 @@
         </p>
     </fieldset>
     <p id="relationSection">
-    @if (Model.ParameterTypeID > 0)
-    {
-        @await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID })
-    } 
+        @if (Model.ParameterTypeID > 0)
+        {
+            @await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID })
+        }
     </p>
 </form>
 @section scripts{
