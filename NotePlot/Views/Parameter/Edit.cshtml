@@ -77,12 +77,12 @@
             <input type="text" id="ParameterValueMin" name="ParameterValueMin" size="28" />
         </p>
     </fieldset>
-    <p id="relationSection">
+    <div id="relationSection">
         @if (Model.ParameterTypeID > 0)
         {
             @await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID })
         }
-    </p>
+    </div>
 </form>
 @section scripts{
     <script type="text/javascript">
