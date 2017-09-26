@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<NotePlot.Models.ParameterRelation>
 
-<button id="np_relation_add"  href="/Parameter/ParameterListDialog" np_dialog_title = "Параметры" np_dialog_width ="800px">Добавить параметр</button>
-<button id="np_relation_del">Удалить параметр</button> 
+@*<button id="np_relation_add"  href="/Parameter/ParameterListDialog" np_dialog_title = "Параметры" np_dialog_width ="800px">Добавить параметр</button>
+<button id="np_relation_del">Удалить параметр</button>*@ 
+<a id="np_relation_add" href="/Parameter/ParameterListDialog" np_dialog_title="Параметры" np_dialog_width="800px">Добавить параметр</a>
+<a id="np_relation_del">Удалить параметр</a>
+
 <table class="parameterRelations">
     <thead>
         <tr>
@@ -30,7 +33,7 @@
 
 <script type="text/javascript">
     $("#parameterRelations").DataTable({ rowReorder: true });
-    $('button#np_relation_add').on('click', function (e) {
+    $('#np_relation_add').on('click', function (e) {
         e.preventDefault();
         OpenDialog(this);
     });
