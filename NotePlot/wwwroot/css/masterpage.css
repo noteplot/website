@@ -7,7 +7,7 @@
 .np_sidebar {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 46px;
     background: black;
     width: 220px;
     min-height: 100%;
@@ -31,18 +31,20 @@
     padding-right: 20px
 }
 
-.np_bar .login, button.dropdown-main-menu {
-    background-color: #000;
-    border: 1px solid #333;
-	border-radius: 4px;
-    color: #c9c9c9;
-    display: inline-block;
-    float: right;
-    margin: 8px 15px 8px 10px;
-}
+    .np_bar .login, button.dropdown-main-menu {
+        background-color: #000;
+        border: 1px solid #333;
+        border-radius: 4px;
+        color: #c9c9c9;
+        display: inline-block;
+        float: right;
+        margin: 8px 15px 8px 10px;
+    }
 
 
 button.dropdown-main-menu {
+    margin-left: 3px;
+    float: left;
     display: none;
 }
 
