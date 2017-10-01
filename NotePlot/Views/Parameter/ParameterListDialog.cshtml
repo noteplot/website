@@ -10,55 +10,45 @@
 }
     </select>       
 </p>
+
 <table class="table" id="parameterListDialog">
     <thead>
         <tr>
-                <th hidden>
-                    ParameterID
-                </th>
-                <th hidden>
-                    LoginID
-                </th>
-                <th>
-                    Группа
-                </th>
-                <th>
-                    Параметр
-                </th>
-                <th>
-                    Ед.изм.
-                </th>
-                <th>
-                    Тип
-                </th>
-            <th></th>
+            <th>
+                Группа
+            </th>
+            <th>
+                Параметр
+            </th>
+            <th>
+                Ед.изм.
+            </th>
+            <th>
+                Тип
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td hidden>
-                @item.ParameterID
-            </td>
-            <td hidden>
-                @item.LoginID
-            </td>
-            <td>
-                @item.ParameterGroupShortName
-            </td>
-            <td>
-                @item.ParameterShortName
-            </td>
-            <td>
-                @item.ParameterUnitShortName
-            </td>
-            <td>
-                @item.ParameterTypeName
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr np_parameter_id=@item.ParameterID np_login_id=@item.LoginID>
+                <td>
+                    @item.ParameterGroupShortName
+                </td>
+                <td>
+                    @item.ParameterShortName
+                </td>
+                <td>
+                    @item.ParameterUnitShortName
+                </td>
+                <td>
+                    @item.ParameterTypeName
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
 <button class="np_select">выбрать</button>
 <script type="text/javascript">
     $("#parameterListDialog").DataTable();
@@ -90,7 +80,7 @@
                 var _md = $('#parameterListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
                 //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
                 if (_md != undefined) {
-                    $('#'+_md).dialog("close");
+                    $('#' + _md).dialog("close");
                 }
                 //$('#masterDialog').dialog("close");
             }
