@@ -3,7 +3,7 @@
 @*<button id="np_relation_add"  href="/Parameter/ParameterListDialog" np_dialog_title = "Параметры" np_dialog_width ="800px">Добавить параметр</button>
 <button id="np_relation_del">Удалить параметр</button>*@ 
 <a id="np_relation_add" href="/Parameter/ParameterListDialog" np_dialog_title="Параметры" np_dialog_width="800px">Добавить параметр</a>
-<a id="np_relation_del">Удалить параметр</a>
+<a id="np_relation_del" href="">Удалить параметр</a>
 
 <table id="parameterRelations" class="table" width="100%">
     <thead>
@@ -37,12 +37,29 @@
         "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }, //убрать сообщение о пусто таблице
         "sDom": ''  // поиск
     });
+    $('#parameterRelations').on('page.dt order.dt search.dt', function () {
+        $('#parameterRelations tbody tr.selected').removeClass('selected');
+    });
+
+    //$('#parameterGroups tbody tr').on('click', function () {
+    $('#parameterRelations tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        }
+        else {
+            $('#parameterRelations tbody tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+
     $('#np_relation_add').on('click', function (e) {
         e.preventDefault();
         OpenDialog(this);
     });
-    //$('button#np_relation_del').on('click', function (e) {
-    //    e.preventDefault();
-    //});
+    $('#np_relation_del').on('click', function (e) {
+        e.preventDefault();
+        $('#parameterRelations tbody tr.selected').remove();
+        
+    });
 </script>
 
