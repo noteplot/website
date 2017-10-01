@@ -5,7 +5,7 @@
 <a id="np_relation_add" href="/Parameter/ParameterListDialog" np_dialog_title="Параметры" np_dialog_width="800px">Добавить параметр</a>
 <a id="np_relation_del">Удалить параметр</a>
 
-<table id="parameterRelations" class="table">
+<table id="parameterRelations" class="table" width="100%">
     <thead>
         <tr>
             <th hidden>ParameterID</th>
@@ -24,15 +24,19 @@
                 <td hidden>
                     <input type="text" id="MathOperationID" name="MathOperationID" value="@item.MathOperationID" />
                 </td>
-                <td >@item.ParameterShortName</td>
-                <td>@item.MathOperationShortName</td>
+                <td>@item.ParameterShortName</td>
+                <td>@item.MathOperationFullName</td>
             </tr>
         }
     </tbody>
 </table>
-
 <script type="text/javascript">
-    $("#parameterRelations").DataTable({ rowReorder: true });
+    $("#parameterRelations").DataTable({
+        "paging": false,
+        "ordering": false,
+        "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }, //убрать сообщение о пусто таблице
+        "sDom": ''  // поиск
+    });
     $('#np_relation_add').on('click', function (e) {
         e.preventDefault();
         OpenDialog(this);

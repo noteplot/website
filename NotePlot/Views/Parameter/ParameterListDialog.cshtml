@@ -26,36 +26,36 @@
             <th>
                 Тип
             </th>
-            <th hidden>
+            @*<th hidden>
                 ParameterID
             </th>
             <th hidden>
                 LoginID
-            </th>
+            </th>*@
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr np_parameter_id=@item.ParameterID np_login_id=@item.LoginID>
-                <td>
+                <td np_col="1">
                     @item.ParameterGroupShortName
                 </td>
-                <td>
+                <td np_col="2">
                     @item.ParameterShortName
                 </td>
-                <td>
+                <td np_col="3">
                     @item.ParameterUnitShortName
                 </td>
-                <td>
+                <td np_col="4">
                     @item.ParameterTypeName
                 </td>
-                <td  hidden>
+                @*<td  hidden  np_col="5">
                     @item.ParameterID
                 </td>
-                <td  hidden>
+                <td  hidden  np_col="6">
                     @item.LoginID
-                </td>
+                </td>*@
             </tr>
         }
     </tbody>
@@ -94,12 +94,27 @@
     //кнопка выбора группы
     $("button.np_select").on('click', function () {
         if ($('#parameterListDialog tbody tr').hasClass('selected')) {
-            var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_group_id');
-            var _ParameterShortName = $('#parameterListDialog tbody tr.selected td').text();
+            var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_parameter_id');
+            var _MathOperationID = $('#mathOperation').val();
+            var _MathOperationName = $("#mathOperation option:selected").text();
+            //var _ParameterID = $('#parameterListDialog tbody tr.selected td]').text();
+            var _ParameterShortName = $('#parameterListDialog tbody tr.selected td[np_col="2"]').text();            
             if ((_ParameterID != undefined) && (_ParameterShortName != undefined)) {
                 // ВСТАВКА НА ФОРМУ!!!
-                //$('#ParameterID').val(_ParameterGroupID);
-                //$('#ParameterShortName').val(_ParameterGroupShortName);
+                var _add_tr = "<tr>"
+                var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='ParameterID' name='ParameterID' value='" + _ParameterID + "'/></td>";
+                var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='MathOperationID' name='MathOperationID' value='" + _MathOperationID + "'/></td>"
+                var _add_tr = _add_tr + "<td>" + _ParameterShortName + "</td>"
+                var _add_tr = _add_tr + "<td>" + _MathOperationName + "</td>"
+                var _add_tr = _add_tr + "</tr>";                
+                if ($("#parameterRelations tr:last") == undefined)
+                {
+                    $("#parameterRelations tbody").html = _add_tr
+                }
+                else
+                {
+                    $("#parameterRelations tr:last").after(_add_tr);
+                }                               
                 // определяем контейнер диалога
                 var _md = $('#parameterListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
                 //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так

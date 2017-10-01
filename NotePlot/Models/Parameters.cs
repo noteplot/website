@@ -65,6 +65,8 @@ namespace NotePlot.Models
         public string ParameterShortName { get; set; }
         public int  MathOperationID { get; set; }
         public string MathOperationShortName { get; set; }
+        public string MathOperationName { get; set; }
+        public string MathOperationFullName { get; set; }
     }
 
     public class MathOperation
