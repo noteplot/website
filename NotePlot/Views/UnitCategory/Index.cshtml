@@ -1,8 +1,10 @@
 @model IEnumerable<NotePlot.Models.UnitCategory>
 
-<p>
-    <a asp-action="Create">Создать</a>
-</p>
+<div class="np_toolbar">
+    <a href="@Url.Action("Create", "UnitCategory")" class="openDialog np_button green" np_dialog_title="Категория единиц измерений">
+        <div class="icon"><i class="fa fa-plus"></i></div>
+    </a>
+</div>
 <table id="unitgroups" class="table">
     <thead>
         <tr>
@@ -37,14 +39,19 @@
                 @Html.DisplayFor(modelItem => item.UnitGroupCode)
             </td>
             <td>
-                <a href="@Url.Action("Action", "Controller")" class="btn btn-warning">
-                    link text
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                <a href="@Url.Action("EditDialog", "UnitCategory" , new { id=item.UnitGroupId })" class="openDialog np_button green">
+                    <div class="icon"><i class="fa fa-pencil"></i></div>
                 </a>
-                @Html.ActionLink("Редактировать", "Edit", new { id=item.UnitGroupId }) |
-                @Html.ActionLink("Подробности", "Details", new { id = item.UnitGroupId }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.UnitGroupId })
-                @Html.ActionLink("Ред. диалог", "EditDialog", new { id = item.UnitGroupId }, new { @class = "openDialog" }) |
+                <a href="@Url.Action("Details", "UnitCategory" , new { id=item.UnitGroupId })" class="openDialog np_button blue">
+                    <div class="icon"><i class="fa fa-info"></i></div>
+                </a>
+                <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupId })" class="np_deleteGroup np_button red">
+                    <div class="icon"><i class="fa fa-times"></i></div>
+                </a>
+                @*Html.ActionLink("Редактировать", "Edit", new { id=item.UnitGroupId }) |
+    @Html.ActionLink("Подробности", "Details", new { id = item.UnitGroupId }) |
+    @Html.ActionLink("Удалить", "Delete", new { id = item.UnitGroupId })
+    @Html.ActionLink("Ред. диалог", "EditDialog", new { id = item.UnitGroupId }, new { @class = "openDialog" }) |*@
             </td>
         </tr>
 }

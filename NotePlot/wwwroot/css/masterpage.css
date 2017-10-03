@@ -2,8 +2,33 @@
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: "Segoe UI", arial, sans-serif;
+    font-size: 11px;
 }
 
+input[type="text"], input[type="password"], textarea, select {
+    border-color: #CCC;
+    width: 100%;
+    font-size: 12px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    display: inline-block;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    color: #4C4C4C;
+    height: 30px;
+    margin-bottom: 0px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.dataTables_length select {
+    display: inline-block;
+    width: auto;
+}
 .np_sidebar {
     position: absolute;
     left: 0;
@@ -168,4 +193,120 @@ background: #191818;
     display: inline-block;
     position: relative;
     top: 50%;
+}
+table.dataTable.no-footer {
+    border-bottom: none;
+}
+
+table.dataTable thead th,
+table.dataTable thead td {
+    padding: 8px 10px 5px 10px;
+    border-bottom: none;
+}
+table.dataTable tbody th,
+table.dataTable tbody td {
+    padding: 1px 0 0 0;
+}
+.np_button {
+    width: 38px;
+    height: 38px;
+    display: block;
+    float: left;
+    margin-left: 1px;
+    text-decoration: none;
+}
+.paginate_enabled_next:hover, .paginate_active, .paginate_active:hover, .paginate_button:hover, .paginate_enabled_previous:hover {
+    color: #333;
+    -moz-box-shadow: inset 0 1px 3px #AAA;
+    -webkit-box-shadow: inset 0 1px 3px #AAA;
+    box-shadow: inset 0 1px 3px #AAA;
+}
+
+.paginate_enabled_next, .paginate_enabled_previous, .paginate_active, .paginate_active:hover, .paginate_button, .paginate_button:hover, .paginate_enabled_next:hover, .paginate_enabled_previous:hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+.paginate_button, .paginate_disabled_previous, .paginate_disabled_next, .paginate_enabled_next, .paginate_active, .paginate_enabled_previous {
+    float: left;
+    border: 2px solid #FFF;
+    line-height: 14px;
+    font-size: 11px;
+    color: #333;
+    display: block;
+    padding: 4px 5px;
+    margin: 5px 5px 5px 0px;
+    color: #333;
+    text-shadow: 0px 1px 0px #FFF;
+    background-color: #E0E0E0;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+.dataTables_wrapper {
+    padding-top: 10px;
+}
+.dataTables_wrapper table {
+    float: left;
+}                
+
+.table .np_button .icon,
+.np_toolbar .np_button .icon{
+    border: 1px solid #FFF;
+    height: 22px;
+    width: 22px;
+    margin: 7px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 50%;
+}
+    .table .np_button .icon .fa,
+    .np_toolbar .np_button .icon .fa{
+        color: #fff;
+        font-size: 16px;
+    }
+
+.green {
+    background: #68AF27 !important;
+}
+
+.red {
+    background: #C22439 !important;
+}
+.blue {
+    background: #009AD7 !important;
+}
+.table th {
+    line-height: 30px;
+    background: #E9E9E9;
+    padding: 0px 10px;
+    margin: 0px;
+    font-size: 11px;
+    color: #666;
+}
+.dataTables_filter input[type='text'] {
+    display: inline-block;
+    width: auto;
+    height: 26px;
+    line-height: 14px;
+}
+
+input[type="text"], input[type="password"], textarea, select {
+    border-color: #CCC;
+    width: 100%;
+    font-size: 12px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    display: inline-block;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    color: #4C4C4C;
+    height: 30px;
+    margin-bottom: 0px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }

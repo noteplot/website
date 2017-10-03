@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<NotePlot.Models.ParameterGroup>
 
-<p>
-    <a asp-action="Create" class="openDialog" np_dialog_title="Группа параметров и пакетов">Create New</a>
-</p>
+<div class="np_toolbar">
+    <a href="@Url.Action("Create", "ParameterGroup")" class="openDialog np_button green" np_dialog_title="Группа параметров и пакетов">
+        <div class="icon"><i class="fa fa-plus"></i></div>
+    </a>
+</div>
 @Html.AntiForgeryToken()
 <table id="parameterGroups" class="table">
     <thead>
@@ -38,8 +40,14 @@
                 @Html.DisplayFor(modelItem => item.LoginID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ParameterGroupID }, new { @class = "openDialog" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ParameterGroupID }, new { @class = "np_deleteGroup" })
+                <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="openDialog np_button green">
+                    <div class="icon"><i class="fa fa-pencil"></i></div>
+                </a>
+                <a href="@Url.Action("Delete", "ParameterGroup", new { id = item.ParameterGroupID })" class="np_deleteGroup np_button red">
+                    <div class="icon"><i class="fa fa-times"></i></div>
+                </a>
+                @*Html.ActionLink("Edit", "Edit", new { id = item.ParameterGroupID }, new { @class = "" }) |*@
+                @*Html.ActionLink("Delete", "Delete", new { id = item.ParameterGroupID }, new { @class = "np_deleteGroup np_button red" })*@
             </td>
         </tr>
 }

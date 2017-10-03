@@ -56,7 +56,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", "Parameter",new { id= item.ParameterID }) |
+                @Html.ActionLink("Редактировать", "Edit", "Parameter",new { id= item.ParameterID }, new { @class = "np_button green" }) |
                 @Html.ActionLink("Удалить", "Delete", "Parameter",new { id = item.ParameterID }, new { @class = "np_deleteParameter" })
             </td>
             <td>
