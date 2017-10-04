@@ -17,19 +17,10 @@ namespace NotePlot.Controllers
             this.repo = repo;
         }
         // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View(repo.GetCategories());
-        }
+        public IActionResult Index() => View(repo.GetCategories());
 
-        public IActionResult Edit(int id)
-        {
-            return View(repo.GetCategory(id));
-        }
+        public IActionResult Edit(int id) => View(repo.GetCategory(id));
 
-        public IActionResult EditDialog(int id)
-        {
-            return PartialView("Edit",repo.GetCategory(id));
-        }
+        public IActionResult EditDialog(int id) => PartialView("Edit", repo.GetCategory(id));
     }
 }
