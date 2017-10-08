@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NotePlot.Models;
+using System.IO;
+using System.Text; // encoding
+using Newtonsoft.Json;
 
 namespace NotePlot.Controllers
 {
@@ -53,7 +56,7 @@ namespace NotePlot.Controllers
         // GET: Parameter/Edit/5
         public ActionResult Edit(long id)
         {            
-            ViewBag.Action = "/Parameter/Edit";
+            ViewBag.Action = "/Parameter/EditJson";
             ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
             if (HttpContext.User.Identity.IsAuthenticated)
             {
@@ -109,6 +112,55 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации");
             }
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditJson(string JSON)
+        {
+            //Parameter pr = new Parameter();
+            JSON = JSON.Substring(1);
+            JSON = JSON.Substring(0, JSON.Length - 1);
+            Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    pr.LoginID = loginID;
+                    if (ModelState.IsValid)
+                    {
+                        int md = (pr.ParameterID == null) ? 0 : 1;
+                        try
+                        {
+                            repo.SetParameter(pr, md);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        string errmes = string.Empty;
+                        foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                        {
+                            errmes = errmes + error.ErrorMessage + ' ';
+                        }
+                        //return BadRequest("Не все обязательные поля заполнены!");
+                        return BadRequest(errmes);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+
 
         // POST: Parameter/Delete/5
         [HttpPost]
