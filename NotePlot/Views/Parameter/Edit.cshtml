@@ -120,7 +120,7 @@
                 //location.reload();
                 window.location.replace("/Parameter/ParameterList"); // Перенаправление на список параметров + не сохраняем историю
             }
-            adata.lName = 'ParameterRelations';
+            //adata.lName = 'ParameterRelations'; - это уже не нужно
             $("#np_parameter_edit").bind('submit', adata, np_AjaxFormSubmitEx);
             // очистка сообщений об ошибках по клику 
             $("#np_parameter_edit").bind('click', np_AjaxFormInputClick); 
