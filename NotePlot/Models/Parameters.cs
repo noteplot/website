@@ -55,8 +55,8 @@ namespace NotePlot.Models
 
         [Required(ErrorMessage = "Логин не определен")] // исключить из проверки?
         public long? LoginID { get; set; }
-        
-        List<ParameterRelation> ParameterRelations;
+
+        public string JSON { get; set; }
     }
 
     public class ParameterRelation

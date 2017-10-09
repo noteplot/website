@@ -217,7 +217,42 @@ jQuery.fn.np_serializeForm = function (lName) {
     return _json;
 };
 
-
+// ф-ция для сериализации таблицы формы
+jQuery.fn.np_serializeTable = function () {
+    //cериализация таблицы
+    var data = $(this).find("td>input,td>select,td>textarea").serializeArray();
+    var _jsonT = ''
+    s = '';
+    var _i = 0; var fs = 2;
+    var j = 0
+    $.each(data, function () {
+        if (this.name !== undefined) {
+            s = '"' + this.name + '"' + ' : ' + '"' + this.value + '"'
+            if (s.length > 0) {
+                if (j == 0)
+                    if (_jsonT.length > 0) {
+                        s = ',{' + s;
+                    }
+                    else {
+                        s = '{' + s;
+                    }
+                else {
+                    s = ',' + s
+                }
+            }
+            j = j + 1;
+            if (j == fs) {
+                s = s + '}';
+                j = 0;
+            }
+            _jsonT = _jsonT + s;
+        };
+    });
+    if (_jsonT == '') {
+        _jsonT = null
+    }
+    return _jsonT;
+};
 
 
 // для AjaxForm - если все OK перегружается текущая страница
@@ -236,12 +271,23 @@ function np_AjaxFormSubmitEx(event) {
         this.value = (this.checked == true);
     });
     //_sJson = "HELLO";
-    var _sJson = $(form_id).np_serializeForm(lName); // JSON - в сиде строки
+    var _sJson = $(form_id).np_serializeTable(lName); // JSON - в сиде строки
     var _data = 'JSON=' + '"' + _sJson + '"';
+    /*
     var token = GetAntiForgeryToken();
     if (token !== null) {
         _data = _data + "&" + token.name + '=' + token.value;
     }
+    */
+    _data = $(form_id).find(":not(td)>input,:not(td)>select,:not(td)>textarea").serialize();
+    var token = GetAntiForgeryToken();
+    if (token !== null) {
+        _data = _data + "&" + token.name + '=' + token.value;
+    }
+    if (_sJson !== null) {
+        _data = _data + "&" +  'JSON=' + '"' + _sJson + '"';
+    }
+
     if ($(form_id + ' input').valid()) {
         np_AjaxBeforeSend();
         $.ajax({

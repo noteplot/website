@@ -114,12 +114,16 @@ namespace NotePlot.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditJson(string JSON)
+        public ActionResult EditJson(Parameter pr)
         {
             //Parameter pr = new Parameter();
-            JSON = JSON.Substring(1);
-            JSON = JSON.Substring(0, JSON.Length - 1);
-            Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
+           //return Ok();
+           if (pr.JSON != null)
+            {
+                pr.JSON = pr.JSON.Substring(1);
+                pr.JSON = pr.JSON.Substring(0, pr.JSON.Length - 1);
+            }
+            //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
