@@ -10,7 +10,7 @@
             $('#masterDialog').dialog("widget").dialogCenter();
         }
     });
-
+/*
     // добавление токена для запросов POST
     $.ajaxPrefilter(
         function (options, localOptions, jqXHR) {
@@ -25,6 +25,7 @@
             }
         }
     );
+*/
 });
 
 // ф-ция для центрирования диалога при изменении window в гаджетах
@@ -236,11 +237,16 @@ function np_AjaxFormSubmitEx(event) {
     });
     //_sJson = "HELLO";
     var _sJson = $(form_id).np_serializeForm(lName); // JSON - в сиде строки
+    var _data = 'JSON=' + '"' + _sJson + '"';
+    var token = GetAntiForgeryToken();
+    if (token !== null) {
+        _data = _data + "&" + token.name + '=' + token.value;
+    }
     if ($(form_id + ' input').valid()) {
         np_AjaxBeforeSend();
         $.ajax({
             url: $(form_id).attr('action'),
-            data: 'JSON='+ '"' + _sJson + '"',// Чтобы передать строку  data: 'id="Hello"'; - только так работает
+            data: _data,//'JSON='+ '"' + _sJson + '"',// Чтобы передать строку  data: 'id="Hello"'; - только так работает
             type: 'POST',
             //contentType: "application/json; charset=utf-8", 
             cache: false,
