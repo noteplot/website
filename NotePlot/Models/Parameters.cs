@@ -126,7 +126,7 @@ namespace NotePlot.Models
                             ParamUnitID = pr.ParameterUnitID,ParamValueTypeID = pr.ParameterValueTypeID,
                             ParamTypeID = pr.ParameterTypeID,ParameterGroupID = pr.ParameterGroupID,
                             ParamValueMAX = pr.ParameterValueMax,ParamValueMIN = pr.ParameterValueMin,
-                            LoginID = pr.LoginID, Mode = md },
+                            LoginID = pr.LoginID, Mode = md, JSON = pr.JSON },
                         commandType: CommandType.StoredProcedure);
                     rt = true;
                 }
