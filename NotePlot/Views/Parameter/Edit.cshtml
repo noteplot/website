@@ -36,15 +36,11 @@
         <input type="hidden" id="ParameterUnitID" name="ParameterUnitID" value="@Model.ParameterUnitID" />
         <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value="@Model.ParameterValueTypeID" />
         <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
-        <label class="lookupField">
-            <span class="button">Группа</span>
-            <mark>Группа не выбрана</mark>
-            <input type="text">
-        </label>
-        <p>
-            <input type="button" class="np_label1 openDialog" value="Группа" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px">
-            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24" value=@Model.ParameterGroupShortName />
-        </p>
+        
+        <div class="input-prepend">
+            <button type="button" class="add-on openDialog" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px">Группа</button>
+            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24"  value=@Model.ParameterGroupShortName>
+        </div>
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
             <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName" />
@@ -54,8 +50,11 @@
             <input type="text" id="ParameterName" name="ParameterName" size="48" value="@Model.ParameterName" />
         </p>
         <p>
-            <input type="button" class="np_label1 openDialog" value="Ед.Изм." href="/Unit/ListDialog" np_dialog_title="Выбор ед.изм" np_dialog_width="600px" />
-            <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="16" value="@Model.ParameterUnitShortName" />
+            <label for="ParameterUnitShortName" class="np_label"></label>
+           <div class="input-prepend">
+                <button type="button" class="add-on openDialog" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px">Ед. измерения</button>
+                <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="24" value=@Model.ParameterUnitShortName>
+            </div>
         </p>
         @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
         {
@@ -64,17 +63,17 @@
                 <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
             </p>
         }
-        <p>
-            <input type="button" value="Тип значения" class="openDialog" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" />
+        <div class="input-prepend">
+            <button type="button" class="add-on openDialog" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px">Тип значения</button>
             <input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" size="24" value="@Model.ParameterValueTypeShortName" />
-        </p>
+        </div>
         <p>
             <label for="ParameterValueMax" class="np_label">Макс. значение</label>
-            <input type="text" id="ParameterValueMax" name="ParameterValueMax" size="28" />
+            <input type="text" id="ParameterValueMax" name="ParameterValueMax" size="28"/>
         </p>
         <p>
             <label for="ParameterValueMin" class="np_label">Мин. значение</label>
-            <input type="text" id="ParameterValueMin" name="ParameterValueMin" size="28" />
+            <input type="text" id="ParameterValueMin" name="ParameterValueMin" size="28"/>
         </p>
     </fieldset>
     <div id="relationSection">
@@ -86,6 +85,29 @@
 </form>
 @section scripts{
     <script type="text/javascript">
+        function fix_block_items_width(block, what, to) {
+            $(block).each(function () {
+
+                var iWidth = $(this).width();
+
+                if (what.length > 0) {
+
+                    for (var i = 0; i < what.length; i++) {
+                        $(this).find(what[i]).each(function () {
+                            iWidth -= $(this).width() + (parseInt($(this).css('padding-left')) * 2);
+                        });
+                    }
+                    $(this).find(to).width(iWidth - 14);
+
+                }
+            });
+
+        }
+        function fix() {
+
+            fix_block_items_width('.input-prepend', ['.add-on', 'button'], 'input');
+        } 
+
         $(function () {
             var wrapper = $(".lookupField"),
                 inp = wrapper.find("input"),
@@ -171,7 +193,11 @@
                     }
                 });
         });
+        $(window).load(function () {
+            fix();
+        });
         $(window).resize(function () {
+            fix();
             $(".lookupField input").triggerHandler("change");
         });
 </script>

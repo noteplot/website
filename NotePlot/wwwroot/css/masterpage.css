@@ -293,3 +293,27 @@ table.dataTable tbody td {
     font-size: 11px;
     color: #666;
 }
+.input-append, .input-prepend {
+    display: block;
+    margin-bottom: 0px;
+}
+.input-append .add-on, .input-prepend .add-on {
+    color: #fff;
+    border: 0px !important;
+    display: inline-block;
+    font-size: 11px;
+    line-height: 20px;
+    padding: 4px 9px 6px;
+    margin-right: -3px;
+    text-shadow: none;
+    background: #009AD7;
+    -moz-border-radius: 0px !important;
+    -webkit-border-radius: 0px !important;
+    border-radius: 0px !important;
+    cursor: pointer;
+}
+.input-prepend input[type="text"] {
+    border-color: #CCC;
+    border-radius: 0;
+    display: inline-block;
+}
