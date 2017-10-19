@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<NotePlot.Models.Parameter>
 
-<p>
-    @Html.ActionLink("Новый параметр", "New", "Parameter")
-</p>
+<div class="np_toolbar">
+    <a href="@Url.Action("New", "Parameter")" class="np_button green">
+        <div class="icon"><i class="fa fa-plus"></i></div>
+    </a>
+</div>
 @Html.AntiForgeryToken()
 <table class="table" id="parameterList">
     <thead>
@@ -56,8 +58,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", "Parameter",new { id= item.ParameterID }, new { @class = "np_button green" }) |
-                @Html.ActionLink("Удалить", "Delete", "Parameter",new { id = item.ParameterID }, new { @class = "np_deleteParameter" })
+                <a href="@Url.Action("Edit", "Parameter" , new { id=item.ParameterID })" class="np_button green">
+                    <div class="icon"><i class="fa fa-pencil"></i></div>
+                </a>
+                <a href="@Url.Action("Delete", "Parameter", new { id = item.ParameterID })" class="np_deleteGroup np_button red">
+                    <div class="icon"><i class="fa fa-times"></i></div>
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ParameterID)

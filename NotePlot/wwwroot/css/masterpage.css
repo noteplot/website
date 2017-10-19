@@ -11,6 +11,7 @@
 }
 input[type="text"], input[type="password"], textarea, select {
     border-color: #CCC;
+    border-radius: 0;
 }
 .np_sidebar {
     position: absolute;
@@ -316,4 +317,5 @@ table.dataTable tbody td {
     border-color: #CCC;
     border-radius: 0;
     display: inline-block;
+    margin-top: 1px;
 }

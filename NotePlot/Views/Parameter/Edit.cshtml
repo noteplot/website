@@ -94,7 +94,7 @@
 
                     for (var i = 0; i < what.length; i++) {
                         $(this).find(what[i]).each(function () {
-                            iWidth -= $(this).width() + (parseInt($(this).css('padding-left')) * 2);
+                            iWidth -= $(this).width() + (parseInt($(this).css('padding-left')) * 3-8);
                         });
                     }
                     $(this).find(to).width(iWidth - 14);
@@ -104,8 +104,7 @@
 
         }
         function fix() {
-
-            fix_block_items_width('.input-prepend', ['.add-on', 'button'], 'input');
+            fix_block_items_width('.input-prepend', ['button.add-on'], 'input');
         } 
 
         $(function () {
@@ -193,9 +192,7 @@
                     }
                 });
         });
-        $(window).load(function () {
-            fix();
-        });
+        $(document).ready(function () { fix(); });
         $(window).resize(function () {
             fix();
             $(".lookupField input").triggerHandler("change");
