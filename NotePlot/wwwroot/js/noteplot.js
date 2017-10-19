@@ -379,3 +379,25 @@ function GetAntiForgeryToken() {
     }
 };
 
+// адаптация ширины текстового поля, если оно на форме скомбинировано с кнопкой вызова диалога выбора значения
+function fix_block_items_width(block, what, to) {
+    $(block).each(function () {
+
+        var iWidth = $(this).width();
+
+        if (what.length > 0) {
+
+            for (var i = 0; i < what.length; i++) {
+                $(this).find(what[i]).each(function () {
+                    iWidth -= $(this).width() + (parseInt($(this).css('padding-left')) * 3 - 8);
+                });
+            }
+            $(this).find(to).width(iWidth - 14);
+
+        }
+    });
+
+}
+function fix() {
+    fix_block_items_width('.input-prepend', ['button.add-on'], 'input');
+}
