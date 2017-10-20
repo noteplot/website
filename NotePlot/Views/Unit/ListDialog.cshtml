@@ -17,15 +17,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr np_unit_id =@item.UnitID np_login_id= @item.LoginID>
-            <td>
-                @item.UnitGroupShortName
-            </td>
-            <td class="ShortName">
-                @item.UnitShortName
-            </td>
-            <td>
-                @item.UnitName
-            </td>
+            <td>@item.UnitGroupShortName</td>
+            <td class="ShortName">@item.UnitShortName</td>
+            <td>@item.UnitName</td>
         </tr>
 }
     </tbody>

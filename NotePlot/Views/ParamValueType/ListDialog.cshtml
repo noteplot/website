@@ -14,12 +14,8 @@
     <tbody>
 @foreach (var item in Model) {
         <tr np_value_type_id =@item.ParamValueTypeID>
-            <td>
-                @item.ParamValueTypeCode
-            </td>
-            <td class="ShortName">
-                @item.ParamValueTypeShortName
-            </td>
+            <td>@item.ParamValueTypeCode</td>
+            <td class="ShortName">@item.ParamValueTypeShortName</td>
         </tr>
 }
     </tbody>

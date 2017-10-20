@@ -11,9 +11,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr np_group_id =@item.ParameterGroupID np_login_id= @item.LoginID>
-            <td>
-               @item.ParameterGroupShortName
-            </td>
+            <td>@item.ParameterGroupShortName</td>
         </tr>
 }
     </tbody>
@@ -41,6 +39,7 @@
         if ($('#parameterGroups tbody tr').hasClass('selected')) {        
             var _ParameterGroupID = $('#parameterGroups tbody tr.selected').attr('np_group_id');
             var _ParameterGroupShortName = $('#parameterGroups tbody tr.selected td').text();
+            //alert(_ParameterGroupShortName); 
             if ((_ParameterGroupID != undefined) && (_ParameterGroupShortName != undefined)) {
                 $('#ParameterGroupID').val(_ParameterGroupID);
                 $('#ParameterGroupShortName').val(_ParameterGroupShortName);

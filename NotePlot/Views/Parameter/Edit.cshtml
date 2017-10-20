@@ -39,7 +39,7 @@
         
         <div class="input-prepend">
             <button type="button" class="add-on openDialog" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px">Группа</button>
-            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24"  value=@Model.ParameterGroupShortName>
+            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24"  value="@Model.ParameterGroupShortName">
         </div>
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
@@ -109,7 +109,7 @@
                 if ($(this).val() > 0) {
                     //alert($(this).val());
                     var container = $("#relationSection");                    
-                    $.get("/Parameter/LoadRelations", { id: "1" },function (data) { container.html(data); });
+                    $.get("/Parameter/LoadRelations", { id: $(this).val() },function (data) { container.html(data); });
                 }
                 else //чистим секцию связей
                     $("#relationSection").empty();
