@@ -69,11 +69,11 @@
         </div>
         <p>
             <label for="ParameterValueMax" class="np_label">Макс. значение</label>
-            <input type="text" id="ParameterValueMax" name="ParameterValueMax" size="28" value="@Model.ParameterValueMax"/>
+            <input type="text" id="ParameterValueMax" name="ParameterValueMax" class="np_decimal_format" size="28" value="@Model.ParameterValueMax" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus/>
         </p>
         <p>
             <label for="ParameterValueMin" class="np_label">Мин. значение</label>
-            <input type="text" id="ParameterValueMin" name="ParameterValueMin" size="28" value="@Model.ParameterValueMin"/>
+            <input type="text" id="ParameterValueMin" name="ParameterValueMin" class="np_decimal_format" size="28" value="@Model.ParameterValueMin" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus/>
         </p>
     </fieldset>
     <div id="relationSection">
@@ -86,6 +86,12 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
+            // подключение числового формата + удаляем лишние нули в конце после разделителя
+            $('.np_decimal_format').npDecimalInput().npDecimalFormat();
+            $('.np_decimal_format').on('blur', function () {
+                $('.np_decimal_format').npDecimalFormat();
+            });
+
             var wrapper = $(".lookupField"),
                 inp = wrapper.find("input"),
                 btn = wrapper.find(".button"),

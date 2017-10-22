@@ -5,7 +5,34 @@
 	знаков и принак возможности ввода отрицательного числа задаются в атрибутах элемента ввода:
 	np_dec_precision = "10" np_dec_scale = "2" np_dec_point='.' np_dec_minus
 */
-(function( $ ) {
+(function ($) {
+    // убираем лишние нули после разделителя
+    $.fn.npDecimalFormat = function () {
+        return this.each(function(){
+            var
+                val = $(this).val(),
+                point = ($(this).attr('np_dec_point') && ($(this).attr('np_dec_point') == '.' || $(this).attr('np_dec_point') == ',')) ? $(this).attr('np_dec_point') : DecPointDefault(),                
+                minus = $(this).get(0).hasAttribute('np_dec_minus') ? true : false,ixc, ix0, len;
+                ixc = val.indexOf(point);
+            
+            while (true) {
+                len = val.length;
+                if (len == 0) break;
+                ix0 = val.lastIndexOf('0');
+                if ((ix0 >= 0) && (ixc >= 0) && (ix0 > ixc) && (ix0 == len - 1)) {
+                    val = val.substr(0, ix0);
+                }
+                else {
+                    if ((ixc > 0) && (ixc == len - 1)) {
+                        val = val.substr(0, ixc);
+                    }
+                    break;
+                }
+            };            
+            $(this).val(val);               
+        });
+    };
+
 	$.fn.npDecimalInput = function() {
 	// функционал плагина
 	// действия для всех DOМ-объектов jQuery + возращение объекта для поддержки цепочки методов	
@@ -81,12 +108,13 @@
 				}						
 					
 				// проверка на начальный нуль
+                /*
 				ix = val.lastIndexOf('0');					
 				if (ix == 0 && (val.indexOf(point) == -1 || val.indexOf(point) > 0) && len > 1)
 				{
 					$(this).val(val.substring(0, ix)+val.substring(ix+1, val.len));
 				}						
-		
+		        */
 				// проверка на кол-во символов
 				len = precision				
 				if ((val.indexOf('-')>=0))
@@ -166,6 +194,5 @@
 			return false;
 		}
 	};
-		
 	
 })(jQuery);

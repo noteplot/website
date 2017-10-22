@@ -150,6 +150,11 @@ button.dropdown-main-menu {
     float: left;
 }
 
+/*для числовых полей ввода*/
+[np_dec_precision] {
+    text-align: right
+}	
+
 /*loader...*/
 #loader {
     display: none;
