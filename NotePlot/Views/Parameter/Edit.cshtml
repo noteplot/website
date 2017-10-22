@@ -59,7 +59,7 @@
         @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
         {
             <p>
-                <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value=@pt.ParameterTypeID @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked    } />
+                <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value="@pt.ParameterTypeID" @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked    } />
                 <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
             </p>
         }
