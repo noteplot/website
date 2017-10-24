@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;    //.DefaultContractResolver
 using NotePlot.Models;
+using Microsoft.AspNetCore.Localization;
 
 namespace NotePlot
 {
@@ -40,8 +41,7 @@ namespace NotePlot
             //Параметры
             services.AddTransient<IRepositoryParameter, RepositoryParameter>(provider => new RepositoryParameter(connection));
             //Ед.изм
-            services.AddTransient<IRepositoryParameterUnit, RepositoryParameterUnit>(provider => new RepositoryParameterUnit(connection));
-
+            services.AddTransient<IRepositoryParameterUnit, RepositoryParameterUnit>(provider => new RepositoryParameterUnit(connection));            
             // Add framework services.
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); // ЭТО ОБЯЗАТЕЛЬНО, т.к. formatter по-умолчанию преобразует начальные символы ключей в lowecase             
@@ -75,6 +75,12 @@ namespace NotePlot
             app.UseStatusCodePages(); // обработка ошибок HTTP
 
             app.UseStaticFiles();
+
+            // устанавливаем культуру по-умолчанию
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US") //"ru-RU"
+            });
 
             app.UseMvc(routes =>
             {
