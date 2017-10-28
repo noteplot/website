@@ -52,7 +52,7 @@ namespace NotePlot.Models
 
         public decimal? ParameterValueMax { get; set; }
         public decimal? ParameterValueMin { get; set; }
-
+        public bool Active { get; set; }
         [Required(ErrorMessage = "Логин не определен")] // исключить из проверки?
         public long? LoginID { get; set; }
 
@@ -75,6 +75,19 @@ namespace NotePlot.Models
         public string MathOperationShortName { get; set; }
         public string MathOperationName { get; set; }
         public string MathOperationFullName { get; set; }
+    }
+
+    public class Packets
+    {
+        public long? PacketID { get; set; }
+        [Required(ErrorMessage = "Краткое название пакета должно быть установлено")]
+        public string PacketShortName { get; set; }
+        [Required(ErrorMessage = "Название пакета должно быть установлено")]
+        public string PacketName { get; set; }
+        [Required(ErrorMessage = "Логин не определен")]
+        public long? LoginID { get; set; }
+        public bool Active { get; set; }
+        public string JSON { get; set; } // список параметров
     }
 
     public interface IRepositoryParameter
@@ -126,7 +139,7 @@ namespace NotePlot.Models
                             ParamUnitID = pr.ParameterUnitID,ParamValueTypeID = pr.ParameterValueTypeID,
                             ParamTypeID = pr.ParameterTypeID,ParameterGroupID = pr.ParameterGroupID,
                             ParamValueMAX = pr.ParameterValueMax,ParamValueMIN = pr.ParameterValueMin,
-                            LoginID = pr.LoginID, Mode = md, JSON = pr.JSON },
+                            LoginID = pr.LoginID, Active = pr.Active, Mode = md, JSON = pr.JSON },
                         commandType: CommandType.StoredProcedure);
                     rt = true;
                 }

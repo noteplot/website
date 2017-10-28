@@ -2,6 +2,7 @@
 
 @{
     string atr_checked = "checked";
+    string atr_hidden = "hidden";
 }
 
 @section styles{
@@ -74,6 +75,10 @@
         <p>
             <label for="ParameterValueMin" class="np_label">Мин. значение</label>
             <input type="text" id="ParameterValueMin" name="ParameterValueMin" class="np_decimal_format" size="28" value="@Model.ParameterValueMin" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus/>
+        </p>
+        <p @if (@Model.ParameterID == null) {@atr_hidden} >
+            <label for="ParameterActive" class="np_label">Доступен</label>
+            <input type="checkbox" id="ParameterActive" name="Active" value="@Model.Active" @if (@Model.Active){@atr_checked}/>
         </p>
     </fieldset>
     <div id="relationSection">
