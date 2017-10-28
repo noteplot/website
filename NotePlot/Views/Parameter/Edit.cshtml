@@ -87,9 +87,9 @@
     <script type="text/javascript">
         $(function () {
             // подключение числового формата + удаляем лишние нули в конце после разделителя
-            $('.np_decimal_format').npDecimalInput().npDecimalFormat();
-            $('.np_decimal_format').on('blur', function () {
-                $('.np_decimal_format').npDecimalFormat();
+            $('#np_parameter_edit .np_decimal_format').npDecimalInput().npDecimalFormat();
+            $('#np_parameter_edit .np_decimal_format').on('blur', function () {
+                $('#np_parameter_edit .np_decimal_format').npDecimalFormat();
             });
 
             var wrapper = $(".lookupField"),
