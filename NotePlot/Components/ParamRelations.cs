@@ -19,8 +19,9 @@ namespace NotePlot.Components
             repo = r;
         }
 
-        public IViewComponentResult Invoke(long ParameterID)
+        public IViewComponentResult Invoke(long ParameterID, long LoginID)
         {
+            ViewBag.LoginID = LoginID;
             return View("ParamRelationList", repo.GetRelationParameters(ParameterID));
         }
 

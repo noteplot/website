@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<NotePlot.Models.ParameterRelation>
 
 @*<button id="np_relation_add"  href="/Parameter/ParameterListDialog" np_dialog_title = "Параметры" np_dialog_width ="800px">Добавить параметр</button>
-<button id="np_relation_del">Удалить параметр</button>*@ 
+<button id="np_relation_del">Удалить параметр</button>*@
+@if (@ViewBag.LoginID != 0)
+{
 <a id="np_relation_add" href="/Parameter/ParameterListDialog" np_dialog_title="Параметры" np_dialog_width="800px">Добавить параметр</a>
 <a id="np_relation_del" href="">Удалить параметр</a>
-
+}
 <table id="parameterRelations" class="table" width="100%">
     <thead>
         <tr>

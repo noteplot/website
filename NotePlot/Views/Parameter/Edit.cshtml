@@ -1,7 +1,7 @@
 ﻿@model NotePlot.Models.Parameter
 
 @{
-    string atr_checked = "checked";    
+    string atr_checked = "checked",atr_disabled = "disabled";
 }
 
 @section styles{
@@ -28,7 +28,10 @@
 
 <form id="np_parameter_edit" method="POST" action=@ViewBag.Action>
     @Html.AntiForgeryToken()
-    <input type="submit" value="Записать" id="np_parameter_save" />
+    @if (Model.LoginID != 0)
+    {
+        <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0){ @atr_disabled}/>
+    }
     <fieldset>
         <legend>Параметр</legend>
         <input type="hidden" id="ParameterID" name="ParameterID" value="@Model.ParameterID" />
@@ -38,55 +41,55 @@
         <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
         
         <div class="input-prepend">
-            <button type="button" class="add-on openDialog" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px">Группа</button>
-            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24"  value="@Model.ParameterGroupShortName">
+            <button type="button" class="add-on openDialog" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0){ @atr_disabled}>Группа</button>
+            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24"  value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0){ @atr_disabled}>
         </div>
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
-            <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName" />
+            <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName" @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
         <p>
             <label for="ParameterName" class="np_label">Описание</label>
-            <input type="text" id="ParameterName" name="ParameterName" size="48" value="@Model.ParameterName" />
+            <input type="text" id="ParameterName" name="ParameterName" size="48" value="@Model.ParameterName" @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
         <p>
             <label for="ParameterUnitShortName" class="np_label"></label>
            <div class="input-prepend">
-                <button type="button" class="add-on openDialog" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px">Ед. измерения</button>
-                <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="24" value=@Model.ParameterUnitShortName>
+                <button type="button" class="add-on openDialog" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px" @if (Model.LoginID == 0){ @atr_disabled}>Ед. измерения</button>
+                <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="24" value=@Model.ParameterUnitShortName @if (Model.LoginID == 0){ @atr_disabled}>
             </div>
         </p>
         @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
         {
             <p>
-                <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value="@pt.ParameterTypeID" @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked    } />
+                <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value="@pt.ParameterTypeID" @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
                 <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
             </p>
         }
         <div class="input-prepend">
-            <button type="button" class="add-on openDialog" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px">Тип значения</button>
-            <input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" size="24" value="@Model.ParameterValueTypeShortName" />
+            <button type="button" class="add-on openDialog" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" @if (Model.LoginID == 0){ @atr_disabled}>Тип значения</button>
+            <input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" size="24" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0){ @atr_disabled}/>
         </div>
         <p>
             <label for="ParameterValueMax" class="np_label">Макс. значение</label>
-            <input type="text" id="ParameterValueMax" name="ParameterValueMax" class="np_decimal_format" size="28" value="@Model.ParameterValueMax" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus/>
+            <input type="text" id="ParameterValueMax" name="ParameterValueMax" class="np_decimal_format" size="28" value="@Model.ParameterValueMax" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
         <p>
             <label for="ParameterValueMin" class="np_label">Мин. значение</label>
-            <input type="text" id="ParameterValueMin" name="ParameterValueMin" class="np_decimal_format" size="28" value="@Model.ParameterValueMin" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus/>
+            <input type="text" id="ParameterValueMin" name="ParameterValueMin" class="np_decimal_format" size="28" value="@Model.ParameterValueMin" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
-        @if (@Model.ParameterID != null)
+        @if (Model.ParameterID != null)
         {
         <p>
             <label for="ParameterActive" class="np_label">Доступен</label>
-            <input type="checkbox" id="ParameterActive" name="Active" value="@Model.Active" @if (@Model.Active) {@atr_checked}/>
+            <input type="checkbox" id="ParameterActive" name="Active" value="@Model.Active" @if (@Model.Active) {@atr_checked} @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
         }
     </fieldset>
     <div id="relationSection">
         @if (Model.ParameterTypeID > 0)
         {
-            @await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID })
+            @await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID, LoginID = @Model.LoginID, })
         }
     </div>
 </form>
