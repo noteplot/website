@@ -77,9 +77,12 @@ namespace NotePlot.Models
         public string MathOperationFullName { get; set; }
     }
 
-    public class Packets
+    public class Packet
     {
         public long? PacketID { get; set; }
+        [Required(ErrorMessage = "Группа должна быть установлена")]
+        public long? ParameterGroupID { get; set; }
+        public string ParameterGroupShortName { get; set; }
         [Required(ErrorMessage = "Краткое название пакета должно быть установлено")]
         public string PacketShortName { get; set; }
         [Required(ErrorMessage = "Название пакета должно быть установлено")]
@@ -98,6 +101,8 @@ namespace NotePlot.Models
         bool DeleteParameter(long prId, long lgId);
         List<ParameterRelation> GetRelationParameters(long pId);
         List<MathOperation> GetMathOperations();
+        List<Packet> GetPackets(long lgId);
+        bool SetPacket(Packet pt, int md);
         //bool DelParameterGroup(long pgId);
     }
 
@@ -197,6 +202,73 @@ namespace NotePlot.Models
             {
                 return db.Query<MathOperation>("dbo.MathOperationsGet", commandType: CommandType.StoredProcedure).ToList();
             }
+        }
+
+        // пакеты    
+        public List<Packet> GetPackets(long lgId)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<Packet>("dbo.PacketGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public bool SetPacket(Packet pt, int md)
+        {
+            bool rt = false;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
+                //return gr;
+                try
+                {
+                    db.Execute("dbo.PacketSet",
+                        new
+                        {
+                            PacketID        = pt.PacketID,
+                            PacketShortName = pt.PacketShortName,
+                            PacketName      = pt.PacketName,
+                            ParameterGroupID = pt.ParameterGroupID,
+                            LoginID         = pt.LoginID,
+                            Active          = pt.Active,
+                            Mode            = md,
+                            JSON            = pt.JSON
+                        },
+                        commandType: CommandType.StoredProcedure);
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public bool DeletePacket(long prId, long lgId)
+        {
+            bool rt = false;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
+                //return gr;
+                try
+                {
+                    db.Execute("dbo.PacketDelete",
+                        new
+                        {
+                            PacketID = prId,
+                            LoginID = lgId
+                        },
+                        commandType: CommandType.StoredProcedure);
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
         }
 
     }

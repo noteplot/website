@@ -203,5 +203,116 @@ namespace NotePlot.Controllers
         {
             return ViewComponent("ParamRelations", id);
         }
+
+        // ПАКЕТ
+        // GET:
+        public ActionResult PacketList()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return View("PacketList", repo.GetPackets(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
+        // GET: Parameter/PacketEdit/5
+        public ActionResult PacketEdit(long id)
+        {
+            ViewBag.Action = "/Parameter/PacketEditJson"; // POST
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                return View("PacketEdit", repo.GetParameter(id, loginID));
+            }
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PacketEditJson(Packet pt)
+        {
+            //Parameter pr = new Parameter();
+            //return Ok();
+            if (pt.JSON != null)
+            {
+                pt.JSON = pt.JSON.Substring(1);
+                pt.JSON = pt.JSON.Substring(0, pt.JSON.Length - 1);
+            }
+            //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    pt.LoginID = loginID;
+                    if (ModelState.IsValid)
+                    {
+                        int md = (pt.PacketID == null) ? 0 : 1;
+                        try
+                        {
+                            repo.SetPacket(pt, md);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        string errmes = string.Empty;
+                        foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                        {
+                            errmes = errmes + error.ErrorMessage + ' ';
+                        }
+                        //return BadRequest("Не все обязательные поля заполнены!");
+                        return BadRequest(errmes);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PacketDelete(long id)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    try
+                    {
+                        repo.DeleteParameter(id, loginID);
+                        return View("PacketList", repo.GetPackets(loginID));
+                        //return Ok(); // ajax диалог просто пустая строка
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+
+
     }
 }
