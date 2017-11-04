@@ -26,36 +26,24 @@
             <th>
                 Тип
             </th>
-            @*<th hidden>
+            <th hidden>
                 ParameterID
             </th>
             <th hidden>
                 LoginID
-            </th>*@
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr np_parameter_id=@item.ParameterID np_login_id=@item.LoginID>
-                <td np_col="1">
-                    @item.ParameterGroupShortName
-                </td>
-                <td np_col="2">
-                    @item.ParameterShortName
-                </td>
-                <td np_col="3">
-                    @item.ParameterUnitShortName
-                </td>
-                <td np_col="4">
-                    @item.ParameterTypeName
-                </td>
-                @*<td  hidden  np_col="5">
-                    @item.ParameterID
-                </td>
-                <td  hidden  np_col="6">
-                    @item.LoginID
-                </td>*@
+                <td np_col="1">@item.ParameterGroupShortName</td>
+                <td np_col="2" class="ParameterShortName">@item.ParameterShortName</td>
+                <td np_col="3">@item.ParameterUnitShortName</td>
+                <td np_col="4">@item.ParameterTypeName</td>
+                <td hidden np_col="5" class="ParameterID">@item.ParameterID</td>
+                <td hidden np_col="6">@item.LoginID</td>
             </tr>
         }
     </tbody>
@@ -94,6 +82,32 @@
     //кнопка выбора группы
     $("button.np_select").on('click', function () {
         if ($('#parameterListDialog tbody tr').hasClass('selected')) {
+            if (np_insertRow) {
+                var template = np_insertRow.rowTemplate;
+                var value;
+                var $tr_sel = $('#parameterListDialog tbody tr.selected'); //selected row
+                for (var i in np_insertRow.fields) {
+                    var name = np_insertRow.fields[i];
+                    if (name == 'MathOperationID') {
+                        value = $('#mathOperation').val();
+                    }
+                    else
+                        if (name == 'MathOperationName') {
+                            value = $("#mathOperation option:selected").text();
+                        }
+                    else
+                        value = $tr_sel.find('.' + name).text();
+                    name = '{' + np_insertRow.fields[i] + '}';
+                    template = template.replace(name, value);
+                }                
+                if ($(np_insertRow.tableId + ' tr:last') == undefined) {
+                    $(np_insertRow.tableId + ' tbody').html = template;
+                }
+                else {
+                    $(np_insertRow.tableId + ' tr:last').after(template);
+                }                
+            }
+/*
             var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_parameter_id');
             var _MathOperationID = $('#mathOperation').val();
             var _MathOperationName = $("#mathOperation option:selected").text();
@@ -114,8 +128,9 @@
                 else
                 {
                     $("#parameterRelations tr:last").after(_add_tr);
-                }                
-                
+                }
+            }
+*/                
                 // определяем контейнер диалога
                 var _md = $('#parameterListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
                 //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
@@ -123,7 +138,6 @@
                     $('#' + _md).dialog("close");
                 }
                 //$('#masterDialog').dialog("close");
-            }
         }
     })
 </script>

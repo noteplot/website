@@ -96,6 +96,14 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
+            np_insertRow = new np_InsertRow(
+                "#parameterRelations",
+                "<tr>" +
+                "<td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
+                "<td hidden><input type='text' id='MathOperationID' name='MathOperationID' value='{MathOperationID}'/></td>" +
+                "<td>{ParameterShortName}</td><td>{MathOperationName}</td></tr>",
+                ["ParameterID", "MathOperationID", "ParameterShortName","MathOperationName"]
+            )
             // подключение числового формата + удаляем лишние нули в конце после разделителя
             $('#np_parameter_edit .np_decimal_format').npDecimalInput().npDecimalFormat();
             $('#np_parameter_edit .np_decimal_format').on('blur', function () {

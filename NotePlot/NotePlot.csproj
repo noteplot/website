@@ -24,9 +24,6 @@
 
   <ItemGroup>
     <Content Include="wwwroot\css\login.css" />
-    <Content Include="wwwroot\css\masterpage.css" />
-    <Content Include="wwwroot\js\masterpage.js" />
-    <Content Include="wwwroot\js\noteplot.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.2" />

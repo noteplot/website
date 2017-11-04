@@ -401,3 +401,9 @@ function fix() {
     fix_block_items_width('.input-prepend', ['button.add-on'], 'input');
 }
 
+//Класс  для вставки строки в таблицу
+function np_InsertRow(tid, tr, fds) {
+    this.tableId = tid;      // Id таблицы, куда добавляется строка
+    this.rowTemplate = tr;   // шаблон строки вставки
+    this.fields = fds;       // список добавляемых полей
+};
