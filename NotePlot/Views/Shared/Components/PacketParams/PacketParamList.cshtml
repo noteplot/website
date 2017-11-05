@@ -7,6 +7,9 @@
 {
     <a id="np_packet_param_add" href="/Parameter/ParameterListDialog/0" np_dialog_title="Параметры" np_dialog_width="800px">Добавить параметр</a>
     <a id="np_packet_param_del" href="">Удалить параметр</a>
+    
+    <button class='np_btn_up'>Вверх</button>
+    <button class='np_btn_down'>Вниз</button>
 }
 
 <table id="packetParameters" class="table">
@@ -29,37 +32,92 @@
     </tbody>
 </table>
 <script type="text/javascript">
-    /*
-    $("#parameterRelations").DataTable({
-        "paging": false,
-        "ordering": false,
-        "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }, //убрать сообщение о пусто таблице
-        "sDom": ''  // поиск
-    });
-    $('#parameterRelations').on('page.dt order.dt search.dt', function () {
-        $('#parameterRelations tbody tr.selected').removeClass('selected');
-    });
+    //$(function () {        
+        $('#np_packet_param_add').on('click', function (e) {
+            e.preventDefault();
+            OpenDialog(this);
+        });
 
-    //$('#parameterGroups tbody tr').on('click', function () {
-    $('#parameterRelations tbody').on('click', 'tr', function () {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-        }
-        else {
-            $('#parameterRelations tbody tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    });
-    */
-    $('#np_packet_param_add').on('click', function (e) {
-        e.preventDefault();
-        OpenDialog(this);
-    });
+        $('#np_packet_param_del').on('click', function (e) {
+            e.preventDefault();
+            $('#packetParameters tbody tr.selected').remove();
+        });
 
-    $('#np_packet_param_del').on('click', function (e) {
-        e.preventDefault();
-        $('packetParameters tbody tr.selected').remove();
-    });
+        //Плагин UI Sortable        
+/*        
+        $("#packetParameters tbody tr").on('click', function (e, d) {
+            if ($(this).hasClass("np_selected")) {
+                // если d.drag != "1" тогда снимаем выделение
+                if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
+                    $(this).removeClass("np_selected");
+            }
+            else {
+                $("#packetParameters tbody tr").not(this).removeClass("np_selected");
+                $(this).addClass("np_selected");
+            }
+        });
+ */
+
+       $("#packetParameters").DataTable({
+            "paging": false,
+            "ordering": false,
+            "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }, //убрать сообщение о пусто таблице
+            "sDom": ''  // поиск
+        });
+
+        $('#packetParameters').on('page.dt order.dt search.dt', function () {
+            $('#packetParameters tbody tr.selected').removeClass('selected');
+        });
+
+        $('#packetParameters tbody').on('click', 'tr', function (e,d) {
+            if ($(this).hasClass('selected')) {
+                if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
+                $(this).removeClass('selected');
+            }
+            else {
+                $("#packetParameters tbody tr").removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $("#packetParameters tbody").sortable(
+            {
+                //helper: fixHelper
+                helper: function (e, tr) {
+                    tr.children().each(function () {
+                        $(this).width($(this).width());
+                    });
+                    return tr;
+                }
+            },
+            { axis: "y" },
+            { start: function (e, tr) { tr.item.trigger('click', { drag: "1" }) } } // выделять при начале перетаскивания
+        );
+
+        $(".np_btn_up").on('click', function (e) {
+            e.preventDefault();
+            $("#packetParameters tbody tr.selected").after($("#packetParameters tbody tr.selected").prev());            
+        });
+
+        $(".np_btn_down").on('click', function (e) {
+            e.preventDefault();
+            $("#packetParameters tbody tr.selected").before($("#packetParameters tbody tr.selected").next());
+        });
+    
+        /*
+        $(".np_btn_up").on('click', function (e) {
+            e.preventDefault();
+            $("#packetParameters tbody tr.selected").after($("#packetParameters tbody tr.selected").prev());
+            //$("#packetParameters tbody tr.np_selected").after($("#packetParameters tbody tr.np_selected").prev());
+        });
+
+        $(".np_btn_down").on('click', function (e) {
+            e.preventDefault();
+            //$("#packetParameters tbody tr.np_selected").before($("#packetParameters tbody tr.np_selected").next());
+            $("#packetParameters tbody tr.selected").before($("#packetParameters tbody tr.selected").next());
+        });
+        */
+    //});
 </script>
 
 
