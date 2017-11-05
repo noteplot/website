@@ -132,8 +132,8 @@
                 e.preventDefault();
                 if ($(this).val() > 0) {
                     //alert($(this).val());
-                    var container = $("#relationSection");                    
-                    $.get("/Parameter/LoadRelations", { id: $(this).val() },function (data) { container.html(data); });
+                    var container = $("#relationSection");
+                    $.get("/Parameter/LoadRelations", { id: $("#ParameterID").val() },function (data) { container.html(data); });
                 }
                 else //чистим секцию связей
                     $("#relationSection").empty();

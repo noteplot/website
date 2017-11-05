@@ -93,6 +93,16 @@ namespace NotePlot.Models
         public string JSON { get; set; } // список параметров
     }
 
+    public class PacketParameter
+    {
+        public long? PacketID { get; set; }
+        public long ParameterID { get; set; }
+        public string ParameterShortName { get; set; }
+        public long? LoginID { get; set; }
+        public bool PacketParameterActive { get; set; }
+    }
+
+    //===========================================================
     public interface IRepositoryParameter
     {
         List<Parameter> GetParameters(long lgId);
@@ -103,6 +113,7 @@ namespace NotePlot.Models
         List<MathOperation> GetMathOperations();
         List<Packet> GetPackets(long lgId);
         bool SetPacket(Packet pt, int md);
+        List<PacketParameter> GetPacketParameters(long? pId);
         //bool DelParameterGroup(long pgId);
     }
 
@@ -269,6 +280,19 @@ namespace NotePlot.Models
                 }
             }
             return rt;
+        }
+
+        public List<PacketParameter> GetPacketParameters(long? pId)
+        {
+            if (pId > 0)
+                using (IDbConnection db = new SqlConnection(connectionString))
+                {
+                    return db.Query<PacketParameter>("dbo.PacketParamsGet", new { PacketID = pId }, commandType: CommandType.StoredProcedure).ToList();
+                }
+            else
+            {
+                return new List<PacketParameter>();
+            }
         }
 
     }

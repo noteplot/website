@@ -1,15 +1,17 @@
 ﻿@model IEnumerable<NotePlot.Models.Parameter>
-
-<p>
-    Выберите операцию: 
-    <select id="mathOperation" name="mathOperation">
-        @*<option value="">Выберите операцию</option>*@
-@foreach (NotePlot.Models.MathOperation mo in @ViewBag.operations)
+@if (@ViewBag != null && @ViewBag.operations != null)
 {
-        <option value="@mo.MathOperationID">@mo.MathOperationFullName</option>
+    <p>
+        Выберите операцию: 
+        <select id="mathOperation" name="mathOperation">
+            @*<option value="">Выберите операцию</option>*@
+    @foreach (NotePlot.Models.MathOperation mo in @ViewBag.operations)
+    {
+            <option value="@mo.MathOperationID">@mo.MathOperationFullName</option>
+    }
+        </select>       
+    </p>
 }
-    </select>       
-</p>
 
 <table class="table" id="parameterListDialog" width="100%">
     <thead>
@@ -99,12 +101,13 @@
                         value = $tr_sel.find('.' + name).text();
                     name = '{' + np_insertRow.fields[i] + '}';
                     template = template.replace(name, value);
-                }                
-                if ($(np_insertRow.tableId + ' tr:last') == undefined) {
-                    $(np_insertRow.tableId + ' tbody').html = template;
+                }   
+                                
+                if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
+                    $(np_insertRow.tableId + ' tbody').html(template);
                 }
                 else {
-                    $(np_insertRow.tableId + ' tr:last').after(template);
+                    $(np_insertRow.tableId + ' tbody tr:last').after(template);
                 }                
             }
 /*

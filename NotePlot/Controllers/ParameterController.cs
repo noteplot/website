@@ -43,9 +43,12 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
         }
 
-        public ActionResult ParameterListDialog()
+        public ActionResult ParameterListDialog(int md = 1)
         {
-            ViewBag.operations = repo.GetMathOperations(); // операции
+            if (md == 1)
+                ViewBag.operations = repo.GetMathOperations(); // операции
+            else
+                ViewBag.operations = null;
             long loginID = LoginController.GetLogin(HttpContext.User);
             if (loginID >= 0)
                 return PartialView("ParameterListDialog", repo.GetParameters(loginID));
@@ -201,7 +204,12 @@ namespace NotePlot.Controllers
         //загружаем ViewComponent на форме параметра
         public IActionResult LoadRelations(long id)
         {
-            return ViewComponent("ParamRelations", id);
+            //return ViewComponent("ParamRelations", id);
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return ViewComponent("ParamRelations", new { ParameterID = id, LoginID = loginID });
+            else
+                return BadRequest("Нет аутентификации!");
         }
 
         // ПАКЕТ
@@ -213,6 +221,20 @@ namespace NotePlot.Controllers
                 return View("PacketList", repo.GetPackets(loginID));
             else
                 return BadRequest("Нет аутентификации!");
+        }
+
+        // GET: Create
+        public ActionResult PacketNew()
+        {
+            long? loginID = null;
+            ViewBag.Action = "/Packet/Edit";
+            //ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                loginID = LoginController.GetLogin(HttpContext.User);
+            }
+            Packet pt = new Packet() {LoginID = loginID };// {ParameterGroupID = -1, ParameterTypeID = 0, ParameterUnitID = -1, ParameterValueTypeID = -1, LoginID = -1 };
+            return View("PacketEdit", pt);
         }
 
         // GET: Parameter/PacketEdit/5
