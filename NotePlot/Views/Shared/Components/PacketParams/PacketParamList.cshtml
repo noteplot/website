@@ -32,7 +32,7 @@
     </tbody>
 </table>
 <script type="text/javascript">
-    //$(function () {        
+    $(function () {        
         $('#np_packet_param_add').on('click', function (e) {
             e.preventDefault();
             OpenDialog(this);
@@ -40,12 +40,11 @@
 
         $('#np_packet_param_del').on('click', function (e) {
             e.preventDefault();
-            $('#packetParameters tbody tr.selected').remove();
+            $('#packetParameters tbody tr.np_selected').remove();
         });
 
-        //Плагин UI Sortable        
-/*        
-        $("#packetParameters tbody tr").on('click', function (e, d) {
+        // Отбор и сортровка строк
+        $("#packetParameters tbody").on('click', 'tr', function (e, d) {
             if ($(this).hasClass("np_selected")) {
                 // если d.drag != "1" тогда снимаем выделение
                 if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
@@ -56,8 +55,34 @@
                 $(this).addClass("np_selected");
             }
         });
- */
 
+        //Плагин UI Sortable
+        $("#packetParameters tbody").sortable(
+            {
+                //helper: fixHelper
+                helper: function (e, tr) {
+                    tr.children().each(function () {
+                        $(this).width($(this).width());
+                    });
+                    return tr;
+                }
+            },
+            { axis: "y" },
+            { start: function (e, tr) { tr.item.trigger('click', { drag: "1" }) } } // выделять при начале перетаскивания
+        );
+
+        $(".np_btn_up").on('click', function (e) {
+            e.preventDefault();
+            $("#packetParameters tbody tr.np_selected").after($("#packetParameters tbody tr.np_selected").prev());
+        });
+
+        $(".np_btn_down").on('click', function (e) {
+            e.preventDefault();
+            $("#packetParameters tbody tr.np_selected").before($("#packetParameters tbody tr.np_selected").next());
+        });
+    });
+/*
+    //для плагина DataTable
        $("#packetParameters").DataTable({
             "paging": false,
             "ordering": false,
@@ -79,21 +104,9 @@
                 $(this).addClass('selected');
             }
         });
-
-        $("#packetParameters tbody").sortable(
-            {
-                //helper: fixHelper
-                helper: function (e, tr) {
-                    tr.children().each(function () {
-                        $(this).width($(this).width());
-                    });
-                    return tr;
-                }
-            },
-            { axis: "y" },
-            { start: function (e, tr) { tr.item.trigger('click', { drag: "1" }) } } // выделять при начале перетаскивания
-        );
-
+*/
+/*
+       //для плагина DataTable
         $(".np_btn_up").on('click', function (e) {
             e.preventDefault();
             $("#packetParameters tbody tr.selected").after($("#packetParameters tbody tr.selected").prev());            
@@ -103,21 +116,7 @@
             e.preventDefault();
             $("#packetParameters tbody tr.selected").before($("#packetParameters tbody tr.selected").next());
         });
-    
-        /*
-        $(".np_btn_up").on('click', function (e) {
-            e.preventDefault();
-            $("#packetParameters tbody tr.selected").after($("#packetParameters tbody tr.selected").prev());
-            //$("#packetParameters tbody tr.np_selected").after($("#packetParameters tbody tr.np_selected").prev());
-        });
-
-        $(".np_btn_down").on('click', function (e) {
-            e.preventDefault();
-            //$("#packetParameters tbody tr.np_selected").before($("#packetParameters tbody tr.np_selected").next());
-            $("#packetParameters tbody tr.selected").before($("#packetParameters tbody tr.selected").next());
-        });
-        */
-    //});
+ */
 </script>
 
 

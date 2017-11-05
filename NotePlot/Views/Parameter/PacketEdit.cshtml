@@ -3,25 +3,25 @@
 @{
     string atr_checked = "checked", atr_disabled = "disabled";
 }
-@*
-    @section styles{
-        <style>
-            #packetParameters .np_selected {
-                background: #F39814;
-                color: white;
-            }
 
-            #packetParameters tr {
-                background: #DEE3E7;
-            }
+@*для добавляемых паарметров*@
+@section styles{
+    <style>
+        #packetParameters .np_selected {
+            background: #F39814;
+            color: white;
+        }
 
-            #packetParameters th {
-                background: #EEC3C7;
-                /*border: 1px solid black;*/
-            }
-        </style>
-    }
-*@
+        #packetParameters tr {
+            background: #DEE3E7;
+        }
+
+        #packetParameters th {
+            background: #EEC3C7;
+            /*border: 1px solid black;*/
+        }
+    </style>
+}
 
 <form id="np_packet_edit" method="POST" action=@ViewBag.Action>
 @Html.AntiForgeryToken()
