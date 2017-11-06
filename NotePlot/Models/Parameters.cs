@@ -112,6 +112,7 @@ namespace NotePlot.Models
         List<ParameterRelation> GetRelationParameters(long pId);
         List<MathOperation> GetMathOperations();
         List<Packet> GetPackets(long lgId);
+        Packet GetPacket(long ptId, long lgId);
         bool SetPacket(Packet pt, int md);
         List<PacketParameter> GetPacketParameters(long? pId);
         //bool DelParameterGroup(long pgId);
@@ -221,6 +222,14 @@ namespace NotePlot.Models
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 return db.Query<Packet>("dbo.PacketGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public Packet GetPacket(long ptId, long lgId)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<Packet>("dbo.PacketGet", new { PacketID = ptId, LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 

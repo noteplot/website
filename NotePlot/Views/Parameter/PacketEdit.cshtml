@@ -32,7 +32,7 @@
     <fieldset>
         <legend>Пакет</legend>
         <hr />
-        <input type="hidden" id="PacketID" name=PacketID" value="@Model.PacketID" />
+        <input type="hidden" id="PacketID" name="PacketID" value="@Model.PacketID" />
         <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
         <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
         <div class="input-prepend">
@@ -52,6 +52,12 @@
             <p>
                 <label for="Active" class="np_label">Доступен</label>
                 <input type="checkbox" id="Active" name="Active" value="@Model.Active" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+            </p>
+        }
+        else
+        {
+            <p>
+                <input type="checkbox" id="Active" name="Active" value="1" hidden checked/>
             </p>
         }
     </fieldset>

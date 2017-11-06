@@ -227,7 +227,7 @@ namespace NotePlot.Controllers
         public ActionResult PacketNew()
         {
             long? loginID = null;
-            ViewBag.Action = "/Packet/Edit";
+            ViewBag.Action = "/Parameter/PacketEditJson";
             //ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
             if (HttpContext.User.Identity.IsAuthenticated)
             {
@@ -244,7 +244,7 @@ namespace NotePlot.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
-                return View("PacketEdit", repo.GetParameter(id, loginID));
+                return View("PacketEdit", repo.GetPacket(id, loginID));
             }
             else
                 return BadRequest("Нет аутентификации!");
