@@ -115,7 +115,7 @@ namespace NotePlot.Models
         Packet GetPacket(long ptId, long lgId);
         bool SetPacket(Packet pt, int md);
         List<PacketParameter> GetPacketParameters(long? pId);
-        //bool DelParameterGroup(long pgId);
+        bool DeletePacket(long prId, long lgId);
     }
 
     public class RepositoryParameter : IRepositoryParameter

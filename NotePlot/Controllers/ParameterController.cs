@@ -315,7 +315,7 @@ namespace NotePlot.Controllers
                 {
                     try
                     {
-                        repo.DeleteParameter(id, loginID);
+                        repo.DeletePacket(id, loginID);
                         return View("PacketList", repo.GetPackets(loginID));
                         //return Ok(); // ajax диалог просто пустая строка
                     }
