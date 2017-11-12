@@ -7,7 +7,10 @@
 
     $(window).resize(function (event) {
         if ($(".ui-dialog").length > 0) {
-            $('#masterDialog').dialog("widget").dialogCenter();
+            if ($('#masterDialog').length > 0)
+                $('#masterDialog').dialog("widget").dialogCenter();
+            if ($('#np_MessageDialog').length > 0)                
+                $('#np_MessageDialog').dialog("widget").dialogCenter();
         }
     });
 /*
@@ -113,20 +116,40 @@ function np_AjaxComplete() {
 };
 
 // простое сообщение, например об ошибке TODO: сделать полноправный диалог
-function np_ShowMessage(mes) {
+function np_ShowMessage(mes, tit) {
     if ($('#np_MessageDialog').length > 0)
         $('#np_MessageDialog').dialog("close");
+    if (tit == undefined)
+        tit = '';
     $("<div id = 'np_MessageDialog'></div>")
         .addClass("dialog")
         .appendTo("body")
         .dialog({
-            autoOpen: true,
+            title: tit,
+            autoOpen: open,
             modal: true,
             draggable: false,
             resizable: false,
             close: function () {
                 $(this).remove();
-            }
+            },
+            /*
+            buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            },
+            */
+            buttons: [
+                {
+                    text: "Ok",
+                    //icon: "ui-icon-heart",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            ]
+            
         }).append(mes);
 };
 

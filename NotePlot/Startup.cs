@@ -41,7 +41,9 @@ namespace NotePlot
             //Параметры
             services.AddTransient<IRepositoryParameter, RepositoryParameter>(provider => new RepositoryParameter(connection));
             //Ед.изм
-            services.AddTransient<IRepositoryParameterUnit, RepositoryParameterUnit>(provider => new RepositoryParameterUnit(connection));            
+            services.AddTransient<IRepositoryParameterUnit, RepositoryParameterUnit>(provider => new RepositoryParameterUnit(connection));
+            //Монитор
+            services.AddTransient<IRepositoryMonitor, RepositoryMonitor>(provider => new RepositoryMonitor(connection));
             // Add framework services.
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); // ЭТО ОБЯЗАТЕЛЬНО, т.к. formatter по-умолчанию преобразует начальные символы ключей в lowecase             

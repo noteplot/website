@@ -1,0 +1,83 @@
+﻿ @model IEnumerable<NotePlot.Models.Monitor>
+
+<div class="np_toolbar">
+    <a href="@Url.Action("MonitorNew", "Monitor")" class="np_button green">
+        <div class="icon"><i class="fa fa-plus"></i></div>
+    </a>
+</div>
+<button id="test">TEST</button>
+<table class="table" id="monitorList">
+    <thead>
+        <tr>
+            <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorShortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LoginID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Active)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JSON)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a href="@Url.Action("MonitorEdit", "Monitor" , new { id=item.MonitorID })" class="np_button green">
+                    <div class="icon"><i class="fa fa-pencil"></i></div>
+                </a>
+                <a href="@Url.Action("MonitorDelete", "Monitor", new { id = item.MonitorID })" class="np_deleteMonitor np_button red">
+                    <div class="icon"><i class="fa fa-times"></i></div>
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitorID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitorShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoginID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JSON)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#monitorList").DataTable();
+            var adata = new Object();
+            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+            adata.token = $("[name='__RequestVerificationToken']").val();
+            // привязываем событие к Post Request
+            $(".np_deleteMonitor").bind("click", adata, np_AjaxPost);
+            $("#test").on('click', function (e) {
+                e.preventDefault();                    
+                np_ShowMessage('Это тест!','Внимание!');
+            });
+
+        });
+    </script>
+}

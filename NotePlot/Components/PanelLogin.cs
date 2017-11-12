@@ -10,7 +10,7 @@ namespace NotePlot.Components
     {
         public IViewComponentResult Invoke()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
+             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 // если идентфицирован выводим панель с названием учетной записи
                 return View("LoginNamePanelView", User.Identity.Name);
