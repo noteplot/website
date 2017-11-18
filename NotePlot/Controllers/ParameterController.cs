@@ -43,15 +43,23 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
         }
 
-        public ActionResult ParameterListDialog(int md = 1)
+        public ActionResult ParameterListDialog()
         {
-            if (md == 1)
-                ViewBag.operations = repo.GetMathOperations(); // операции
-            else
-                ViewBag.operations = null;
+            ViewBag.operations = repo.GetMathOperations(); // операции
             long loginID = LoginController.GetLogin(HttpContext.User);
             if (loginID >= 0)
                 return PartialView("ParameterListDialog", repo.GetParameters(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
+        // диалог для выбора в пакет
+        public ActionResult MeasureParameterListDialog(short md)
+        {
+            //ViewBag.operations = repo.GetMathOperations(); // операции
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("ParameterListDialog", repo.GetParameters(loginID,md));
             else
                 return BadRequest("Нет аутентификации!");
         }

@@ -105,7 +105,7 @@ namespace NotePlot.Models
     //===========================================================
     public interface IRepositoryParameter
     {
-        List<Parameter> GetParameters(long lgId);
+        List<Parameter> GetParameters(long lgId, short md = 0);
         Parameter GetParameter(long prId, long lgId);
         bool SetParameter(Parameter pr, int md);
         bool DeleteParameter(long prId, long lgId);
@@ -126,11 +126,11 @@ namespace NotePlot.Models
             connectionString = conn;
         }
 
-        public List<Parameter> GetParameters(long lgId)
+        public List<Parameter> GetParameters(long lgId, short md = 0)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<Parameter>("dbo.ParameterGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
+                return db.Query<Parameter>("dbo.ParameterGet", new { LoginID = lgId, Mode = md }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
 

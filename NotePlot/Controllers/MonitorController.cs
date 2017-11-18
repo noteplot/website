@@ -26,5 +26,86 @@ namespace NotePlot.Controllers
             else
                 return BadRequest("Нет аутентификации!");
         }
+
+        // GET: Create
+        public ActionResult MonitorNew()
+        {
+            long? loginID = null;
+            ViewBag.Action = "/Monitor/EditJson";
+            //ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                loginID = LoginController.GetLogin(HttpContext.User);
+            }
+            Monitor mt = new Monitor() { LoginID = loginID };// {ParameterGroupID = -1, ParameterTypeID = 0, ParameterUnitID = -1, ParameterValueTypeID = -1, LoginID = -1 };
+            return View("MonitorEdit", mt);
+        }
+
+        // GET: Monitor/PacketEdit/5
+        public ActionResult MonitorEdit(long id)
+        {
+            ViewBag.Action = "/Monitor/EditJson";// POST
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                return View("MonitorEdit", repo.GetMonitor(id, loginID));
+            }
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MonitorEditJson(Monitor mt)
+        {
+            //Parameter pr = new Parameter();
+            //return Ok();
+            if (mt.JSON != null)
+            {
+                mt.JSON = mt.JSON.Substring(1);
+                mt.JSON = mt.JSON.Substring(0, mt.JSON.Length - 1);
+            }
+            //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    mt.LoginID = loginID;
+                    if (ModelState.IsValid)
+                    {
+                        int md = (mt.MonitorID == null) ? 0 : 1;
+                        try
+                        {
+                            repo.SetMonitor(mt, md);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        string errmes = string.Empty;
+                        foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                        {
+                            errmes = errmes + error.ErrorMessage + ' ';
+                        }
+                        //return BadRequest("Не все обязательные поля заполнены!");
+                        return BadRequest(errmes);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+
     }
 }

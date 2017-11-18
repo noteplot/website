@@ -1,0 +1,135 @@
+﻿@model NotePlot.Models.Monitor
+
+@{
+    string atr_checked = "checked", atr_disabled = "disabled";
+}
+
+@section styles{
+    <style>
+        #packetParameters .np_selected {
+            background: #F39814;
+            color: white;
+        }
+
+        #packetParameters tr {
+            background: #DEE3E7;
+        }
+
+        #packetParameters th {
+            background: #EEC3C7;
+            /*border: 1px solid black;*/
+        }
+    </style>
+}
+
+
+<form id="np_monitor_edit" method="POST" action=@ViewBag.Action>
+@Html.AntiForgeryToken()
+@if (Model.LoginID != 0)
+{
+    <input type="submit" value="Записать" id="np_monitor_save" @if (Model.LoginID == 0) { @atr_disabled } />
+}
+    <fieldset>
+        <legend>Монитор</legend>        
+        <input type="hidden" id="MonitorID" name="MonitorID" value="@Model.MonitorID" />
+        <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
+        <p>
+            <input type="text" id="MonitorShortName" name="MonitorShortName" value="@Model.MonitorShortName" />
+        </p>
+        <p>
+            <input type="text" id="MonitorName" name="MonitorName" value="@Model.MonitorName" />
+        </p>
+        @if (Model.MonitorID != null)
+        {
+            <p>
+                <label for="Active" class="np_label">Доступен</label>
+                <input type="checkbox" id="Active" name="Active" value="@Model.Active" @if (@Model.Active) { @atr_checked  } @if (Model.LoginID == 0) { @atr_disabled  } />
+            </p>
+        }
+        else
+        {
+            <p>
+                <input type="checkbox" id="Active" name="Active" value="1" hidden checked />
+            </p>
+        }
+    </fieldset>
+    <div id="monitorParametersPanel">
+        @await Component.InvokeAsync("MonitorParams", new { PacketID = @Model.MonitorID, LoginID = @Model.LoginID })
+    </div>
+</form>
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            var wrapper = $(".lookupField"),
+                inp = wrapper.find("input"),
+                btn = wrapper.find(".button"),
+                lbl = wrapper.find("mark");
+
+            // Crutches for the :focus style:
+            inp.focus(function () {
+                wrapper.addClass("focus");
+            }).blur(function () {
+                wrapper.removeClass("focus");
+            });
+
+            var file_api = (window.File && window.FileReader && window.FileList && window.Blob) ? true : false;
+
+            inp.change(function () {
+                var i = 0;
+            }).change();
+
+            $(document).ready(function () { fix(); });
+            $(window).resize(function () {
+                fix();
+                $(".lookupField input").triggerHandler("change");
+            });
+
+            //=================================
+            // класс для добавления параметров
+            np_insertRow = new np_InsertRow(
+                "#packetParameters",
+                "<tr>" +
+                "<td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
+                "<td>{ParameterShortName}</td>"+
+                "<td><input type='checkbox' id='PacketParameterActive' name='PacketParameterActive' value='1' checked /></td></tr > ",
+                ["ParameterID", "ParameterShortName"]
+            )
+            // события при записи
+            var adata = new Object();
+            adata.onSuccess = function () {
+                //location.reload();
+                window.location.replace("/Monitor/MonitorList"); // Перенаправление на список + не сохраняем историю
+            }
+
+            //============================================================
+            $("#np_monitor_edit").bind('submit', adata, np_AjaxFormSubmitEx);
+            // очистка сообщений об ошибках по клику
+            $("#np_monitor_edit").bind('click', np_AjaxFormInputClick);
+            $("#np_monitor_edit")
+                .validate({
+                    rules: {
+                        MonitorShortName: {
+                            required: true,
+                            minlength: 2
+                        },
+                        MonitorName: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        ParameterShortName: {
+                            required: "поле не заполнено или заполнено не верно",
+                            minlength: "в поле должно быть минимум 2 символа",
+                        },
+                        ParameterName: {
+                            required: "поле не заполнено или заполнено не верно",
+                            minlength: "в поле должно быть минимум 2 символа",
+                        }
+                    }
+                });
+        });
+    </script>
+}
+
+
+
