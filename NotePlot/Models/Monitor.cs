@@ -92,8 +92,8 @@ namespace NotePlot.Models
                         new
                         {
                             MonitorID = mt.MonitorID,
-                            MonitorIDShortName = mt.MonitorShortName,
-                            MonitorIDName = mt.MonitorName,
+                            MonitorShortName = mt.MonitorShortName,
+                            MonitorName = mt.MonitorName,
                             LoginID = mt.LoginID,
                             Active = mt.Active,
                             Mode = md,
