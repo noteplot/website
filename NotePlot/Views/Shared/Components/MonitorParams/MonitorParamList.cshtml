@@ -1,170 +1,197 @@
 ﻿@model IEnumerable<NotePlot.Models.MonitorParameter>
 @{
     string atr_checked = "checked", atr_disabled = "disabled";
+    IEnumerable<NotePlot.Models.MonitorParameter> Model1 = from item in Model where item.ParameterTypeID !=2
+                                                       select item;
+    IEnumerable<NotePlot.Models.MonitorParameter> Model2 = from item in Model
+                                                       where item.ParameterTypeID == 2
+                                                       select item;
 }
 
-@if (@ViewBag.LoginID != 0)
-{
-    <a id="np_monitor_param_add" class="np_param_add" href="/Parameter/MeasureParameterListDialog/1" np_dialog_title="Параметры" np_dialog_width="800px">Добавить параметр</a>
-    <a id="np_monitor_param_del" class="np_param_del" href="">Удалить параметр</a>
+        @if (@ViewBag.LoginID != 0)
+        {
+            <a id="np_monitor_param_add" class="np_param_add" href="/Parameter/MeasureParameterListDialog/1" np_dialog_title="Параметры" np_dialog_width="800px">Добавить параметр</a>
+            <a id="np_monitor_param_del" class="np_param_del" href="">Удалить параметр</a>
 
-    <button class='np_btn_up'>Вверх</button>
-    <button class='np_btn_down'>Вниз</button>
-}
-<h4>Параметры измерения</h4>
-<table id="monitorParameters" class="table parameters">
-    <thead>
-        <tr>
-                <th hidden>
-                    ParameterID
-                </th>
-                <th>
-                    Параметр
-                </th>
-                <th>
-                    Доступен
-                </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-        <tr>
-            <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
-            <td>@item.ParameterShortName</td>
-            <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked    } @if (@item.LoginID == 0) { @atr_disabled  } /></td>
-        </tr>
+            <button class='np_btn_up'>Вверх</button>
+            <button class='np_btn_down'>Вниз</button>
         }
-    </tbody>
-</table>
-
-<h4>Параметры монитора</h4>
-@if (@ViewBag.LoginID != 0)
-{
-    <a id="np_monitor_total_param_add" class="np_param_add" href="/Parameter/MeasureParameterListDialog/2" np_dialog_title="Параметры монитора" np_dialog_width="800px">Добавить параметр</a>
-    <a id="np_monitor_total_param_del" class="np_param_del" href="">Удалить параметр</a>
-
-    <button class='np_tot_btn_up'>Вверх</button>
-    <button class='np_tot_btn_down'>Вниз</button>
-}
-<table id="monitorTotalParameters" class="table parameters">
-<thead>
-    <tr>
-        <th hidden>
-            ParameterID
-        </th>
-        <th>
-            Параметр
-        </th>
-        <th>
-            Текущее значение
-        </th>
-        <th>
-            Доступен
-        </th>
-    </tr>
-</thead>
-<tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
-            <td>@item.ParameterShortName</td>
-            <td>@item.MonitorParameterValue</td>            
-            <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked     } @if (@item.LoginID == 0) { @atr_disabled   } /></td>
-        </tr>
-}
-</tbody>
-</table>
-<script type="text/javascript">
-    $(function () {
-        $('.np_param_add').on('click', function (e) {
-            e.preventDefault();
-            OpenDialog(this);
-        });
-
-        $('.np_param_del').on('click', function (e) {
-            e.preventDefault();
-            $('#packetParameters tbody tr.np_selected').remove();
-        });
-
-//#monitorParameters
-        // Отбор и сортровка строк
-        $("#monitorParameters tbody").on('click', 'tr', function (e, d) {
-            if ($(this).hasClass("np_selected")) {
-                // если d.drag != "1" тогда снимаем выделение
-                if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
-                    $(this).removeClass("np_selected");
-            }
-            else {
-                $("#monitorParameters tbody tr").not(this).removeClass("np_selected");
-                $(this).addClass("np_selected");
-            }
-        });
-
-        //Плагин UI Sortable
-        $("#monitorParameters tbody").sortable(
-            {
-                //helper: fixHelper
-                helper: function (e, tr) {
-                    tr.children().each(function () {
-                        $(this).width($(this).width());
-                    });
-                    return tr;
+        <h4>Параметры измерения</h4>
+        <table id="monitorParameters" class="table parameters">
+            <thead>
+                <tr>
+                    <th hidden>ParameterID</th>
+                    <th>Параметр</th>
+                    <th hidden></th>
+                    <th>Доступен</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model1)
+                {
+                    <tr>
+                        <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
+                        <td>@item.ParameterShortName</td>
+                        <td hidden>@item.MonitorParameterValue</td>
+                        <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked     } @if (@item.LoginID == 0) { @atr_disabled   } /></td>
+                    </tr>
                 }
-            },
-            { axis: "y" },
-            { start: function (e, tr) { tr.item.trigger('click', { drag: "1" }) } } // выделять при начале перетаскивания
-        );
+            </tbody>
+        </table>
 
-        $(".np_btn_up").on('click', function (e) {
-            e.preventDefault();
-            $("#monitorParameters tbody tr.np_selected").after($("#monitorParameters tbody tr.np_selected").prev());
-        });
+        <h4>Параметры монитора</h4>
+        @if (@ViewBag.LoginID != 0)
+        {
+            <a id="np_monitor_total_param_add" class="np_param_add" href="/Parameter/MeasureParameterListDialog/2" np_dialog_title="Параметры монитора" np_dialog_width="800px">Добавить параметр</a>
+            <a id="np_monitor_total_param_del" class="np_param_del" href="">Удалить параметр</a>
 
-        $(".np_btn_down").on('click', function (e) {
-            e.preventDefault();
-            $("#monitorParameters tbody tr.np_selected").before($("#monitorParameters tbody tr.np_selected").next());
-        });
-
-//#monitorTotalParameters
-        // Отбор и сортровка строк
-        $("#monitorTotalParameters tbody").on('click', 'tr', function (e, d) {
-            if ($(this).hasClass("np_selected")) {
-                // если d.drag != "1" тогда снимаем выделение
-                if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
-                    $(this).removeClass("np_selected");
-            }
-            else {
-                $("#monitorTotalParameters tbody tr").not(this).removeClass("np_selected");
-                $(this).addClass("np_selected");
-            }
-        });
-
-        //Плагин UI Sortable
-        $("#monitorTotalParameters tbody").sortable(
-            {
-                //helper: fixHelper
-                helper: function (e, tr) {
-                    tr.children().each(function () {
-                        $(this).width($(this).width());
-                    });
-                    return tr;
+            <button class='np_tot_btn_up'>Вверх</button>
+            <button class='np_tot_btn_down'>Вниз</button>
+        }
+        <table id="monitorTotalParameters" class="table parameters">
+            <thead>
+                <tr>
+                    <th hidden>
+                        ParameterID
+                    </th>
+                    <th>
+                        Параметр
+                    </th>
+                    <th>
+                        Текущее значение
+                    </th>
+                    <th>
+                        Доступен
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model2)
+                {
+                    <tr>
+                        <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
+                        <td>@item.ParameterShortName</td>
+                        <td>@item.MonitorParameterValue</td>
+                        <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked      } @if (@item.LoginID == 0) { @atr_disabled    } /></td>
+                    </tr>
                 }
-            },
-            { axis: "y" },
-            { start: function (e, tr) { tr.item.trigger('click', { drag: "1" }) } } // выделять при начале перетаскивания
-        );
+            </tbody>
+        </table>
+        <script type="text/javascript">
+            $(function () {
+                $('.np_param_add').on('click', function (e) {
+                    e.preventDefault();
+                    if (np_insertRow) {
+                        if ($(this).attr('id') == "np_monitor_param_add")
+                        {
+                            np_insertRow.tableId = "#monitorParameters";
+                            np_insertRow.rowTemplate =
+                                "<tr><td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
+                                "<td>{ParameterShortName}</td>" +
+                                "<td hidden></td>" +
+                                "<td><input type='checkbox' id='PacketParameterActive' name='PacketParameterActive' value='1' checked /></td></tr > ";
+                            np_insertRow.fields = ["ParameterID", "ParameterShortName"];
+                        }                            
+                        else {
+                            np_insertRow.tableId = "#monitorTotalParameters";
+                            np_insertRow.rowTemplate =
+                                "<tr><td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
+                                "<td>{ParameterShortName}</td>" +
+                                "<td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value='{MonitorParameterValue}'</td>" +
+                                "<td><input type='checkbox' id='PacketParameterActive' name='PacketParameterActive' value='1' checked /></td></tr > ";
+                            np_insertRow.fields = ["ParameterID", "ParameterShortName", "MonitorParameterValue"];
+                        }
+                    }
+                    OpenDialog(this);
+                });
 
-        $(".np_tot_btn_up").on('click', function (e) {
-            e.preventDefault();
-            $("#monitorTotalParameters tbody tr.np_selected").after($("#monitorTotalParameters tbody tr.np_selected").prev());
-        });
+                $('.np_param_del').on('click', function (e) {
+                    e.preventDefault();
+                    if ($(this).attr('id') == "np_monitor_param_del")
+                        $('#monitorParameters tbody tr.np_selected').remove();
+                    else
+                        $('#monitorTotalParameters tbody tr.np_selected').remove();
+                });
 
-        $(".np_tot_btn_down").on('click', function (e) {
-            e.preventDefault();
-            $("#monitorTotalParameters tbody tr.np_selected").before($("#monitorTotalParameters tbody tr.np_selected").next());
-        });
+                //#monitorParameters
+                // Отбор и сортровка строк
+                $("#monitorParameters tbody").on('click', 'tr', function (e, d) {
+                    if ($(this).hasClass("np_selected")) {
+                        // если d.drag != "1" тогда снимаем выделение
+                        if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
+                            $(this).removeClass("np_selected");
+                    }
+                    else {
+                        $("#monitorParameters tbody tr").not(this).removeClass("np_selected");
+                        $(this).addClass("np_selected");
+                    }
+                });
 
-    });
+                //Плагин UI Sortable
+                $("#monitorParameters tbody").sortable(
+                    {
+                        //helper: fixHelper
+                        helper: function (e, tr) {
+                            tr.children().each(function () {
+                                $(this).width($(this).width());
+                            });
+                            return tr;
+                        }
+                    },
+                    { axis: "y" },
+                    { start: function (e, tr) { tr.item.trigger('click', { drag: "1" }) } } // выделять при начале перетаскивания
+                );
+
+                $(".np_btn_up").on('click', function (e) {
+                    e.preventDefault();
+                    $("#monitorParameters tbody tr.np_selected").after($("#monitorParameters tbody tr.np_selected").prev());
+                });
+
+                $(".np_btn_down").on('click', function (e) {
+                    e.preventDefault();
+                    $("#monitorParameters tbody tr.np_selected").before($("#monitorParameters tbody tr.np_selected").next());
+                });
+
+                //#monitorTotalParameters
+                // Отбор и сортровка строк
+                $("#monitorTotalParameters tbody").on('click', 'tr', function (e, d) {
+                    if ($(this).hasClass("np_selected")) {
+                        // если d.drag != "1" тогда снимаем выделение
+                        if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
+                            $(this).removeClass("np_selected");
+                    }
+                    else {
+                        $("#monitorTotalParameters tbody tr").not(this).removeClass("np_selected");
+                        $(this).addClass("np_selected");
+                    }
+                });
+
+                //Плагин UI Sortable
+                $("#monitorTotalParameters tbody").sortable(
+                    {
+                        //helper: fixHelper
+                        helper: function (e, tr) {
+                            tr.children().each(function () {
+                                $(this).width($(this).width());
+                            });
+                            return tr;
+                        }
+                    },
+                    { axis: "y" },
+                    { start: function (e, tr) { tr.item.trigger('click', { drag: "1" }) } } // выделять при начале перетаскивания
+                );
+
+                $(".np_tot_btn_up").on('click', function (e) {
+                    e.preventDefault();
+                    $("#monitorTotalParameters tbody tr.np_selected").after($("#monitorTotalParameters tbody tr.np_selected").prev());
+                });
+
+                $(".np_tot_btn_down").on('click', function (e) {
+                    e.preventDefault();
+                    $("#monitorTotalParameters tbody tr.np_selected").before($("#monitorTotalParameters tbody tr.np_selected").next());
+                });
+
+            });
 /*
     //для плагина DataTable
        $("#packetParameters").DataTable({
@@ -201,7 +228,7 @@
             $("#packetParameters tbody tr.selected").before($("#packetParameters tbody tr.selected").next());
         });
  */
-</script>
+        </script>
 
 
 

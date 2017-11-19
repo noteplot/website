@@ -85,12 +85,13 @@
             });
 
             //=================================
-            // класс для добавления параметров
+            // глобальный класс для добавления параметров
             np_insertRow = new np_InsertRow(
-                "#packetParameters",
+                "#monitorParameters",
                 "<tr>" +
                 "<td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
-                "<td>{ParameterShortName}</td>"+
+                "<td>{ParameterShortName}</td>" +
+                "<td></td>" +
                 "<td><input type='checkbox' id='PacketParameterActive' name='PacketParameterActive' value='1' checked /></td></tr > ",
                 ["ParameterID", "ParameterShortName"]
             )

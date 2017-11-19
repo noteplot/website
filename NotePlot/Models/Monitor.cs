@@ -24,6 +24,8 @@ namespace NotePlot.Models
     {
         public long? MonitorID { get; set; }
         public long ParameterID { get; set; }
+        public byte ParameterTypeID { get; set; }
+        public string ParameterTypeName { get; set; }
         public string ParameterShortName { get; set; }
         public short MonitorParamPosition { get; set; }
         public decimal MonitorParameterValue { get; set; }
