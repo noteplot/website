@@ -34,7 +34,7 @@
                         <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
                         <td>@item.ParameterShortName</td>
                         <td>@item.ParameterTypeName</td>
-                        <td hidden>@item.MonitorParameterValue</td>
+                        <td hidden><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value="@item.MonitorParameterValue" /></td>
                         <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked     } @if (@item.LoginID == 0) { @atr_disabled   } /></td>
                     </tr>
                 }
@@ -71,9 +71,9 @@
                 @foreach (var item in Model2)
                 {
                     <tr>
-                        <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
+                        <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID"/></td>
                         <td>@item.ParameterShortName</td>
-                        <td>@item.MonitorParameterValue</td>
+                        <td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value="@item.MonitorParameterValue"/></td>
                         <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked      } @if (@item.LoginID == 0) { @atr_disabled    } /></td>
                     </tr>
                 }
@@ -91,7 +91,7 @@
                                 "<tr><td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
                                 "<td>{ParameterShortName}</td>" +
                                 "<td>{ParameterTypeName}</td>" +                            
-                                "<td hidden></td>" +
+                                "<td hidden><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value=''</td>" +
                                 "<td><input type='checkbox' id='MonitorParameterActive' name='MonitorParameterActive' value='1' checked /></td></tr > ";
                             np_insertRow.fields = ["ParameterID", "ParameterShortName", "ParameterTypeName"];
                         }                            
@@ -100,9 +100,9 @@
                             np_insertRow.rowTemplate =
                                 "<tr><td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
                                 "<td>{ParameterShortName}</td>" +
-                                "<td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value='{MonitorParameterValue}'</td>" +
+                                "<td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value=''</td>" +
                                 "<td><input type='checkbox' id='MonitorParameterActive' name='MonitorParameterActive' value='1' checked /></td></tr > ";
-                            np_insertRow.fields = ["ParameterID", "ParameterShortName", "MonitorParameterValue"];
+                            np_insertRow.fields = ["ParameterID", "ParameterShortName"];
                         }
                     }
                     OpenDialog(this);
