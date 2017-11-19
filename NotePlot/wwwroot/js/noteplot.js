@@ -241,12 +241,12 @@ jQuery.fn.np_serializeForm = function (lName) {
 };
 
 // ф-ция для сериализации таблицы формы
-jQuery.fn.np_serializeTable = function () {
+jQuery.fn.np_serializeTable = function (fs) {
     //cериализация таблицы
     var data = $(this).find("td>input,td>select,td>textarea").serializeArray();
     var _jsonT = ''
     s = '';
-    var _i = 0; var fs = 2;
+    var _i = 0; //var fs = 2;
     var j = 0
     $.each(data, function () {
         if (this.name !== undefined) {
@@ -294,7 +294,12 @@ function np_AjaxFormSubmitEx(event) {
         this.value = (this.checked == true);
     });
     //_sJson = "HELLO";
-    var _sJson = $(form_id).np_serializeTable(lName); // JSON - в сиде строки
+    var fs = 2; // кол-во полей по-умолчанию - для парсинга, передается через event.data.fs
+    if (event.data.fs) {
+        fs = event.data.fs;
+    }
+
+    var _sJson = $(form_id).np_serializeTable(fs); // JSON - в сиде строки
     //var _data = 'JSON=' + '"' + _sJson + '"';
     /*
     var token = GetAntiForgeryToken();
