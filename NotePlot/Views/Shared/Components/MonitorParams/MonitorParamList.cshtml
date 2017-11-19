@@ -22,6 +22,7 @@
                 <tr>
                     <th hidden>ParameterID</th>
                     <th>Параметр</th>
+                    <th>Тип</th>
                     <th hidden></th>
                     <th>Доступен</th>
                 </tr>
@@ -32,6 +33,7 @@
                     <tr>
                         <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
                         <td>@item.ParameterShortName</td>
+                        <td>@item.ParameterTypeName</td>
                         <td hidden>@item.MonitorParameterValue</td>
                         <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked     } @if (@item.LoginID == 0) { @atr_disabled   } /></td>
                     </tr>
@@ -88,9 +90,10 @@
                             np_insertRow.rowTemplate =
                                 "<tr><td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
                                 "<td>{ParameterShortName}</td>" +
+                                "<td>{ParameterTypeName}</td>" +                            
                                 "<td hidden></td>" +
-                                "<td><input type='checkbox' id='PacketParameterActive' name='PacketParameterActive' value='1' checked /></td></tr > ";
-                            np_insertRow.fields = ["ParameterID", "ParameterShortName"];
+                                "<td><input type='checkbox' id='MonitorParameterActive' name='MonitorParameterActive' value='1' checked /></td></tr > ";
+                            np_insertRow.fields = ["ParameterID", "ParameterShortName", "ParameterTypeName"];
                         }                            
                         else {
                             np_insertRow.tableId = "#monitorTotalParameters";
@@ -98,7 +101,7 @@
                                 "<tr><td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
                                 "<td>{ParameterShortName}</td>" +
                                 "<td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value='{MonitorParameterValue}'</td>" +
-                                "<td><input type='checkbox' id='PacketParameterActive' name='PacketParameterActive' value='1' checked /></td></tr > ";
+                                "<td><input type='checkbox' id='MonitorParameterActive' name='MonitorParameterActive' value='1' checked /></td></tr > ";
                             np_insertRow.fields = ["ParameterID", "ParameterShortName", "MonitorParameterValue"];
                         }
                     }

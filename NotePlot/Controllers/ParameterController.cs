@@ -54,12 +54,12 @@ namespace NotePlot.Controllers
         }
 
         // диалог для выбора в пакет
-        public ActionResult MeasureParameterListDialog(short md)
+        public ActionResult MeasureParameterListDialog(short id)
         {
             //ViewBag.operations = repo.GetMathOperations(); // операции
             long loginID = LoginController.GetLogin(HttpContext.User);
             if (loginID >= 0)
-                return PartialView("ParameterListDialog", repo.GetParameters(loginID,md));
+                return PartialView("ParameterListDialog", repo.GetParameters(loginID,id));
             else
                 return BadRequest("Нет аутентификации!");
         }

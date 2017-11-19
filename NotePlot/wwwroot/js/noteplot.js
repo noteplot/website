@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿ $(document).ready(function () {
     $.ajaxSetup({ cache: false });
     $(".openDialog").on("click", function (e) {
         e.preventDefault();
@@ -295,7 +295,7 @@ function np_AjaxFormSubmitEx(event) {
     });
     //_sJson = "HELLO";
     var _sJson = $(form_id).np_serializeTable(lName); // JSON - в сиде строки
-    var _data = 'JSON=' + '"' + _sJson + '"';
+    //var _data = 'JSON=' + '"' + _sJson + '"';
     /*
     var token = GetAntiForgeryToken();
     if (token !== null) {
@@ -425,6 +425,7 @@ function fix() {
 }
 
 //Класс  для вставки строки в таблицу
+//В таблице в ячейке указывается название класса == названию поля 
 function np_InsertRow(tid, tr, fds) {
     this.tableId = tid;      // Id таблицы, куда добавляется строка
     this.rowTemplate = tr;   // шаблон строки вставки

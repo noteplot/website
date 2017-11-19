@@ -31,7 +31,7 @@ namespace NotePlot.Controllers
         public ActionResult MonitorNew()
         {
             long? loginID = null;
-            ViewBag.Action = "/Monitor/EditJson";
+            ViewBag.Action = "/Monitor/MonitorEditJson";
             //ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
             if (HttpContext.User.Identity.IsAuthenticated)
             {
@@ -44,7 +44,7 @@ namespace NotePlot.Controllers
         // GET: Monitor/PacketEdit/5
         public ActionResult MonitorEdit(long id)
         {
-            ViewBag.Action = "/Monitor/EditJson";// POST
+            ViewBag.Action = "/Monitor/MonitorEditJson";// POST
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
