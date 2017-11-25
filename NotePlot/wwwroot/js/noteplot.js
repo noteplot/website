@@ -153,20 +153,86 @@ function np_ShowMessage(mes, tit) {
         }).append(mes);
 };
 
+function np_MessageDialogPost(event) {
+    event.preventDefault();
+    event.data.action = $(this).attr("href");
+    if ($('#np_MessageDialog').length > 0)
+        $('#np_MessageDialog').dialog("close");
+    var tit = event.data.dialogTitle;
+    var mes = event.data.dialogMessage;
+    if (tit == undefined)
+        tit = 'Внимание!';
+    if (mes == undefined)
+        mes = 'Вы уверены?';
+
+    $("<div id = 'np_MessageDialog'></div>")
+        .addClass("dialog")
+        .appendTo("body")
+        .dialog({
+            title: tit,
+            autoOpen: open,
+            modal: true,
+            draggable: false,
+            resizable: false,
+            close: function () {
+                $(this).remove();
+            },
+            /*
+            buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            },
+            */
+            buttons: [
+                {
+                    text: "Ok",
+                    //icon: "ui-icon-heart",
+                    click: function () {
+                        $(this).dialog("close");                        
+                        np_AjaxPost(event);
+                    }
+                },
+                {
+                    text: "Cancel",
+                    //icon: "ui-icon-heart",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                },
+            ]
+
+        }).append(mes);
+};
+
 // AjaxPost - действие в href
 function np_AjaxPost(event) {
     event.preventDefault();
+    var _action = (event.data.action) ? event.data.action : $(this).attr("href");
+    /*
     var _action = $(this).attr("href");
+    if (_action == undefined) // вызов из диалога
+        _action = event.data.action;
+    */
+    var _token = null;
+    if (event.data.token)
+        _token = { __RequestVerificationToken: event.data.token };
     np_AjaxBeforeSend();
+
     $.ajax({
         url: _action,
         type: 'POST',
         cache: false,
         async: false,
-        data: { __RequestVerificationToken: event.data.token },
+        data: _token,//{ __RequestVerificationToken: event.data.token },
         success: function (data) {
-            location.reload();
+            //location.reload();
             np_AjaxComplete();
+            if (event.data && event.data.onSuccess) {
+                event.data.onSuccess();
+            }
+            else
+                location.reload();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             np_AjaxComplete();

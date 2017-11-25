@@ -119,8 +119,8 @@ namespace NotePlot.Controllers
                     try
                     {
                         repo.DeleteMonitor(id, loginID);
-                        return View("MonitorList", repo.GetMonitors(loginID));
-                        //return Ok(); // ajax диалог просто пустая строка
+                        //return View("MonitorList", repo.GetMonitors(loginID));
+                        return Ok(); // ajax диалог просто пустая строка
                     }
                     catch (Exception ex)
                     {

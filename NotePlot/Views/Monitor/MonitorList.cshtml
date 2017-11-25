@@ -5,7 +5,6 @@
         <div class="icon"><i class="fa fa-plus"></i></div>
     </a>
 </div>
-<button id="test">TEST</button>
 @Html.AntiForgeryToken()
 <table class="table" id="monitorList">
     <thead>
@@ -72,13 +71,14 @@
                 // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
                 adata.token = $("[name='__RequestVerificationToken']").val();
                 // привязываем событие к Post Request
-                $(".np_deleteMonitor").bind("click", adata, np_AjaxPost);
-                
-                $("#test").on('click', function (e) {
-                    e.preventDefault();
-                    np_ShowMessage('Это тест!','Внимание!');
-                });
-                
+                //$(".np_deleteMonitor").bind("click", adata, np_AjaxPost);
+                adata.onSuccess = function () {
+                    //location.reload();
+                    window.location.replace("/Monitor/MonitorList"); // Перенаправление на список + не сохраняем историю
+                }
+                adata.dialogTitle = 'Внимание!!';
+                adata.dialogMessage = 'Вы действительно хотите удалить монитор?';
+                $(".np_deleteMonitor").bind("click", adata, np_MessageDialogPost);                                
             });
         </script>
     }
