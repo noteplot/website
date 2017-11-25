@@ -109,7 +109,7 @@ namespace NotePlot.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult MonitoreDelete(long id)
+        public ActionResult MonitorDelete(long id)
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {

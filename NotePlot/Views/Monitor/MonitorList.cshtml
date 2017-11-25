@@ -6,6 +6,7 @@
     </a>
 </div>
 <button id="test">TEST</button>
+@Html.AntiForgeryToken()
 <table class="table" id="monitorList">
     <thead>
         <tr>
@@ -28,7 +29,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.JSON)
                 </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -64,20 +64,21 @@
 }
     </tbody>
 </table>
-@section scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#monitorList").DataTable();
-            var adata = new Object();
-            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
-            adata.token = $("[name='__RequestVerificationToken']").val();
-            // привязываем событие к Post Request
-            $(".np_deleteMonitor").bind("click", adata, np_AjaxPost);
-            $("#test").on('click', function (e) {
-                e.preventDefault();                    
-                np_ShowMessage('Это тест!','Внимание!');
+    @section scripts {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#monitorList").DataTable();
+                var adata = new Object();
+                // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+                adata.token = $("[name='__RequestVerificationToken']").val();
+                // привязываем событие к Post Request
+                $(".np_deleteMonitor").bind("click", adata, np_AjaxPost);
+                
+                $("#test").on('click', function (e) {
+                    e.preventDefault();
+                    np_ShowMessage('Это тест!','Внимание!');
+                });
+                
             });
-
-        });
-    </script>
-}
+        </script>
+    }
