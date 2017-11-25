@@ -54,7 +54,7 @@
         }
     </fieldset>
     <div id="monitorParametersPanel">
-        @await Component.InvokeAsync("MonitorParams", new { PacketID = @Model.MonitorID, LoginID = @Model.LoginID })
+        @await Component.InvokeAsync("MonitorParams", new { MonitorID = @Model.MonitorID, LoginID = @Model.LoginID })
     </div>
 </form>
 @section scripts{
