@@ -42,7 +42,7 @@
         
         <div class="input-prepend">
             <button type="button" class="add-on openDialog" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0){ @atr_disabled}>Группа</button>
-            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24"  value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0){ @atr_disabled}>
+            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24"  value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0){ @atr_disabled} />
         </div>
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
@@ -56,7 +56,7 @@
             <label for="ParameterUnitShortName" class="np_label"></label>
            <div class="input-prepend">
                 <button type="button" class="add-on openDialog" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px" @if (Model.LoginID == 0){ @atr_disabled}>Ед. измерения</button>
-                <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="24" value=@Model.ParameterUnitShortName @if (Model.LoginID == 0){ @atr_disabled}>
+                <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="24" value=@Model.ParameterUnitShortName @if (Model.LoginID == 0){ @atr_disabled} />
             </div>
         </p>
         @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)

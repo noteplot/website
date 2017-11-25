@@ -71,7 +71,13 @@
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
             // привязываем событие к Post Request
-            $(".np_deletePacket").bind("click", adata, np_AjaxPost);
+            adata.onSuccess = function () {
+                //location.reload();
+                window.location.replace("/Parameter/PacketList"); // Перенаправление на список + не сохраняем историю
+            }
+            //adata.dialogTitle = 'Внимание!';
+            adata.dialogMessage = 'Вы действительно хотите удалить пакет?';
+            $(".np_deletePacket").bind("click", adata, np_MessageDialogPost);                                
         });
     </script>
 }
