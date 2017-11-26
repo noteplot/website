@@ -53,6 +53,15 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
         }
 
+        public ActionResult PacketListDialog()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("PacketListDialog", repo.GetPackets(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
         // диалог для выбора в пакет
         public ActionResult MeasureParameterListDialog(short id)
         {
