@@ -39,7 +39,7 @@
 		return this.each(function(){						
 			$(this).attr('autocomplete','off'); // всегда off		 
 				
-			$(this).bind('paste' , function(e){ // блокируем paste
+            $(this).bind('paste.noteplot' , function(e){ // блокируем paste
 					e.preventDefault();
 			});
 

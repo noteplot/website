@@ -74,13 +74,21 @@
                     <tr>
                         <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID"/></td>
                         <td>@item.ParameterShortName</td>
-                        <td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' class="np_decimal_format" size="28" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus value="@item.MonitorParameterValue"/></td>
+                        <td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' class="np_decimal_format" size="22" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus="true" value="@item.MonitorParameterValue"/></td>
                         <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked      } @if (@item.LoginID == 0) { @atr_disabled    } /></td>
                     </tr>
                 }
             </tbody>
         </table>
         <script type="text/javascript">
+            // числовое форматирование вставленной строки
+            function np_SetDecimalFormatParameterTotalValue() {
+                $('#monitorTotalParameters .np_decimal_format').unbind('.noteplot');// удаляем все обработчики, если есть
+                $('#monitorTotalParameters .np_decimal_format').npDecimalInput().npDecimalFormat();
+                $('#monitorTotalParameters .np_decimal_format').on('blur.noteplot', function () {
+                    $('#monitorTotalParameters .np_decimal_format').npDecimalFormat();
+                });
+            };
             $(function () {
                 $('.np_param_add').on('click', function (e) {
                     e.preventDefault();
@@ -101,20 +109,22 @@
                             np_insertRow.rowTemplate =
                                 "<tr><td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
                                 "<td>{ParameterShortName}</td>" +
-                                "<td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value=''</td>" +
+                                "<td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' class='np_decimal_format' size='28' np_dec_precision='22' np_dec_scale='6' np_dec_minus='true' value='' </td>" +
                                 "<td><input type='checkbox' id='MonitorParameterActive' name='MonitorParameterActive' value='1' checked /></td></tr > ";
                             np_insertRow.fields = ["ParameterID", "ParameterShortName"];
                         }
                     }
-                    OpenDialog(this);
+                    OpenDialog(this, np_SetDecimalFormatParameterTotalValue);
                 });
-
+                                
                 // подключение числового формата + удаляем лишние нули в конце после разделителя
+                np_SetDecimalFormatParameterTotalValue();
+                /*
                 $('#monitorTotalParameters .np_decimal_format').npDecimalInput().npDecimalFormat();
                 $('#monitorTotalParameters .np_decimal_format').on('blur', function () {
                     $('#monitorTotalParameters .np_decimal_format').npDecimalFormat();
                 });
-
+                */
                 $('.np_param_del').on('click', function (e) {
                     e.preventDefault();
                     if ($(this).attr('id') == "np_monitor_param_del")

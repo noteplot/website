@@ -42,7 +42,7 @@ jQuery.fn.dialogCenter = function () {
 
 // создание диалоговой формы
 // входной параметр - элемент с атрибутом гиперссылки href
-function OpenDialog(hr) {
+function OpenDialog(hr,OnClose) {
     if ($('#masterDialog').length > 0)
         $('#masterDialog').dialog("close");
 
@@ -57,6 +57,9 @@ function OpenDialog(hr) {
             title: $(hr).attr("np_dialog_title"),   // читаем заголовок для диалогового окна
             width: $(hr).attr("np_dialog_width"),   // устанавливаем ширину диалога, если она задана
             close: function () {
+                if (OnClose) {
+                    OnClose();
+                }                    
                 $(this).remove();
             }
         }).load($(hr).attr("href"), function () {   // читаем атрибут href для вызова формы
