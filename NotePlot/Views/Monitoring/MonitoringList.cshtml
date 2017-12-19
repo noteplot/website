@@ -1,0 +1,114 @@
+﻿@model NotePlot.Models.MonitoringFilter
+
+@{
+    System.Globalization.CultureInfo ruRU = new System.Globalization.CultureInfo("ru-RU");
+}
+<p>
+    Измерения по шаблону: @Model.MonitorShortName
+</p>
+<p>
+    <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a>
+</p>
+<p>
+    Поиcк по параметрам
+</p>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Выбрать измерения</a></li>
+        <li><a href="#tabs-2">За период</a></li>
+    </ul>
+    <div id="tabs-1">
+        <p><input type="text" name ="Tops" value="@Model.Tops"></p>
+    </div>
+    <div id="tabs-2">
+        <p><input type="text" name="DateFrom" class="input_date" value="@Model.DateFrom.ToString("d", ruRU)" readonly size="10"></p>
+        <p><input type="text" name="DateTo"  class="input_date" value="@Model.DateTo.ToString("d", ruRU)" readonly size="10"></p>
+    </div>
+</div>
+<div id="monitoringList">
+        @await Component.InvokeAsync("MonitorMonitorings", new { MonitorID = Model.MonitorID, Tops = Model.Tops})
+</div>
+<script>
+    $(function () {
+        $("#tabs").tabs();
+        //
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
+		$( ".input_date" ).datepicker( {
+		dateFormat: "dd.mm.yy",
+		showOtherMonths: true,
+		selectOtherMonths: true,
+		changeMonth: true,
+		changeYear: true,
+		showOn: "both",
+		buttonImage: "calendar16.png",
+		buttonImageOnly: true,
+		buttonText: "выбрать дату"
+		} );
+  } );
+</script>
+@*<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringComment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JSON)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitoringID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitorID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitoringDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitoringComment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JSON)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

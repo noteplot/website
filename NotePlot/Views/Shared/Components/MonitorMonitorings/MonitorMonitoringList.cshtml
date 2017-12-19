@@ -1,0 +1,71 @@
+﻿@model IEnumerable<NotePlot.Models.Monitoring>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringComment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JSON)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitoringID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitorID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitoringDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitoringComment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JSON)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

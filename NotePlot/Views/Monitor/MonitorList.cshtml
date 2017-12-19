@@ -40,6 +40,10 @@
                 <a href="@Url.Action("MonitorDelete", "Monitor", new { id = item.MonitorID })" class="np_deleteMonitor np_button red">
                     <div class="icon"><i class="fa fa-times"></i></div>
                 </a>
+                <a href="@Url.Action("MonitoringList", "Monitoring", new { id = item.MonitorID })" class="np_button green">
+                    Перейти к измерениям
+                    <div class="icon"><i class="fa fa-times"></i></div>
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MonitorID)
