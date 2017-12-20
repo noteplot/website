@@ -293,7 +293,7 @@ jQuery.fn.np_serializeForm = function (lName) {
             _jsonT = _jsonT + s;
         };
     });
-    console.log(_jsonT);
+    //console.log(_jsonT);
     if (_jsonT == '{}' || _jsonT == '') {
         _jsonT = null
     }
@@ -305,7 +305,7 @@ jQuery.fn.np_serializeForm = function (lName) {
     else {
         _json = '{' + _json + '}'
     }
-    console.log(_json);
+    //console.log(_json);
     return _json;
 };
 
@@ -504,4 +504,9 @@ function np_InsertRow(tid, tr, fds) {
     this.tableId = tid;      // Id таблицы, куда добавляется строка
     this.rowTemplate = tr;   // шаблон строки вставки
     this.fields = fds;       // список добавляемых полей
+};
+
+String.prototype.replaceAll = function (search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
 };

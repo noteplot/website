@@ -32,13 +32,15 @@ namespace NotePlot.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult MonitoringList(MonitoringFilter mf)
+        //[ValidateAntiForgeryToken]
+        public IActionResult MonitorMonitoringList(MonitoringFilter mf)
         {
+            /*
             IHeaderDictionary headersDictionary = HttpContext.Request.Headers;
             string urlReferrer = headersDictionary[HeaderNames.Referer].ToString();
             string url = "/" + RouteData.Values["Controller"] + "/" + RouteData.Values["Action"] + "/" + RouteData.Values["id"];
-            return View("MonitoringList",mf);
+            */
+            return View("Views/Shared/Components/MonitorMonitorings/MonitorMonitoringList.cshtml", repo.GetMonitorings(mf));
         }
 
     }

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;    //.DefaultContractResolver
 using NotePlot.Models;
 using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace NotePlot
 {
@@ -81,9 +82,16 @@ namespace NotePlot
             app.UseStaticFiles();
 
             // устанавливаем культуру по-умолчанию
+            var supportedCultures = new[]
+            {
+                //new CultureInfo("en-US")//,
+                new CultureInfo("ru-RU")
+            };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("en-US") //"ru-RU"
+                DefaultRequestCulture = new RequestCulture("ru-RU"), //"en-US"
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
             });
 
             app.UseMvc(routes =>

@@ -25,3 +25,12 @@ AntiForgeryToken
 $("input:checkbox").each(function () { // this - это не объект jQuery , а html-element
                 this.value = (this.checked == true);
 });
+
+5.Для ajax load в загружаемом частичном представлении нужно указать:
+@{
+    Layout = null;
+}
+в противном случает загружает MasterPage
+На предстваления для Components (Layout = null; работает корректно) 
+т.е. для ajax load можно использовать view components
+

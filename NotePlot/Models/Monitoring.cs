@@ -37,7 +37,7 @@ namespace NotePlot.Models
         public string MonitorShortName { get; set; }
         public string MonitortName { get; set; }
         public byte Mode { get; set; } = 0; // режим фильтра  0 - последние записи 1-период
-        public int? Tops { get; set; } = 10;
+        public int  Tops { get; set; } = 10;
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
     }
@@ -47,7 +47,7 @@ namespace NotePlot.Models
         //List<Monitoring> GetMonitorings(long mId);
         MonitoringFilter GetMonitoringFilter(long mId, long lgId);
         List<Monitoring> GetMonitorings(long mId, int tops);
-        List<Monitoring> GetMonitorings(long mId, MonitoringFilter mf);
+        List<Monitoring> GetMonitorings(MonitoringFilter mf);
 
         //List<MonitorParameter> GetMonitorParameters(long? mId);
         //Monitor GetMonitor(long mId, long lgId);
@@ -81,11 +81,11 @@ namespace NotePlot.Models
             }
         }
 
-        public List<Monitoring> GetMonitorings(long mId, MonitoringFilter mf)
+        public List<Monitoring> GetMonitorings(MonitoringFilter mf)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<Monitoring>("dbo.MonitoringsGet", new { MonitorID = mId, Tops = mf.Tops, DateFrom = mf.DateFrom, DateTo = mf.DateTo}, commandType: CommandType.StoredProcedure).ToList();
+                return db.Query<Monitoring>("dbo.MonitoringsGet", new { MonitorID = mf.MonitorID, Tops = mf.Tops, DateFrom = mf.DateFrom, DateTo = mf.DateTo, Mode = mf.Mode}, commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }

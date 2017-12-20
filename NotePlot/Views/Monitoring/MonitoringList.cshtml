@@ -14,18 +14,19 @@
 </p>
 <div id="tabs">
     <ul>
-        <li><a href="#tabs-1">Выбрать измерения</a></li>
-        <li><a href="#tabs-2">За период</a></li>
+        <li><a href="#tabs_tops">Выбрать измерения</a></li>
+        <li><a href="#tabs_period">За период</a></li>
     </ul>
-    <div id="tabs-1">
+    <div id="tabs_tops">
         <p><input type="text" name ="Tops" value="@Model.Tops"></p>
     </div>
-    <div id="tabs-2">
+    <div id="tabs_period">
         <p><input type="text" name="DateFrom" class="input_date" value="@Model.DateFrom.ToString("d", ruRU)" readonly size="10"></p>
         <p><input type="text" name="DateTo"  class="input_date" value="@Model.DateTo.ToString("d", ruRU)" readonly size="10"></p>
     </div>
+    <button id="btn_select">Выбрать</button>
 </div>
-<div id="monitoringList">
+<div id="monitoringList" data-np_monitorId="@Model.MonitorID">
         @await Component.InvokeAsync("MonitorMonitorings", new { MonitorID = Model.MonitorID, Tops = Model.Tops})
 </div>
 <script>
@@ -40,75 +41,27 @@
 		changeMonth: true,
 		changeYear: true,
 		showOn: "both",
-		buttonImage: "calendar16.png",
+		//buttonImage: "calendar16.png",
 		buttonImageOnly: true,
 		buttonText: "выбрать дату"
-		} );
+        });
+        //Перезагрузка списка       
+        $('#btn_select').on('click', function (e) {
+            e.preventDefault();
+            var data = $("#tabs input").serialize();
+            var active = $("#tabs").tabs("option", "active");
+            if (active == 0) {
+                data += "&Mode=0";
+            }
+            else { 
+                data += "&Mode=1";
+            };
+            var mId = $('#monitoringList').attr('data-np_monitorId');
+            data += "&MonitorID=" + mId;
+            var data1 = '{"' + data.replaceAll('&', '","').replaceAll('=','":"') + '"}';
+            alert(data1);
+            var json = $.parseJSON(data1);
+            $('#monitoringList').load('/Monitoring/MonitorMonitoringList', json);            
+        });
   } );
 </script>
-@*<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitoringID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitorID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitoringDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitoringComment)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitorName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreationDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ModifiedDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.JSON)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MonitoringID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MonitorID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MonitoringDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MonitoringComment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MonitorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JSON)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
