@@ -15,20 +15,29 @@ namespace NotePlot.Models
         public long MonitorID { get; set; }
         public DateTime MonitoringDate { get; set; }
         public string MonitoringComment { get; set; }
-        public string MonitorName { get; }
-        public DateTime CreationDate { get; }
-        public DateTime ModifiedDate { get; }
+        public string MonitorShortName { get; set; }
+        public DateTime? CreationDateUTC { get; }
+        public DateTime? ModifiedDateUTC { get; }
         public string JSON { get; set; } // список параметров
     }
 
-    public class MonitoringParam
+    public class MonitoringParameter
     {
         public long MonitoringID { get; set; }
         public long MonitoringParamID { get; set; }
-        public long ParamID { get; set; }
-        public decimal? ParamValue { get; set; }
-        public DateTime CreationDate { get; }
-        public DateTime ModifiedDate { get; }
+        public byte ParameterTypeID { get; set; }
+        public long ParameterID { get; set; }
+        public decimal? ParameterValue { get; set; }
+        public string ParameterShortName { get; set; }
+        public string ParameterName { get; set; }
+        public long ParameterUnitID { get; set; }
+        public string ParameterUnitShortName { get; set; }
+        public byte ParameterScale { get; set; }
+        public byte ParameterPrecision { get; set; }
+        public decimal? ParameterValueMax { get; set; }
+        public decimal? ParameterValueMin { get; set; }
+        public DateTime CreationDateUTC { get; }
+        public DateTime ModifiedDateUTC { get; }
     }
 
     public class MonitoringFilter
@@ -61,6 +70,11 @@ namespace NotePlot.Models
         public RepositoryMonitoring(string conn)
         {
             connectionString = conn;
+        }
+
+        public string GetConnection()
+        {
+            return connectionString;
         }
 
         //фильтр монитора по-умолчанию

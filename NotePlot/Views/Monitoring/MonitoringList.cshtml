@@ -26,6 +26,11 @@
     </div>
     <button id="btn_select">Выбрать</button>
 </div>
+<div class="np_toolbar">
+    <a href="@Url.Action("MonitoringNew", "Monitoring",new { MonitorID = Model.MonitorID })" class="np_button blue">
+        <div class="icon"><i class="fa fa-plus"></i></div>
+    </a>
+</div>
 <div id="monitoringList" data-np_monitorId="@Model.MonitorID">
         @await Component.InvokeAsync("MonitorMonitorings", new { MonitorID = Model.MonitorID, Tops = Model.Tops})
 </div>
@@ -33,6 +38,8 @@
     $(function () {
         $("#tabs").tabs();
         //
+        $("#monitorMonitoringList").DataTable();
+        //    
         $.datepicker.setDefaults($.datepicker.regional['ru']);
 		$( ".input_date" ).datepicker( {
 		dateFormat: "dd.mm.yy",

@@ -43,5 +43,22 @@ namespace NotePlot.Controllers
             return View("Views/Shared/Components/MonitorMonitorings/MonitorMonitoringList.cshtml", repo.GetMonitorings(mf));
         }
 
+        //Get
+        public IActionResult MonitoringNew(long MonitorID)
+        {            
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                // считываем название монитора
+                RepositoryMonitor repoMon = new RepositoryMonitor((repo as RepositoryMonitoring).GetConnection()); // TODO: обработать на ошибку
+                Monitor mr = repoMon.GetMonitor(MonitorID, loginID);
+                // новое измерение
+                Monitoring mt = new Monitoring() { MonitorID = MonitorID, MonitorShortName = mr.MonitorShortName };
+                return View("MonitoringEdit", mt);
+            }
+            else
+                return BadRequest("Нет аутентификации!"); //// TODO: обработать ошибку аутентификации
+        }
+
     }
 }

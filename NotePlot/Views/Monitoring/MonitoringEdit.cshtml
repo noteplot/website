@@ -1,0 +1,27 @@
+﻿@model NotePlot.Models.Monitoring
+
+@{
+    string atr_checked = "checked", atr_disabled = "disabled";
+}
+<p>
+    <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> Новое измерение
+</p>
+
+<form id="np_monitor_edit" method="POST" action="/Monitoring/Edit">
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Записать" id="btnMonitoringSave" @atr_disabled />
+    <fieldset>
+        <legend></legend>
+        <input type="hidden" id="MonitoringID" name="MonitoringID" value="@Model.MonitoringID" />
+        <input type="hidden" id="MonitorID" name="MonitorID" value="@Model.MonitorID" />
+        <p>
+            <label for="MonitoringDate" class="np_label">Дата измерения</label>
+            <input type="text" id="MonitoringDate" name="MonitoringDate" value="@Model.MonitoringDate" />
+        </p>
+        <p>
+            <label for="MonitoringComment" class="np_label">Комментарий</label>
+            <input type="text" id="MonitoringComment" name="MonitoringDate" value="@Model.MonitoringComment" />
+        </p>
+    </fieldset>
+</form>
+
