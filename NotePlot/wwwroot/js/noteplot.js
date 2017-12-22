@@ -510,3 +510,65 @@ String.prototype.replaceAll = function (search, replacement) {
     var target = this;
     return target.split(search).join(replacement);
 };
+
+// возращает дату как строку в соответсвии с форматом
+function np_getStringDate(dt, rType, fDate, fTime, dSep, tSep) {
+    var dt_str = '';
+    var tm_str = '';
+    if (!dSep) { dSep = '.' }
+    if (!tSep) { tSep = ':' }
+    if ((rType == 'time') || (rType == 'date_time')) {
+        // часы
+        var hh = String(dt.getHours());
+        if (hh.length == 1) {
+            hh = '0' + hh;
+        }
+        //минуты
+        var nn = String(dt.getMinutes());
+        if (nn.length == 1) {
+            nn = '0' + nn;
+        }
+        //секунды
+        var ss = String(dt.getSeconds());
+        if (ss.length == 1) {
+            ss = '0' + ss;
+        }
+        //форматируем
+        if ((fTime.toLowerCase() == 'hh' + tSep + 'nn') || (fTime.toLowerCase() == 'hh' + tSep + 'mm')) {
+            tm_str = hh + tSep + nn
+        }
+        else
+            if ((fTime.toLowerCase() == 'hh' + tSep + 'nn' + tSep + 'ss') || (fTime.toLowerCase() == 'hh' + tSep + 'mm' + tSep + 'ss')) {
+                tm_str = hh + tSep + nn + tSep + ss
+            }
+    }
+    if ((rType == 'date') || (rType == 'date_time')) {
+        //день
+        var dd = String(dt.getDate());
+        if (dd.length == 1) {
+            dd = '0' + dd;
+        }
+        //месяц
+        var MM = String(dt.getMonth() + 1);
+        if (MM.length == 1) {
+            MM = '0' + MM;
+        }
+        //Год
+        var yy = String(dt.getFullYear());
+
+        //форматируем
+        // ru
+        if (fDate.toLowerCase() == 'dd' + tSep + 'mm' + tSep + 'yy') {
+            dt_str = dd + dSep + MM + dSep + yy
+        }
+        //en
+        else
+            if (fDate.toLowerCase() == 'mm' + tSep + 'dd' + tSep + 'yy') {
+                dt_str = MM + dSep + dd + dSep + yy
+            }
+    }
+    if (rType == 'time') { return tm_str }
+    else if (rType == 'date') { return dt_str }
+    else if (rType == 'date_time') { return dt_str + ' ' + tm_str }
+    else return '';
+};

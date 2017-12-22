@@ -7,7 +7,7 @@
     <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> Новое измерение
 </p>
 
-<form id="np_monitor_edit" method="POST" action="/Monitoring/Edit">
+<form id="np_monitoring_edit" method="POST" action="/Monitoring/Edit">
     @Html.AntiForgeryToken()
     <input type="submit" value="Записать" id="btnMonitoringSave" @atr_disabled />
     <fieldset>
@@ -16,7 +16,7 @@
         <input type="hidden" id="MonitorID" name="MonitorID" value="@Model.MonitorID" />
         <p>
             <label for="MonitoringDate" class="np_label">Дата измерения</label>
-            <input type="text" id="MonitoringDate" name="MonitoringDate" value="@Model.MonitoringDate" />
+            <input type="text" class="input_date" id="MonitoringDate" name="MonitoringDate" value="@Model.MonitoringDate" />
         </p>
         <p>
             <label for="MonitoringComment" class="np_label">Комментарий</label>
@@ -24,4 +24,39 @@
         </p>
     </fieldset>
 </form>
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.datepicker.setDefaults($.datepicker.regional['ru']);
+            $(".input_date").datepicker({
+                dateFormat: "dd.mm.yy",
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                showOn: "both",
+                //buttonImage: "calendar16.png",
+                buttonImageOnly: true,
+                buttonText: "выбрать дату"
+            });
+
+            // инициализация даты и времени для нового измерения
+            //var monId = $('#MonitoringID').val();
+            var monId = $('#MonitoringID').attr('value');
+            if ((monId == false) || (typeof monId == typeof undefined) || (monId == '') || (monId == null)){
+            //новое измерение
+                //alert(monId);
+                var dt = np_getStringDate(new Date(), 'date', 'dd:mm:yy', '', '.', '');
+                $('#MonitoringDate').val(dt);
+            }
+                
+        });
+    </script>
+}
+
+
+
+
+
+
 

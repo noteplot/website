@@ -49,7 +49,7 @@ namespace NotePlot.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
-                // считываем название монитора
+                // считываем название монитора - используем методы другого класса
                 RepositoryMonitor repoMon = new RepositoryMonitor((repo as RepositoryMonitoring).GetConnection()); // TODO: обработать на ошибку
                 Monitor mr = repoMon.GetMonitor(MonitorID, loginID);
                 // новое измерение
@@ -57,7 +57,7 @@ namespace NotePlot.Controllers
                 return View("MonitoringEdit", mt);
             }
             else
-                return BadRequest("Нет аутентификации!"); //// TODO: обработать ошибку аутентификации
+                return BadRequest("Нет аутентификации!"); // TODO: обработать ошибку аутентификации
         }
 
     }
