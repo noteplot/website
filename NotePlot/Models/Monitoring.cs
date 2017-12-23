@@ -14,6 +14,8 @@ namespace NotePlot.Models
         public long? MonitoringID { get; set; }
         public long MonitorID { get; set; }
         public DateTime MonitoringDate { get; set; }
+        public string MonitoringDateDt { get; set; }
+        public string MonitoringDateTm { get; set; }
         public string MonitoringComment { get; set; }
         public string MonitorShortName { get; set; }
         public DateTime? CreationDateUTC { get; }
