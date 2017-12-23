@@ -25,9 +25,9 @@ namespace NotePlot.Models
 
     public class MonitoringParameter
     {
-        public long MonitoringID { get; set; }
-        public long MonitoringParamID { get; set; }
-        public byte ParameterTypeID { get; set; }
+        public long? MonitoringID { get; set; }
+        public long? MonitoringParamID { get; set; }
+        public int ParameterTypeID { get; set; }
         public long ParameterID { get; set; }
         public decimal? ParameterValue { get; set; }
         public string ParameterShortName { get; set; }
@@ -35,7 +35,7 @@ namespace NotePlot.Models
         public long ParameterUnitID { get; set; }
         public string ParameterUnitShortName { get; set; }
         public byte ParameterScale { get; set; }
-        public byte ParameterPrecision { get; set; }
+        public int ParameterPrecision { get; set; }
         public decimal? ParameterValueMax { get; set; }
         public decimal? ParameterValueMin { get; set; }
         public DateTime CreationDateUTC { get; }
@@ -59,6 +59,7 @@ namespace NotePlot.Models
         MonitoringFilter GetMonitoringFilter(long mId, long lgId);
         List<Monitoring> GetMonitorings(long mId, int tops);
         List<Monitoring> GetMonitorings(MonitoringFilter mf);
+        List<MonitoringParameter> GetMonitoringParams(long? monitoringId, long monitorId);
 
         //List<MonitorParameter> GetMonitorParameters(long? mId);
         //Monitor GetMonitor(long mId, long lgId);
@@ -104,6 +105,15 @@ namespace NotePlot.Models
                 return db.Query<Monitoring>("dbo.MonitoringsGet", new { MonitorID = mf.MonitorID, Tops = mf.Tops, DateFrom = mf.DateFrom, DateTo = mf.DateTo, Mode = mf.Mode}, commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public List<MonitoringParameter> GetMonitoringParams(long? monitoringId, long monitorId)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<MonitoringParameter>("dbo.MonitoringParamsGet", new { MonitoringID = monitoringId, MonitorID = monitorId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
     }
 
 }

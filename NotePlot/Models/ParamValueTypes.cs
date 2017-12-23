@@ -47,7 +47,8 @@ namespace NotePlot.Models
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<ParamValueType>("dbo.ParamValueTypesGet", commandType: CommandType.StoredProcedure).ToList();                //return db.Query<ParamValueType>("SELECT * FROM dbo.ParamValueTypes").ToList();
+                return db.Query<ParamValueType>("dbo.ParamValueTypesGet", commandType: CommandType.StoredProcedure).ToList();
+                //return db.Query<ParamValueType>("SELECT * FROM dbo.ParamValueTypes").ToList();
             }
         }
 

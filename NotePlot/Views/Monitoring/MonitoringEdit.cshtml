@@ -28,15 +28,18 @@
         <input type="hidden" id="MonitorID" name="MonitorID" value="@Model.MonitorID" />
         <div>
             <label for="MonitoringDateDt" class="np_label">Дата измерения</label>
-            <input type="text" class="input_date" id="MonitoringDateDt" name="MonitoringDateDt" value="@Model.MonitoringDateDt" readonly/>
+            <input type="text" class="input_date" id="MonitoringDateDt" name="MonitoringDateDt" value="@Model.MonitoringDateDt" readonly />
             <label for="MonitoringDateTm" class="np_label">Время измерения</label>
-            <input type="text" class="input_time" id="MonitoringDateTm" name="MonitoringDateTm" value="@Model.MonitoringDateTm" autocomplete="off"/>
+            <input type="text" class="input_time" id="MonitoringDateTm" name="MonitoringDateTm" value="@Model.MonitoringDateTm" autocomplete="off" />
         </div>
         <div>
             <label for="MonitoringComment" class="np_label">Комментарий</label>
             <input type="text" id="MonitoringComment" name="MonitoringDate" value="@Model.MonitoringComment" />
         </div>
     </fieldset>
+    <div id="monitoringParamList">
+        @await Component.InvokeAsync("MonitoringParams", new { MonitoringID = Model.MonitoringID, MonitorID = Model.MonitorID })
+    </div>
 </form>
 @section scripts{
     <script type="text/javascript">
