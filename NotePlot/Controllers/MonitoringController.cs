@@ -44,16 +44,17 @@ namespace NotePlot.Controllers
         }
 
         //Get
-        public IActionResult MonitoringNew(long MonitorID)
+        //id - MonitorID
+        public IActionResult MonitoringNew(long id)
         {            
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
                 // считываем название монитора - используем методы другого класса
                 RepositoryMonitor repoMon = new RepositoryMonitor((repo as RepositoryMonitoring).GetConnection()); // TODO: обработать на ошибку
-                Monitor mr = repoMon.GetMonitor(MonitorID, loginID);
+                Monitor mr = repoMon.GetMonitor(id, loginID);
                 // новое измерение
-                Monitoring mt = new Monitoring() { MonitorID = MonitorID, MonitorShortName = mr.MonitorShortName };
+                Monitoring mt = new Monitoring() { MonitorID = id, MonitorShortName = mr.MonitorShortName };
                 return View("MonitoringEdit", mt);
             }
             else

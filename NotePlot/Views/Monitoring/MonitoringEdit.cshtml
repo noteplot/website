@@ -16,7 +16,7 @@
 }
 
 <p>
-    <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> Новое измерение
+    <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if(Model.MonitoringID == null) {<a href="@Url.Action("MonitoringNew", "Monitoring" , new { id=Model.MonitorID })">Новое измерение</a>} else {<a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=Model.MonitoringID })">Текущее измерение</a>}
 </p>
 
 <form id="np_monitoring_edit" method="POST" action="/Monitoring/Edit">
@@ -92,7 +92,13 @@
                     $(this).unmask();
                     $(this).mask('H9:M9', { placeholder: "0" });
                 }
-            });            
+            });
+
+            $("#np_monitoring_edit input[type=text]").on('input change keydown', function (e) { 
+                if ($('#btnMonitoringSave').attr('disabled')) {
+                    $('#btnMonitoringSave').removeAttr('disabled');
+                }                
+            });
         });
     </script>
 }
