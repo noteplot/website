@@ -6,15 +6,19 @@ using System.ComponentModel.DataAnnotations.Schema; // ДЛЯ АТРИБУТОВ
 using Dapper;
 using System.Data;
 using System.Data.SqlClient;
+using System.ComponentModel.DataAnnotations;
 
 namespace NotePlot.Models
 {
     public class Monitoring
     {
         public long? MonitoringID { get; set; }
+        [Required(ErrorMessage = "Шаблон измерения должен быть указан!")]
         public long MonitorID { get; set; }
         public DateTime MonitoringDate { get; set; }
+        [Required(ErrorMessage = "Дата должна быть указана!")]
         public string MonitoringDateDt { get; set; }
+        [Required(ErrorMessage = "Время должно быть указано!")]
         public string MonitoringDateTm { get; set; }
         public string MonitoringComment { get; set; }
         public string MonitorShortName { get; set; }
@@ -27,6 +31,7 @@ namespace NotePlot.Models
     {
         public long? MonitoringID { get; set; }
         public long? MonitoringParamID { get; set; }
+        public long  MonitorParamID { get; set; }
         public int ParameterTypeID { get; set; }
         public long ParameterID { get; set; }
         public decimal? ParameterValue { get; set; }
@@ -60,7 +65,7 @@ namespace NotePlot.Models
         List<Monitoring> GetMonitorings(long mId, int tops);
         List<Monitoring> GetMonitorings(MonitoringFilter mf);
         List<MonitoringParameter> GetMonitoringParams(long? monitoringId, long monitorId);
-
+        bool SetMonitoring(Monitoring mr, int md);
         //List<MonitorParameter> GetMonitorParameters(long? mId);
         //Monitor GetMonitor(long mId, long lgId);
         //bool SetMonitor(Monitor mt, int md);
@@ -112,6 +117,35 @@ namespace NotePlot.Models
             {
                 return db.Query<MonitoringParameter>("dbo.MonitoringParamsGet", new { MonitoringID = monitoringId, MonitorID = monitorId }, commandType: CommandType.StoredProcedure).ToList();
             }
+        }
+
+        public bool SetMonitoring(Monitoring mr, int md)
+        {
+            bool rt = false;
+
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    db.Execute("dbo.MonitoringSet",
+                        new
+                        {
+                            MonitoringID    = mr.@MonitoringID,
+                            MonitorID       = mr.MonitorID,
+                            MonitoringDate  = mr.MonitoringDate,
+                            MonitoringComment = mr.MonitoringComment,
+                            JSON = mr.JSON,
+                            Mode = md
+                        },
+                        commandType: CommandType.StoredProcedure);
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
         }
 
     }

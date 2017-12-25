@@ -4,14 +4,14 @@
     Layout = null;
 }
 
-<table class="table">
+<table class="table" id="monitoringParameters">
     <thead>
         <tr>
             <th hidden></th>
             <th hidden></th>
             <th hidden></th>
-            <th>Значение параметра</th>
-            <th>Ед.изм.</th>
+            <th class="col1">Значение</th>
+            <th class="col2">Ед.изм.</th>
             <th>Параметр</th>
         </tr>
     </thead>
@@ -19,31 +19,37 @@
         @foreach (var item in Model)
         {
         <tr>
-            <td hidden><input type="text" name="MonitoringID" value="@item.MonitoringID"></td>
             <td hidden><input type="text" name="MonitoringParamID" value="@item.MonitoringParamID"></td>
+            <td hidden><input type="text" name="MonitorParamID" value="@item.MonitorParamID"></td>
             <td hidden><input type="text" name="ParameterID" value="@item.ParameterID"></td>
-            <td><input type="text" name="ParameterValue" value="@item.ParameterValue">
-            <td>@item.ParameterUnitShortName</td>
+            <td class="col1"><input type="text" class ="ParameterValue" name="ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale">
+            <td class="col2">@item.ParameterUnitShortName</td>
             <td>@item.ParameterShortName</td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.ParameterScale)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterPrecision)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterValueMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterValueMin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDateUTC)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDateUTC)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.ParameterScale)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParameterPrecision)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParameterValueMax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParameterValueMin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDateUTC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDateUTC)
+        </td>*@
         </tr>
         }
     </tbody>
 </table>
+<script type="text/javascript">
+			$(document).ready(function(){
+                $('#monitoringParameters input').npDecimalInput();
+			});
+</script>
+

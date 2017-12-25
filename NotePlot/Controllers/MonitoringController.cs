@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.Net.Http.Headers;
 using NotePlot.Models;
+using System.Globalization;
 
 namespace NotePlot.Controllers
 {
@@ -60,6 +61,69 @@ namespace NotePlot.Controllers
             else
                 return BadRequest("Нет аутентификации!"); // TODO: обработать ошибку аутентификации
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MonitoringEditJson(Monitoring mr)
+        {
+            //Parameter pr = new Parameter();
+            //return Ok();
+            System.Globalization.CultureInfo culture = CultureInfo.CurrentCulture;
+            DateTime dateResult;
+            if (DateTime.TryParse(mr.MonitoringDateDt + " " + mr.MonitoringDateTm, culture, DateTimeStyles.None, out dateResult))
+                // преобразование строки в DateTime
+                mr.MonitoringDate = dateResult;
+            else
+            {
+                return BadRequest("Неверный формат даты и времени!");
+            }
+
+            if (mr.JSON != null)
+            {
+                mr.JSON = mr.JSON.Substring(1);
+                mr.JSON = mr.JSON.Substring(0, mr.JSON.Length - 1); 
+            }
+            //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {                    
+                    if (ModelState.IsValid)
+                    {
+                        int md = (mr.MonitoringID == null) ? 0 : 1;
+                        try
+                        {
+                            repo.SetMonitoring(mr, md);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        string errmes = string.Empty;
+                        foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                        {
+                            errmes = errmes + error.ErrorMessage + ' ';
+                        }
+                        //return BadRequest("Не все обязательные поля заполнены!");
+                        return BadRequest(errmes);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+
 
     }
 }

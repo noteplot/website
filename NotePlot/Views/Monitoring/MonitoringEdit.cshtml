@@ -12,6 +12,34 @@
         .input_time {
             width: 5em !important;
         }
+
+        #np_monitoring_edit table, #np_monitoring_edit th, #np_monitoring_edit td {
+            border: 1px solid black;
+            border-style: solid;
+            border-width: 1px;
+            border-collapse: collapse;
+            padding: 2px;
+        }
+        #np_monitoring_edit table {
+            table-layout: fixed;
+            width: 100%;
+            text-align: left;
+            min-width: 150px;
+        }
+
+        #np_monitoring_edit td, #np_monitoring_edit th {
+            word-wrap: break-word;
+        }
+        #np_monitoring_edit .col1 {
+            width: 18em;
+            text-align: center;
+            vertical-align: top;
+        }
+        #np_monitoring_edit .col2 {
+            width: 6em;
+            text-align: center;
+            vertical-align: top;
+        }
     </style>
 }
 
@@ -19,7 +47,7 @@
     <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if(Model.MonitoringID == null) {<a href="@Url.Action("MonitoringNew", "Monitoring" , new { id=Model.MonitorID })">Новое измерение</a>} else {<a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=Model.MonitoringID })">Текущее измерение</a>}
 </p>
 
-<form id="np_monitoring_edit" method="POST" action="/Monitoring/Edit">
+<form id="np_monitoring_edit" method="POST" action="/Monitoring/MonitoringEditJson ">
     @Html.AntiForgeryToken()
     <input type="submit" value="Записать" id="btnMonitoringSave" @atr_disabled />
     <fieldset>
@@ -34,7 +62,7 @@
         </div>
         <div>
             <label for="MonitoringComment" class="np_label">Комментарий</label>
-            <input type="text" id="MonitoringComment" name="MonitoringDate" value="@Model.MonitoringComment" />
+            <input type="text" id="MonitoringComment" name="MonitoringComment" value="@Model.MonitoringComment" />
         </div>
     </fieldset>
     <div id="monitoringParamList">
@@ -60,8 +88,9 @@
             // инициализация даты и времени для нового измерения
             //var monId = $('#MonitoringID').val();
             var monId = $('#MonitoringID').attr('value');
-            if ((monId == false) || (typeof monId == typeof undefined) || (monId == '') || (monId == null)){
-            //если новое измерение устанваливаем текущее время браузера
+            var montId = $('#MonitorID').attr('value');
+            if ((monId == false) || (typeof monId == typeof undefined) || (monId == '') || (monId == null)) {
+                //если новое измерение устанваливаем текущее время браузера
                 //alert(monId);
                 var cd = new Date();
                 var dt = np_getStringDate(cd, 'date', 'dd:mm:yy', '', '.', '');
@@ -97,12 +126,74 @@
                 }
             });
 
-            $("#np_monitoring_edit input[type=text]").on('input change keydown', function (e) { 
+            $("#np_monitoring_edit input[type=text]").on('input change keydown', function (e) {
                 if ($('#btnMonitoringSave').attr('disabled')) {
                     $('#btnMonitoringSave').removeAttr('disabled');
-                }                
+                }
             });
+
+            // события при записи
+            var adata = new Object();
+            adata.fs = 4; // 4 поля
+            adata.onSuccess = function () {
+                //location.reload();
+                if (montId > 0) {
+                    var loc = "/Monitoring/MonitoringList/" + montId.toString();
+                    window.location.replace(loc); // Перенаправление на список измерений + не сохраняем историю
+                };
+            }
+            // adata.lName = 'ParameterRelations'; - это уже не нужно
+            $("#np_monitoring_edit").bind('submit', adata, np_AjaxFormSubmitEx);
+            // очистка сообщений об ошибках по клику
+            $("#np_monitoring_edit").bind('click', np_AjaxFormInputClick);
+            // валидация
+            $("#np_monitoring_edit")
+                .validate({
+                    rules: {
+                        MonitoringDateDt: {
+                            required: true
+                        },
+                        MonitoringDateTm: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        MonitoringDateDt: {
+                            required: "Поле не заполнено"
+                        },
+                        MonitoringDateTm: {
+                            required: "Поле не заполнено"
+                        }
+                    }
+                });
+/*
+            $.validator.addClassRules({
+                ParameterValue: {
+                    required: true,
+                    messages: {
+                        required: "Поле не заполнено"
+                    }
+                }
+            });
+
+            $('#np_monitoring_edit input.ParameterValue').each(function (index, elem) {
+                $(elem).rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Поле не заполнено"
+                    }
+                })
+            });
+
+            $('#np_monitoring_edit input.ParameterValue').rules('add', {
+                required: true,
+                messages: {
+                    required: "Поле не заполнено"
+                }
+            });
+*/
         });
+
     </script>
 }
 
