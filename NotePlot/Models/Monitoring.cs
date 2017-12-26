@@ -66,6 +66,7 @@ namespace NotePlot.Models
         List<Monitoring> GetMonitorings(MonitoringFilter mf);
         List<MonitoringParameter> GetMonitoringParams(long? monitoringId, long monitorId);
         bool SetMonitoring(Monitoring mr, int md);
+        Monitoring GetMonitoring(long mrId);
         //List<MonitorParameter> GetMonitorParameters(long? mId);
         //Monitor GetMonitor(long mId, long lgId);
         //bool SetMonitor(Monitor mt, int md);
@@ -119,6 +120,14 @@ namespace NotePlot.Models
             }
         }
 
+        public Monitoring GetMonitoring(long mrId)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<Monitoring>("dbo.MonitoringGet", new { MonitoringID = mrId}, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
         public bool SetMonitoring(Monitoring mr, int md)
         {
             bool rt = false;
@@ -149,5 +158,4 @@ namespace NotePlot.Models
         }
 
     }
-
 }

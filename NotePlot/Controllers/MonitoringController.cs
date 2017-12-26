@@ -62,6 +62,22 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!"); // TODO: обработать ошибку аутентификации
         }
 
+        //id - MonitoringID
+        public IActionResult MonitoringEdit(long id)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                Monitoring mt = repo.GetMonitoring(id);
+                System.Globalization.CultureInfo culture = CultureInfo.CurrentCulture;                
+                mt.MonitoringDateDt = mt.MonitoringDate.ToString("d", culture);
+                mt.MonitoringDateTm = mt.MonitoringDate.ToString("t", culture);
+
+                return View("MonitoringEdit", mt);
+            }
+            else
+                return BadRequest("Нет аутентификации!"); // TODO: обработать ошибку аутентификации
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MonitoringEditJson(Monitoring mr)
