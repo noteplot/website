@@ -145,7 +145,7 @@
             // adata.lName = 'ParameterRelations'; - это уже не нужно
             $("#np_monitoring_edit").bind('submit', adata, np_AjaxFormSubmitEx);
             // очистка сообщений об ошибках по клику
-            $("#np_monitoring_edit").bind('click', np_AjaxFormInputClick);
+            //$("#np_monitoring_edit").bind('click', np_AjaxFormInputClick);
             // валидация
             $("#np_monitoring_edit")
                 .validate({
@@ -175,8 +175,31 @@
                     }
                 }
             });
-
+*/
+            var _min, _max, _message;
             $('#np_monitoring_edit input.ParameterValue').each(function (index, elem) {
+                _min = parseFloat($(elem).attr("data-min"));
+                _max = parseFloat($(elem).attr("data-max"));
+                if (!isNaN(_min)) {
+                    //alert($(elem).attr("name")+' '+_min);
+                    _message = "Не должно быть меньше "+_min
+                    $(elem).rules("add", {
+                        min: _min,
+                        messages: {
+                            min: _message
+                        }
+                    })                
+                }
+                if (!isNaN(_max)) {
+                    _message = "Не должно быть больше " + _max
+                    $(elem).rules("add", {
+                        max: _max,
+                        messages: {
+                            max: _message
+                        }
+                    })
+                }
+
                 $(elem).rules("add", {
                     required: true,
                     messages: {
@@ -184,7 +207,7 @@
                     }
                 })
             });
-
+/*
             $('#np_monitoring_edit input.ParameterValue').rules('add', {
                 required: true,
                 messages: {

@@ -2,6 +2,8 @@
 
 @{
     Layout = null;
+    int rowId = 0;
+    string ParameterValue = "";
 }
 
 <table class="table" id="monitoringParameters">
@@ -18,12 +20,14 @@
     <tbody>
         @foreach (var item in Model)
         {
+            rowId++;
+            ParameterValue = "ParameterValue" + rowId.ToString();
         <tr>
             <td hidden><input type="text" name="MonitoringParamID" value="@item.MonitoringParamID"></td>
             <td hidden><input type="text" name="MonitorParamID" value="@item.MonitorParamID"></td>
             <td hidden><input type="text" name="ParameterID" value="@item.ParameterID"></td>
-            <td class="col1"><input type="text" class ="ParameterValue" name="ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale">
-            <td class="col2">@item.ParameterUnitShortName</td>
+            <td><input type="text" class ="ParameterValue" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax">
+            <td>@item.ParameterUnitShortName</td>
             <td>@item.ParameterShortName</td>
             @*<td>
             @Html.DisplayFor(modelItem => item.ParameterScale)
