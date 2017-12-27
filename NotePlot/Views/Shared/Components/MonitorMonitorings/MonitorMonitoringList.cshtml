@@ -8,66 +8,100 @@
     <table class="table" id="monitorMonitoringList">
         <thead>
             <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MonitoringID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MonitorID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MonitoringDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MonitoringComment)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MonitorShortName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreationDateUTC)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ModifiedDateUTC)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.JSON)
-                    </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitoringComment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonitorShortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDateUTC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedDateUTC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JSON)
+                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MonitoringID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MonitorID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MonitoringDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MonitoringComment)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MonitorShortName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDateUTC)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedDateUTC)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.JSON)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit","MonitoringEdit", "Monitoring", new { id = item.MonitoringID }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-    }
+            @foreach (var item in Model)
+            {
+                <tr class="@item.MonitoringID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonitoringID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonitorID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonitoringDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonitoringComment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonitorShortName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDateUTC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedDateUTC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JSON)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "MonitoringEdit", "Monitoring", new { id = item.MonitoringID }) |
+                        <a href="/Monitoring/MonitoringDelete/@item.MonitoringID" class="np_deleteMonitoring" data-monitoring="@item.MonitoringID">Delete</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+                $("#monitorMonitoringList").DataTable();
+                $('#monitorMonitoringList tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        $('#monitorMonitoringList tbody tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                });
+                
+                var adata = new Object();
+                // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+                adata.token = $("[name='__RequestVerificationToken']").val();
+                adata.onSuccess = function () {
+                    //location.reload();
+                    //window.location.replace("/Monitor/MonitorList"); // Перенаправление на список + не сохраняем историю
+                    // удаление из списка на странице
+                    $('#monitorMonitoringList tbody tr.selected').remove();
+                }
+                adata.dialogTitle = 'Внимание!!';
+                adata.dialogMessage = 'Вы действительно хотите удалить измерение?';
+                // привязываем событие к Post Request с диалогом подтверждения
+                $(".np_deleteMonitoring").bind("click", adata, np_MessageDialogPost);
+        });
+        function np_DeletePost(event) {
+            event.preventDefault();
+            event.data.MonirtoringID = $(this).attr("data-monitoring");
+            np_MessageDialogPost(event);
+        }
+    </script>

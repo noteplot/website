@@ -12,17 +12,18 @@
 <p>
     Поиcк по параметрам
 </p>
+@Html.AntiForgeryToken()
 <div id="tabs">
     <ul>
         <li><a href="#tabs_tops">Выбрать измерения</a></li>
         <li><a href="#tabs_period">За период</a></li>
     </ul>
     <div id="tabs_tops">
-        <p><input type="text" name ="Tops" value="@Model.Tops"></p>
+        <p><input type="text" name="Tops" value="@Model.Tops"></p>
     </div>
     <div id="tabs_period">
         <p><input type="text" name="DateFrom" class="input_date" value="@Model.DateFrom.ToString("d", ruRU)" readonly size="10"></p>
-        <p><input type="text" name="DateTo"  class="input_date" value="@Model.DateTo.ToString("d", ruRU)" readonly size="10"></p>
+        <p><input type="text" name="DateTo" class="input_date" value="@Model.DateTo.ToString("d", ruRU)" readonly size="10"></p>
     </div>
     <button id="btn_select">Выбрать</button>
 </div>
@@ -32,27 +33,27 @@
     </a>
 </div>
 <div id="monitoringList" data-np_monitorId="@Model.MonitorID">
-        @await Component.InvokeAsync("MonitorMonitorings", new { MonitorID = Model.MonitorID, Tops = Model.Tops})
+    @await Component.InvokeAsync("MonitorMonitorings", new { MonitorID = Model.MonitorID, Tops = Model.Tops })
 </div>
 <script>
     $(function () {
         $("#tabs").tabs();
         //
         $("#monitorMonitoringList").DataTable();
-        //    
+        //
         $.datepicker.setDefaults($.datepicker.regional['ru']);
-		$( ".input_date" ).datepicker( {
-		dateFormat: "dd.mm.yy",
-		showOtherMonths: true,
-		selectOtherMonths: true,
-		changeMonth: true,
-		changeYear: true,
-		showOn: "both",
-		//buttonImage: "calendar16.png",
-		buttonImageOnly: true,
-		buttonText: "выбрать дату"
+        $(".input_date").datepicker({
+            dateFormat: "dd.mm.yy",
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            //buttonImage: "calendar16.png",
+            buttonImageOnly: true,
+            buttonText: "выбрать дату"
         });
-        //Перезагрузка списка       
+        //Перезагрузка списка
         $('#btn_select').on('click', function (e) {
             e.preventDefault();
             var data = $("#tabs input").serialize();
@@ -60,15 +61,15 @@
             if (active == 0) {
                 data += "&Mode=0";
             }
-            else { 
+            else {
                 data += "&Mode=1";
             };
             var mId = $('#monitoringList').attr('data-np_monitorId');
             data += "&MonitorID=" + mId;
-            var data1 = '{"' + data.replaceAll('&', '","').replaceAll('=','":"') + '"}';
+            var data1 = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
             //alert(data1);
             var json = $.parseJSON(data1);
-            $('#monitoringList').load('/Monitoring/MonitorMonitoringList', json);            
+            $('#monitoringList').load('/Monitoring/MonitorMonitoringList', json);
         });
-  } );
+    });
 </script>

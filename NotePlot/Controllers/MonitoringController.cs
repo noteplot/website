@@ -140,6 +140,37 @@ namespace NotePlot.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MonitoringDelete(long id)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    try
+                    {
+                        repo.DeleteMonitoring(id);
+                        //return View("MonitorList", repo.GetMonitors(loginID));
+                        return Ok(); // ajax диалог просто пустая строка
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+
 
     }
 }

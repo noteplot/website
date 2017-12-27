@@ -67,10 +67,7 @@ namespace NotePlot.Models
         List<MonitoringParameter> GetMonitoringParams(long? monitoringId, long monitorId);
         bool SetMonitoring(Monitoring mr, int md);
         Monitoring GetMonitoring(long mrId);
-        //List<MonitorParameter> GetMonitorParameters(long? mId);
-        //Monitor GetMonitor(long mId, long lgId);
-        //bool SetMonitor(Monitor mt, int md);
-        //bool DeleteMonitor(long mId, long lgId);
+        bool DeleteMonitoring(long mId);
     }
 
     public class RepositoryMonitoring : IRepositoryMonitoring
@@ -145,6 +142,31 @@ namespace NotePlot.Models
                             MonitoringComment = mr.MonitoringComment,
                             JSON = mr.JSON,
                             Mode = md
+                        },
+                        commandType: CommandType.StoredProcedure);
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public bool DeleteMonitoring(long mId)
+        {
+            bool rt = false;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
+                //return gr;
+                try
+                {
+                    db.Execute("dbo.MonitoringDelete",
+                        new
+                        {
+                            MonitoringID = mId
                         },
                         commandType: CommandType.StoredProcedure);
                     rt = true;
