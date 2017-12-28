@@ -92,20 +92,29 @@
             var adata = new Object();
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
-            adata.onSuccess = function () {
+            adata.onSuccess = function (event) {
                 //location.reload();
-                //window.location.replace("/Monitor/MonitorList"); // Перенаправление на список + не сохраняем историю
+                //window.location.replace("/Monitoring/MonitoringList"); // Перенаправление на список + не сохраняем историю
                 // удаление из списка на странице
-                $('#monitorMonitoringList tbody tr.selected').remove();
+                var obj = $('#monitorMonitoringList tbody tr.selected');                
+                if (obj == undefined) { // без использования класса .selected
+                    var el = '#monitorMonitoringList tbody tr:has([data-monitoring="' + event.data.MonitoringID + '"])';
+                    obj = $(el);
+                }
+                obj.remove();
+                //$('#monitorMonitoringList tbody tr.selected').remove();
             }
             adata.dialogTitle = 'Внимание!!';
             adata.dialogMessage = 'Вы действительно хотите удалить измерение?';
+
             // привязываем событие к Post Request с диалогом подтверждения
-            $(".np_deleteMonitoring").bind("click", adata, np_MessageDialogPost);
+            //$(".np_deleteMonitoring").bind("click", adata, np_MessageDialogPost); // без np_DeletePost , если используется .selected !!!
+            $(".np_deleteMonitoring").bind("click", adata, np_DeletePost);
         });
+        // ф-ция для фиксации event.data.MonirtoringID через событие, если не будет использован класс .selected
         function np_DeletePost(event) {
-            event.preventDefault();
-            event.data.MonirtoringID = $(this).attr("data-monitoring");
+            event.data.MonitoringID = $(this).attr("data-monitoring");
+            event.data.action = $(this).attr("href");
             np_MessageDialogPost(event);
         }
     </script>

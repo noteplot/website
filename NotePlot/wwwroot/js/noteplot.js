@@ -158,6 +158,7 @@ function np_ShowMessage(mes, tit) {
 
 function np_MessageDialogPost(event) {
     event.preventDefault();
+    if (event.data.action == undefined)
     event.data.action = $(this).attr("href");
     if ($('#np_MessageDialog').length > 0)
         $('#np_MessageDialog').dialog("close");
@@ -232,7 +233,7 @@ function np_AjaxPost(event) {
             //location.reload();
             np_AjaxComplete();
             if (event.data && event.data.onSuccess) {
-                event.data.onSuccess();
+                event.data.onSuccess(event);
             }
             else
                 location.reload();
