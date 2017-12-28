@@ -74,30 +74,34 @@
 </div>
     <script type="text/javascript">
         $(document).ready(function () {
-                $("#monitorMonitoringList").DataTable();
-                $('#monitorMonitoringList tbody').on('click', 'tr', function () {
-                    if ($(this).hasClass('selected')) {
-                        $(this).removeClass('selected');
-                    }
-                    else {
-                        $('#monitorMonitoringList tbody tr.selected').removeClass('selected');
-                        $(this).addClass('selected');
-                    }
-                });
-                
-                var adata = new Object();
-                // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
-                adata.token = $("[name='__RequestVerificationToken']").val();
-                adata.onSuccess = function () {
-                    //location.reload();
-                    //window.location.replace("/Monitor/MonitorList"); // Перенаправление на список + не сохраняем историю
-                    // удаление из списка на странице
-                    $('#monitorMonitoringList tbody tr.selected').remove();
+            $("#monitorMonitoringList").DataTable();
+            $('#monitorMonitoringList').on('page.dt order.dt search.dt', function () {
+                $('#monitorMonitoringList tbody tr.selected').removeClass('selected');
+            });
+
+            $('#monitorMonitoringList tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
                 }
-                adata.dialogTitle = 'Внимание!!';
-                adata.dialogMessage = 'Вы действительно хотите удалить измерение?';
-                // привязываем событие к Post Request с диалогом подтверждения
-                $(".np_deleteMonitoring").bind("click", adata, np_MessageDialogPost);
+                else {
+                    $('#monitorMonitoringList tbody tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+                
+            var adata = new Object();
+            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+            adata.token = $("[name='__RequestVerificationToken']").val();
+            adata.onSuccess = function () {
+                //location.reload();
+                //window.location.replace("/Monitor/MonitorList"); // Перенаправление на список + не сохраняем историю
+                // удаление из списка на странице
+                $('#monitorMonitoringList tbody tr.selected').remove();
+            }
+            adata.dialogTitle = 'Внимание!!';
+            adata.dialogMessage = 'Вы действительно хотите удалить измерение?';
+            // привязываем событие к Post Request с диалогом подтверждения
+            $(".np_deleteMonitoring").bind("click", adata, np_MessageDialogPost);
         });
         function np_DeletePost(event) {
             event.preventDefault();
