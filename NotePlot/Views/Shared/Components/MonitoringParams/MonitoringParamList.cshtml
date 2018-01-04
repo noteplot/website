@@ -5,6 +5,15 @@
     int rowId = 0;
     string ParameterValue = "";
 }
+@{
+    string atr_readonly = "readonly";
+    IEnumerable<NotePlot.Models.MonitoringParameter> Model1 = from item in Model
+                                                              where item.ParameterTypeID != 2
+                                                              select item;
+    IEnumerable<NotePlot.Models.MonitoringParameter> Model2 = from item in Model
+                                                              where item.ParameterTypeID == 2
+                                                              select item;
+}
 
 <table class="table" id="monitoringParameters">
     <thead>
@@ -18,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model1)
         {
             rowId++;
             ParameterValue = "ParameterValue" + rowId.ToString();
@@ -26,7 +35,15 @@
             <td hidden><input type="text" name="MonitoringParamID" value="@item.MonitoringParamID"></td>
             <td hidden><input type="text" name="MonitorParamID" value="@item.MonitorParamID"></td>
             <td hidden><input type="text" name="ParameterID" value="@item.ParameterID"></td>
-            <td><input type="text" class ="ParameterValue" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax">
+            <td hidden><input type="text" name="ParameterTypeID" value="@item.ParameterTypeID"></td>
+            @if (@item.ParameterTypeID == 0)
+            {
+            <td><input type="text" class="ParameterValue" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax"></td>
+            }
+            else
+            {
+            <td><input type="text" class="ParameterValue" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="28" np_dec_scale="6" data-min="" data-max="" @atr_readonly></td>
+            }
             <td>@item.ParameterUnitShortName</td>
             <td>@item.ParameterShortName</td>
             @*<td>
@@ -52,7 +69,7 @@
     </tbody>
 </table>
 <script type="text/javascript">
-	$(document).ready(function(){
+    $(document).ready(function () {
         $('#monitoringParameters input').npDecimalInput().npDecimalFormat();
     });
 </script>
