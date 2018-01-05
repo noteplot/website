@@ -72,11 +72,11 @@
         </div>
         <p>
             <label for="ParameterValueMax" class="np_label">Макс. значение</label>
-            <input type="text" id="ParameterValueMax" name="ParameterValueMax" class="np_decimal_format" size="28" value="@Model.ParameterValueMax" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
+            <input type="text" id="ParameterValueMax" class ="rangeValue" name="ParameterValueMax" class="np_decimal_format" size="28" value="@Model.ParameterValueMax" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
         <p>
             <label for="ParameterValueMin" class="np_label">Мин. значение</label>
-            <input type="text" id="ParameterValueMin" name="ParameterValueMin" class="np_decimal_format" size="28" value="@Model.ParameterValueMin" np_dec_precision = "28" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
+            <input type="text" id="ParameterValueMin" class ="rangeValue" name="ParameterValueMin" class="np_decimal_format" size="28" value="@Model.ParameterValueMin" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
         @if (Model.ParameterID != null)
         {
@@ -133,10 +133,14 @@
                 if ($(this).val() > 0) {
                     //alert($(this).val());
                     var container = $("#relationSection");
-                    $.get("/Parameter/LoadRelations", { id: $("#ParameterID").val() },function (data) { container.html(data); });
+                    $.get("/Parameter/LoadRelations", { id: $("#ParameterID").val() }, function (data) { container.html(data); });
+                    $("input.rangeValue").attr("readonly",true).val(""); // чистим для расчетных параметров,т.к. диапазон не имеет смысла
                 }
                 else //чистим секцию связей
+                {
                     $("#relationSection").empty();
+                    $("input.rangeValue").removeAttr("readonly"); // убираем для простых
+                }
             });
             var adata = new Object();
             adata.onSuccess = function () {
