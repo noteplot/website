@@ -40,6 +40,7 @@ namespace NotePlot.Models
         Monitor GetMonitor(long mId, long lgId);
         bool SetMonitor(Monitor mt, int md);
         bool DeleteMonitor(long mId, long lgId);
+        Task<List<Monitor>> GetMonitorsAsync(long lgId);
     }
 
     public class RepositoryMonitor : IRepositoryMonitor
@@ -56,6 +57,11 @@ namespace NotePlot.Models
             {
                 return db.Query<Monitor>("dbo.MonitorGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
             }
+        }
+
+        public Task<List<Monitor>> GetMonitorsAsync(long lgId)
+        {
+            return Task.Run(() => GetMonitors(lgId));
         }
 
         public Monitor GetMonitor(long mId, long lgId)

@@ -18,11 +18,24 @@ namespace NotePlot.Controllers
         }
 
         // GET:
+        /*
         public ActionResult MonitorList()
         {
             long loginID = LoginController.GetLogin(HttpContext.User);
             if (loginID >= 0)
                 return View("MonitorList", repo.GetMonitors(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+        */
+        public async Task<ActionResult> MonitorList()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+            {
+                List<Monitor> data = await repo.GetMonitorsAsync(loginID);
+                return View("MonitorList", data);
+            }
             else
                 return BadRequest("Нет аутентификации!");
         }
