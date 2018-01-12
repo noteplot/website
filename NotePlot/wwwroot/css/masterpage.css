@@ -19,7 +19,7 @@ input[type="text"], input[type="password"], textarea, select {
     top: 46px;
     background: black;
     width: 220px;
-    min-height: 100%;
+    /*min-height: 100%;*/
 }
 
 .np_body {
