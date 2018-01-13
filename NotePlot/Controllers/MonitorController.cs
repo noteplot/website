@@ -33,8 +33,7 @@ namespace NotePlot.Controllers
             long loginID = LoginController.GetLogin(HttpContext.User);
             if (loginID >= 0)
             {
-                List<Monitor> data = await repo.GetMonitorsAsync(loginID);
-                return View("MonitorList", data);
+                return View("MonitorList", await repo.GetMonitorsAsync(loginID));
             }
             else
                 return BadRequest("Нет аутентификации!");
@@ -55,6 +54,7 @@ namespace NotePlot.Controllers
         }
 
         // GET: Monitor/PacketEdit/5
+        /*
         public ActionResult MonitorEdit(long id)
         {
             ViewBag.Action = "/Monitor/MonitorEditJson";// POST
@@ -66,7 +66,20 @@ namespace NotePlot.Controllers
             else
                 return BadRequest("Нет аутентификации!");
         }
+        */
 
+        public async Task<ActionResult> MonitorEdit(long id)
+        {
+            ViewBag.Action = "/Monitor/MonitorEditJson";// POST
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                return View("MonitorEdit", await repo.GetMonitorAsync(id, loginID));
+            }
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+        /*    
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MonitorEditJson(Monitor mt)
@@ -119,7 +132,60 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации");
             }
         }
-
+        */
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> MonitorEditJson(Monitor mt)
+        {
+            //Parameter pr = new Parameter();
+            //return Ok();
+            if (mt.JSON != null)
+            {
+                mt.JSON = mt.JSON.Substring(1);
+                mt.JSON = mt.JSON.Substring(0, mt.JSON.Length - 1);
+            }
+            //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    mt.LoginID = loginID;
+                    if (ModelState.IsValid)
+                    {
+                        int md = (mt.MonitorID == null) ? 0 : 1;
+                        try
+                        {
+                            await repo.SetMonitorAsync(mt, md);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        string errmes = string.Empty;
+                        foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                        {
+                            errmes = errmes + error.ErrorMessage + ' ';
+                        }
+                        //return BadRequest("Не все обязательные поля заполнены!");
+                        return BadRequest(errmes);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MonitorDelete(long id)
@@ -133,6 +199,36 @@ namespace NotePlot.Controllers
                     {
                         repo.DeleteMonitor(id, loginID);
                         //return View("MonitorList", repo.GetMonitors(loginID));
+                        return Ok(); // ajax диалог просто пустая строка
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+        */
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> MonitorDelete(long id)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    try
+                    {
+                        await repo.DeleteMonitorAsync(id, loginID);
                         return Ok(); // ajax диалог просто пустая строка
                     }
                     catch (Exception ex)

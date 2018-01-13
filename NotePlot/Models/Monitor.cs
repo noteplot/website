@@ -41,6 +41,9 @@ namespace NotePlot.Models
         bool SetMonitor(Monitor mt, int md);
         bool DeleteMonitor(long mId, long lgId);
         Task<List<Monitor>> GetMonitorsAsync(long lgId);
+        Task<Monitor> GetMonitorAsync (long mId, long lgId);
+        Task<bool> SetMonitorAsync(Monitor mt, int md);
+        Task<bool> DeleteMonitorAsync(long mId, long lgId);
     }
 
     public class RepositoryMonitor : IRepositoryMonitor
@@ -70,6 +73,11 @@ namespace NotePlot.Models
             {
                 return db.Query<Monitor>("dbo.MonitorGet", new { MonitorID = mId,LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
+        }
+
+        public Task<Monitor> GetMonitorAsync(long mId, long lgId)
+        {
+            return Task.Run(() => GetMonitor(mId,lgId));
         }
 
         public List<MonitorParameter> GetMonitorParameters(long? mId)
@@ -116,6 +124,11 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public Task<bool> SetMonitorAsync(Monitor mt, int md)
+        {
+            return Task.Run(()=>SetMonitor(mt, md));
+        }
+
         public bool DeleteMonitor(long mId, long lgId)
         {
             bool rt = false;
@@ -142,5 +155,9 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public Task<bool> DeleteMonitorAsync(long mId, long lgId)
+        {
+            return Task.Run(() => DeleteMonitor(mId, lgId));
+        }
     }
 }
