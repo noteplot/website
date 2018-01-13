@@ -75,6 +75,7 @@ namespace NotePlot.Models
     public interface IRepositoryLogin
     {
         UserAccount LogIn(string logName, string passw);
+        Task<UserAccount> LogInAsync(string logName, string passw);
         //void GetLogin(string email, string password);
         //void CreateLogin(string email, string password);
         //void Delete(int id);
@@ -101,6 +102,10 @@ namespace NotePlot.Models
             return us;
         }
 
+        public Task<UserAccount> LogInAsync(string logName, string passw)
+        {
+            return Task.Run(()=> LogIn(logName, passw));
+        }
     }
 
 }

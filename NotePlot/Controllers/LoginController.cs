@@ -35,7 +35,8 @@ namespace NotePlot.Controllers
             {
                 try
                 {
-                    UserAccount us = repo.LogIn(lg.LoginName, lg.Password); // аутентификация TO DO: сделать асинхронным
+                    //UserAccount us = repo.LogIn(lg.LoginName, lg.Password); // аутентификация TO DO: сделать асинхронным
+                    UserAccount us = await repo.LogInAsync(lg.LoginName, lg.Password);
                     if (us != null)
                     {
                         try
