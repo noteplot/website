@@ -5,6 +5,8 @@
         OpenDialog(this);
     });
 
+    $(".np_sidebar").css("height", document.body.clientHeight - 46);
+
     $(window).resize(function (event) {
         if ($(".ui-dialog").length > 0) {
             if ($('#masterDialog').length > 0)
@@ -12,6 +14,7 @@
             if ($('#np_MessageDialog').length > 0)                
                 $('#np_MessageDialog').dialog("widget").dialogCenter();
         }
+        $(".np_sidebar").css("height", document.body.clientHeight - 46);
     });
 /*
     // добавление токена для запросов POST
