@@ -33,6 +33,7 @@ namespace NotePlot.Models
     public interface IRepositoryParamValueType
     {
         List<ParamValueType> GetParamValueTypes();
+        Task<List<ParamValueType>> GetParamValueTypesAsync();
     }
 
     public class RepositoryParamValueType : IRepositoryParamValueType
@@ -50,6 +51,11 @@ namespace NotePlot.Models
                 return db.Query<ParamValueType>("dbo.ParamValueTypesGet", commandType: CommandType.StoredProcedure).ToList();
                 //return db.Query<ParamValueType>("SELECT * FROM dbo.ParamValueTypes").ToList();
             }
+        }
+
+        public Task<List<ParamValueType>> GetParamValueTypesAsync()
+        {
+            return Task.Run(()=> GetParamValueTypes());
         }
 
     }

@@ -18,12 +18,17 @@ namespace NotePlot.Components
         {
             repo = r;
         }
-
+        /*
         public IViewComponentResult Invoke(long ParameterID, long LoginID)
         {
             ViewBag.LoginID = LoginID;
             return View("ParamRelationList", repo.GetRelationParameters(ParameterID));
         }
-
+        */
+        public async Task<IViewComponentResult> InvokeAsync(long ParameterID, long LoginID)
+        {
+            ViewBag.LoginID = LoginID;
+            return View("ParamRelationList", await repo.GetRelationParametersAsync(ParameterID));
+        }
     }
 }

@@ -21,7 +21,9 @@ namespace NotePlot.Models
     public interface IUnitCategoryRepository
     {
         List<UnitCategory> GetCategories();
+        Task<List<UnitCategory>> GetCategoriesAsync();
         UnitCategory GetCategory(int id);
+        Task<UnitCategory> GetCategoryAsync(int id);
     }
 
     class UnitCategoryRepository : IUnitCategoryRepository
@@ -41,6 +43,11 @@ namespace NotePlot.Models
             }
         }
 
+        public Task<List<UnitCategory>> GetCategoriesAsync()
+        {
+            return Task.Run(()=> GetCategories());
+        }
+
         public UnitCategory GetCategory(int id)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
@@ -48,5 +55,11 @@ namespace NotePlot.Models
                 return db.Query<UnitCategory>("SELECT * FROM UnitGroups WHERE UnitGroupId = @id", new { id = id }).FirstOrDefault();
             }
         }
+
+        public Task<UnitCategory> GetCategoryAsync(int id)
+        {
+            return Task.Run(()=> GetCategory(id));
+        }
+
     }
 }

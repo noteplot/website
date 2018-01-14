@@ -26,8 +26,11 @@ namespace NotePlot.Models
     public interface IRepositoryParameterGroup
     {
         List<ParameterGroup> GetParameterGroups(long lgId);
-        ParameterGroup GetParameterGroup(long pgId, long lgId);        
+        Task<List<ParameterGroup>> GetParameterGroupsAsync(long lgId);
+        ParameterGroup GetParameterGroup(long pgId, long lgId);
+        Task<ParameterGroup> GetParameterGroupAsync(long pgId, long lgId);
         bool SetParameterGroup(ParameterGroup pg, int md);
+        Task<bool> SetParameterGroupAsync(ParameterGroup pg, int md);
         //bool DelParameterGroup(long pgId);
     }
 
@@ -43,14 +46,26 @@ namespace NotePlot.Models
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<ParameterGroup>("dbo.ParameterGroupGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();            }
+                return db.Query<ParameterGroup>("dbo.ParameterGroupGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public Task<List<ParameterGroup>> GetParameterGroupsAsync(long lgId)
+        {
+            return Task.Run(()=> GetParameterGroups(lgId));
         }
 
         public ParameterGroup GetParameterGroup(long pgId, long lgId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<ParameterGroup>("dbo.ParameterGroupGet", new { ParameterGroupID = pgId, LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();            }
+                return db.Query<ParameterGroup>("dbo.ParameterGroupGet", new { ParameterGroupID = pgId, LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
+        public Task<ParameterGroup> GetParameterGroupAsync(long pgId, long lgId)
+        {
+            return Task.Run(() => GetParameterGroupAsync(pgId, lgId));
         }
 
         public bool SetParameterGroup(ParameterGroup pg, int md)
@@ -58,7 +73,8 @@ namespace NotePlot.Models
             bool rt = false;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();                //return gr;
+                //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
+                //return gr;
                 try
                 { 
                 db.Execute("dbo.ParameterGroupSet",
@@ -74,5 +90,9 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public Task<bool> SetParameterGroupAsync(ParameterGroup pg, int md)
+        {
+            return Task.Run(() => SetParameterGroup(pg, md));
+        }
     }
 }

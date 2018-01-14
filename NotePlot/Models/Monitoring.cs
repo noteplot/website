@@ -62,12 +62,19 @@ namespace NotePlot.Models
     {
         //List<Monitoring> GetMonitorings(long mId);
         MonitoringFilter GetMonitoringFilter(long mId, long lgId);
+        Task<MonitoringFilter> GetMonitoringFilterAsync(long mId, long lgId);
         List<Monitoring> GetMonitorings(long mId, int tops);
+        Task<List<Monitoring>> GetMonitoringsAsync(long mId, int tops);
         List<Monitoring> GetMonitorings(MonitoringFilter mf);
+        Task<List<Monitoring>> GetMonitoringsAsync(MonitoringFilter mf);
         List<MonitoringParameter> GetMonitoringParams(long? monitoringId, long monitorId);
-        bool SetMonitoring(Monitoring mr, int md);
+        Task<List<MonitoringParameter>> GetMonitoringParamsAsync(long? monitoringId, long monitorId);
         Monitoring GetMonitoring(long mrId);
+        Task<Monitoring> GetMonitoringAsync(long mrId);
+        bool SetMonitoring(Monitoring mr, int md);
+        Task<bool> SetMonitoringAsync(Monitoring mr, int md);
         bool DeleteMonitoring(long mId);
+        Task<bool> DeleteMonitoringAsync(long mId);
     }
 
     public class RepositoryMonitoring : IRepositoryMonitoring
@@ -92,6 +99,11 @@ namespace NotePlot.Models
             }
         }
 
+        public Task<MonitoringFilter> GetMonitoringFilterAsync(long mId, long lgId)
+        {
+            return Task.Run(() => GetMonitoringFilter(mId, lgId));
+        }
+
         // выборка по-умолчанию
         public List<Monitoring> GetMonitorings(long mId, int tops)
         {
@@ -99,6 +111,11 @@ namespace NotePlot.Models
             {
                 return db.Query<Monitoring>("dbo.MonitoringsGet", new { MonitorID = mId, Tops = tops }, commandType: CommandType.StoredProcedure).ToList();
             }
+        }
+
+        public Task<List<Monitoring>> GetMonitoringsAsync(long mId, int tops)
+        {
+            return Task.Run(() => GetMonitorings(mId, tops));
         }
 
         public List<Monitoring> GetMonitorings(MonitoringFilter mf)
@@ -109,6 +126,11 @@ namespace NotePlot.Models
             }
         }
 
+        public Task<List<Monitoring>> GetMonitoringsAsync(MonitoringFilter mf)
+        {
+            return Task.Run(() => GetMonitorings(mf));
+        }
+
         public List<MonitoringParameter> GetMonitoringParams(long? monitoringId, long monitorId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
@@ -117,12 +139,22 @@ namespace NotePlot.Models
             }
         }
 
+        public Task<List<MonitoringParameter>> GetMonitoringParamsAsync(long? monitoringId, long monitorId)
+        {
+            return Task.Run(() => GetMonitoringParams(monitoringId, monitorId));
+        }
+
         public Monitoring GetMonitoring(long mrId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 return db.Query<Monitoring>("dbo.MonitoringGet", new { MonitoringID = mrId}, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
+        }
+
+        public Task<Monitoring> GetMonitoringAsync(long mrId)
+        {
+            return Task.Run(() => GetMonitoringAsync(mrId));
         }
 
         public bool SetMonitoring(Monitoring mr, int md)
@@ -154,6 +186,11 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public Task<bool> SetMonitoringAsync(Monitoring mr, int md)
+        {
+            return Task.Run(() => SetMonitoringAsync(mr, md));
+        }
+
         public bool DeleteMonitoring(long mId)
         {
             bool rt = false;
@@ -177,6 +214,11 @@ namespace NotePlot.Models
                 }
             }
             return rt;
+        }
+
+        public Task<bool> DeleteMonitoringAsync(long mId)
+        {
+            return Task.Run(() => DeleteMonitoring(mId));
         }
 
     }

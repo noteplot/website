@@ -20,7 +20,7 @@ namespace NotePlot.Controllers
         {
             return View("ParamValueTypeView", repo.GetParamValueTypes());
         }
-
+        /*
         [HttpGet]
         public ActionResult ListDialog()
         {
@@ -31,5 +31,16 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
 
         }
+        */
+        [HttpGet]
+        public async Task<ActionResult> ListDialog()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("ListDialog", await repo.GetParamValueTypesAsync());
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
     }
 }

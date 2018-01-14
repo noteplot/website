@@ -17,6 +17,7 @@ namespace NotePlot.Controllers
         }
 
         // GET: ParameterGroup - диалог выбора группы
+        /*
         public ActionResult ListDialog()
         {
             long loginID = LoginController.GetLogin(HttpContext.User);
@@ -25,6 +26,15 @@ namespace NotePlot.Controllers
             else
                 return BadRequest("Нет аутентификации!");
         }
+        */
 
+        public async Task<ActionResult> ListDialog()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("ListDialog", await repo.GetParameterUnitsAsync(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
     }
 }

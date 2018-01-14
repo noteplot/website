@@ -37,6 +37,7 @@ namespace NotePlot.Models
     {
         List<Monitor> GetMonitors(long lgId);
         List<MonitorParameter> GetMonitorParameters(long? mId);
+        Task<List<MonitorParameter>> GetMonitorParametersAsync(long? mId);
         Monitor GetMonitor(long mId, long lgId);
         bool SetMonitor(Monitor mt, int md);
         bool DeleteMonitor(long mId, long lgId);
@@ -91,6 +92,11 @@ namespace NotePlot.Models
             {
                 return new List<MonitorParameter>();
             }
+        }
+
+        public Task<List<MonitorParameter>> GetMonitorParametersAsync(long? mId)
+        {
+            return Task.Run(() => GetMonitorParameters(mId));
         }
 
         public bool SetMonitor(Monitor mt, int md)

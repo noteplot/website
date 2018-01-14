@@ -27,6 +27,7 @@ namespace NotePlot.Models
     public interface IRepositoryParameterUnit
     {
         List<Unit> GetParameterUnits(long lgId);
+        Task<List<Unit>> GetParameterUnitsAsync(long lgId);
         //ParameterGroup GetParameterUnit(long pgId, long lgId);
         //bool SetParameterUnit(ParameterGroup pg, int md);
         //bool DelParameterGroup(long pgId);
@@ -44,8 +45,14 @@ namespace NotePlot.Models
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<Unit>("dbo.ParameterUnitGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();            }
+                return db.Query<Unit>("dbo.ParameterUnitGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
+            }
         }
-    }
 
- }
+        public Task<List<Unit>> GetParameterUnitsAsync(long lgId)
+        {
+            return Task.Run(() => GetParameterUnits(lgId));
+        }
+
+    }
+}

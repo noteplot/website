@@ -106,16 +106,27 @@ namespace NotePlot.Models
     public interface IRepositoryParameter
     {
         List<Parameter> GetParameters(long lgId, short md = 0);
+        Task<List<Parameter>> GetParametersAsync(long lgId, short md = 0);
         Parameter GetParameter(long prId, long lgId);
+        Task<Parameter> GetParameterAsync(long prId, long lgId);
         bool SetParameter(Parameter pr, int md);
+        Task<bool> SetParameterAsync(Parameter pr, int md);
         bool DeleteParameter(long prId, long lgId);
+        Task<bool> DeleteParameterAsync(long prId, long lgId);
         List<ParameterRelation> GetRelationParameters(long pId);
+        Task<List<ParameterRelation>> GetRelationParametersAsync(long pId);
         List<MathOperation> GetMathOperations();
+        Task<List<MathOperation>> GetMathOperationsAsync();
         List<Packet> GetPackets(long lgId);
+        Task<List<Packet>> GetPacketsAsync(long lgId);
         Packet GetPacket(long ptId, long lgId);
+        Task<Packet> GetPacketAsync(long ptId, long lgId);
         bool SetPacket(Packet pt, int md);
+        Task<bool> SetPacketAsync(Packet pt, int md);
         List<PacketParameter> GetPacketParameters(long? pId);
+        Task<List<PacketParameter>> GetPacketParametersAsync(long? pId);
         bool DeletePacket(long prId, long lgId);
+        Task<bool> DeletePacketAsync(long prId, long lgId);
     }
 
     public class RepositoryParameter : IRepositoryParameter
@@ -134,12 +145,22 @@ namespace NotePlot.Models
             }
         }
 
+        public Task<List<Parameter>> GetParametersAsync(long lgId, short md = 0)
+        {
+            return Task.Run(()=> GetParameters(lgId, md));
+        }
+
         public Parameter GetParameter(long prId, long lgId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 return db.Query<Parameter>("dbo.ParameterGet", new { ParameterID = prId, LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
+        }
+
+        public Task<Parameter> GetParameterAsync(long prId, long lgId)
+        {
+            return Task.Run(()=> GetParameter(prId, lgId));
         }
 
         public bool SetParameter(Parameter pr, int md)
@@ -168,6 +189,11 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public Task<bool> SetParameterAsync(Parameter pr, int md)
+        {
+            return Task.Run(() => SetParameter(pr,md));
+        }
+
         public bool DeleteParameter(long prId, long lgId)
         {
             bool rt = false;
@@ -194,6 +220,11 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public Task<bool> DeleteParameterAsync(long prId, long lgId)
+        {
+            return Task.Run(()=> DeleteParameterAsync(prId, lgId));
+        }
+
         public List<ParameterRelation> GetRelationParameters(long pId)
         {
             if (pId > 0)
@@ -204,8 +235,12 @@ namespace NotePlot.Models
             else
             {
                 return new List<ParameterRelation>();
-            }
-                
+            }                
+        }
+
+        public Task<List<ParameterRelation>> GetRelationParametersAsync(long pId)
+        {
+            return Task.Run(()=> GetRelationParameters(pId));
         }
 
         public List<MathOperation> GetMathOperations()
@@ -214,6 +249,11 @@ namespace NotePlot.Models
             {
                 return db.Query<MathOperation>("dbo.MathOperationsGet", commandType: CommandType.StoredProcedure).ToList();
             }
+        }
+
+        public Task<List<MathOperation>> GetMathOperationsAsync()
+        {
+            return Task.Run(()=> GetMathOperations());
         }
 
         // пакеты    
@@ -225,12 +265,22 @@ namespace NotePlot.Models
             }
         }
 
+        public Task<List<Packet>> GetPacketsAsync(long lgId)
+        {
+            return Task.Run(()=> GetPacketsAsync(lgId));
+        }
+
         public Packet GetPacket(long ptId, long lgId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 return db.Query<Packet>("dbo.PacketGet", new { PacketID = ptId, LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
+        }
+
+        public Task<Packet> GetPacketAsync(long ptId, long lgId)
+        {
+            return Task.Run(()=> GetPacketAsync(ptId, lgId));
         }
 
         public bool SetPacket(Packet pt, int md)
@@ -265,6 +315,11 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public Task<bool> SetPacketAsync(Packet pt, int md)
+        {
+            return Task.Run(()=> SetPacket(pt, md));
+        }
+
         public bool DeletePacket(long prId, long lgId)
         {
             bool rt = false;
@@ -291,6 +346,11 @@ namespace NotePlot.Models
             return rt;
         }
 
+        public Task<bool> DeletePacketAsync(long prId, long lgId)
+        {
+            return Task.Run(()=> DeletePacket(prId, lgId));
+        }
+
         public List<PacketParameter> GetPacketParameters(long? pId)
         {
             if (pId > 0)
@@ -302,6 +362,11 @@ namespace NotePlot.Models
             {
                 return new List<PacketParameter>();
             }
+        }
+
+        public Task<List<PacketParameter>> GetPacketParametersAsync(long? pId)
+        {
+            return Task.Run(()=> GetPacketParameters(pId));        
         }
 
     }

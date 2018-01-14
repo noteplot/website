@@ -14,11 +14,19 @@ namespace NotePlot.Components
         {
             repo = r;
         }
-
+        /*
         public IViewComponentResult Invoke(long? PacketID, long LoginID)
         {
             ViewBag.LoginID = LoginID;
             return View("PacketParamList", repo.GetPacketParameters(PacketID));
         }
+        */
+
+        public async Task<IViewComponentResult> InvokeAsync(long? PacketID, long LoginID)
+        {
+            ViewBag.LoginID = LoginID;
+            return View("PacketParamList", await repo.GetPacketParametersAsync(PacketID));
+        }
+
     }
 }

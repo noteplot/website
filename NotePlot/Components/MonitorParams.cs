@@ -14,11 +14,17 @@ namespace NotePlot.Components
         {
             repo = r;
         }
-
+        /*
         public IViewComponentResult Invoke(long? MonitorID, long LoginID)
         {
             ViewBag.LoginID = LoginID;
             return View("MonitorParamList", repo.GetMonitorParameters(MonitorID));
+        }
+        */
+        public async Task<IViewComponentResult> InvokeAsync(long? MonitorID, long LoginID)
+        {
+            ViewBag.LoginID = LoginID;
+            return View("MonitorParamList", await repo.GetMonitorParametersAsync(MonitorID));
         }
 
     }
