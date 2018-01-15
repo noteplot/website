@@ -65,7 +65,7 @@ namespace NotePlot.Models
 
         public Task<ParameterGroup> GetParameterGroupAsync(long pgId, long lgId)
         {
-            return Task.Run(() => GetParameterGroupAsync(pgId, lgId));
+            return Task.Run(() => GetParameterGroup(pgId, lgId));
         }
 
         public bool SetParameterGroup(ParameterGroup pg, int md)

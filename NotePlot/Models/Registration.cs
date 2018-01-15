@@ -27,16 +27,16 @@ namespace NotePlot.Models
     }
 
     // класс для регистрации
-    public class RegisterViewModel
+    public class LoginRegistration
     {
         //[Display(Name = "Имя")]
         //public string LoginName { get; set; }
 
         [Display(Name = "e-mail")]
-        public string EMail { get; set; }
+        public string Email { get; set; }
 
-        [Display(Name = "Забыли пароль?")]
-        public bool ForgetPassword { get; set; }
+        //[Display(Name = "Забыли пароль?")]
+        //public bool ForgetPassword { get; set; }
 
         //[Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

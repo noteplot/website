@@ -154,7 +154,7 @@ namespace NotePlot.Models
 
         public Task<Monitoring> GetMonitoringAsync(long mrId)
         {
-            return Task.Run(() => GetMonitoringAsync(mrId));
+            return Task.Run(() => GetMonitoring(mrId));
         }
 
         public bool SetMonitoring(Monitoring mr, int md)
@@ -188,7 +188,7 @@ namespace NotePlot.Models
 
         public Task<bool> SetMonitoringAsync(Monitoring mr, int md)
         {
-            return Task.Run(() => SetMonitoringAsync(mr, md));
+            return Task.Run(() => SetMonitoring(mr, md));
         }
 
         public bool DeleteMonitoring(long mId)

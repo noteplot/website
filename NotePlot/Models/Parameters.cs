@@ -222,7 +222,7 @@ namespace NotePlot.Models
 
         public Task<bool> DeleteParameterAsync(long prId, long lgId)
         {
-            return Task.Run(()=> DeleteParameterAsync(prId, lgId));
+            return Task.Run(()=> DeleteParameter(prId, lgId));
         }
 
         public List<ParameterRelation> GetRelationParameters(long pId)
@@ -267,7 +267,7 @@ namespace NotePlot.Models
 
         public Task<List<Packet>> GetPacketsAsync(long lgId)
         {
-            return Task.Run(()=> GetPacketsAsync(lgId));
+            return Task.Run(()=> GetPackets(lgId));
         }
 
         public Packet GetPacket(long ptId, long lgId)
@@ -280,7 +280,7 @@ namespace NotePlot.Models
 
         public Task<Packet> GetPacketAsync(long ptId, long lgId)
         {
-            return Task.Run(()=> GetPacketAsync(ptId, lgId));
+            return Task.Run(()=> GetPacket(ptId, lgId));
         }
 
         public bool SetPacket(Packet pt, int md)

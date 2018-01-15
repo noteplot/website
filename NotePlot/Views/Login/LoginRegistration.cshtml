@@ -1,0 +1,72 @@
+﻿@model NotePlot.Models.LoginRegistration
+
+<form action="/Login/RegisterLogin" method="POST" id="loginRegistration" np_reload="true">
+    @Html.AntiForgeryToken()
+    <div class="input_card">
+        <div>
+            <div>
+                <label for="Email" class="np_label">Логин(email)</label>
+            </div>
+            <div>
+                <input type="text" id="Email" name="Email" />
+            </div>
+        </div>
+        <div>
+            <label for="Password" class="np_label">Пароль</label>
+            <div>
+                <input type="password" id="Password" name="Password" />
+            </div>
+        </div>
+        <div>
+            <label for="ConfirmPassword" class="np_label">Повторите пароль</label>
+            <div>
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword" />
+            </div>
+        </div>
+        <div>
+            <label for="Captcha" class="np_label">Введите число с картинки</label>
+            <div>
+                <input type="text" id="ConfirmPassword" name="ConfirmPassword" />
+            </div>
+        </div>
+        <img src="@Url.Action("Captcha", "Login")?@DateTime.Now" alt="captcha" />
+        <div>
+            <div>
+                <input type="submit" value="OK" class="btn" />
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        // подписка на submit
+        /*
+        //Пример передачи обработчиков через методы класса
+        var adata = new Object();
+        adata.onSuccess = function (data) {
+            alert('OK');
+        $("#loginInput").bind('submit',adata,np_AjaxFormSubmit);
+        }
+        */
+        $("#loginRegistration").bind('submit', np_AjaxFormSubmit);
+        // очистка сообщений об ошибках по клику
+        $("#loginRegistration").bind('click', np_AjaxFormInputClick);
+        $("#loginRegistration")
+            .validate({
+                rules: {
+                    Email: {
+                        required: true,
+                        minlength: 2
+                    },
+                    Password: {
+                        required: true,
+                        minlength: 1
+                    }
+                }
+            });
+
+        function np_AjaxOnSuccess(data) {
+            alert('OK');
+        };
+    });
+</script>

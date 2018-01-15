@@ -26,6 +26,13 @@ namespace NotePlot.Controllers
             return PartialView("Views/LogIn/LoginView.cshtml");
         }
 
+        [HttpGet]
+        public ActionResult LoginRegister()
+        {
+            //LoginViewModel lg = new LoginViewModel();
+            return PartialView("Views/Login/LoginRegistration.cshtml");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginInput(LoginViewModel lg) // аутентификация TO DO: сделать асинхронным
@@ -118,5 +125,28 @@ namespace NotePlot.Controllers
             }
             return LoginID;
         }
+        /*
+        public ActionResult Captcha()
+        {
+            string code = new Random(DateTime.Now.Millisecond).Next(1111, 9999).ToString();
+            Session["captcha"] = code;
+            CaptchaImage captcha = new CaptchaImage(code, 70, 40);
+            
+            //this.Response.Clear();
+            //this.Response.ContentType = "image/jpeg";
+            
+            var memStream = new System.IO.MemoryStream();
+            captcha.Image.Save(memStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            byte[] imageBytes = memStream.ToArray();
+            captcha.Dispose();
+            return File(imageBytes, "image/jpeg");
+
+            
+            //captcha.Image.Save(this.Response.OutputStream, ImageFormat.Jpeg);
+            //captcha.Dispose();
+            //return null;
+            
+        }
+        */
     }   
 }
