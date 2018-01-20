@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NotePlot.Models;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http.Authentication;
+//using Microsoft.AspNetCore.Http.Authentication; // 1.0
 using System.Threading;
+using Microsoft.AspNetCore.Authentication;          // 2.0
+using Microsoft.AspNetCore.Authentication.Cookies;  // 2.0
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -93,16 +95,24 @@ namespace NotePlot.Controllers
                 ClaimsIdentity.DefaultRoleClaimType);
             id.AddClaim(new Claim("LoginID", userId.ToString(), ClaimValueTypes.UInteger64));
             // установка аутентификационных куки
+            await HttpContext.SignInAsync("NotePlotCookies"/*CookieAuthenticationDefaults.AuthenticationScheme*/, new ClaimsPrincipal(id), new AuthenticationProperties // CORE 2.0
+            {
+                IsPersistent = IsPers,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(3)
+            });            
+            /* // CORE 1.0
             await HttpContext.Authentication.SignInAsync("NotePlotCookies", new ClaimsPrincipal(id), new AuthenticationProperties
             {
                 IsPersistent = IsPers,
                 ExpiresUtc = DateTimeOffset.UtcNow.AddDays(3)
             });
+            */
         }
 
         public async Task<IActionResult> LoginOut()
         {
-            await HttpContext.Authentication.SignOutAsync("NotePlotCookies");
+            await HttpContext.SignOutAsync("NotePlotCookies"/*CookieAuthenticationDefaults.AuthenticationScheme*/);// CORE 2.0
+            //await HttpContext.Authentication.SignOutAsync("NotePlotCookies"); //CORE 1.0
             return RedirectToAction("Index", "Home");
         }
 

@@ -11,11 +11,14 @@ using Newtonsoft.Json.Serialization;    //.DefaultContractResolver
 using NotePlot.Models;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace NotePlot
 {
     public class Startup
     {
+        /*
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -25,8 +28,13 @@ namespace NotePlot
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
-     
-        public IConfigurationRoot Configuration { get; }
+        */
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,6 +42,14 @@ namespace NotePlot
             string connection = Configuration.GetConnectionString("NP"); // NP - название коннекта в appsettings.json
             //services.AddDbContext<NPContext>(options => options.UseSqlServer(connection)); // Entity Framework
             //services.AddTransient<IRepositoryParameter, RepositoryParameter>(provider => new RepositoryParameter(connection));  // Dapper
+            
+            // установка конфигурации подключения CORE 2.0
+            services.AddAuthentication("NotePlotCookies")//(CookieAuthenticationDefaults.AuthenticationScheme
+                    .AddCookie("NotePlotCookies",options => //CookieAuthenticationOptions
+                    {
+                        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/LoginInput");
+                    });
+            
             services.AddTransient<IRepositoryLogin, RepositoryLogin>(provider => new RepositoryLogin(connection));              // Dapper - это login
             services.AddTransient<IUnitCategoryRepository, UnitCategoryRepository>(provider => new UnitCategoryRepository(connection));
             services.AddTransient<IRepositoryParamValueType, RepositoryParamValueType>(provider => new RepositoryParamValueType(connection));
@@ -55,7 +71,9 @@ namespace NotePlot
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            // аутентификация куки
+            /*
+            //OBSOLETE
+            // аутентификация куки CORE 1.0
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationScheme = "NotePlotCookies", // случайное название
@@ -63,6 +81,8 @@ namespace NotePlot
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true
             });
+            */
+            app.UseAuthentication(); //чтобы аутентификация была встроена в конвейер обработки запроса
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
