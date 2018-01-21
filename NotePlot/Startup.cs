@@ -42,7 +42,11 @@ namespace NotePlot
             string connection = Configuration.GetConnectionString("NP"); // NP - название коннекта в appsettings.json
             //services.AddDbContext<NPContext>(options => options.UseSqlServer(connection)); // Entity Framework
             //services.AddTransient<IRepositoryParameter, RepositoryParameter>(provider => new RepositoryParameter(connection));  // Dapper
-            
+
+            // Session for CORE 2.0
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             // установка конфигурации подключения CORE 2.0
             services.AddAuthentication("NotePlotCookies")//(CookieAuthenticationDefaults.AuthenticationScheme
                     .AddCookie("NotePlotCookies",options => //CookieAuthenticationOptions
@@ -100,7 +104,7 @@ namespace NotePlot
             app.UseStatusCodePages(); // обработка ошибок HTTP
 
             app.UseStaticFiles();
-
+            app.UseSession();         // встраивание сессий в конвейер обработки запроса  
             // устанавливаем культуру по-умолчанию
             var supportedCultures = new[]
             {

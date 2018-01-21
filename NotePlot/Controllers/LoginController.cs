@@ -8,7 +8,9 @@ using System.Security.Claims;
 //using Microsoft.AspNetCore.Http.Authentication; // 1.0
 using System.Threading;
 using Microsoft.AspNetCore.Authentication;          // 2.0
+using Microsoft.AspNetCore.Session;          // 2.0
 using Microsoft.AspNetCore.Authentication.Cookies;  // 2.0
+using Microsoft.AspNetCore.Http; // для сессий CORE 2.0
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -135,28 +137,20 @@ namespace NotePlot.Controllers
             }
             return LoginID;
         }
-        /*
-        public ActionResult Captcha()
+        
+        public async Task<ActionResult> Captcha()
         {
             string code = new Random(DateTime.Now.Millisecond).Next(1111, 9999).ToString();
-            Session["captcha"] = code;
-            CaptchaImage captcha = new CaptchaImage(code, 70, 40);
-            
-            //this.Response.Clear();
-            //this.Response.ContentType = "image/jpeg";
-            
-            var memStream = new System.IO.MemoryStream();
-            captcha.Image.Save(memStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-            byte[] imageBytes = memStream.ToArray();
-            captcha.Dispose();
-            return File(imageBytes, "image/jpeg");
-
-            
-            //captcha.Image.Save(this.Response.OutputStream, ImageFormat.Jpeg);
-            //captcha.Dispose();
-            //return null;
-            
+            HttpContext.Session.SetString("captcha", code);
+            //Session["captcha"] = code;  CORE 1.0
+            using (CaptchaImage captcha = new CaptchaImage(code, 70, 40))
+            {
+                var memStream = new System.IO.MemoryStream();
+                captcha.Image.Save(memStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                byte[] imageBytes = memStream.ToArray();
+                return await Task.Run(()=> File(imageBytes, "image/jpeg"));
+            }            
         }
-        */
+        
     }   
 }
