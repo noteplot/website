@@ -98,6 +98,7 @@ namespace NotePlot.Models
             using (IDbConnection db = new SqlConnection(connectionString)) // TO DO: заменить процедурой
             {
                 us = db.Query<UserAccount>("SELECT * FROM dbo.Logins WHERE LoginName = @logName and password = @passw", new { logName, passw }).FirstOrDefault();
+                //us = db.Query<UserAccount>("dbo.LoginGet", new { LoginName = logName, Password = passw }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
             return us;
         }
