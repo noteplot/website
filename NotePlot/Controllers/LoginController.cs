@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Authentication;          // 2.0
 using Microsoft.AspNetCore.Session;          // 2.0
 using Microsoft.AspNetCore.Authentication.Cookies;  // 2.0
 using Microsoft.AspNetCore.Http; // для сессий CORE 2.0
+using System.Net;
+using System.Net.Mail; // почта
+using System.Web;
+using Microsoft.Extensions.Configuration;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,9 +23,11 @@ namespace NotePlot.Controllers
     public class LoginController : Controller
     {
         IRepositoryLogin repo;
-        public LoginController(IRepositoryLogin r)
+        IConfiguration config;
+        public LoginController(IRepositoryLogin r, IConfiguration c )
         {
             repo = r;
+            config = c;
         }
         [HttpGet]
         public ActionResult LoginInput()
@@ -151,6 +157,96 @@ namespace NotePlot.Controllers
                 return await Task.Run(()=> File(imageBytes, "image/jpeg"));
             }            
         }
-        
-    }   
+
+        [HttpPost]
+        //public async Task<ActionResult> RegisterLogin(RegisterViewModel lg)
+        public async Task<ActionResult> RegisterLogin(LoginRegistration lg)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("captcha") != lg.Captcha)
+                {
+                    return BadRequest("Неверное число!");
+                }
+                if (lg.Password != lg.ConfirmPassword)
+                {
+                    return BadRequest("Пароль подтвержден не верно!");
+                }
+                try
+                {
+                    long loginId = await repo.CreateLoginAsync(lg.Email, lg.Password);
+
+                    if (loginId > 0 )
+                    {
+                        try
+                        {
+                            var mail = config["SmtpParameters:mail"];
+                            var mailPassword = config["SmtpParameters:mailPassword"];
+                            var host = config["SmtpParameters:host"];
+                            var port = Convert.ToInt32(config["SmtpParameters:port"]);
+
+                            // наш email с заголовком письма
+                            MailAddress from = new MailAddress(mail, "Web Registration");
+                            // кому отправляем
+                            MailAddress to = new MailAddress(lg.Email);
+                            // создаем объект сообщения
+                            MailMessage m = new MailMessage(from, to);
+                            // тема письма
+                            m.Subject = "Email confirmation";
+                            m.Body = string.Format("Для завершения регистрации перейдите по ссылке:" +
+                                                       "<a href=\"{0}\" title=\"Подтвердить регистрацию\">{0}</a>",
+                                        Url.Action("ConfirmLogin", "Login", new { LoginId = loginId }, Request.Scheme)); //Получение полного URL-адреса действия в ASP.NET MVC
+                            m.IsBodyHtml = true;
+                            // адрес smtp-сервера, с которого мы и будем отправлять письмо
+                            SmtpClient smtp = new SmtpClient(host, port);
+                            // логин и пароль
+                            smtp.Credentials = new NetworkCredential("noteplot@mail.ru", "aaBBssOO2017");
+                            smtp.EnableSsl = true;
+                            smtp.Send(m);
+                            var mesOk = "Информация для завершения авторизации выслана на ваш e-mail.";
+                            return Ok(mesOk);
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Регистрация не доступна!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            else
+            {
+                string errmes = string.Empty;
+                foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                {
+                    errmes = errmes + error.ErrorMessage + ' ';
+                }
+                //return BadRequest("Не все обязательные поля заполнены!");
+                return BadRequest(errmes);
+            }
+        }
+        /*
+        public ActionResult ConfirmLogin(int loginId)
+        {
+            string mes;
+            try
+            {
+                DBAuthentication.ConfirmEmail(loginId);
+                mes = "Вы авторизованы";
+            }
+            catch (Exception ex)
+            {
+                mes = ex.Message;
+            }
+            return View("ConfirmView");
+        }
+        */
+    }
 }

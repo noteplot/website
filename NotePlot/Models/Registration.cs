@@ -76,6 +76,10 @@ namespace NotePlot.Models
     {
         UserAccount LogIn(string logName, string passw);
         Task<UserAccount> LogInAsync(string logName, string passw);
+        //UserAccount CreateLogin(string email, string passw);
+        //Task<UserAccount> CreateLoginAsync(string email, string passw);
+        long CreateLogin(string email, string passw);
+        Task<long> CreateLoginAsync(string email, string passw);
         //void GetLogin(string email, string password);
         //void CreateLogin(string email, string password);
         //void Delete(int id);
@@ -106,6 +110,35 @@ namespace NotePlot.Models
         {
             return Task.Run(()=> LogIn(logName, passw));
         }
+
+        public long CreateLogin(string email, string passw)
+        {
+            long rt = -1;
+            var p = new DynamicParameters();
+            p.Add("@LoginName", email);
+            p.Add("@Password", passw);
+            p.Add("@LoginID", dbType: DbType.Int64, direction: ParameterDirection.Output);
+            
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    db.Execute("dbo.LoginCreate",p,commandType: CommandType.StoredProcedure);
+                    rt = p.Get<long>("@LoginID");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public Task<long> CreateLoginAsync(string email, string passw)
+        {
+            return Task.Run(() => CreateLogin(email, passw));
+        }
+
     }
 
 }

@@ -53,7 +53,8 @@ namespace NotePlot
                     {
                         options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/LoginInput");
                     });
-            
+
+            services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<IRepositoryLogin, RepositoryLogin>(provider => new RepositoryLogin(connection));              // Dapper - это login
             services.AddTransient<IUnitCategoryRepository, UnitCategoryRepository>(provider => new UnitCategoryRepository(connection));
             services.AddTransient<IRepositoryParamValueType, RepositoryParamValueType>(provider => new RepositoryParamValueType(connection));

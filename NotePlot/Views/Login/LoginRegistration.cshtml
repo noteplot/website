@@ -1,6 +1,6 @@
 ﻿@model NotePlot.Models.LoginRegistration
 
-<form action="/Login/RegisterLogin" method="POST" id="loginRegistration" np_reload="true">
+<form action="/Login/RegisterLogin" method="POST" id="loginRegistration">
     @Html.AntiForgeryToken()
     <div class="input_card">
         <div>
@@ -8,7 +8,7 @@
                 <label for="Email" class="np_label">Логин(email)</label>
             </div>
             <div>
-                <input type="text" id="Email" name="Email" />
+                <input type="email" id="Email" name="Email" />
             </div>
         </div>
         <div>
@@ -26,7 +26,7 @@
         <div>
             <label for="Captcha" class="np_label">Введите число с картинки</label>
             <div>
-                <input type="text" id="ConfirmPassword" name="ConfirmPassword" />
+                <input type="text" id="Captcha" name="Captcha" />
             </div>
         </div>
         <img src="@Url.Action("Captcha", "Login")" alt="captcha" />
@@ -39,16 +39,18 @@
 </form>
 <script type="text/javascript">
     $(function () {
-        // подписка на submit
-        /*
+        // подписка на submit        
         //Пример передачи обработчиков через методы класса
         var adata = new Object();
-        adata.onSuccess = function (data) {
-            alert('OK');
-        $("#loginInput").bind('submit',adata,np_AjaxFormSubmit);
+        adata.onSuccess = function (mes) {
+            //location.reload();
+            // удаляем диалог
+            if ($('#masterDialog').length > 0)
+                $('#masterDialog').dialog("close");
+            // сообщение
+            np_ShowMessage(mes, "Внимание!");
         }
-        */
-        $("#loginRegistration").bind('submit', np_AjaxFormSubmit);
+        $("#loginRegistration").bind('submit', adata, np_AjaxFormSubmit);
         // очистка сообщений об ошибках по клику
         $("#loginRegistration").bind('click', np_AjaxFormInputClick);
         $("#loginRegistration")
@@ -56,17 +58,43 @@
                 rules: {
                     Email: {
                         required: true,
+                        email : true,
                         minlength: 2
                     },
                     Password: {
                         required: true,
-                        minlength: 1
+                        minlength: 2
+                    },
+                   ConfirmPassword: {
+                        required: true,
+                        minlength: 2
+                    },
+                   Captcha: {
+                       required: true,
+                       minlength: 4,
+                       maxlength: 4                        
+                   }
+                },
+                messages: {
+                    Email: {
+                        required: "поле не заполнено или заполнено не верно",
+                        email: "должен быть введен ваш электронный адрес",
+                        minlength: "в поле должно быть минимум 2 символа",
+                    },
+                    Password: {
+                        required: "поле не заполнено или заполнено не верно",
+                        minlength: "в поле должно быть минимум 2 символа",
+                    },
+                    ConfirmPassword: {
+                        required: "поле не заполнено или заполнено не верно",
+                        minlength: "в поле должно быть минимум 2 символа",
+                    },
+                    Captcha: {
+                        required: "поле не заполнено или заполнено не верно",
+                        minlength: "в поле должно быть 4 символа",
+                        maxlength: "в поле должно быть 4 символа",
                     }
                 }
             });
-
-        function np_AjaxOnSuccess(data) {
-            alert('OK');
-        };
     });
 </script>
