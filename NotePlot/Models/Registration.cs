@@ -80,12 +80,8 @@ namespace NotePlot.Models
         //Task<UserAccount> CreateLoginAsync(string email, string passw);
         long CreateLogin(string email, string passw);
         Task<long> CreateLoginAsync(string email, string passw);
-        //void GetLogin(string email, string password);
-        //void CreateLogin(string email, string password);
-        //void Delete(int id);
-        //List<UserAccount> GetParameters();
-        //void Update(UserAccount par);
-        //UserAccount Get(int id);
+        bool ConfirmLogin(long lgId);
+        Task<bool> ConfirmLoginAsync(long lgId);
     }
 
     public class RepositoryLogin : IRepositoryLogin
@@ -99,7 +95,7 @@ namespace NotePlot.Models
         public UserAccount LogIn(string logName, string passw)
         {
             UserAccount us = null;
-            using (IDbConnection db = new SqlConnection(connectionString))
+            using (IDbConnection db = new SqlConnection(connectionString)) // TO DO: заменить процедурой
             {
                 us = db.Query<UserAccount>("SELECT * FROM dbo.Logins WHERE LoginName = @logName and password = @passw", new { logName, passw }).FirstOrDefault();
             }
@@ -108,7 +104,7 @@ namespace NotePlot.Models
 
         public Task<UserAccount> LogInAsync(string logName, string passw)
         {
-            return Task.Run(()=> LogIn(logName, passw));
+            return Task.Run(() => LogIn(logName, passw));
         }
 
         public long CreateLogin(string email, string passw)
@@ -118,12 +114,12 @@ namespace NotePlot.Models
             p.Add("@LoginName", email);
             p.Add("@Password", passw);
             p.Add("@LoginID", dbType: DbType.Int64, direction: ParameterDirection.Output);
-            
+
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 try
                 {
-                    db.Execute("dbo.LoginCreate",p,commandType: CommandType.StoredProcedure);
+                    db.Execute("dbo.LoginCreate", p, commandType: CommandType.StoredProcedure);
                     rt = p.Get<long>("@LoginID");
                 }
                 catch (Exception ex)
@@ -137,6 +133,30 @@ namespace NotePlot.Models
         public Task<long> CreateLoginAsync(string email, string passw)
         {
             return Task.Run(() => CreateLogin(email, passw));
+        }
+
+        public bool ConfirmLogin(long lgId)
+        {
+            bool rt = false;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    var affectedRows = db.Execute("dbo.LoginConfirm", new { LoginID = lgId }, commandType: CommandType.StoredProcedure);
+                    //if (affectedRows > 0)
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public Task<bool> ConfirmLoginAsync(long lgId)
+        {
+            return Task.Run(() => ConfirmLogin(lgId));
         }
 
     }

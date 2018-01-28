@@ -58,6 +58,10 @@ namespace NotePlot.Controllers
                     {
                         try
                         {
+                            if (!us.IsConfirmed)
+                            {
+                                throw new Exception("Логин не подтвержден!");
+                            } 
                             await Authenticate(us.LoginID, lg.LoginName, lg.RememberMe); // аутентификация TO DO: сделать асинхронным
 
                             return RedirectToAction("Index", "Home");
@@ -232,21 +236,22 @@ namespace NotePlot.Controllers
                 return BadRequest(errmes);
             }
         }
-        /*
-        public ActionResult ConfirmLogin(int loginId)
+
+        [HttpGet]
+        public async Task<ActionResult> ConfirmLogin(long loginId)
         {
             string mes;
             try
             {
-                DBAuthentication.ConfirmEmail(loginId);
+                await repo.ConfirmLoginAsync(loginId);
                 mes = "Вы авторизованы";
             }
             catch (Exception ex)
             {
-                mes = ex.Message;
+                return BadRequest(ex.Message);
             }
-            return View("ConfirmView");
+            return Ok("Вы авторизованы");//View("ConfirmLogin");
         }
-        */
+        
     }
 }
