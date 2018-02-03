@@ -82,6 +82,8 @@ namespace NotePlot.Models
         Task<long> CreateLoginAsync(string email, string passw);
         bool ConfirmLogin(long lgId);
         Task<bool> ConfirmLoginAsync(long lgId);
+        UserAccount GetLogin(string logName);
+        Task<UserAccount> GetLoginAsync(string logName);
     }
 
     public class RepositoryLogin : IRepositoryLogin
@@ -158,6 +160,22 @@ namespace NotePlot.Models
         public Task<bool> ConfirmLoginAsync(long lgId)
         {
             return Task.Run(() => ConfirmLogin(lgId));
+        }
+
+        public UserAccount GetLogin(string logName)
+        {
+            UserAccount us = null;
+            using (IDbConnection db = new SqlConnection(connectionString)) // TO DO: заменить процедурой
+            {
+                us = db.Query<UserAccount>("SELECT * FROM dbo.Logins WHERE LoginName = @logName", new { logName }).FirstOrDefault();
+                //us = db.Query<UserAccount>("dbo.LoginGet", new { LoginName = logName, Password = passw }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+            return us;
+        }
+
+        public Task<UserAccount> GetLoginAsync(string logName)
+        {
+            return Task.Run(() => GetLogin(logName));
         }
 
     }

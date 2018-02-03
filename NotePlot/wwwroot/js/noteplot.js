@@ -236,14 +236,18 @@ function np_AjaxPost(event) {
             //location.reload();
             np_AjaxComplete();
             if (event.data && event.data.onSuccess) {
-                event.data.onSuccess(event);
+                event.data.onSuccess(event,data);
             }
             else
                 location.reload();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             np_AjaxComplete();
-            np_ShowMessage(jqXHR.responseText);
+            if (event.data && event.data.onError) {
+                event.data.onError(event, jqXHR.responseText);
+            }
+            else
+                np_ShowMessage(jqXHR.responseText);
         }
     });
 };
