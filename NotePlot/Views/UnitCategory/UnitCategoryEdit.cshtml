@@ -1,0 +1,61 @@
+@model NotePlot.Models.UnitCategory
+@{
+    string atr_disabled = "disabled";
+}
+
+<form id="unitCategory" method="POST" action=@ViewBag.Action>
+    @Html.AntiForgeryToken()
+    <div>
+        <input type="hidden" id="UnitGroupID" name="UnitGroupID" value="@Model.UnitGroupID" />
+        <div class="input-prepend">
+            <label for="UnitGroupShortName" class="np_label">Краткое название</label>
+            <input type="text" id="UnitGroupShortName" name="UnitGroupShortName" placeholder="Краткое название" size="24" value="@Model.UnitGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+        </div>
+        <div class="input-prepend">
+            <label for="UnitGroupName" class="np_label">Название</label>
+            <input type="text" id="UnitGroupName" name="UnitGroupName" placeholder="Название" size="48" value="@Model.UnitGroupName" @if (Model.LoginID == 0) { @atr_disabled } />
+        </div>
+        @if (Model.LoginID != 0)
+        {
+        <div class="input-prepend">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+        }
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        var adata = new Object();
+        adata.onSuccess = function () {
+            location.reload();
+        }
+
+        $("#unitCategory").bind('submit', adata, np_AjaxFormSubmit);
+        // очистка сообщений об ошибках по клику
+        $("#unitCategory input").bind('click', np_AjaxFormInputClick);
+        $("#unitCategory")
+            .validate({
+                rules: {
+                    LoginName: {
+                        required: true,
+                        minlength: 2
+                    },
+                    Password: {
+                        required: true,
+                        minlength: 2
+                    },
+                    messages: {
+                        UnitGroupShortName: {
+                            required: "поле должно быть заполнено",
+                            minlength: "в поле должно быть минимум 2 символа"
+                        },
+                        UnitGroupName: {
+                            required: "поле должно быть заполнено",
+                            minlength: "в поле должно быть минимум 2 символа"
+                        }
+                    }
+                }
+            });
+    });
+
+</script>

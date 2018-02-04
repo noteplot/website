@@ -1,0 +1,59 @@
+@model IEnumerable<NotePlot.Models.UnitCategory>
+
+<div class="np_toolbar">
+    <a href="@Url.Action("Create", "UnitCategory")" class="openDialog np_button green" np_dialog_title="Категория единиц измерений">
+        <div class="icon"><i class="fa fa-plus"></i></div>
+    </a>
+</div>
+@Html.AntiForgeryToken()
+<table id="unitgroups" class="table">
+    <thead>
+        <tr>
+            @*<th>ID</th>*@
+            <th>Краткое название</th>
+            <th>Название</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>@item.UnitGroupID</td>*@
+                <td>@item.UnitGroupShortName</td>
+                <td>@item.UnitGroupName</td>
+                <td>
+                    <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="openDialog np_button green" np_dialog_title="Группа ед.изм.">
+                        <div class="icon"><i class="fa fa-pencil"></i></div>
+                    </a>
+                    <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="np_deleteGroup np_button red" data-category=@item.UnitGroupID>
+                        <div class="icon"><i class="fa fa-times"></i></div>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#unitgroups").DataTable();
+            var adata = new Object();
+            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+            adata.token = $("[name='__RequestVerificationToken']").val();
+            adata.dialogTitle = 'Внимание!!';
+            adata.dialogMessage = 'Вы действительно хотите удалить граппу?';
+
+            // привязываем событие к Post Request с диалогом подтверждения
+            // привязываем событие к Post Request
+            $(".np_deleteGroup").bind("click", adata, np_DeletePost);
+        });
+
+        function np_DeletePost(event) {
+            event.data.UnitGroupID = $(this).attr("data-category");
+            event.data.action = $(this).attr("href");
+            np_MessageDialogPost(event);
+        }
+    </script>
+}

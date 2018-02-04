@@ -12,18 +12,20 @@ namespace NotePlot.Models
     [Table("UnitGroups", Schema = "dbo")]
     public class UnitCategory
     {
-        public int UnitGroupId { get; set; }
-        public string UnitGroupName { get; set; }
+        public long? UnitGroupID { get; set; }
         public string UnitGroupShortName { get; set; }
-        public string UnitGroupCode { get; set; }
+        public string UnitGroupName { get; set; }
+        public long LoginID { get; set; }
     }
 
     public interface IUnitCategoryRepository
     {
-        List<UnitCategory> GetCategories();
-        Task<List<UnitCategory>> GetCategoriesAsync();
-        UnitCategory GetCategory(int id);
-        Task<UnitCategory> GetCategoryAsync(int id);
+        List<UnitCategory> GetCategories(long lgId);
+        Task<List<UnitCategory>> GetCategoriesAsync(long lgId);
+        UnitCategory GetCategory(long ucId, long lgId);
+        Task<UnitCategory> GetCategoryAsync(long ucId, long lgId);
+        bool SetCategory(UnitCategory uc, int md);
+        Task<bool> SetCategoryAsync(UnitCategory uc, int md);
     }
 
     class UnitCategoryRepository : IUnitCategoryRepository
@@ -35,30 +37,57 @@ namespace NotePlot.Models
             this.connectionString = connectionString;
         }
 
-        public List<UnitCategory> GetCategories()
+        public List<UnitCategory> GetCategories(long lgId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<UnitCategory>("SELECT * FROM UnitGroups ORDER BY UnitGroupName").ToList();
+                return db.Query<UnitCategory>("dbo.UnitGroupGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
+                //return db.Query<UnitCategory>("SELECT * FROM UnitGroups ORDER BY UnitGroupName").ToList();
             }
         }
 
-        public Task<List<UnitCategory>> GetCategoriesAsync()
+        public Task<List<UnitCategory>> GetCategoriesAsync(long lgId)
         {
-            return Task.Run(()=> GetCategories());
+            return Task.Run(()=> GetCategories(lgId));
         }
 
-        public UnitCategory GetCategory(int id)
+        public UnitCategory GetCategory(long ucId, long lgId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<UnitCategory>("SELECT * FROM UnitGroups WHERE UnitGroupId = @id", new { id = id }).FirstOrDefault();
+                return db.Query<UnitCategory>("dbo.UnitGroupGet", new { UnitGroupID = ucId, LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                //return db.Query<UnitCategory>("SELECT * FROM UnitGroups WHERE UnitGroupId = @id", new { id = id }).FirstOrDefault();
             }
         }
 
-        public Task<UnitCategory> GetCategoryAsync(int id)
+        public Task<UnitCategory> GetCategoryAsync(long ucId, long lgId)
         {
-            return Task.Run(()=> GetCategory(id));
+            return Task.Run(()=> GetCategory(ucId, lgId));
+        }
+        
+        public bool SetCategory(UnitCategory uc, int md)
+        {
+            bool rt = false;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    db.Execute("dbo.UnitGroupSet",
+                        new { UnitGroupID = uc.UnitGroupID, UnitGroupShortName = uc.UnitGroupShortName, UnitGroupName = uc.UnitGroupName, LoginID = uc.LoginID, Mode = md },
+                        commandType: CommandType.StoredProcedure);
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public Task<bool> SetCategoryAsync(UnitCategory uc, int md)
+        {
+            return Task.Run(() => SetCategory(uc, md));
         }
 
     }
