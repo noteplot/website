@@ -1,0 +1,65 @@
+﻿@model IEnumerable<NotePlot.Models.Unit>
+
+<div class="np_toolbar">
+    <a href="@Url.Action("Create", "Unit")" class="openDialog np_button green" np_dialog_title="Единицы измерения">
+        <div class="icon"><i class="fa fa-plus"></i></div>
+    </a>
+</div>
+@Html.AntiForgeryToken()
+<table class="table" id="units">
+    <thead>
+        <tr>
+            <th>
+                Группа
+            </th>
+            <th>
+                Краткое название
+            </th>
+            <th>
+                Полное название
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr np_unit_id=@item.UnitID np_login_id=@item.LoginID>
+                <td>@item.UnitGroupShortName</td>
+                <td class="ShortName">@item.UnitShortName</td>
+                <td>@item.UnitName</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Unit" , new { id=item.UnitID })" class="openDialog np_button green" np_dialog_title="Единица измерения">
+                        <div class="icon"><i class="fa fa-pencil"></i></div>
+                    </a>
+                    @if (item.LoginID != 0)
+                    {
+                        <a href="@Url.Action("Delete", "Unit", new { id = item.UnitID })" class="np_deleteUnit np_button red" data-unit=@item.UnitID>
+                            <div class="icon"><i class="fa fa-times"></i></div>
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ @section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#units").DataTable();
+            var adata = new Object();
+            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+            adata.token = $("[name='__RequestVerificationToken']").val();
+            adata.dialogTitle = 'Внимание!!';
+            adata.dialogMessage = 'Вы действительно хотите удалить единицу измерения?';
+            // привязываем событие к Post Request с диалогом подтверждения
+            $(".np_deleteUnit").bind("click", adata, np_DeletePost);
+        });
+
+        function np_DeletePost(event) {
+            event.data.UnitID = $(this).attr("data-unit");
+            event.data.action = $(this).attr("href");
+            np_MessageDialogPost(event);
+        }
+    </script>
+}

@@ -27,7 +27,6 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
         }
         */
-
         public async Task<ActionResult> ListDialog()
         {
             long loginID = LoginController.GetLogin(HttpContext.User);
@@ -36,5 +35,16 @@ namespace NotePlot.Controllers
             else
                 return BadRequest("Нет аутентификации!");
         }
+
+        public async Task<IActionResult> UnitList()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return View("UnitList", await repo.GetParameterUnitsAsync(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
+
     }
 }
