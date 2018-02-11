@@ -9,10 +9,17 @@
 
     $(window).resize(function (event) {
         if ($(".ui-dialog").length > 0) {
+            /*
             if ($('#masterDialog').length > 0)
                 $('#masterDialog').dialog("widget").dialogCenter();
             if ($('#np_MessageDialog').length > 0)                
                 $('#np_MessageDialog').dialog("widget").dialogCenter();
+            */
+            // центрирование всех диалогов
+            $('.dialog').each(function (ix, element) {
+                $(element).dialog("widget").dialogCenter();
+            });
+                
         }
         $(".np_sidebar").css("height", document.body.clientHeight - 46);
     });
@@ -45,11 +52,19 @@ jQuery.fn.dialogCenter = function () {
 
 // создание диалоговой формы
 // входной параметр - элемент с атрибутом гиперссылки href
-function OpenDialog(hr,OnClose) {
-    if ($('#masterDialog').length > 0)
-        $('#masterDialog').dialog("close");
-
-    $("<div id = 'masterDialog'></div>")        
+function OpenDialog(hr, OnClose, subDialog) {    
+    if (!subDialog) {
+        if ($('#masterDialog').length > 0)
+            $('#masterDialog').dialog("close");
+    }
+    var dialogName = 'masterDialog';    
+    if (subDialog)
+    {        
+        dialogName = "dlg" + (new Date()).getTime();        
+    }
+    var dialog = $("<div id =" + "'" + dialogName + "'" + "></div>");
+    //$("<div id = 'masterDialog'></div>")        
+    dialog
         .addClass("dialog")
         .appendTo("body")
         .dialog({

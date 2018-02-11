@@ -1,0 +1,46 @@
+﻿@model NotePlot.Models.Unit
+
+@{
+    string atr_disabled = "disabled", atr_selected = "selected";
+}
+
+<form id="unit" method="POST" action=@ViewBag.Action>
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="UnitID" name="UnitID" value="@Model.UnitID" />
+    <input type="hidden" id="UnitGroupID" name="UnitGroupID" value="@Model.UnitGroupID" />
+    <div class="input-prepend">
+        <label for="UnitShortName" class="np_label">Краткое название</label>
+        <input type="text" id="UnitShortName" name="UnitShortName" placeholder="Краткое название" size="24" value="@Model.UnitShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+    </div>
+    <div class="input-prepend">
+        <label for="UnitName" class="np_label">Полное название</label>
+        <input type="text" id="UnitName" name="UnitName" placeholder="Полное название" size="24" value="@Model.UnitName" @if (Model.LoginID == 0) { @atr_disabled } />
+    </div>
+    <div class="input-prepend">
+        <div class="input-prepend">
+            <button type="button" id="btnSelectGroup" class="add-on openDialog" href="/UnitCategory/SelectUnitCategoryList" np_dialog_title="Выбор группы" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
+            <input type="text" readonly id="UnitGroupShortName" name="UnitGroupShortName" size="24" value="@Model.UnitGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+        </div>
+
+        @*<select id="UnitGroupID" name="UnitGroupID">
+                @foreach (var item in @ViewBag.UnitGroups)
+                {
+                    <option value="@item.UnitGroupID" selected="@if (item.UnitGroupID == Model.UnitGroupID) { @atr_selected }"> @item.UnitGroupShortName</option>
+                }
+            </select>*@
+    </div>
+    @if (Model.LoginID != 0)
+    {
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    }
+</form>
+<script type="text/javascript">
+    $(function () {
+        $('#btnSelectGroup').on('click', function (e) {
+            e.preventDefault();
+            OpenDialog(this, null, true);
+        });
+    });
+</script>

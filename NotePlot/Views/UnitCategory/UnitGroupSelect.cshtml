@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NotePlot.Models.UnitCategory>
+
+<table id="unitSelectGroups" class="table" width="100%">
+    <thead>
+        <tr>
+            <th hidden></th>
+            <th>Группа</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td hidden>@item.UnitGroupID</td>
+                <td>@item.UnitGroupShortName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button class="np_select">выбрать</button>
+<script type="text/javascript">
+    $("#unitSelectGroups").DataTable();
+    $(document).ready(function () {
+        // при переключении страниц + сортировка + фильтр сбрасываем selected
+        $('#unitSelectGroups').on('page.dt order.dt search.dt', function () {
+            $('#unitSelectGroups tbody tr.selected').removeClass('selected');
+        });
+
+        //$('#parameterGroups tbody tr').on('click', function () {
+        $('#unitSelectGroups tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                $('#unitSelectGroups tbody tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+        $("button.np_select").on('click', function () {
+            if ($('#unitSelectGroups tbody tr').hasClass('selected')) {
+                var _md = $('#unitSelectGroups').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+                //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
+                if (_md != undefined) {
+                    $('#' + _md).dialog("close");
+                }
+            }
+        })
+
+    });
+</script>

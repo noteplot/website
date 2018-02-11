@@ -13,11 +13,12 @@ namespace NotePlot.Models
     public class Unit
     {
         [Column("UnitID")]
-        public int UnitID { get; set; }
+        public long? UnitID { get; set; }
         [Column("UnitShortName")]
         public string UnitShortName { get; set; }
         [Column("UnitName")]
         public string UnitName { get; set; }
+        public long   UnitGroupID { get; set; }
         public string UnitGroupShortName { get; set; }
         public string UnitGroupName { get; set; }
         public long LoginID { get; set; }
@@ -26,11 +27,11 @@ namespace NotePlot.Models
 
     public interface IRepositoryParameterUnit
     {
+        string GetConnection();
         List<Unit> GetParameterUnits(long lgId);
         Task<List<Unit>> GetParameterUnitsAsync(long lgId);
-        //ParameterGroup GetParameterUnit(long pgId, long lgId);
-        //bool SetParameterUnit(ParameterGroup pg, int md);
-        //bool DelParameterGroup(long pgId);
+        Unit GetParameterUnit(long unitID, long lgId);
+        Task<Unit> GetParameterUnitAsync(long unitID, long lgId);
     }
 
     public class RepositoryParameterUnit : IRepositoryParameterUnit
@@ -39,6 +40,11 @@ namespace NotePlot.Models
         public RepositoryParameterUnit(string conn)
         {
             connectionString = conn;
+        }
+
+        public string GetConnection()
+        {
+            return connectionString;
         }
 
         public List<Unit> GetParameterUnits(long lgId)
@@ -52,6 +58,19 @@ namespace NotePlot.Models
         public Task<List<Unit>> GetParameterUnitsAsync(long lgId)
         {
             return Task.Run(() => GetParameterUnits(lgId));
+        }
+
+        public Unit GetParameterUnit(long unitID, long lgId)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<Unit>("dbo.ParameterUnitGet", new { UnitID = unitID,LoginID = lgId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
+        public Task<Unit> GetParameterUnitAsync(long unitID, long lgId)
+        {
+            return Task.Run(() => GetParameterUnit(unitID, lgId));
         }
 
     }

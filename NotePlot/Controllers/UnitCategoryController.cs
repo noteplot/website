@@ -30,6 +30,16 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
         }
 
+        public async Task<IActionResult> SelectUnitCategoryList()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("UnitGroupSelect", await repo.GetCategoriesAsync(loginID));
+            //return View("ParameterList", repo.GetParameters(loginID)); // несинхр
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
         public ActionResult Create()
         {
             ViewBag.Action = "/UnitCategory/Create";
@@ -39,7 +49,7 @@ namespace NotePlot.Controllers
                 if (loginID >= 0)
                 {
                     UnitCategory uc = new UnitCategory() { LoginID = loginID };// {ParameterGroupID = -1, ParameterTypeID = 0, ParameterUnitID = -1, ParameterValueTypeID = -1, LoginID = -1 };
-                    return PartialView("UnitCategoryEdit", uc);
+                    return PartialView("UnitGroupEdit", uc);
                 }
                 else
                     return BadRequest("Нет аутентификации!");
@@ -97,7 +107,7 @@ namespace NotePlot.Controllers
                 long loginID = LoginController.GetLogin(HttpContext.User);
                 if (loginID >= 0)
                 {                    
-                    return PartialView("UnitCategoryEdit", await repo.GetCategoryAsync(id, loginID));
+                    return PartialView("UnitGroupEdit", await repo.GetCategoryAsync(id, loginID));
                 }
                 else
                     return BadRequest("Нет аутентификации!");
