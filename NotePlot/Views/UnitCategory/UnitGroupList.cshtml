@@ -34,11 +34,10 @@
         }
     </tbody>
 </table>
-
+$("#unitgroups").DataTable();
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#unitgroups").DataTable();
             var adata = new Object();
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
