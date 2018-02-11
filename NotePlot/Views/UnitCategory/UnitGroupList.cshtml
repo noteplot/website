@@ -34,9 +34,9 @@
         }
     </tbody>
 </table>
-$("#unitgroups").DataTable();
 @section scripts {
     <script type="text/javascript">
+        $("#unitgroups").DataTable();
         $(document).ready(function () {
             var adata = new Object();
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
