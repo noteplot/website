@@ -39,7 +39,15 @@
         }
     );
 */
-});
+
+// jQuery - ф-ции
+// Заполнение атрибута "data-target-value" и вызов обработчика
+// изменения значения этого атрибута.
+// Используется для выбора значения из диалога
+jQuery.fn.SetTargetValue = function (vl) {
+    this.attr("data-target-value", vl);
+    this.trigger('targetValueChanged');
+    }
 
 // ф-ция для центрирования диалога при изменении window в гаджетах
 jQuery.fn.dialogCenter = function () {
@@ -49,6 +57,9 @@ jQuery.fn.dialogCenter = function () {
     this.css("top", y + "px").css("left", x + "px");
     return this;
 }
+
+});
+
 
 // создание диалоговой формы
 // входной параметр - элемент с атрибутом гиперссылки href
