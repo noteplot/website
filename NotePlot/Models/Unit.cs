@@ -18,7 +18,7 @@ namespace NotePlot.Models
         public string UnitShortName { get; set; }
         [Column("UnitName")]
         public string UnitName { get; set; }
-        public long   UnitGroupID { get; set; }
+        public long?  UnitGroupID { get; set; }
         public string UnitGroupShortName { get; set; }
         public string UnitGroupName { get; set; }
         public long LoginID { get; set; }
@@ -32,6 +32,8 @@ namespace NotePlot.Models
         Task<List<Unit>> GetParameterUnitsAsync(long lgId);
         Unit GetParameterUnit(long unitID, long lgId);
         Task<Unit> GetParameterUnitAsync(long unitID, long lgId);
+        bool SetUnit(Unit ut, int md);
+        Task<bool> SetUnitAsync(Unit ut, int md);
     }
 
     public class RepositoryParameterUnit : IRepositoryParameterUnit
@@ -71,6 +73,31 @@ namespace NotePlot.Models
         public Task<Unit> GetParameterUnitAsync(long unitID, long lgId)
         {
             return Task.Run(() => GetParameterUnit(unitID, lgId));
+        }
+
+        public bool SetUnit(Unit ut, int md)
+        {
+            bool rt = false;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    db.Execute("dbo.UnitSet",
+                        new { UnitID = ut.UnitID, UnitShortName = ut.UnitShortName, UnitName = ut.UnitName, UnitGroupID = ut.UnitGroupID, LoginID = ut.LoginID, Mode = md },
+                        commandType: CommandType.StoredProcedure);
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public Task<bool> SetUnitAsync(Unit ut, int md)
+        {
+            return Task.Run(() => SetUnit(ut, md));
         }
 
     }

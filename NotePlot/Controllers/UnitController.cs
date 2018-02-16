@@ -62,6 +62,44 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!"); // TODO: обработать ошибку аутентификации
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Unit ut)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    long loginID = LoginController.GetLogin(HttpContext.User);
+                    if (loginID >= 0)
+                    {
+                        ut.LoginID = loginID;
+                        try
+                        {
+                            await repo.SetUnitAsync(ut, 0);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Нет аутентификации");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Не все обязательные поля заполнены!");
+            }
+        }
+
         public async Task<ActionResult> Edit(long id)
         {
             ViewBag.Action = "/Unit/Edit";// POST
@@ -76,6 +114,59 @@ namespace NotePlot.Controllers
                 }
                 else
                     return BadRequest("Нет аутентификации!");
+            }
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(Unit ut)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    long loginID = LoginController.GetLogin(HttpContext.User);
+                    if (loginID >= 0)
+                    {
+                        ut.LoginID = loginID;
+                        try
+                        {
+                            await repo.SetUnitAsync(ut, 1);
+                            return Ok(); // ajax диалог просто пустая строка
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Нет аутентификации");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Не все обязательные поля заполнены!");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(long id)
+        {
+            long lgID = LoginController.GetLogin(HttpContext.User);
+            if (lgID >= 0)
+            {
+                Unit ut = new Unit { UnitID = id, LoginID = lgID };
+                await repo.SetUnitAsync(ut, 2);
+                return Ok();
             }
             else
                 return BadRequest("Нет аутентификации!");

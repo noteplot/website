@@ -11,8 +11,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td hidden>@item.UnitGroupID</td>
-                <td>@item.UnitGroupShortName</td>
+                <td hidden data-source="UnitGroupID">@item.UnitGroupID</td>
+                <td data-source="UnitGroupShortName">@item.UnitGroupShortName</td>
             </tr>
         }
     </tbody>
@@ -38,6 +38,14 @@
         });
         $("button.np_select").on('click', function () {
             if ($('#unitSelectGroups tbody tr').hasClass('selected')) {
+                // Изменяем значения связанных атрибутов по схеме sourсe -> target
+                $('#unitSelectGroups tbody tr.selected td[data-source]').each(function () { 
+                    var tg = $('[data-target=' + '"' + $(this).attr("data-source") + '"]');
+                    if (tg) {
+                        tg.SetTargetValue($(this).text());
+                    }
+                });
+                // Закрываем диалог
                 var _md = $('#unitSelectGroups').parentsUntil('.dialog').parent('.dialog').first().attr('id');
                 //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
                 if (_md != undefined) {
