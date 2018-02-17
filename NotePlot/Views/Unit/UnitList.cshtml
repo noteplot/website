@@ -29,7 +29,7 @@
                 <td class="ShortName">@item.UnitShortName</td>
                 <td>@item.UnitName</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Unit" , new { id=item.UnitGroupID })" class="openDialog np_button green" np_dialog_title="Ед.измерения">
+                    <a href="@Url.Action("Edit", "Unit" , new { id=item.UnitID })" class="openDialog np_button green" np_dialog_title="Ед.измерения">
                         <div class="icon"><i class="fa fa-pencil"></i></div>
                     </a>
                     @if (item.LoginID != 0)
@@ -46,8 +46,8 @@
  @section scripts {
     <script type="text/javascript">
         $("#units").DataTable();
-        $(document).ready(function () {
-            var adata = new Object();
+        var adata = new Object();
+        $(document).ready(function () {            
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
             adata.dialogTitle = 'Внимание!!';
@@ -61,5 +61,31 @@
             event.data.action = $(this).attr("href");
             np_MessageDialogPost(event);
         }
+
+        $('#units').on('draw.dt', function () { //page.dt order.dt search.dt
+            // подключаем  события 'click', т.к. все элементы добавляются в DOM, вообще говоря , off не нужен
+            $(".openDialog").off("click").on("click", function (e) {
+                e.preventDefault();
+                OpenDialog(this);
+            });
+            $(".np_deleteUnit").off("click").bind("click", adata, np_DeletePost);
+            /*
+            // более корректные метод, но в данном случае все элементы новые
+            $(".openDialog").each(function () {
+                if (!np_checkEvent($(this), 'click')) {
+                    $(this).on("click", function (e) {
+                        e.preventDefault();
+                        OpenDialog(this);
+                    });
+                }
+            });
+            $(".np_deleteUnit").each(function () {
+                    if (!np_checkEvent(this, 'click')) {
+                        this.bind("click", adata, np_DeletePost);
+                    }
+                });
+            */
+        });
+
     </script>
 }

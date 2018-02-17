@@ -606,3 +606,20 @@ function np_getStringDate(dt, rType, fDate, fTime, dSep, tSep) {
     else if (rType == 'date_time') { return dt_str + ' ' + tm_str }
     else return '';
 };
+
+/*
+проверяем событие на элементе
+el - jQuery объект 
+*/
+function np_checkEvent(el, eventname) {
+    var
+        ret = false, events = el.data('events');        
+    if (events) {
+        $.each(events, function (evName, e) {
+            if (evName == eventname) {
+                ret = true;
+            }
+        });
+    }
+    return ret;
+}
