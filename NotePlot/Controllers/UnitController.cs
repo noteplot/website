@@ -52,8 +52,8 @@ namespace NotePlot.Controllers
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
                 // считываем список групп - используем методы другого класса
-                UnitCategoryRepository repoGroup = new UnitCategoryRepository(repo.GetConnection()); // TODO: обработать на ошибку
-                ViewBag.UnitGroups = await repoGroup.GetCategoriesAsync(loginID);
+                //UnitCategoryRepository repoGroup = new UnitCategoryRepository(repo.GetConnection()); // TODO: обработать на ошибку
+                //ViewBag.UnitGroups = await repoGroup.GetCategoriesAsync(loginID);
                 // новое измерение
                 Unit ut= new Unit() { LoginID = loginID };
                 return PartialView("UnitEdit", ut);
@@ -108,8 +108,8 @@ namespace NotePlot.Controllers
                 long loginID = LoginController.GetLogin(HttpContext.User);
                 if (loginID >= 0)
                 {
-                    UnitCategoryRepository repoGroup = new UnitCategoryRepository(repo.GetConnection()); // TODO: обработать на ошибку
-                    ViewBag.UnitGroups = await repoGroup.GetCategoriesAsync(loginID);
+                    //UnitCategoryRepository repoGroup = new UnitCategoryRepository(repo.GetConnection()); // TODO: обработать на ошибку
+                    //ViewBag.UnitGroups = await repoGroup.GetCategoriesAsync(loginID);
                     return PartialView("UnitEdit", await repo.GetParameterUnitAsync(id, loginID));
                 }
                 else

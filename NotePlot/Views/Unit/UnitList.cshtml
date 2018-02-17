@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<NotePlot.Models.Unit>
 
 <div class="np_toolbar">
-    <a href="@Url.Action("Create", "Unit")" class="openDialog np_button green" np_dialog_title="Единицы измерения">
+    <a href="@Url.Action("Create", "Unit")" class="openDialog np_button blue" np_dialog_title="Единица измерения">
         <div class="icon"><i class="fa fa-plus"></i></div>
     </a>
 </div>
@@ -29,7 +29,7 @@
                 <td class="ShortName">@item.UnitShortName</td>
                 <td>@item.UnitName</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Unit" , new { id=item.UnitID })" class="openDialog np_button green" np_dialog_title="Единица измерения">
+                    <a href="@Url.Action("Edit", "Unit" , new { id=item.UnitGroupID })" class="openDialog np_button green" np_dialog_title="Ед.измерения">
                         <div class="icon"><i class="fa fa-pencil"></i></div>
                     </a>
                     @if (item.LoginID != 0)

@@ -82,7 +82,7 @@ namespace NotePlot.Models
             {
                 try
                 {
-                    db.Execute("dbo.UnitSet",
+                    db.Execute("dbo.ParameterUnitSet",
                         new { UnitID = ut.UnitID, UnitShortName = ut.UnitShortName, UnitName = ut.UnitName, UnitGroupID = ut.UnitGroupID, LoginID = ut.LoginID, Mode = md },
                         commandType: CommandType.StoredProcedure);
                     rt = true;

@@ -26,9 +26,11 @@
                     <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="openDialog np_button green" np_dialog_title="Группа ед.изм.">
                         <div class="icon"><i class="fa fa-pencil"></i></div>
                     </a>
+                    @if (item.LoginID != 0) {
                     <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="np_deleteGroup np_button red" data-category=@item.UnitGroupID>
                         <div class="icon"><i class="fa fa-times"></i></div>
                     </a>
+                    }
                 </td>
             </tr>
         }

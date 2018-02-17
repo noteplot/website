@@ -10,11 +10,11 @@
     <input type="hidden" id="UnitGroupID" name="UnitGroupID" value="@Model.UnitGroupID" data-target="UnitGroupID" data-target-value=""/>
     <div class="input-prepend">
         <label for="UnitShortName" class="np_label">Краткое наименование</label>
-        <input type="text" id="UnitShortName" name="UnitShortName" placeholder="Краткое наименование" maxlength="24" value="@Model.UnitShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+        <input type="text" id="UnitShortName" name="UnitShortName" placeholder="Краткое наименование" value="@Model.UnitShortName" @if (Model.LoginID == 0) { @atr_disabled } />
     </div>
     <div class="input-prepend">
         <label for="UnitName" class="np_label">Полное наименование</label>
-        <input type="text" id="UnitName" name="UnitName" placeholder="Полное наименование" maxlength="48" value="@Model.UnitName" @if (Model.LoginID == 0) { @atr_disabled } />
+        <input type="text" id="UnitName" name="UnitName" placeholder="Полное наименование" value="@Model.UnitName" @if (Model.LoginID == 0) { @atr_disabled } />
     </div>
     <div class="input-prepend">
         <div class="input-prepend">
@@ -57,7 +57,7 @@
         adata.onSuccess = function () {
             location.reload();
         }
-        $("#unit").bind('submit', adata, np_AjaxFormSubmitEx);
+        $("#unit").bind('submit', adata, np_AjaxFormSubmit);
         // очистка сообщений об ошибках по клику 
         $("#unit").bind('click', np_AjaxFormInputClick); 
         $("#unit")
@@ -65,11 +65,11 @@
                 rules: {
                     UnitShortName: {
                         required: true,
-                        maxlength: 24
+                        maxlength: 16
                     },
                     UnitName: {
                         required: true,
-                        maxlength: 48
+                        maxlength: 32
                     },
                     UnitGroupShortName: {
                         required: true
@@ -83,7 +83,7 @@
                         required: "Обязательно для заполнения",
                     },
                     UnitGroupShortName: {
-                        required: "Обязательно для выбора",
+                        required: "Обязательно для выбора"
                     }
                 }
             });
