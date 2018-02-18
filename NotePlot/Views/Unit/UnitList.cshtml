@@ -34,7 +34,7 @@
                 </a>
                 @if (item.LoginID != 0)
         {
-            <a href="@Url.Action("Delete", "Unit", new { id = item.UnitID })" class="npRowDelete np_button red" data-unit=@item.UnitID>
+            <a href="@Url.Action("Delete", "Unit", new { id = item.UnitID })" class="npRowDelete np_button red">
                 <div class="icon"><i class="fa fa-times"></i></div>
             </a>
 }
@@ -63,7 +63,6 @@
         });
 
         function np_DeletePost(event) {
-            event.data.UnitID = $(this).attr("data-unit");
             event.data.action = $(this).attr("href");
             np_MessageDialogPost(event);
         }
