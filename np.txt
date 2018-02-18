@@ -34,3 +34,4 @@ $("input:checkbox").each(function () { // this - это не объект jQuery , а html-e
 На предстваления для Components (Layout = null; работает корректно) 
 т.е. для ajax load можно использовать view components
 
+6.Для DataTable новые классы для кнопок в строке, для удаления и редактирования, обработка click на tbody, т.к. строки в DOM добавляются динамически

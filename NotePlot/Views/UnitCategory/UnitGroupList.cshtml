@@ -1,7 +1,7 @@
 @model IEnumerable<NotePlot.Models.UnitCategory>
 
 <div class="np_toolbar">
-    <a href="@Url.Action("Create", "UnitCategory")" class="openDialog np_button green" np_dialog_title="Категория единиц измерений">
+    <a href="@Url.Action("Create", "UnitCategory")" class="openDialog np_button blue" np_dialog_title="Группа единиц измерений">
         <div class="icon"><i class="fa fa-plus"></i></div>
     </a>
 </div>
@@ -23,11 +23,11 @@
                 <td>@item.UnitGroupShortName</td>
                 <td>@item.UnitGroupName</td>
                 <td>
-                    <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="openDialog np_button green" np_dialog_title="Группа ед.изм.">
+                    <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="npRowEdit np_button green" np_dialog_title="Группа единиц измерений">
                         <div class="icon"><i class="fa fa-pencil"></i></div>
                     </a>
                     @if (item.LoginID != 0) {
-                    <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="np_deleteGroup np_button red" data-category=@item.UnitGroupID>
+                    <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="npRowDelete np_button red" data-category=@item.UnitGroupID>
                         <div class="icon"><i class="fa fa-times"></i></div>
                     </a>
                     }
@@ -46,9 +46,14 @@
             adata.dialogTitle = 'Внимание!!';
             adata.dialogMessage = 'Вы действительно хотите удалить группу?';
 
+            // События редактирования и удаления записи
+            $("#unitgroups tbody").on("click", ".npRowEdit", function (e) {         // не зависит от DOM для DataTable
+                e.preventDefault();
+                OpenDialog(this);
+            });
             // привязываем событие к Post Request с диалогом подтверждения
-            // привязываем событие к Post Request
-            $(".np_deleteGroup").bind("click", adata, np_DeletePost);
+            $("#unitgroups tbody").on("click", ".npRowDelete", adata, np_DeletePost);  // не зависит от DOM для DataTable
+            //$(".np_deleteGroup").bind("click", adata, np_DeletePost);
         });
 
         function np_DeletePost(event) {
