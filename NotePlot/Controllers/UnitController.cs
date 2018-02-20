@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NotePlot.Models;
+using Newtonsoft.Json;
 
 namespace NotePlot.Controllers
 {
@@ -77,7 +78,8 @@ namespace NotePlot.Controllers
                         try
                         {
                             await repo.SetUnitAsync(ut, 0);
-                            return Ok(); // ajax диалог просто пустая строка
+                            string jsn = JsonConvert.SerializeObject(ut);
+                            return Ok(jsn); // ajax диалог просто пустая строка
                         }
                         catch (Exception ex)
                         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NotePlot.Models;
+using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -73,7 +74,8 @@ namespace NotePlot.Controllers
                         try
                         {
                             await repo.SetCategoryAsync(uc, 0);
-                            return Ok(); // ajax диалог просто пустая строка
+                            string jsn = JsonConvert.SerializeObject(uc);
+                            return Ok(jsn); // ajax диалог просто пустая строка
                         }
                         catch (Exception ex)
                         {

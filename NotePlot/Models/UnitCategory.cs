@@ -72,9 +72,18 @@ namespace NotePlot.Models
             {
                 try
                 {
+                    var p = new DynamicParameters();
+                    p.Add("@UnitGroupID", uc.UnitGroupID, dbType: DbType.Int64, direction: ParameterDirection.InputOutput);
+                    p.Add("@UnitGroupShortName", uc.UnitGroupShortName);
+                    p.Add("@UnitGroupName", uc.UnitGroupName);
+                    p.Add("@LoginID", uc.LoginID);
+                    p.Add("@Mode", md);
                     db.Execute("dbo.UnitGroupSet",
-                        new { UnitGroupID = uc.UnitGroupID, UnitGroupShortName = uc.UnitGroupShortName, UnitGroupName = uc.UnitGroupName, LoginID = uc.LoginID, Mode = md },
+                        p,
+                        //new { UnitGroupID = uc.UnitGroupID, UnitGroupShortName = uc.UnitGroupShortName, UnitGroupName = uc.UnitGroupName, LoginID = uc.LoginID, Mode = md },
                         commandType: CommandType.StoredProcedure);
+                    if (md == 0)
+                        uc.UnitGroupID = p.Get<long>("@UnitGroupID");
                     rt = true;
                 }
                 catch (Exception ex)
