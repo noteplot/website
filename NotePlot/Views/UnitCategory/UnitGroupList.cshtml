@@ -23,14 +23,16 @@
                 <td>@item.UnitGroupShortName</td>
                 <td>@item.UnitGroupName</td>
                 <td>
-                    <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="npRowEdit np_button green" np_dialog_title="Группа единиц измерений">
-                        <div class="icon"><i class="fa fa-pencil"></i></div>
-                    </a>
-                    @if (item.LoginID != 0) {
-                    <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="npRowDelete np_button red">
-                        <div class="icon"><i class="fa fa-times"></i></div>
-                    </a>
-                    }
+                    <div class="npRowTools" style="display:none">
+                        <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="npRowEdit np_button green" np_dialog_title="Группа единиц измерений">
+                            <div class="icon"><i class="fa fa-pencil"></i></div>
+                        </a>
+                        @if (item.LoginID != 0) {
+                        <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="npRowDelete np_button red" data-deleted-name="@item.UnitGroupShortName">
+                            <div class="icon"><i class="fa fa-times"></i></div>
+                        </a>
+                        }
+                    </div>
                 </td>
             </tr>
         }
@@ -38,13 +40,25 @@
 </table>
 @section scripts {
     <script type="text/javascript">
-        $("#unitgroups").DataTable();
+        var table = $("#unitgroups").DataTable();
+        // Выделение строк по клику
+        table.on('click.select', 'tr', function () {
+            table.$('tr.selected').not(this).removeClass('selected').find(".npRowTools").css("display", "none");
+            if (!$(this).hasClass('selected')) {
+                $(this).addClass('selected').find(".npRowTools").css("display", "block");;
+            }                        
+        });
+
         $(document).ready(function () {
             var adata = new Object();
+            var _formatDialogMessage = 'Вы действительно хотите удалить единицу измерения?';
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
             adata.dialogTitle = 'Внимание!!';
-            adata.dialogMessage = 'Вы действительно хотите удалить группу?';
+            adata.dialogMessage = _formatDialogMessage;
+            adata.onSuccess = function () {
+                table.row('.selected').remove().draw();
+            }
 
             // События редактирования и удаления записи
             $("#unitgroups tbody").on("click", ".npRowEdit", function (e) {         // не зависит от DOM для DataTable
@@ -54,11 +68,15 @@
             // привязываем событие к Post Request с диалогом подтверждения
             $("#unitgroups tbody").on("click", ".npRowDelete", adata, np_DeletePost);  // не зависит от DOM для DataTable
             //$(".np_deleteGroup").bind("click", adata, np_DeletePost);
+            function np_DeletePost(event) {
+                event.data.action = $(this).attr("href"); // указываем на конкретную кнопку, а не на первую в списке
+                var _deleted_name = $(this).attr("data-deleted-name");
+                if (_deleted_name) {
+                    event.data.dialogMessage = _formatDialogMessage;
+                    event.data.dialogMessage = event.data.dialogMessage.replace('?', ' "'+_deleted_name+'" ?');
+                }
+                np_MessageDialogPost(event);
+            }
         });
-
-        function np_DeletePost(event) {
-            event.data.action = $(this).attr("href");
-            np_MessageDialogPost(event);
-        }
     </script>
 }

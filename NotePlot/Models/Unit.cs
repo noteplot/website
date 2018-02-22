@@ -83,7 +83,7 @@ namespace NotePlot.Models
                 try
                 {
                     var p = new DynamicParameters();
-                    p.Add("@UnitID", ut.UnitGroupID, dbType: DbType.Int64, direction: ParameterDirection.InputOutput);
+                    p.Add("@UnitID", ut.UnitID, dbType: DbType.Int64, direction: ParameterDirection.InputOutput);
                     p.Add("@UnitShortName", ut.UnitShortName);
                     p.Add("@UnitName", ut.UnitName);
                     p.Add("@UnitGroupID", ut.UnitGroupID);
@@ -94,7 +94,7 @@ namespace NotePlot.Models
                         //new { UnitID = ut.UnitID, UnitShortName = ut.UnitShortName, UnitName = ut.UnitName, UnitGroupID = ut.UnitGroupID, LoginID = ut.LoginID, Mode = md },
                         commandType: CommandType.StoredProcedure);
                     if (md == 0)
-                        ut.UnitID = p.Get<long>("@UnitGroupID");
+                        ut.UnitID = p.Get<long>("@UnitID");
                     rt = true;
                 }
                 catch (Exception ex)

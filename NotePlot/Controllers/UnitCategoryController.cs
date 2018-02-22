@@ -160,15 +160,22 @@ namespace NotePlot.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(long id)
         {
-            long lgID = LoginController.GetLogin(HttpContext.User);
-            if (lgID >= 0)
+            try
             {
-                UnitCategory uc = new UnitCategory { UnitGroupID = id, LoginID = lgID };
-                await repo.SetCategoryAsync(uc, 2);
-                return Ok();
+                long lgID = LoginController.GetLogin(HttpContext.User);
+                if (lgID >= 0)
+                {
+                    UnitCategory uc = new UnitCategory { UnitGroupID = id, LoginID = lgID };
+                    await repo.SetCategoryAsync(uc, 2);
+                    return Ok();
+                }
+                else
+                    return BadRequest("Нет аутентификации!");
             }
-            else
-                return BadRequest("Нет аутентификации!");
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //public IActionResult EditDialog(int id) => PartialView("Edit", repo.GetCategory(id));
