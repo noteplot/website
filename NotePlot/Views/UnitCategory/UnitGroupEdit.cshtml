@@ -26,22 +26,16 @@
 <script type="text/javascript">
     $(function () {
             var adata = new Object();
-            // шаблон строки для вставки в журнал групп измерений #unitgroups
-            var trTmpl = '<tr>'
-                + '<td>{{UnitGroupShortName}}</td>'
-                + '<td>{{UnitGroupName}}</td>'
-                + '<td>'
-                + '<div class="npRowTools" style="display:none">'
-                + '<a href="UnitCategory/Edit/{{UnitGroupID}}" class="npRowEdit np_button green" np_dialog_title="Группа единиц измерений">'
+            // шаблон кнопок для вставки в журнал групп измерений #unitgroups
+            var rowTools =
+                '<div class="npRowTools" style="display:none">'
+                + '<a href="/UnitCategory/Edit/{{UnitGroupID}}" class="npRowEdit np_button green" np_dialog_title="Группа единиц измерений">'
                 + '<div class="icon"><i class="fa fa-pencil"></i></div>'
                 + '</a>'
-                + '<a href="UnitCategory/Delete/{{UnitGroupID}}" class="npRowDelete np_button red" data-deleted-name="{{UnitGroupShortName}}>'
+                + '<a href="/UnitCategory/Delete/{{UnitGroupID}}" class="npRowDelete np_button red" data-deleted-name="{{UnitGroupShortName}}">'
                 + '<div class="icon"><i class="fa fa-times"></i></div>'
                 + '</a>'
-                + '</div>'
-                + '</td>'
-                + '</tr >';
-
+                + '</div>';
                 
             adata.onSuccess = function (dta) {
                     if ($.fn.DataTable.isDataTable('#unitgroups')) {
@@ -51,15 +45,19 @@
                         
                         if ($('#unitCategory').attr("data-form-mode") == "edit") { // функция изменения данных в строке после редактирования
                             var
-                                _tr = _table.row('.selected'),
-                                _data = _tr.data();
-                            _data[0] = jsn.UnitGroupShortName;
-                            _data[1] = jsn.UnitGroupName;
-                            _tr.data(_data).draw();                            
+                                _tr = _table.row('.selected'),_data = _tr.data();
+                            _data[0] = jsn.UnitGroupID;
+                            _data[1] = jsn.UnitGroupShortName;
+                            _data[2] = jsn.UnitGroupName;
+                            _tr.data(_data).draw();
+                            _table.$('tr.selected').find(".npRowTools").css("display", "block"); // после обновления display:none
                         }
                         else
-                            if ($('#unitCategory').attr("data-form-mode") == "new") {
-                                location.reload();
+                            if ($('#unitCategory').attr("data-form-mode") == "new") { // новая строка
+                                rowTools = rowTools.replaceAll("{{UnitGroupID}}", jsn.UnitGroupID).replaceAll("{{UnitGroupShortName}}", jsn.UnitGroupShortName);
+                                _table.row.add([jsn.UnitGroupID, jsn.UnitGroupShortName, jsn.UnitGroupName, rowTools]);//.draw(false);
+                                _table.$('tr.selected').removeClass('selected').css("display", "block"); // снимаем выделение
+                                _table.order([0, 'desc']).draw(); // первая строка - добавленная
                             }
                             else {
                                 location.reload();

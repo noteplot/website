@@ -6,10 +6,10 @@
     </a>
 </div>
 @Html.AntiForgeryToken()
-<table id="unitgroups" class="table">
+<table id="unitgroups" class="table" cellspacing="0" width="100%">
     <thead>
         <tr>
-            @*<th>ID</th>*@
+            <th hidden>ID</th>
             <th>Краткое название</th>
             <th>Название</th>
             <th></th>
@@ -19,7 +19,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                @*<td>@item.UnitGroupID</td>*@
+                <td hidden>@item.UnitGroupID</td>
                 <td>@item.UnitGroupShortName</td>
                 <td>@item.UnitGroupName</td>
                 <td>
@@ -40,12 +40,21 @@
 </table>
 @section scripts {
     <script type="text/javascript">
-        var table = $("#unitgroups").DataTable();
+        var table = $("#unitgroups").DataTable(
+            {
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false
+                    }
+                ]
+            }
+        );
         // Выделение строк по клику
         table.on('click.select', 'tr', function () {
             table.$('tr.selected').not(this).removeClass('selected').find(".npRowTools").css("display", "none");
             if (!$(this).hasClass('selected')) {
-                $(this).addClass('selected').find(".npRowTools").css("display", "block");;
+                $(this).addClass('selected').find(".npRowTools").css("display", "block");
             }                        
         });
 
@@ -57,7 +66,7 @@
             adata.dialogTitle = 'Внимание!!';
             adata.dialogMessage = _formatDialogMessage;
             adata.onSuccess = function () {
-                table.row('.selected').remove().draw();
+                table.row('.selected').remove().draw(false);
             }
 
             // Редактирование по двойному клику

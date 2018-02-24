@@ -6,9 +6,10 @@
     </a>
 </div>
 @Html.AntiForgeryToken()
-<table class="table" id="units">
+<table class="table" id="units" cellspacing="0" width="100%">
     <thead>
         <tr>
+            <th hidden>ID</th>
             <th>
                 Группа
             </th>
@@ -25,6 +26,7 @@
         @foreach (var item in Model)
         {
         <tr np_unit_id=@item.UnitID np_login_id=@item.LoginID>
+            <td hidden>@item.UnitID</td>
             <td>@item.UnitGroupShortName</td>
             <td class="ShortName">@item.UnitShortName</td>
             <td>@item.UnitName</td>
@@ -47,7 +49,16 @@
 </table>
  @section scripts {
     <script type="text/javascript">
-        table = $("#units").DataTable();
+        table = $("#units").DataTable(
+            {
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false
+                    }
+                ]
+            }
+        );
         // Выделение строк по клику
         table.on('click.select', 'tr', function () {
             table.$('tr.selected').not(this).removeClass('selected').find(".npRowTools").css("display", "none");
@@ -63,7 +74,7 @@
             adata.dialogTitle = 'Внимание!!';
             adata.dialogMessage = _formatDialogMessage;
             adata.onSuccess = function () {
-                table.row('.selected').remove().draw();
+                table.row('.selected').remove().draw(false);
             }
 
             // Редактирование по двойному клику

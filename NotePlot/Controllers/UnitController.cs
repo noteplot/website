@@ -46,9 +46,10 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
         }
 
-        public async Task<IActionResult> Create(long id)
+        public IActionResult Create(long id)
         {
             ViewBag.Action = "/Unit/Create";
+            ViewBag.Mode = "new";
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
@@ -67,7 +68,6 @@ namespace NotePlot.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Unit ut)
         {
-            ViewBag.Mode = "new";
             if (ModelState.IsValid)
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
