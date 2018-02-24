@@ -324,3 +324,11 @@ table.dataTable tbody td {
     display: inline-block;
     margin-top: 1px;
 }
+
+#loader {
+    display: block;
+}
+
+.np_content {
+    display: none;
+}

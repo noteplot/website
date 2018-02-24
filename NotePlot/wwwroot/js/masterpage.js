@@ -15,4 +15,6 @@
         $('.np_body').attr('style', '');
     });
 
+    $('#loader').hide();
+    $('.np_content').show();
 });
