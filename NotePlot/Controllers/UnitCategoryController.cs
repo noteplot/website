@@ -44,6 +44,7 @@ namespace NotePlot.Controllers
         public ActionResult Create()
         {
             ViewBag.Action = "/UnitCategory/Create";
+            ViewBag.Mode = "new";
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
@@ -104,6 +105,7 @@ namespace NotePlot.Controllers
         public async Task<ActionResult> Edit(long id)
         {
             ViewBag.Action = "/UnitCategory/Edit";// POST
+            ViewBag.Mode = "edit";
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
@@ -133,7 +135,8 @@ namespace NotePlot.Controllers
                         try
                         {
                             await repo.SetCategoryAsync(uc, 1);
-                            return Ok(); // ajax диалог просто пустая строка
+                            string jsn = JsonConvert.SerializeObject(uc);
+                            return Ok(jsn); // ajax диалог просто пустая строка
                         }
                         catch (Exception ex)
                         {

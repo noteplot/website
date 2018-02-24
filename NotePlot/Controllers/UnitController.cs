@@ -67,6 +67,7 @@ namespace NotePlot.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Unit ut)
         {
+            ViewBag.Mode = "new";
             if (ModelState.IsValid)
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
@@ -105,6 +106,7 @@ namespace NotePlot.Controllers
         public async Task<ActionResult> Edit(long id)
         {
             ViewBag.Action = "/Unit/Edit";// POST
+            ViewBag.Mode = "edit";
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
@@ -129,23 +131,24 @@ namespace NotePlot.Controllers
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
-                    long loginID = LoginController.GetLogin(HttpContext.User);
-                    if (loginID >= 0)
+                    try
                     {
-                        ut.LoginID = loginID;
-                        try
+                        long loginID = LoginController.GetLogin(HttpContext.User);
+                        if (loginID >= 0)
                         {
+                            ut.LoginID = loginID;
                             await repo.SetUnitAsync(ut, 1);
-                            return Ok(); // ajax диалог просто пустая строка
+                            string jsn = JsonConvert.SerializeObject(ut);
+                            return Ok(jsn); // ajax диалог просто пустая строка
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            return BadRequest(ex.Message);
+                            return BadRequest("Нет аутентификации");
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        return BadRequest("Нет аутентификации");
+                        return BadRequest(ex.Message);
                     }
                 }
                 else

@@ -3,7 +3,7 @@
     string atr_disabled = "disabled";
 }
 
-<form id="unitCategory" method="POST" action=@ViewBag.Action>
+<form id="unitCategory" method="POST" action=@ViewBag.Action data-form-mode=@ViewBag.Mode>
     @Html.AntiForgeryToken()
     <div>
         <input type="hidden" id="UnitGroupID" name="UnitGroupID" value="@Model.UnitGroupID" />
@@ -25,10 +25,55 @@
 </form>
 <script type="text/javascript">
     $(function () {
-        var adata = new Object();
-        adata.onSuccess = function () {
-            location.reload();
-        }
+            var adata = new Object();
+            // шаблон строки для вставки в журнал групп измерений #unitgroups
+            var trTmpl = '<tr>'
+                + '<td>{{UnitGroupShortName}}</td>'
+                + '<td>{{UnitGroupName}}</td>'
+                + '<td>'
+                + '<div class="npRowTools" style="display:none">'
+                + '<a href="UnitCategory/Edit/{{UnitGroupID}}" class="npRowEdit np_button green" np_dialog_title="Группа единиц измерений">'
+                + '<div class="icon"><i class="fa fa-pencil"></i></div>'
+                + '</a>'
+                + '<a href="UnitCategory/Delete/{{UnitGroupID}}" class="npRowDelete np_button red" data-deleted-name="{{UnitGroupShortName}}>'
+                + '<div class="icon"><i class="fa fa-times"></i></div>'
+                + '</a>'
+                + '</div>'
+                + '</td>'
+                + '</tr >';
+
+                
+            adata.onSuccess = function (dta) {
+                    if ($.fn.DataTable.isDataTable('#unitgroups')) {
+                        var
+                            jsn = JSON.parse(dta),
+                            _table = $("#unitgroups").DataTable();
+                        
+                        if ($('#unitCategory').attr("data-form-mode") == "edit") { // функция изменения данных в строке после редактирования
+                            var
+                                _tr = _table.row('.selected'),
+                                _data = _tr.data();
+                            _data[0] = jsn.UnitGroupShortName;
+                            _data[1] = jsn.UnitGroupName;
+                            _tr.data(_data).draw();                            
+                        }
+                        else
+                            if ($('#unitCategory').attr("data-form-mode") == "new") {
+                                location.reload();
+                            }
+                            else {
+                                location.reload();
+                            }
+                        // Находим диалог и закрываем
+                        var _md = $('#unitCategory').parents('.dialog').first().attr('id');
+                        if (_md != undefined) {
+                            $('#' + _md).dialog("close");
+                        }
+                    }
+                    else {
+                        location.reload();
+                    }
+            }
 
         $("#unitCategory").bind('submit', adata, np_AjaxFormSubmit);
         // очистка сообщений об ошибках по клику

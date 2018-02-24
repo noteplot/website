@@ -66,6 +66,11 @@
                 table.row('.selected').remove().draw();
             }
 
+            // Редактирование по двойному клику
+            table.on('dblclick', 'tr.selected', function () {
+                $(this).find(".npRowEdit").trigger("click");
+            });
+
             // События редактирования и удаления записи
             $("#units tbody").on("click", ".npRowEdit", function (e) {         // не зависит от DOM для DataTable
                 e.preventDefault();

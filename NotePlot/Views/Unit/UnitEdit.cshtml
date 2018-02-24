@@ -4,7 +4,7 @@
     string atr_disabled = "disabled";
 }
 
-<form id="unit" method="POST" action=@ViewBag.Action>
+<form id="unit" method="POST" action=@ViewBag.Action data-form-mode=@ViewBag.Mode>
     @Html.AntiForgeryToken()
     <input type="hidden" id="UnitID" name="UnitID" value="@Model.UnitID"/>
     <input type="hidden" id="UnitGroupID" name="UnitGroupID" value="@Model.UnitGroupID" data-target="UnitGroupID" data-target-value=""/>
@@ -54,9 +54,39 @@
 
         // submit
         var adata = new Object();
-        adata.onSuccess = function () {
-            location.reload();
+        adata.onSuccess = function (dta) {
+            if ($.fn.DataTable.isDataTable('#units')) {
+                var
+                    jsn = JSON.parse(dta),
+                    _table = $("#units").DataTable();
+
+                if ($('#unit').attr("data-form-mode") == "edit") { // функция изменения данных в строке после редактирования
+                    var
+                        _tr = _table.row('.selected'),
+                        _data = _tr.data();
+                    _data[0] = jsn.UnitGroupShortName;
+                    _data[1] = jsn.UnitShortName;
+                    _data[2] = jsn.UnitName;
+                    _tr.data(_data).draw();
+                }
+                else
+                    if ($('#unit').attr("data-form-mode") == "new") {
+                        location.reload();
+                    }
+                    else {
+                        location.reload();
+                    }
+                // Находим диалог и закрываем
+                var _md = $('#unit').parents('.dialog').first().attr('id');
+                if (_md != undefined) {
+                    $('#' + _md).dialog("close");
+                }
+            }
+            else {
+                location.reload();
+            }
         }
+
         $("#unit").bind('submit', adata, np_AjaxFormSubmit);
         // очистка сообщений об ошибках по клику 
         $("#unit").bind('click', np_AjaxFormInputClick); 
