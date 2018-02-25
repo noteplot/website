@@ -1,0 +1,33 @@
+﻿@model IEnumerable<NotePlot.Models.MonitorTotalParameter>
+
+@if (Model.Count() != 0)
+{
+<h2>Итоговые параметры монитора</h2>
+<table class="table" id="monitorTotalParameters">
+    <thead>
+        <tr>
+            <th class="col1">Значение</th>
+            <th class="col2">Ед.изм.</th>
+            <th>Параметр</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><input type="text" class="ParameterValue" value="@item.MonitorParameterValue" np_dec_precision="28" np_dec_scale="6" readonly></td>
+                <td>@item.ParameterUnitShortName</td>
+                <td>@item.ParameterShortName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($('#monitorTotalParameters').length > 0) {
+            $('#monitorTotalParameters input').npDecimalInput().npDecimalFormat();
+        }
+    });
+</script>
+

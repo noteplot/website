@@ -10,9 +10,10 @@
     IEnumerable<NotePlot.Models.MonitoringParameter> Model1 = from item in Model
                                                               where item.ParameterTypeID != 2
                                                               select item;
-    IEnumerable<NotePlot.Models.MonitoringParameter> Model2 = from item in Model
-                                                              where item.ParameterTypeID == 2
-                                                              select item;
+
+    //IEnumerable<NotePlot.Models.MonitoringParameter> Model2 = from item in Model
+    //                                                          where item.ParameterTypeID == 2
+    //                                                          select item;
 }
 
 <table class="table" id="monitoringParameters">

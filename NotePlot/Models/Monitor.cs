@@ -27,10 +27,19 @@ namespace NotePlot.Models
         public byte? ParameterTypeID { get; set; }
         public string ParameterTypeName { get; set; }
         public string ParameterShortName { get; set; }
+        public string ParameterName { get; set; }
         public short? MonitorParamPosition { get; set; }
         public decimal? MonitorParameterValue { get; set; }
         public long? LoginID { get; set; }
         public bool MonitorParameterActive { get; set; }
+    }
+
+    public class MonitorTotalParameter : MonitorParameter
+    {
+        public long? ParameterUnitID { get; set; }
+        public string ParameterUnitShortName { get; set; }
+        public byte Scale { get; set; }
+        public int Precision { get; set; }
     }
 
     public interface IRepositoryMonitor
@@ -38,6 +47,7 @@ namespace NotePlot.Models
         List<Monitor> GetMonitors(long lgId);
         List<MonitorParameter> GetMonitorParameters(long? mId);
         Task<List<MonitorParameter>> GetMonitorParametersAsync(long? mId);
+        Task<List<MonitorTotalParameter>> GetMonitorTotalParametersAsync(long? mId);
         Monitor GetMonitor(long mId, long lgId);
         bool SetMonitor(Monitor mt, int md);
         bool DeleteMonitor(long mId, long lgId);
@@ -97,6 +107,24 @@ namespace NotePlot.Models
         public Task<List<MonitorParameter>> GetMonitorParametersAsync(long? mId)
         {
             return Task.Run(() => GetMonitorParameters(mId));
+        }
+
+        public List<MonitorTotalParameter> GetMonitorTotalParameters(long? mId)
+        {
+            if (mId > 0)
+                using (IDbConnection db = new SqlConnection(connectionString))
+                {
+                    return db.Query<MonitorTotalParameter>("dbo.MonitorTotalParamsGet", new { MonitorID = mId }, commandType: CommandType.StoredProcedure).ToList();
+                }
+            else
+            {
+                return new List<MonitorTotalParameter>();
+            }
+        }
+
+        public Task<List<MonitorTotalParameter>> GetMonitorTotalParametersAsync(long? mId)
+        {
+            return Task.Run(() => GetMonitorTotalParameters(mId));
         }
 
         public bool SetMonitor(Monitor mt, int md)

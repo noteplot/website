@@ -68,6 +68,9 @@
     <div id="monitoringParamList">
         @await Component.InvokeAsync("MonitoringParams", new { MonitoringID = Model.MonitoringID, MonitorID = Model.MonitorID })
     </div>
+    <div id="monitorParamList">
+        @await Component.InvokeAsync("MonitorTotalParams", new { MonitorID = Model.MonitorID })
+    </div>
 </form>
 @section scripts{
     <script type="text/javascript">
