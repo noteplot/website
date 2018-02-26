@@ -198,6 +198,10 @@ table.dataTable tbody td {
     margin-left: 1px;
     text-decoration: none;
 }
+.dataTable .np_button {
+    width: 26px;
+    height: 26px;
+}
 .paginate_enabled_next:hover, .paginate_active, .paginate_active:hover, .paginate_button:hover, .paginate_enabled_previous:hover {
     color: #333;
     -moz-box-shadow: inset 0 1px 3px #AAA;
@@ -266,20 +270,24 @@ table.dataTable tbody td {
 
 
 .table .np_button .icon,
-.np_toolbar .np_button .icon{
+.np_toolbar .np_button .icon {
     border: 1px solid #FFF;
     height: 22px;
     width: 22px;
-    margin: 7px;
+    margin: 1px;
     line-height: 24px;
     text-align: center;
     border-radius: 50%;
 }
-    .table .np_button .icon .fa,
-    .np_toolbar .np_button .icon .fa{
-        color: #fff;
-        font-size: 16px;
-    }
+.np_toolbar .np_button .icon {
+    margin: 7px;
+}
+
+.table .np_button .icon .fa,
+.np_toolbar .np_button .icon .fa {
+    color: #fff;
+    font-size: 16px;
+}
 
 .green {
     background: #68AF27 !important;
