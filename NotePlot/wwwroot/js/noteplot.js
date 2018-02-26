@@ -6,6 +6,7 @@
     });
 
     $(".np_sidebar").css("height", document.body.clientHeight - 46);
+    $(".np_content").css("height", document.body.clientHeight - 68);
 
     $(window).resize(function (event) {
         if ($(".ui-dialog").length > 0) {
@@ -22,6 +23,7 @@
                 
         }
         $(".np_sidebar").css("height", document.body.clientHeight - 46);
+        $(".np_content").css("height", document.body.clientHeight - 68);
     });
 /*
     // добавление токена для запросов POST
