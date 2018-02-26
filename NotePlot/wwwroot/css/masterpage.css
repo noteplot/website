@@ -271,7 +271,7 @@ table.dataTable tbody td {
 
 .table .np_button .icon,
 .np_toolbar .np_button .icon {
-    border: 1px solid #FFF;
+    border: 1px solid #000;
     height: 22px;
     width: 22px;
     margin: 1px;
@@ -280,15 +280,17 @@ table.dataTable tbody td {
     border-radius: 50%;
 }
 .np_toolbar .np_button .icon {
+    border-color: #fff;
     margin: 7px;
 }
 
-.table .np_button .icon .fa,
-.np_toolbar .np_button .icon .fa {
-    color: #fff;
+.table .np_button .icon .fa {
+    color: #000;
     font-size: 16px;
 }
-
+.np_toolbar .np_button .icon .fa {
+    color: #fff;
+}
 .green {
     background: #68AF27 !important;
 }
