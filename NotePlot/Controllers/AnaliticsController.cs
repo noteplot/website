@@ -32,7 +32,7 @@ namespace NotePlot.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
-                return View("", await repo.GetReportMonitorDataAsync(MonitorID, loginID, DateFrom, DateTo, Mode)); 
+                return PartialView("MonitorParameterValues", await repo.GetReportMonitorDataAsync(MonitorID, loginID, DateFrom, DateTo, Mode)); 
             }
             else
                 return BadRequest("Нет аутентификации!");

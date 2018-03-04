@@ -1,0 +1,32 @@
+﻿@model System.Data.DataSet
+@using System.Data;
+
+<table id="monitorings" class="table" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            @foreach (DataColumn col in Model.Tables[0].Columns)
+            {
+                <th>@col.ColumnName</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Tables[0].Rows)
+        {
+            <tr>
+                @foreach (DataColumn col in Model.Tables[0].Columns)
+                {
+                    <td>@row[col.ColumnName]</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(function () {
+        $("#monitorings").DataTable({
+            dom: 'B<"clear">lfrtip',
+            buttons: ['copy', 'csv', 'excel']
+        });
+    });
+</script>
