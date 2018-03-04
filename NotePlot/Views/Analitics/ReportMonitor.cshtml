@@ -1,0 +1,73 @@
+﻿@{
+    System.Globalization.CultureInfo ruRU = new System.Globalization.CultureInfo("ru-RU");
+}
+
+<p>
+    Измерения по монитору за период
+</p>
+
+@Html.AntiForgeryToken()
+<div id="report">
+    <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value="" />
+    <div><input type="text" name="DateFrom" class="input_date" @*value="@Model.DateFrom.ToString("d", ruRU)"*@ readonly size="10"></div>
+    <div><input type="text" name="DateTo" class="input_date" @*value="@Model.DateTo.ToString("d", ruRU)"*@ readonly size="10"></div>
+    <div class="input-prepend">
+        <button type="button" id="btnSelectMonitor" class="add-on openDialog" href="/Monitor/SelectMonitorList" np_dialog_title="Выбор монитора">Монитор</button>
+        <input type="text" readonly id="MonitorShortName" name="MonitorShortName" size="24" data-target="MonitorShortName" data-target-value="" />
+    </div>
+    <div>
+        <input type="radio" id="Mode1" name="Mode" value=0 checked />
+        <label for="Mode1">Все параметры монитора</label>
+        <input type="radio" id="Mode2" name="Mode" value=1 />
+        <label for="Mode2">Только активные</label>
+    </div>
+    <button id="btn_select">Найти</button>
+</div>
+<div id="paramValues">
+</div>
+@section scripts{
+<script type="text/javascript">
+    $(function () {
+        // отрабатываем событие изменения атрибута при выборе из диалога
+        $("#MonitorID").on("targetValueChanged", function (e) {
+            e.preventDefault();
+            $(this).val($(this).attr("data-target-value")); // присваиваем значение атрибута
+        });
+        $("#MonitorShortName").on("targetValueChanged", function (e) {
+            e.preventDefault();
+            $(this).val($(this).attr("data-target-value")); // присваиваем значение атрибута
+        });
+
+        $("#monitorings").DataTable();
+        //
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
+        $(".input_date").datepicker({
+            dateFormat: "dd.mm.yy",
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            //buttonImage: "calendar16.png",
+            buttonImageOnly: true,
+            buttonText: "выбрать дату"
+        });
+        //Перезагрузка списка
+        $('#btn_select').on('click', function (e) {
+            e.preventDefault();
+            var data = $("#report input").serialize();
+            var dataJson = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
+            //alert(data1);
+            var json = $.parseJSON(dataJson);
+            np_AjaxBeforeSend();
+            $('#paramValues').load('/Analitics/MonitorParameterValuesGet', json, function (response, status, xhr) {
+                np_AjaxComplete();
+                if (status == "error") {
+                    var msg = "Что-то пошло не так: ";
+                    $("#paramValues").html(msg + xhr.status + " " + xhr.statusText);
+                }
+            });
+        });
+    });
+</script>
+}

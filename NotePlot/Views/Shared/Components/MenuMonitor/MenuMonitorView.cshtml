@@ -35,6 +35,11 @@
                 <div class="icon"><span class="ico-home"></span></div>
                 <div class="name">Аналитика</div>
             </a>
+            <ul>
+                @*<li><a href="#">Параметры измерения</a></li>*@
+                <li>@Html.ActionLink("Измерения по монитору", "ReportMonitor", "Analitics")</li>
+                <li>@Html.ActionLink("Динамика изменения параметров", "", "")</li>
+            </ul>
         </li>
     </ul>
 } 

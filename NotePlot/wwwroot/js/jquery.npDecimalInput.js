@@ -11,7 +11,7 @@
         return this.each(function(){
             var
                 val = $(this).val(),
-                point = ($(this).attr('np_dec_point') && ($(this).attr('np_dec_point') == '.' || $(this).attr('np_dec_point') == ',')) ? $(this).attr('np_dec_point') : DecPointDefault(),                
+                point = ($(this).attr('DecPointDefault') && ($(this).attr('np_dec_point') == '.' || $(this).attr('np_dec_point') == ',')) ? $(this).attr('np_dec_point') : DecPointDefault(),                
                 minus = $(this).get(0).hasAttribute('np_dec_minus') ? true : false,ixc, ix0, len;
                 ixc = val.indexOf(point);
             
