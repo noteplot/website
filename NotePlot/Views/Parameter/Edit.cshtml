@@ -72,11 +72,11 @@
         </div>
         <p>
             <label for="ParameterValueMax" class="np_label">Макс. значение</label>
-            <input type="text" id="ParameterValueMax" class ="rangeValue" name="ParameterValueMax" class="np_decimal_format" size="28" value="@Model.ParameterValueMax" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
+            <input type="text" id="ParameterValueMax" class ="rangeValue np_decimal_format" name="ParameterValueMax" size="28" value="@Model.ParameterValueMax" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
         <p>
             <label for="ParameterValueMin" class="np_label">Мин. значение</label>
-            <input type="text" id="ParameterValueMin" class ="rangeValue" name="ParameterValueMin" class="np_decimal_format" size="28" value="@Model.ParameterValueMin" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
+            <input type="text" id="ParameterValueMin" class ="rangeValue np_decimal_format" name="ParameterValueMin" size="28" value="@Model.ParameterValueMin" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
         </p>
         @if (Model.ParameterID != null)
         {
