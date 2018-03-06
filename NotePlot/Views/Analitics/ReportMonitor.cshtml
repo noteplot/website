@@ -28,6 +28,9 @@
 @section scripts{
 <script type="text/javascript">
     $(function () {
+        $('#report').change(function () {
+            $('#paramValues').empty();
+        });
         //$('#btnSelectMonitor').on('click', function (e) {
         //    e.preventDefault();
         //    OpenDialog(this, null);
@@ -36,6 +39,7 @@
         $("#MonitorID").on("targetValueChanged", function (e) {
             e.preventDefault();
             $(this).val($(this).attr("data-target-value")); // присваиваем значение атрибута
+            $(this).trigger('change');
         });
         $("#MonitorShortName").on("targetValueChanged", function (e) {
             e.preventDefault();
