@@ -8,11 +8,11 @@
 
 @Html.AntiForgeryToken()
 <div id="report">
-    <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value="" />
+    <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value="" value="32"/>
     <div><input type="text" name="DateFrom" class="input_date" @*value="@Model.DateFrom.ToString("d", ruRU)"*@ readonly size="10"></div>
     <div><input type="text" name="DateTo" class="input_date" @*value="@Model.DateTo.ToString("d", ruRU)"*@ readonly size="10"></div>
     <div class="input-prepend">
-        <button type="button" id="btnSelectMonitor" class="add-on openDialog" href="/Monitor/SelectMonitorList" np_dialog_title="Выбор монитора">Монитор</button>
+        <button type="button" id="btnSelectMonitor" class="add-on openDialog" href="/Monitor/SelectMonitor" np_dialog_title="Выбор монитора">Монитор</button>
         <input type="text" readonly id="MonitorShortName" name="MonitorShortName" size="24" data-target="MonitorShortName" data-target-value="" />
     </div>
     <div>
@@ -28,6 +28,10 @@
 @section scripts{
 <script type="text/javascript">
     $(function () {
+        //$('#btnSelectMonitor').on('click', function (e) {
+        //    e.preventDefault();
+        //    OpenDialog(this, null);
+        //});
         // отрабатываем событие изменения атрибута при выборе из диалога
         $("#MonitorID").on("targetValueChanged", function (e) {
             e.preventDefault();
@@ -38,8 +42,6 @@
             $(this).val($(this).attr("data-target-value")); // присваиваем значение атрибута
         });
 
-        $("#monitorings").DataTable();
-        //
         $.datepicker.setDefaults($.datepicker.regional['ru']);
         $(".input_date").datepicker({
             dateFormat: "dd.mm.yy",

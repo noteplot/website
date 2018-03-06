@@ -1,0 +1,58 @@
+﻿@model IEnumerable<NotePlot.Models.Monitor>
+
+<table id="monitorSelect" class="table">
+    <thead>
+        <tr>
+            <th hidden></th>
+            <th>Монитор</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td hidden data-source="MonitorID">@item.MonitorID</td>
+                <td data-source="MonitorShortName">@item.MonitorShortName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button class="np_select">выбрать</button>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#monitorSelect").DataTable();
+
+        // при переключении страниц + сортировка + фильтр сбрасываем selected
+        $('#monitorSelect').on('page.dt order.dt search.dt', function () {
+            $('#monitorSelect tbody tr.selected').removeClass('selected');
+        });
+
+        //$('#parameterGroups tbody tr').on('click', function () {
+        $('#monitorSelect tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                $('#monitorSelect tbody tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+        $("button.np_select").on('click', function () {
+            if ($('#monitorSelect tbody tr').hasClass('selected')) {
+                // Изменяем значения связанных атрибутов по схеме sourсe -> target
+                $('#monitorSelect tbody tr.selected td[data-source]').each(function () {
+                    var tg = $('[data-target=' + '"' + $(this).attr("data-source") + '"]');
+                    if (tg) {
+                        tg.SetTargetValue($(this).text());
+                    }
+                });
+                // Закрываем диалог
+                var _md = $('#monitorSelect').parents('.dialog').first().attr('id');
+                if (_md != undefined) {
+                    $('#' + _md).dialog("close");
+                }
+            }
+        })
+    });
+</script>
+

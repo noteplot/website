@@ -247,5 +247,14 @@ namespace NotePlot.Controllers
             }
         }
 
+        public async Task<IActionResult> SelectMonitor()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("MonitorSelect", await repo.GetMonitorsAsync(loginID));
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
     }
 }
