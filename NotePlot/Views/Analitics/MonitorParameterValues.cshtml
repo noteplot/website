@@ -1,6 +1,14 @@
 ﻿@model System.Data.DataSet
 @using System.Data;
 
+@{
+    System.Globalization.CultureInfo ruRU = new System.Globalization.CultureInfo("ru-RU");
+    int id = 0;
+
+    string decSep = ruRU.NumberFormat.NumberDecimalSeparator;
+    char[] toTrim = decSep.ToCharArray();    
+}
+
 <table id="monitorings" class="table" cellspacing="0" width="100%">
     <thead>
         <tr>
@@ -16,7 +24,13 @@
             <tr>
                 @foreach (DataColumn col in Model.Tables[0].Columns)
                 {
-                    <td>@row[col.ColumnName]</td>
+                    if (id == 0){
+                        <td> @row[col.ColumnName] </td>
+                    }
+                    else {
+                        <td>@row[col.ColumnName].ToString().TrimEnd('0').TrimEnd(toTrim)</td>
+                    }
+                    id += 1;
                 }
             </tr>
         }
