@@ -139,8 +139,8 @@
 	
 	// текущий десятичный разделитель
 	function DecPointDefault(){
-		var num = new Number(0.1)			
-		return num.toLocaleString().substr(1,1)
+        var num = new Number(0.1)	        
+		return num.toString().substr(1,1)
 	};
 		
 	function CheckLength(val, point, precision, minus){

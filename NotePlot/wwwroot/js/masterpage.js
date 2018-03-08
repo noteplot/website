@@ -14,7 +14,7 @@
         $('.np_sidebar').attr('style', '');
         $('.np_body').attr('style', '');
     });
-
-    $('#loader').hide();
-    $('.np_content').show();
+    // Перенесен в MasterPage - в Хроме не срабатывает, исколючается из исполнения
+    //$('#loader').hide();
+    //$('.np_content').show();
 });

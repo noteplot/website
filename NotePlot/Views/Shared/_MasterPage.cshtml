@@ -15,12 +15,12 @@
     <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
     <script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="~/lib/jquery-ui-ru/datepicker-ru.js"></script>
-    
+
     @*валидатор*@
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/js/jquery.validate.ru.js"></script>
     <script src="~/js/messages_ru.min.js"></script>
-    
+
     @*маска ввода для времени*@
     <script src="~/js/jquery.maskedinput.min.js"></script>
 
@@ -30,16 +30,16 @@
     @* ресурсы сайта*@
     <link href="~/css/login.css" rel="stylesheet" />
     <link href="~/css/masterpage.css" rel="stylesheet" />
-    <script src="~/js/masterpage.js"></script>
     <script src="~/js/noteplot.js"></script>
+    <script src="~/js/masterpage.js"></script>
 
     @RenderSection("styles", required: false)
 </head>
-<body>    
+<body>
     @Html.Partial("LoaderView")
     <div class="np_bar">
         <button class="dropdown-main-menu" type="button">|||</button>
-        @await Component.InvokeAsync("PanelLogin");        
+        @await Component.InvokeAsync("PanelLogin");
     </div>
     <div class="np_sidebar">
         <div class="top"></div>
@@ -53,7 +53,7 @@
                 </li>
             </ul>
             <div id="menuMonitor">
-                @await Component.InvokeAsync("MenuMonitor");  
+                @await Component.InvokeAsync("MenuMonitor");
             </div>
         </div>
     </div>
@@ -63,10 +63,14 @@
         </div>
     </div>
     @RenderSection("scripts", required: false)
-    @*<script>
-    // вешаем колбэки для всех jQuery.ajax-запросов
-    $('#loader').ajaxSend(function () { $(this).show() })
-        .ajaxStop(function () { $(this).hide() });
-    </script>*@
+    <script>
+        $(document).ready(function () {
+            $('#loader').hide();
+            $('.np_content').show();
+        });
+        // вешаем колбэки для всех jQuery.ajax-запросов
+        //$('#loader').ajaxSend(function () { $(this).show() })
+        //    .ajaxStop(function () { $(this).hide() });
+    </script>
 </body>
 </html>
