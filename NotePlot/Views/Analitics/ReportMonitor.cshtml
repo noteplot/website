@@ -8,7 +8,7 @@
 
 @Html.AntiForgeryToken()
 <div id="report">
-    <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value="" value="32"/>
+    <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value=""/>
     <div><input type="text" name="DateFrom" class="input_date" @*value="@Model.DateFrom.ToString("d", ruRU)"*@ readonly size="10"></div>
     <div><input type="text" name="DateTo" class="input_date" @*value="@Model.DateTo.ToString("d", ruRU)"*@ readonly size="10"></div>
     <div class="input-prepend">
@@ -27,6 +27,12 @@
 </div>
 @section scripts{
 <script type="text/javascript">
+    var from = new Date();
+    var cd = new Date();
+    from.setMonth(from.getMonth() - 1);
+    $('input[name="DateTo"]').val(np_getStringDate(cd, 'date', 'dd:mm:yy', '', '.', ''));
+    $('input[name="DateFrom"]').val(np_getStringDate(from, 'date', 'dd:mm:yy', '', '.', ''));
+
     $(function () {
         $('#report').change(function () {
             $('#paramValues').empty();
@@ -61,6 +67,18 @@
         //Перезагрузка списка
         $('#btn_select').on('click', function (e) {
             e.preventDefault();
+            if (!$('input[name="DateFrom"]').val()) { 
+                np_ShowMessage('Необходимо указать дату начала периода!', 'Внимание!');
+                return;
+            } 
+            if (!$('input[name="DateTo"]').val()) {
+                np_ShowMessage('Необходимо указать дату окончания периода!', 'Внимание!');
+                return;
+            } 
+            if (!$('#MonitorID').val()) {
+                np_ShowMessage('Необходимо указать шаблон измерения(монитор)!', 'Внимание!');
+                return;
+            } 
             var data = $("#report input").serialize();
             var dataJson = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
             //alert(data1);
