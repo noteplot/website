@@ -625,3 +625,15 @@ function np_checkEvent(el, eventname) {
     }
     return ret;
 }
+
+// сортировка для DataTable по дате в русском формате http://vyachet.ru/sort-by-russian-date-datatable/
+$.fn.dataTableExt.oSort['ru-date-asc'] = function (a, b) {
+    a = a.split(/\D+/).reverse().join('');
+    b = b.split(/\D+/).reverse().join('');
+    return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+};
+$.fn.dataTableExt.oSort['ru-date-desc'] = function (a, b) {
+    a = a.split(/\D+/).reverse().join('');
+    b = b.split(/\D+/).reverse().join('');
+    return ((a > b) ? -1 : ((a < b) ? 1 : 0));
+};

@@ -342,3 +342,8 @@ table.dataTable tbody td {
 .np_content {
     display: none;
 }
+
+/*DataTable*/
+.np_numeric {
+    text-align: right;
+}

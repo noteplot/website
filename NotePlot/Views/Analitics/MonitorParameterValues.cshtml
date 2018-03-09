@@ -21,14 +21,15 @@
     <tbody>
         @foreach (DataRow row in Model.Tables[0].Rows)
         {
-            <tr>
+            id = 0;
+            <tr>               
                 @foreach (DataColumn col in Model.Tables[0].Columns)
                 {
                     if (id == 0){
-                        <td> @row[col.ColumnName] </td>
+                        <td>@row[col.ColumnName]</td>
                     }
                     else {
-                        <td>@row[col.ColumnName].ToString().TrimEnd('0').TrimEnd(toTrim)</td>
+                        <td class="np_numeric">@row[col.ColumnName].ToString().TrimEnd('0').TrimEnd(toTrim)</td>
                     }
                     id += 1;
                 }
@@ -44,6 +45,13 @@
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
             "language": dtLanguage // см. MasterPage.js
+            , aaSorting: [[0, 'asc']] // см. http://vyachet.ru/sort-by-russian-date-datatable/
+            ,aoColumnDefs: [
+                {
+                    sType: 'ru-date',
+                    aTargets: [0]
+                }
+            ]
         });
     });
 </script>
