@@ -39,8 +39,11 @@
 <script type="text/javascript">
     $(function () {
         $("#monitorings").DataTable({
-            dom: 'B<"clear">lfrtip',
-            buttons: ['copy', 'csv', 'excel']
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "language": dtLanguage // см. MasterPage.js
         });
     });
 </script>

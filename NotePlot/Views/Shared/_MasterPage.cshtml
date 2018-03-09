@@ -8,12 +8,26 @@
     @*библиотекми*@
     <link href="~/lib/jquery-ui/themes/black-tie/jquery-ui.css" rel="stylesheet" />
     <link href="~/lib/jquery-ui/themes/black-tie/theme.css" rel="stylesheet" />
+    
     <link href="~/lib/datatables.net-dt/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/lib/datatables.net-buttons-dt/css/buttons.dataTables.css" rel="stylesheet" />
+
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
     <script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+    @*Экспорт для таблицы*@
+    <script src="~/lib/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/lib/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/lib/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/lib/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/lib/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/lib/jszip/dist/jszip.min.js"></script> @*Excel*@
+
+    @*Календарь*@
     <script src="~/lib/jquery-ui-ru/datepicker-ru.js"></script>
 
     @*валидатор*@
@@ -68,9 +82,33 @@
             $('#loader').hide();
             $('.np_content').show();
         });
+        // Русификация DataTable
+        var dtLanguage = {
+            "processing": "Подождите...",
+            "search": "Поиск:",
+            "lengthMenu": "Показать _MENU_ записей",
+            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+            "infoEmpty": "Записи с 0 до 0 из 0 записей",
+            "infoFiltered": "(отфильтровано из _MAX_ записей)",
+            "infoPostFix": "",
+            "loadingRecords": "Загрузка записей...",
+            "zeroRecords": "Записи отсутствуют.",
+            "emptyTable": "В таблице отсутствуют данные",
+            "paginate": {
+                "first": "Первая",
+                "previous": "Предыдущая",
+                "next": "Следующая",
+                "last": "Последняя"
+            },
+            "aria": {
+                "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                "sortDescending": ": активировать для сортировки столбца по убыванию"
+            }
+        }
         // вешаем колбэки для всех jQuery.ajax-запросов
         //$('#loader').ajaxSend(function () { $(this).show() })
         //    .ajaxStop(function () { $(this).hide() });
+
     </script>
 </body>
 </html>
