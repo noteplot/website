@@ -38,5 +38,15 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
         }
 
+        public ActionResult ReportPlot()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View("ReportPlot");//, await repo.GetReportMonitorDataAsync(MonitorID, loginID, DateBegin, DateEnd,Mode));
+            }
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
     }
 }
