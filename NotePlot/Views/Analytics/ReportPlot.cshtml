@@ -20,111 +20,120 @@
     </style>
 }
 
-<p>
-    Аналитика за период
-</p>
-<form id="reportPlot" method="POST" action="">
-    @Html.AntiForgeryToken()
-    <div id="report">
-        <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value="" />
-        <div><input type="text" name="DateFrom" class="input_date" @*value="@Model.DateFrom.ToString(" d", ruRU)"*@ readonly size="10"></div>
-        <div><input type="text" name="DateTo" class="input_date" @*value="@Model.DateTo.ToString(" d", ruRU)"*@ readonly size="10"></div>
+<div id="report">
+    <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value="" />
+    <div><input type="text" name="DateFrom" class="input_date" @*value="@Model.DateFrom.ToString(" d", ruRU)"*@ readonly size="10"></div>
+    <div><input type="text" name="DateTo" class="input_date" @*value="@Model.DateTo.ToString(" d", ruRU)"*@ readonly size="10"></div>
 
-        <div class="input-prepend">
-            <button type="button" id="btnSelectParam" class="add-on openDialog" href="/Analytics/SelectMonitorParam" np_dialog_title="Выбор параметра">Добавить параметр</button>
-            <button type="button" id="btnDeleteParam" class="add-on">Удалить параметр</button>
-        </div>
-
-        <h4>Параметры измерения</h4>
-        <table id="monitorParams" class="table parameters" width="100%">
-           <thead>
-                <tr>
-                    <th>Параметр</th>
-                    <th>Монитор</th>
-                    <th>Ед.изм.</th>
-                    <th hidden>MonitorParamID</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <div class="input-prepend">
+        <button type="button" id="btnSelectParam" class="add-on openDialog" href="/Analytics/SelectMonitorParam" np_dialog_title="Выбор параметра">Добавить параметр</button>
+        <button type="button" id="btnDeleteParam" class="add-on">Удалить параметр</button>
     </div>
-    <input type="submit" value="Записать" id="btnPlot"/>
-</form>
-    <div id="plots">
-    </div>
-    @section scripts{
-        <script type="text/javascript">
-            var from = new Date();
-            var cd = new Date();
-            from.setMonth(from.getMonth() - 1);
-            $('input[name="DateTo"]').val(np_getStringDate(cd, 'date', 'dd:mm:yy', '', '.', ''));
-            $('input[name="DateFrom"]').val(np_getStringDate(from, 'date', 'dd:mm:yy', '', '.', ''));
 
-            $(function () {
-                $('#report').change(function () {
-                    $('#paramValues').empty();
-                });
+    <h4>Параметры измерения</h4>
+    <table id="monitorParams" class="table parameters" width="100%">
+        <thead>
+            <tr>
+                <th>Параметр</th>
+                <th>Монитор</th>
+                <th>Ед.изм.</th>
+                <th hidden>MonitorParamID</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<button id="btnPlot">График</button>
 
-                $.datepicker.setDefaults($.datepicker.regional['ru']);
-                $(".input_date").datepicker({
-                    dateFormat: "dd.mm.yy",
-                    showOtherMonths: true,
-                    selectOtherMonths: true,
-                    changeMonth: true,
-                    changeYear: true,
-                    showOn: "both",
-                    //buttonImage: "calendar16.png",
-                    buttonImageOnly: true,
-                    buttonText: "выбрать дату"
-                });
-                //Перезагрузка списка
-                $('#btn_select').on('click', function (e) {
-                    e.preventDefault();
-                    if (!$('input[name="DateFrom"]').val()) {
-                        np_ShowMessage('Необходимо указать дату начала периода!', 'Внимание!');
-                        return;
-                    }
-                    if (!$('input[name="DateTo"]').val()) {
-                        np_ShowMessage('Необходимо указать дату окончания периода!', 'Внимание!');
-                        return;
-                    }
-                });
-                //=================================
-                // глобальный класс для добавления строки(параметров)
-                np_insertRow = new np_InsertRow(
-                    "#monitorParams",
-                    "<tr>" +
-                    "<td hidden><input type='text' id='MonitorParamID' name='MonitorParamID' value='{MonitorParamID}'/></td>" +
-                    "<td>{ParamShortName}</td>" +
-                    "<td>{MonitorShortName}</td>" +
-                    "<td>{UnitShortName}</td>" +
-                    "</tr > ",
-                    ["MonitorParamID", "ParamShortName", "MonitorShortName", "UnitShortName"]
-                )
-                /*
-                $('#btnSelectParameter').on('click', function (e) {
-                    e.preventDefault();
-                    OpenDialog(this);
-                });
-                */
-                // выделение строк
-                $("#monitorParams tbody").on('click', 'tr', function (e) {
-                    if ($(this).hasClass("np_selected")) {
-                        // если d.drag != "1" тогда снимаем выделение
-                        //if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
-                        $(this).removeClass("np_selected");
-                    }
-                    else {
-                        $("#monitorParams tbody tr").not(this).removeClass("np_selected");
-                        $(this).addClass("np_selected");
-                    }
-                });
+<div id="plots">
+</div>
+@section scripts{
+<script type="text/javascript">
+    var from = new Date();
+    var cd = new Date();
+    from.setMonth(from.getMonth() - 1);
+    $('input[name="DateTo"]').val(np_getStringDate(cd, 'date', 'dd:mm:yy', '', '.', ''));
+    $('input[name="DateFrom"]').val(np_getStringDate(from, 'date', 'dd:mm:yy', '', '.', ''));
 
-                $('#btnDeleteParam').on('click', function (e) {
-                    e.preventDefault();
-                    $('#monitorParams tbody tr.np_selected').remove();
-                });
+    $(function () {
+        $('#report').change(function () {
+            $('#paramValues').empty();
+        });
 
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
+        $(".input_date").datepicker({
+            dateFormat: "dd.mm.yy",
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            //buttonImage: "calendar16.png",
+            buttonImageOnly: true,
+            buttonText: "выбрать дату"
+        });
+
+        //=================================
+        // глобальный класс для добавления строки(параметров)
+        np_insertRow = new np_InsertRow(
+            "#monitorParams",
+            "<tr>" +
+            "<td hidden><input type='text' id='MonitorParamID' name='MonitorParamID' value='{MonitorParamID}'/></td>" +
+            "<td>{ParamShortName}</td>" +
+            "<td>{MonitorShortName}</td>" +
+            "<td>{UnitShortName}</td>" +
+            "</tr > ",
+            ["MonitorParamID", "ParamShortName", "MonitorShortName", "UnitShortName"]
+        )
+
+        // выделение строк
+        $("#monitorParams tbody").on('click', 'tr', function (e) {
+            if ($(this).hasClass("np_selected")) {
+                // если d.drag != "1" тогда снимаем выделение
+                //if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
+                $(this).removeClass("np_selected");
+            }
+            else {
+                $("#monitorParams tbody tr").not(this).removeClass("np_selected");
+                $(this).addClass("np_selected");
+            }
+        });
+
+        $('#btnDeleteParam').on('click', function (e) {
+            e.preventDefault();
+            $('#monitorParams tbody tr.np_selected').remove();
+        });
+
+        $('#btnPlot').on('click', function (e) {
+            e.preventDefault();
+            if (!$('input[name="DateFrom"]').val()) {
+                np_ShowMessage('Необходимо указать дату начала периода!', 'Внимание!');
+                return;
+            }
+            if (!$('input[name="DateTo"]').val()) {
+                np_ShowMessage('Необходимо указать дату окончания периода!', 'Внимание!');
+                return;
+            }
+            if ($('#monitorParams tbody tr').length == 0) {
+                np_ShowMessage('Необходимо выбрать параметры измерения!', 'Внимание!');
+                return;
+            }
+            var data = $("#report input").serialize();
+            /*
+            var dataJson = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
+            var json = $.parseJSON(dataJson);
+            */
+            np_AjaxBeforeSend();
+            $('#plots').load('/Analytics/MonitorParameterValuesGet', data, function (response, status, xhr) {
+                np_AjaxComplete();
+                if (status == "error") {
+                    var msg = "Что-то пошло не так: ";
+                    $("#plots").html(msg + xhr.status + " " + xhr.statusText);
+                }
             });
-        </script>
-    }
+        });
+
+
+    });
+</script>
+}
