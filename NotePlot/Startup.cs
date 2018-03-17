@@ -69,7 +69,7 @@ namespace NotePlot
             //Мониторинг
             services.AddTransient<IRepositoryMonitoring, RepositoryMonitoring>(provider => new RepositoryMonitoring(connection));
             //Аналитика
-            services.AddTransient<AnaliticTools>(provider => new AnaliticTools(connection));
+            services.AddTransient<AnalyticTools>(provider => new AnalyticTools(connection));
 
             // Add framework services.
             services.AddMvc()
