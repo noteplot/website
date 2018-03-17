@@ -48,7 +48,7 @@ $('#packetListDialog tbody').on('click', 'tr', function () {
 //кнопка выбора группы
 $("button.np_select").on('click', function () {
     if ($('#packetListDialog tbody tr').hasClass('selected')) {
-        if (np_insertRow) {
+        if (typeof np_insertRow != "undefined") {
             var template = np_insertRow.rowTemplate;
             var value;
             var $tr_sel = $('#packetListDialog tbody tr.selected'); //selected row

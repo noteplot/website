@@ -7,10 +7,10 @@ using NotePlot.Models;
 
 namespace NotePlot.Controllers
 {
-    public class AnaliticsController : Controller
+    public class AnalyticsController : Controller
     {
-        AnaliticTools repo;
-        public AnaliticsController(AnaliticTools r)
+        AnalyticTools repo;
+        public AnalyticsController(AnalyticTools r)
         {
             repo = r;
         }
@@ -43,6 +43,17 @@ namespace NotePlot.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 return View("ReportPlot");//, await repo.GetReportMonitorDataAsync(MonitorID, loginID, DateBegin, DateEnd,Mode));
+            }
+            else
+                return BadRequest("Нет аутентификации!");
+        }
+
+        public async Task<ActionResult> SelectMonitorParam()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+            {
+                return PartialView("MonitorParamSelect", await repo.GetAnalyticMonitorParamsAsync(loginID));
             }
             else
                 return BadRequest("Нет аутентификации!");

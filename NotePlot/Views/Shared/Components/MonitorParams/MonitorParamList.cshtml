@@ -92,7 +92,7 @@
             $(function () {
                 $('.np_param_add').on('click', function (e) {
                     e.preventDefault();
-                    if (np_insertRow) {
+                    if (typeof np_insertRow != "undefined") {
                         if (($(this).attr('id') == "np_monitor_param_add")||($(this).attr('id') == "np_monitor_packet_add")) 
                         {
                             np_insertRow.tableId = "#monitorParameters";

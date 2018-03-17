@@ -84,7 +84,7 @@
     //кнопка выбора группы
     $("button.np_select").on('click', function () {
         if ($('#parameterListDialog tbody tr').hasClass('selected')) {
-            if (np_insertRow) {
+            if (typeof np_insertRow != "undefined") {
                 var template = np_insertRow.rowTemplate;
                 var value;
                 var $tr_sel = $('#parameterListDialog tbody tr.selected'); //selected row

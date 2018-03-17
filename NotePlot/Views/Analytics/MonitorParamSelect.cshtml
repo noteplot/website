@@ -1,0 +1,74 @@
+﻿@model IEnumerable<NotePlot.Models.AnalyticMonitorParam>
+
+<table id="monitorParamSelect" class="table"  width="100%">
+    <thead>
+        <tr>
+            <th>Параметр</th>
+            <th>Монитор</th>
+            <th>Ед.изм.</th>
+            <th hidden>MonitorParamID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+                <tr data-np_login_id = @item.LoginID>
+                    <td class="ParamShortName">@item.ParamShortName</td>
+                    <td class="MonitorShortName">@item.MonitorShortName</td>
+                    <td class="UnitShortName">@item.UnitShortName</td>
+                    <td hidden class="MonitorParamID">@item.MonitorParamID</td>
+                </tr>
+        }
+    </tbody>
+</table>
+<button class="np_select">выбрать</button>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#monitorParamSelect").DataTable();
+
+        // при переключении страниц + сортировка + фильтр сбрасываем selected
+        $('#monitorParamSelect').on('page.dt order.dt search.dt', function () {
+            $('#monitorSelect tbody tr.selected').removeClass('selected');
+        });
+
+        //$('#parameterGroups tbody tr').on('click', function () {
+        $('#monitorParamSelect tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                $('#monitorParamSelect tbody tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+        // вставляем по шаблону выбранные строки
+        $("button.np_select").on('click', function () {
+            if ($('#monitorParamSelect tbody tr').hasClass('selected')) {
+                if (typeof np_insertRow != 'undefined') {
+                    var template = np_insertRow.rowTemplate;
+                    var value;
+                    var $tr_sel = $('#monitorParamSelect tbody tr.selected'); //selected row
+                    for (var i in np_insertRow.fields) {
+                        var name = np_insertRow.fields[i];
+                        value = $tr_sel.find('.' + name).text(); // class == name !
+                        name = '{' + np_insertRow.fields[i] + '}';
+                        template = template.replace(name, value);
+                    }
+
+                    if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
+                        $(np_insertRow.tableId + ' tbody').html(template);
+                    }
+                    else {
+                        $(np_insertRow.tableId + ' tbody tr:last').after(template);
+                    }
+                }
+
+                // Закрываем диалог
+                var _md = $('#monitorParamSelect').parents('.dialog').first().attr('id');
+                if (_md != undefined) {
+                    $('#' + _md).dialog("close");
+                }
+            }
+        })
+    });
+</script>

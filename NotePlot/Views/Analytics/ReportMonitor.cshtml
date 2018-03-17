@@ -84,7 +84,7 @@
             //alert(data1);
             var json = $.parseJSON(dataJson);
             np_AjaxBeforeSend();
-            $('#paramValues').load('/Analitics/MonitorParameterValuesGet', json, function (response, status, xhr) {
+            $('#paramValues').load('/Analytics/MonitorParameterValuesGet', json, function (response, status, xhr) {
                 np_AjaxComplete();
                 if (status == "error") {
                     var msg = "Что-то пошло не так: ";
