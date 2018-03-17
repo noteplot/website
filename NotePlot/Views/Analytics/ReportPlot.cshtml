@@ -21,7 +21,6 @@
 }
 
 <div id="report">
-    <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value="" />
     <div><input type="text" name="DateFrom" class="input_date" @*value="@Model.DateFrom.ToString(" d", ruRU)"*@ readonly size="10"></div>
     <div><input type="text" name="DateTo" class="input_date" @*value="@Model.DateTo.ToString(" d", ruRU)"*@ readonly size="10"></div>
 
@@ -78,7 +77,7 @@
         np_insertRow = new np_InsertRow(
             "#monitorParams",
             "<tr>" +
-            "<td hidden><input type='text' id='MonitorParamID' name='MonitorParamID' value='{MonitorParamID}'/></td>" +
+            "<td hidden><input type='text' id='MonitorParamID' name='MonitorParamIDs' value='{MonitorParamID}'/></td>" +
             "<td>{ParamShortName}</td>" +
             "<td>{MonitorShortName}</td>" +
             "<td>{UnitShortName}</td>" +
@@ -124,7 +123,7 @@
             var json = $.parseJSON(dataJson);
             */
             np_AjaxBeforeSend();
-            $('#plots').load('/Analytics/MonitorParameterValuesGet', data, function (response, status, xhr) {
+            $('#plots').load('/Analytics/MonitorParamPlotDataGet', data, function (response, status, xhr) {
                 np_AjaxComplete();
                 if (status == "error") {
                     var msg = "Что-то пошло не так: ";
