@@ -44,7 +44,6 @@
     </table>
 </div>
 <button id="btnPlot">График</button>
-
 <div id="plots">
 </div>
 @section scripts{
@@ -57,7 +56,7 @@
 
     $(function () {
         $('#report').change(function () {
-            $('#paramValues').empty();
+            $('#plots').empty();
         });
 
         $.datepicker.setDefaults($.datepicker.regional['ru']);
