@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NotePlot.Models.AnalyticMonitorParam>
+﻿@model IEnumerable<NotePlot.Models.ReportParamPick>
 
 <table id="monitorParamSelect" class="table"  width="100%">
     <thead>
@@ -6,17 +6,19 @@
             <th>Параметр</th>
             <th>Монитор</th>
             <th>Ед.изм.</th>
-            <th hidden>MonitorParamID</th>
+            <th hidden>ParamID</th>
+            <th hidden>MonitorID</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model) {
-                <tr data-np_login_id = @item.LoginID>
-                    <td class="ParamShortName">@item.ParamShortName</td>
-                    <td class="MonitorShortName">@item.MonitorShortName</td>
-                    <td class="UnitShortName">@item.UnitShortName</td>
-                    <td hidden class="MonitorParamID">@item.MonitorParamID</td>
-                </tr>
+        <tr data-np_login_id=@item.LoginID>
+            <td class="ParamShortName">@item.ParamShortName</td>
+            <td class="MonitorShortName">@item.MonitorShortName</td>
+            <td class="UnitShortName">@item.UnitShortName</td>
+            <td hidden class="ParamID">@item.ParamID</td>
+            <td hidden class="MonitorID">@item.MonitorID</td>
+        </tr>
         }
     </tbody>
 </table>

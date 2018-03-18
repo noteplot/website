@@ -61,34 +61,19 @@ namespace NotePlot.Controllers
                 return BadRequest("Нет аутентификации!");
         }
 
-        [HttpGet]
-        // для Get-запросов культура НЕ определяется, поэтому передаем строкой
-        public async Task<ActionResult> MonitorParamPlotDataGet(List<long> MonitorParamIDs, string DateFrom, string DateTo)        
+        [HttpPost]
+        // для Get-запросов культура НЕ определяется
+        public async Task<ActionResult> MonitorParamPlotDataGet(List<ReportParam> Params, DateTime? DateFrom, DateTime? DateTo)
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                CultureInfo culture = CultureInfo.CurrentCulture;
-                DateTime? dDateFrom, dDateTo;
-                DateTime dateResult;
-                if (DateTime.TryParse(DateFrom, culture, DateTimeStyles.None, out dateResult))
-                    // преобразование строки в DateTime
-                    dDateFrom = dateResult;
-                else
-                {
-                    return BadRequest("Неверный формат даты!");
-                }
-                if (DateTime.TryParse(DateTo, culture, DateTimeStyles.None, out dateResult))
-                    // преобразование строки в DateTime
-                    dDateTo = dateResult;
-                else
-                {
-                    return BadRequest("Неверный формат даты!");
-                }
-
+             
                 long loginID = LoginController.GetLogin(HttpContext.User);
-                var MonitorParams = ToolKit.ListToStringXML(MonitorParamIDs, "MonitorParams", "MonitorParamID");
-                await repo.GetReportPlotDataAsync(loginID, MonitorParams, dDateFrom, dDateTo);
+                var MonitorParamsXML = ToolKit.SerializeToStringXML(Params, "Report");
+                await repo.GetReportPlotDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo);
+             
                 return Ok("LOAD TEST");
+                
                 //return PartialView("MonitorParameterValues", await repo.GetReportMonitorDataAsync(MonitorID, loginID, DateFrom, DateTo, Mode));
             }
             else

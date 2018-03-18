@@ -24,11 +24,11 @@ namespace NotePlot.Tools
         }
 
         //сериализация объекта в XML строку
-        public static string SerializeToStringXML(object value, string root)
+        public static string SerializeToStringXML(object value, string rootName)
         {
             var emptyNamepsaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
             XmlRootAttribute xRoot = new XmlRootAttribute();            
-            xRoot.ElementName = root;
+            xRoot.ElementName = rootName;
             xRoot.IsNullable = true;
             var serializer = new XmlSerializer(value.GetType(), xRoot);
             var settings = new XmlWriterSettings();

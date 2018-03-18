@@ -9,11 +9,14 @@ using System.Data.SqlClient;
 
 namespace NotePlot.Models
 {
-    public class AnalyticMonitorParam
+    public class ReportParam
     {
-        public long MonitorParamID { get; set; }
         public long ParamID { get; set; }
         public long MonitorID { get; set; }
+    }
+
+    public class ReportParamPick : ReportParam
+    {
         public string ParamShortName { get; set; }
         public string MonitorShortName { get; set; }
         public string UnitShortName { get; set; }
@@ -21,15 +24,6 @@ namespace NotePlot.Models
         public byte ParamValueScale { get; set; }
         public long LoginID { get; set; }
         public bool Active { get; set; }
-    }
-
-    public class AnalyticMonitorParamPick
-    {
-        public DateTime? DateFrom { get; set; }
-        public DateTime? DateTo { get; set; }
-        public List<long> MonitorParamIDs { get; set; } // список выбранных MonitorParamID
-        public long LoginID { get; set; }
-        //public List<AnalyticMonitorParam> MonitorParams { get; set; }
     }
 
     public class AnalyticTools
@@ -64,20 +58,21 @@ namespace NotePlot.Models
         }
 
         // для аналитики (plot)
-        public List<AnalyticMonitorParam> GetAnalyticMonitorParams(long lgId)
+        // Выбор
+        public List<ReportParamPick> GetAnalyticMonitorParams(long lgId)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<AnalyticMonitorParam>("dbo.ReportMonitorParamsGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
+                return db.Query<ReportParamPick>("dbo.ReportMonitorParamsGet", new { LoginID = lgId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
 
-        public Task<List<AnalyticMonitorParam>> GetAnalyticMonitorParamsAsync(long lgId)
+        public Task<List<ReportParamPick>> GetAnalyticMonitorParamsAsync(long lgId)
         {
             return Task.Run(() => GetAnalyticMonitorParams(lgId));
         }
 
-        // отчет по измерениям монитора
+        // отчет по измерениям монитора - графики
         public DataSet GetReportPlotData(long loginId, string MonitorParamsXML, DateTime? db = null, DateTime? de = null)
         {
             using (var con = new SqlConnection(connectionString))
@@ -93,7 +88,6 @@ namespace NotePlot.Models
                 return ds;
             }
         }
-
         public Task<DataSet> GetReportPlotDataAsync(long loginId, string MonitorParamsXML, DateTime? db = null, DateTime? de = null)
         {
             return Task.Run(() => GetReportPlotData(loginId, MonitorParamsXML, db, de));

@@ -36,7 +36,8 @@
                 <th>Параметр</th>
                 <th>Монитор</th>
                 <th>Ед.изм.</th>
-                <th hidden>MonitorParamID</th>
+                <th hidden>ParamID</th>
+                <th hidden>MonitorID</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -77,12 +78,13 @@
         np_insertRow = new np_InsertRow(
             "#monitorParams",
             "<tr>" +
-            "<td hidden><input type='text' id='MonitorParamID' name='MonitorParamIDs' value='{MonitorParamID}'/></td>" +
+            "<td hidden><input type='text' id='ParamID' name='ParamID' value='{ParamID}'/></td>" +
+            "<td hidden><input type='text' id='MonitorID' name='MonitorID' value='{MonitorID}'/></td>" +
             "<td>{ParamShortName}</td>" +
             "<td>{MonitorShortName}</td>" +
             "<td>{UnitShortName}</td>" +
             "</tr > ",
-            ["MonitorParamID", "ParamShortName", "MonitorShortName", "UnitShortName"]
+            ["ParamID", "MonitorID", "ParamShortName", "MonitorShortName", "UnitShortName"]
         )
 
         // выделение строк
@@ -117,13 +119,13 @@
                 np_ShowMessage('Необходимо выбрать параметры измерения!', 'Внимание!');
                 return;
             }
-            var data = $("#report input").serialize();
-            /*
-            var dataJson = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
-            var json = $.parseJSON(dataJson);
-            */
+            var data = $("#report input.input_date").serialize();
+            var dataJson1 = data.replaceAll('&', '","').replaceAll('=', '":"')+'"';
+            var dataJson2 = '"Params":[' + $('#monitorParams').np_serializeTable(2) + "]";
+            var dataJson = '{"' + dataJson1 + "," + dataJson2 + '}';
+            var json = $.parseJSON(dataJson); // объект JSON
             np_AjaxBeforeSend();
-            $('#plots').load('/Analytics/MonitorParamPlotDataGet', data, function (response, status, xhr) {
+            $('#plots').load('/Analytics/MonitorParamPlotDataGet', json, function (response, status, xhr) {
                 np_AjaxComplete();
                 if (status == "error") {
                     var msg = "Что-то пошло не так: ";

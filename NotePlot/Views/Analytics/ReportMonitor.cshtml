@@ -81,6 +81,7 @@
             } 
             var data = $("#report input").serialize();
             var dataJson = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
+            var dataJson = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
             //alert(data1);
             var json = $.parseJSON(dataJson);
             np_AjaxBeforeSend();
