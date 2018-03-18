@@ -70,11 +70,8 @@ namespace NotePlot.Controllers
              
                 long loginID = LoginController.GetLogin(HttpContext.User);
                 var MonitorParamsXML = ToolKit.SerializeToStringXML(Params, "Report");
-                await repo.GetReportPlotDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo);
-             
-                return Ok("LOAD TEST");
-                
-                //return PartialView("MonitorParameterValues", await repo.GetReportMonitorDataAsync(MonitorID, loginID, DateFrom, DateTo, Mode));
+                //return Ok("LOAD TEST");                
+                return PartialView("PlotParameterValues", await repo.GetReportPlotDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo));
             }
             else
                 return BadRequest("Нет аутентификации!");

@@ -1,0 +1,51 @@
+﻿@model System.Data.DataSet
+@using System.Data;
+
+@{
+    System.Globalization.CultureInfo ruRU = new System.Globalization.CultureInfo("ru-RU");
+    int id = 0;
+
+    string decSep = ruRU.NumberFormat.NumberDecimalSeparator;
+    char[] toTrim = decSep.ToCharArray();
+}
+
+<table id="monitorings" class="table" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Параметр</th>
+            <th>Монитор</th>
+            <th>Значение</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Tables[0].Rows)
+        {
+            id = 0;
+        <tr>
+            <td>@row["MonitoringDate"]</td>
+            <td>@row["ParameterName"]</td>
+            <td>@row["MonitorShortName"]</td>
+            <td class="np_numeric">@row["ParamValue"]</td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(function () {
+        $("#monitorings").DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "language": dtLanguage // см. MasterPage.js
+            , aaSorting: [[0, 'asc']] 
+            ,aoColumnDefs: [
+                {
+                    sType: 'ru-date',
+                    aTargets: [0]
+                }
+            ]
+        });
+    });
+</script>
