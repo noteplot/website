@@ -37,10 +37,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a href="@Url.Action("PacketEdit", "Parameter" , new { id=item.PacketID })" class="np_button green">
+                <a href="@Url.Action("PacketEdit", "Parameter" , new { id=item.PacketID })" class="np_button">
                     <div class="icon"><i class="fa fa-pencil"></i></div>
                 </a>
-                <a href="@Url.Action("PacketDelete", "Parameter", new { id = item.PacketID })" class="np_deletePacket np_button red">
+                <a href="@Url.Action("PacketDelete", "Parameter", new { id = item.PacketID })" class="np_deletePacket np_button">
                     <div class="icon"><i class="fa fa-times"></i></div>
                 </a>
             </td>

@@ -40,10 +40,10 @@
                 @Html.DisplayFor(modelItem => item.LoginID)
             </td>
             <td>
-                <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="openDialog np_button green">
+                <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="openDialog np_button">
                     <div class="icon"><i class="fa fa-pencil"></i></div>
                 </a>
-                <a href="@Url.Action("Delete", "ParameterGroup", new { id = item.ParameterGroupID })" class="np_deleteGroup np_button red">
+                <a href="@Url.Action("Delete", "ParameterGroup", new { id = item.ParameterGroupID })" class="np_deleteGroup np_button">
                     <div class="icon"><i class="fa fa-times"></i></div>
                 </a>
                 @*Html.ActionLink("Edit", "Edit", new { id = item.ParameterGroupID }, new { @class = "" }) |*@

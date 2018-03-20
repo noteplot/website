@@ -34,13 +34,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a href="@Url.Action("MonitorEdit", "Monitor" , new { id=item.MonitorID })" class="np_button green">
+                <a href="@Url.Action("MonitorEdit", "Monitor" , new { id=item.MonitorID })" class="np_button">
                     <div class="icon"><i class="fa fa-pencil"></i></div>
                 </a>
-                <a href="@Url.Action("MonitorDelete", "Monitor", new { id = item.MonitorID })" class="np_deleteMonitor np_button red">
+                <a href="@Url.Action("MonitorDelete", "Monitor", new { id = item.MonitorID })" class="np_deleteMonitor np_button">
                     <div class="icon"><i class="fa fa-times"></i></div>
                 </a>
-                <a href="@Url.Action("MonitoringList", "Monitoring", new { id = item.MonitorID })" class="np_button green">
+                <a href="@Url.Action("MonitoringList", "Monitoring", new { id = item.MonitorID })" class="np_button">
                     Перейти к измерениям
                     <div class="icon"><i class="fa fa-times"></i></div>
                 </a>
