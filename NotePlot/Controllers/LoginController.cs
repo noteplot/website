@@ -331,5 +331,47 @@ namespace NotePlot.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UserAccountEdit()
+        {
+            long loginID = LoginController.GetLogin(HttpContext.User);
+            if (loginID >= 0)
+                return PartialView("UserAccount", await repo.GetUserAccountAsync(loginID));
+            else
+                return BadRequest("Нет аутентификации!");           
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserAccountEdit(UserAccount ua)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                try
+                {
+                    if (ua.Password != ua.ConfirmPassword)
+                        return BadRequest("Не правильно подтвержден пароль!");
+                    long loginID = LoginController.GetLogin(HttpContext.User);
+                    if (loginID >= 0 && loginID == ua.LoginID)
+                    {
+                        await repo.SetUserAccountAsync(ua);
+                        return Ok(); // ajax диалог просто пустая строка
+                    }
+                    else
+                    {
+                        return BadRequest("Нет аутентификации");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+
     }
 }

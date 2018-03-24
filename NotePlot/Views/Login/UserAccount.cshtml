@@ -1,0 +1,122 @@
+﻿@model NotePlot.Models.UserAccount
+
+@{
+    string atr_checked = "checked";
+}
+
+<div id="userAccountPanel">
+    <form action="/Login/UserAccountEdit" method="POST" id="userAccountEdit" np_reload="true">
+        @Html.AntiForgeryToken()
+        <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
+        <input type="hidden" id="Email" name="Email" value="@Model.Email" />
+        <input type="hidden" id="IsConfirmed" name="IsConfirmed" value="@Model.IsConfirmed" />
+        <div class="row-form">
+            <p><label for="LoginName" class="np_label" readonly>Имя учетной записи(логин)</label></p>
+            <p><input type="text" id="LoginName" name="LoginName" value="@Model.LoginName" /></p>
+        </div>
+        <p><span>Тип учетной записи: </span><span>@Model.LoginRoleName</span></p>
+        <div class="row-form">
+            <p><label for="Password" class="np_label">Пароль</label></p>
+            <p><input type="password" id="Password" name="Password" value="@Model.Password" /></p>
+        </div>
+        <div id="сonfirmPasswordPanel" class="row-form" hidden>
+            <p><label for="ConfirmPassword" class="np_label">Подтвердить пароль</label></p>
+            <p><input type="password" id="ConfirmPassword" name="ConfirmPassword" value="@Model.Password" /></p>
+        </div>
+        @*<div class="row-form">
+                <p><label for="Email" class="np_label">email</label></p>
+                <p><input type="text" id="Email" name="Email" value="@Model.Email" readonly /></p>
+            </div>*@
+        <div class="row-form">
+            <p><label for="ScreenName" class="np_label">Псевдоним учетной записи</label></p>
+            <p><input type="text" id="ScreenName" name="ScreenName" /></p>
+        </div>
+        <div class="row-form">
+            <input type="checkbox" id="ShowScreenName" name="ShowScreenName" value="@Model.ShowScreenName" @if (@Model.ShowScreenName) { @atr_checked } /><span>Показывать псевдоним</span>
+        </div>
+    </form>
+</div>
+<div id="limits" hidden>
+</div>
+<div>
+    <div class="row-form">
+        <button id="btnOk" class="np_btn-left">Сохранить<span class="icon-arrow-next icon-white"></span></button>
+        <button id="btnCancel" class="np_btn-right">Выйти<span class="icon-arrow-next icon-white"></span></button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#btnOk').on('click', function (e) {
+            e.preventDefault();
+            $('#userAccountEdit').submit();
+        });
+        $('#btnCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#userAccountPanel').parents('.dialog').first().attr('id');
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
+            }
+        });
+        var adata = new Object();
+        var np_formPanel = $('#userAccountPanel');
+        //adata.actionPost = "/Login/UserAccountEdit/";
+        adata.action = "";
+
+        adata.token = $("[name='__RequestVerificationToken']").val();
+        // Отображение ошибок
+        adata.onError = function (ev, resp) { //jqXHR
+            np_formPanel.after("<div class='errorForm'><span></span></div>");
+            $('.errorForm span').html(resp);
+        }
+        adata.onSuccess = function (ev, resp) {
+            np_formPanel.after("<div class='errorForm'><span></span></div>");
+            $('.errorForm span').html(resp);
+        }
+        $("#userAccountEdit").bind('submit', adata, np_AjaxFormSubmit);
+
+        // очистка сообщений об ошибках по клику
+        $("#userAccountEdit input").bind('click', np_AjaxFormInputClick);
+        $("#userAccountEdit")
+            .validate({
+                rules: {
+                    Password: {
+                        required: true,
+                        minlength: 2
+                    },
+                    messages: {
+                        Password: {
+                            required: "Обязательно для заполнения",
+                            minlength: "Не менее двух символов"
+                        }
+                    }
+                }
+            });
+
+        $("#Password").on("input", function () {
+            //$('#signPasswordPanel').animate({ height: 'show' }, 500);
+            $('#сonfirmPasswordPanel').show().find("input").each(function (index, elem) {
+                $(elem).rules("add", {
+                    required: true,
+                    minlength: 2,
+                    messages: {
+                        required: "Обязательно для заполнения",
+                        minlength: "Не менее двух символов"
+                    }
+                })
+            });
+
+        });
+        function np_AjaxOnSuccess(data) {
+            alert('OK');
+        };
+
+        function passwordForget(event) {
+            event.data.action = event.data.actionPost + $("#LoginName").val();
+            np_AjaxPost(event);
+        };
+
+    });
+
+</script>
+

@@ -16,7 +16,6 @@ namespace NotePlot.Models
         [Required]
         //[Display(Name = "Имя")]
         public string LoginName { get; set; }
-
         [Required]
         [DataType(DataType.Password)]
         //[Display(Name = "Пароль")]
@@ -59,16 +58,17 @@ namespace NotePlot.Models
     [Table("Logins", Schema = "dbo")]
     public class UserAccount
     {
-        public long LoginID;
-        public byte LoginRoleID;
-        public string LoginRoleName;
-        public string LoginName;    // имя входа == email при регистрации
-        public string ScreenName;   // псевдоним   
-        public string LoginView;
-        public string Email;
-        public string Password;
-        public bool IsConfirmed;
-        public bool ShowScreenName;
+        public long LoginID { get; set; }
+        public byte LoginRoleID { get; set; }
+        public string LoginRoleName { get; set; }
+        public string LoginName { get; set; }    // имя входа == email при регистрации
+        public string ScreenName { get; set; }   // псевдоним   
+        public string LoginView { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+        public bool IsConfirmed { get; set; }
+        public bool ShowScreenName { get; set; }
     }
 
     // класс и таблица dbo.Login(s)
@@ -84,6 +84,10 @@ namespace NotePlot.Models
         Task<bool> ConfirmLoginAsync(long lgId);
         UserAccount GetLogin(string logName);
         Task<UserAccount> GetLoginAsync(string logName);
+        UserAccount GetUserAccount(long loginId);
+        Task<UserAccount> GetUserAccountAsync(long loginId);
+        bool SetUserAccount(UserAccount ua);
+        Task<bool> SetUserAccountAsync(UserAccount ua);
     }
 
     public class RepositoryLogin : IRepositoryLogin
@@ -176,6 +180,47 @@ namespace NotePlot.Models
         public Task<UserAccount> GetLoginAsync(string logName)
         {
             return Task.Run(() => GetLogin(logName));
+        }
+
+        public UserAccount GetUserAccount(long loginId)
+        {
+            UserAccount us = null;
+            using (IDbConnection db = new SqlConnection(connectionString)) // TO DO: заменить процедурой
+            {
+                us = db.Query<UserAccount>("dbo.UserAccountGet", new { LoginID = loginId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+            return us;
+        }
+
+        public Task<UserAccount> GetUserAccountAsync(long loginId)
+        {
+            return Task.Run(() => GetUserAccount(loginId));
+        }
+
+        public bool SetUserAccount(UserAccount ua)
+        {
+            bool rt = false;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    var affectedRows = db.Execute("dbo.LoginSet", 
+                        new { LoginID = ua.LoginID,Password = ua.Password,ScreenName = ua.ScreenName,ShowScreenName = ua.ShowScreenName}, 
+                        commandType: CommandType.StoredProcedure);
+                    //if (affectedRows > 0)
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public Task<bool> SetUserAccountAsync(UserAccount ua)
+        {
+            return Task.Run(() => SetUserAccount(ua));
         }
 
     }
