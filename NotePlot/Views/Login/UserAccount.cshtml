@@ -29,7 +29,7 @@
             </div>*@
         <div class="row-form">
             <p><label for="ScreenName" class="np_label">Псевдоним учетной записи</label></p>
-            <p><input type="text" id="ScreenName" name="ScreenName" /></p>
+            <p><input type="text" id="ScreenName" name="ScreenName" value="@Model.ScreenName"/></p>
         </div>
         <div class="row-form">
             <input type="checkbox" id="ShowScreenName" name="ShowScreenName" value="@Model.ShowScreenName" @if (@Model.ShowScreenName) { @atr_checked } /><span>Показывать псевдоним</span>
@@ -69,10 +69,13 @@
             np_formPanel.after("<div class='errorForm'><span></span></div>");
             $('.errorForm span').html(resp);
         }
-        adata.onSuccess = function (ev, resp) {
-            np_formPanel.after("<div class='errorForm'><span></span></div>");
-            $('.errorForm span').html(resp);
+        adata.onSuccess = function (data) {
+            var loc = "/Home/Index";
+            location.reload();
+            //window.location.replace(loc); // Перенаправление на список измерений + не сохраняем историю
+            //$("#btnloginInput").trigger("click");
         }
+
         $("#userAccountEdit").bind('submit', adata, np_AjaxFormSubmit);
 
         // очистка сообщений об ошибках по клику

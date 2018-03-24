@@ -62,7 +62,7 @@ namespace NotePlot.Controllers
                             {
                                 throw new Exception("Логин не подтвержден!");
                             }
-                            await Authenticate(us.LoginID, lg.LoginName, lg.RememberMe); // аутентификация TO DO: сделать асинхронным
+                            await Authenticate(us.LoginID, lg.LoginName, us.ScreenName,lg.RememberMe); // аутентификация TO DO: сделать асинхронным
 
                             return RedirectToAction("Index", "Home");
                             //return Ok();
@@ -93,11 +93,11 @@ namespace NotePlot.Controllers
             {
                 //ViewBag.ErrMessage = "Пользователь с таким именем и паролем не найден!";
                 //return PartialView("LoginView", lg);
-                return BadRequest("Пользователь с таким именем и паролем не найден!");
+                return BadRequest("Не все обязательные поля введены!");
             }
         }
 
-        private async Task Authenticate(long userId, string userName, bool IsPers)
+        private async Task Authenticate(long userId, string userName, string screenName, bool IsPers)
         {
             // создаем один claim
             var claims = new List<Claim> { new Claim(ClaimsIdentity.DefaultNameClaimType, userName) };
@@ -106,6 +106,8 @@ namespace NotePlot.Controllers
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
             id.AddClaim(new Claim("LoginID", userId.ToString(), ClaimValueTypes.UInteger64));
+            if (screenName != null)
+            id.AddClaim(new Claim("ScreenName", screenName, ClaimValueTypes.String)); // псевдоним
             // установка аутентификационных куки
             await HttpContext.SignInAsync("NotePlotCookies"/*CookieAuthenticationDefaults.AuthenticationScheme*/, new ClaimsPrincipal(id), new AuthenticationProperties // CORE 2.0
             {
@@ -147,7 +149,27 @@ namespace NotePlot.Controllers
             }
             return LoginID;
         }
-        
+
+        public static string GetScreenName(ClaimsPrincipal cp) //HttpContext.User
+        {
+            string screenName=null;
+            if (cp.Identity.IsAuthenticated)
+            {
+                Claim claimScreenName = cp.Claims.FirstOrDefault(x => x.Type == "ScreenName");
+                if (claimScreenName != null)
+                {
+                    try
+                    {
+                        screenName = Convert.ToString(claimScreenName.Value);
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return screenName;
+        }
+
         public async Task<ActionResult> Captcha()
         {
             string code = new Random(DateTime.Now.Millisecond).Next(1111, 9999).ToString();
@@ -355,6 +377,10 @@ namespace NotePlot.Controllers
                     if (loginID >= 0 && loginID == ua.LoginID)
                     {
                         await repo.SetUserAccountAsync(ua);
+                        // очистка cookies
+                        await HttpContext.SignOutAsync("NotePlotCookies");
+                        // новая аутентификация
+                        await Authenticate(ua.LoginID, ua.LoginName, ua.ScreenName, true); // аутентификация TO DO: сделать асинхронным
                         return Ok(); // ajax диалог просто пустая строка
                     }
                     else

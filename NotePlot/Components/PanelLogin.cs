@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NotePlot.Controllers;
+using Microsoft.AspNetCore.Http;
 
 namespace NotePlot.Components
 {
@@ -13,7 +15,8 @@ namespace NotePlot.Components
              if (HttpContext.User.Identity.IsAuthenticated)
             {
                 // если идентфицирован выводим панель с названием учетной записи
-                return View("LoginNamePanelView", User.Identity.Name);
+                var screenName = LoginController.GetScreenName(HttpContext.User);
+                return View("LoginNamePanelView", screenName?? User.Identity.Name);
             }
             else
                 // если нет, панель для регистрации
