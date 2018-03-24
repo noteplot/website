@@ -62,7 +62,7 @@ namespace NotePlot.Controllers
                             {
                                 throw new Exception("Логин не подтвержден!");
                             }
-                            await Authenticate(us.LoginID, lg.LoginName, us.ScreenName,lg.RememberMe); // аутентификация TO DO: сделать асинхронным
+                            await Authenticate(us.LoginID, lg.LoginName, us.LoginView,lg.RememberMe); // аутентификация TO DO: сделать асинхронным
 
                             return RedirectToAction("Index", "Home");
                             //return Ok();
@@ -97,7 +97,7 @@ namespace NotePlot.Controllers
             }
         }
 
-        private async Task Authenticate(long userId, string userName, string screenName, bool IsPers)
+        private async Task Authenticate(long userId, string userName, string loginView, bool IsPers)
         {
             // создаем один claim
             var claims = new List<Claim> { new Claim(ClaimsIdentity.DefaultNameClaimType, userName) };
@@ -106,8 +106,8 @@ namespace NotePlot.Controllers
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
             id.AddClaim(new Claim("LoginID", userId.ToString(), ClaimValueTypes.UInteger64));
-            if (screenName != null)
-            id.AddClaim(new Claim("ScreenName", screenName, ClaimValueTypes.String)); // псевдоним
+            if (loginView != null)
+            id.AddClaim(new Claim("LoginView", loginView, ClaimValueTypes.String)); // псевдоним
             // установка аутентификационных куки
             await HttpContext.SignInAsync("NotePlotCookies"/*CookieAuthenticationDefaults.AuthenticationScheme*/, new ClaimsPrincipal(id), new AuthenticationProperties // CORE 2.0
             {
@@ -150,24 +150,24 @@ namespace NotePlot.Controllers
             return LoginID;
         }
 
-        public static string GetScreenName(ClaimsPrincipal cp) //HttpContext.User
+        public static string GetLoginView(ClaimsPrincipal cp) //HttpContext.User
         {
-            string screenName=null;
+            string loginView=null;
             if (cp.Identity.IsAuthenticated)
             {
-                Claim claimScreenName = cp.Claims.FirstOrDefault(x => x.Type == "ScreenName");
-                if (claimScreenName != null)
+                Claim claimLoginView = cp.Claims.FirstOrDefault(x => x.Type == "LoginView");
+                if (claimLoginView != null)
                 {
                     try
                     {
-                        screenName = Convert.ToString(claimScreenName.Value);
+                        loginView = Convert.ToString(claimLoginView.Value);
                     }
                     catch
                     {
                     }
                 }
             }
-            return screenName;
+            return loginView;
         }
 
         public async Task<ActionResult> Captcha()

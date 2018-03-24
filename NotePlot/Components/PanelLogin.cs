@@ -15,8 +15,8 @@ namespace NotePlot.Components
              if (HttpContext.User.Identity.IsAuthenticated)
             {
                 // если идентфицирован выводим панель с названием учетной записи
-                var screenName = LoginController.GetScreenName(HttpContext.User);
-                return View("LoginNamePanelView", screenName?? User.Identity.Name);
+                var loginView = LoginController.GetLoginView(HttpContext.User);
+                return View("LoginNamePanelView", loginView?? User.Identity.Name);
             }
             else
                 // если нет, панель для регистрации
