@@ -25,9 +25,9 @@
 <button class="np_select">выбрать</button>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#monitorParamSelect").DataTable();
+    $("#monitorParamSelect").DataTable();
 
+    $(document).ready(function () {
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#monitorParamSelect').on('page.dt order.dt search.dt', function () {
             $('#monitorSelect tbody tr.selected').removeClass('selected');

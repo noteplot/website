@@ -7,6 +7,7 @@
 }
 @{
     string atr_readonly = "readonly";
+    string atr_np_dec_minus = "np_dec_minus";
     IEnumerable<NotePlot.Models.MonitoringParameter> Model1 = from item in Model
                                                               where item.ParameterTypeID != 2
                                                               select item;
@@ -39,7 +40,7 @@
             <td hidden><input type="text" name="ParameterTypeID" value="@item.ParameterTypeID"></td>
             @if (@item.ParameterTypeID == 0)
             {
-            <td><input type="text" class="ParameterValue" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax"></td>
+            <td><input type="text" class="ParameterValue" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax" @if (item.ParameterValueMin == null || item.ParameterValueMin < 0){ @atr_np_dec_minus}></td>
             }
             else
             {
