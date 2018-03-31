@@ -67,11 +67,27 @@ namespace NotePlot.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-             
+                string jsonArray = "";
+                int id = 1;
                 long loginID = LoginController.GetLogin(HttpContext.User);
                 var MonitorParamsXML = ToolKit.SerializeToStringXML(Params, "Report");
+                List<ReportJsonArray> jList = await repo.GetReportJsonDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo);
+                // строим массив для Flot
+                if (jList.Count() > 0)
+                {
+                    foreach (var ja in jList)
+                    {
+                        if (id == 1)
+                            jsonArray += ja.JsonArray;
+                        else
+                            jsonArray += ',' + ja.JsonArray;
+                        id += 1;
+                    }
+                    jsonArray = "[" + jsonArray + "]";
+                }
+                return Ok(jsonArray);
                 //return Ok("LOAD TEST");                
-                return PartialView("PlotParameterValues", await repo.GetReportPlotDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo));
+                //return PartialView("PlotParameterValues", await repo.GetReportPlotDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo));
             }
             else
                 return BadRequest("Нет аутентификации!");

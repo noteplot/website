@@ -46,93 +46,235 @@
 <button id="btnPlot">График</button>
 <div id="plots">
 </div>
+
+@*ГРАФИК*@
+<div id="placeholder" style="height:300px;width:95%"></div>
+<div id="legend"></div>
+@*<div id="legend" style="float:left;"></div>*@
+@*<div style="clear: both;"></div>*@
+
+
 @section scripts{
-<script type="text/javascript">
-    var from = new Date();
-    var cd = new Date();
-    from.setMonth(from.getMonth() - 1);
-    $('input[name="DateTo"]').val(np_getStringDate(cd, 'date', 'dd:mm:yy', '', '.', ''));
-    $('input[name="DateFrom"]').val(np_getStringDate(from, 'date', 'dd:mm:yy', '', '.', ''));
+    <script type="text/javascript">
+        var from = new Date();
+        var cd = new Date();
+        from.setMonth(from.getMonth() - 1);
+        $('input[name="DateTo"]').val(np_getStringDate(cd, 'date', 'dd:mm:yy', '', '.', ''));
+        $('input[name="DateFrom"]').val(np_getStringDate(from, 'date', 'dd:mm:yy', '', '.', ''));
 
-    $(function () {
-        $('#report').change(function () {
-            $('#plots').empty();
+        $(function () {
+            //$('#report').change(function () {
+            //    $('#plots').empty();
+            //});
+
+            $.datepicker.setDefaults($.datepicker.regional['ru']);
+            $(".input_date").datepicker({
+                dateFormat: "dd.mm.yy",
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                showOn: "both",
+                //buttonImage: "calendar16.png",
+                buttonImageOnly: true,
+                buttonText: "выбрать дату"
+            });
+
+            //=================================
+            // глобальный класс для добавления строки(параметров)
+            np_insertRow = new np_InsertRow(
+                "#monitorParams",
+                "<tr>" +
+                "<td hidden><input type='text' id='ParamID' name='ParamID' value='{ParamID}'/></td>" +
+                "<td hidden><input type='text' id='MonitorID' name='MonitorID' value='{MonitorID}'/></td>" +
+                "<td>{ParamShortName}</td>" +
+                "<td>{MonitorShortName}</td>" +
+                "<td>{UnitShortName}</td>" +
+                "</tr > ",
+                ["ParamID", "MonitorID", "ParamShortName", "MonitorShortName", "UnitShortName"]
+            )
+
+            // выделение строк
+            $("#monitorParams tbody").on('click', 'tr', function (e) {
+                if ($(this).hasClass("np_selected")) {
+                    // если d.drag != "1" тогда снимаем выделение
+                    //if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
+                    $(this).removeClass("np_selected");
+                }
+                else {
+                    $("#monitorParams tbody tr").not(this).removeClass("np_selected");
+                    $(this).addClass("np_selected");
+                }
+            });
+
+            $('#btnDeleteParam').on('click', function (e) {
+                e.preventDefault();
+                $('#monitorParams tbody tr.np_selected').remove();
+            });
+
+            $('#btnPlot').on('click', function (e) {
+                e.preventDefault();
+                if (!$('input[name="DateFrom"]').val()) {
+                    np_ShowMessage('Необходимо указать дату начала периода!', 'Внимание!');
+                    return;
+                }
+                if (!$('input[name="DateTo"]').val()) {
+                    np_ShowMessage('Необходимо указать дату окончания периода!', 'Внимание!');
+                    return;
+                }
+                if ($('#monitorParams tbody tr').length == 0) {
+                    np_ShowMessage('Необходимо выбрать параметры измерения!', 'Внимание!');
+                    return;
+                }
+                var data = $("#report input.input_date").serialize();
+                var dataJson1 = data.replaceAll('&', '","').replaceAll('=', '":"') + '"';
+                var dataJson2 = '"Params":[' + $('#monitorParams').np_serializeTable(2) + "]";
+                var dataJson = '{"' + dataJson1 + "," + dataJson2 + '}';
+                var json = $.parseJSON(dataJson); // объект JSON
+                np_AjaxBeforeSend();
+                /*
+                $('#plots').load('/Analytics/MonitorParamPlotDataGet', json, function (response, status, xhr) {
+                    np_AjaxComplete();
+                    if (status == "error") {
+                        var msg = "Что-то пошло не так: ";
+                        $("#plots").html(msg + xhr.status + " " + xhr.statusText);
+                    }
+                });
+                */
+                // Загружаем график
+                $.ajax({
+                    url: '/Analytics/MonitorParamPlotDataGet',
+                    data: json,
+                    type: 'POST',
+                    //contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+                        np_AjaxComplete();
+                        np_fillFlotData(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) { // панель ошибок формы
+                        np_AjaxComplete();
+                        $(form_id).after("<div class='errorForm'><span></span></div>");
+                        $('.errorForm span').html(jqXHR.responseText);
+                    }
+                });
+            });
         });
 
-        $.datepicker.setDefaults($.datepicker.regional['ru']);
-        $(".input_date").datepicker({
-            dateFormat: "dd.mm.yy",
-            showOtherMonths: true,
-            selectOtherMonths: true,
-            changeMonth: true,
-            changeYear: true,
-            showOn: "both",
-            //buttonImage: "calendar16.png",
-            buttonImageOnly: true,
-            buttonText: "выбрать дату"
-        });
+        // отрисовка графиков (
+        var np_rows = null; // кол-во графиков
+        var np_flotHide = [];
+        var np_flotData = []; // массив графиков
+        var plot_conf = {
+            series: {
+                lines: { show: true, lineWidth: 2 },
+                points: { show: true }
+            },
+            xaxis: {
+                mode: "time",
+                timeformat: "%d.%m.%y",
+            },
+            legend: {
+                container: $("#legend")
+            },
+            grid: { hoverable: true, clickable: true },// для события plothover !!!
+        };
 
-        //=================================
-        // глобальный класс для добавления строки(параметров)
-        np_insertRow = new np_InsertRow(
-            "#monitorParams",
-            "<tr>" +
-            "<td hidden><input type='text' id='ParamID' name='ParamID' value='{ParamID}'/></td>" +
-            "<td hidden><input type='text' id='MonitorID' name='MonitorID' value='{MonitorID}'/></td>" +
-            "<td>{ParamShortName}</td>" +
-            "<td>{MonitorShortName}</td>" +
-            "<td>{UnitShortName}</td>" +
-            "</tr > ",
-            ["ParamID", "MonitorID", "ParamShortName", "MonitorShortName", "UnitShortName"]
-        )
+        $(function () {
+            $(window).resize(function () {
+                if (typeof np_plotFlot != "undefined") {
+                    np_plotRedraw(false);
+                }
+            });
 
-        // выделение строк
-        $("#monitorParams tbody").on('click', 'tr', function (e) {
-            if ($(this).hasClass("np_selected")) {
-                // если d.drag != "1" тогда снимаем выделение
-                //if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
-                $(this).removeClass("np_selected");
-            }
-            else {
-                $("#monitorParams tbody tr").not(this).removeClass("np_selected");
-                $(this).addClass("np_selected");
-            }
-        });
+            var previousPoint = null, previousLabel = null;
+            $("#placeholder").bind("plothover", function (event, pos, item) {
+                if (item) {
+                    if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                        previousPoint = item.dataIndex;
+                        previousLabel = item.series.label;
+                        $("#tooltip").remove();
 
-        $('#btnDeleteParam').on('click', function (e) {
-            e.preventDefault();
-            $('#monitorParams tbody tr.np_selected').remove();
-        });
+                        //var x = item.datapoint[0];
+                        //var y = item.datapoint[1];
 
-        $('#btnPlot').on('click', function (e) {
-            e.preventDefault();
-            if (!$('input[name="DateFrom"]').val()) {
-                np_ShowMessage('Необходимо указать дату начала периода!', 'Внимание!');
-                return;
-            }
-            if (!$('input[name="DateTo"]').val()) {
-                np_ShowMessage('Необходимо указать дату окончания периода!', 'Внимание!');
-                return;
-            }
-            if ($('#monitorParams tbody tr').length == 0) {
-                np_ShowMessage('Необходимо выбрать параметры измерения!', 'Внимание!');
-                return;
-            }
-            var data = $("#report input.input_date").serialize();
-            var dataJson1 = data.replaceAll('&', '","').replaceAll('=', '":"')+'"';
-            var dataJson2 = '"Params":[' + $('#monitorParams').np_serializeTable(2) + "]";
-            var dataJson = '{"' + dataJson1 + "," + dataJson2 + '}';
-            var json = $.parseJSON(dataJson); // объект JSON
-            np_AjaxBeforeSend();
-            $('#plots').load('/Analytics/MonitorParamPlotDataGet', json, function (response, status, xhr) {
-                np_AjaxComplete();
-                if (status == "error") {
-                    var msg = "Что-то пошло не так: ";
-                    $("#plots").html(msg + xhr.status + " " + xhr.statusText);
+                        var x = new Date(item.datapoint[0]).toLocaleString(); // из миллисекунд в нормальный формат
+                        var y = item.datapoint[1];//.toFixed(2);
+
+                        var color = item.series.color;
+
+                        np_flotShowTooltip(item.pageX, item.pageY, color,
+                            "<strong>" + item.series.label + "</strong>" +
+                            " : <strong>" + y + "</strong> ");
+                    }
+                } else {
+                    $("#tooltip").remove();
+                    previousPoint = null;
                 }
             });
         });
 
-    });
-</script>
+        function np_flotShowTooltip(x, y, color, contents) {
+            var sx, sy;
+            sx = x - 40, sy = y - 30;
+            $('<div id="tooltip">' + contents + '</div>').css({
+                position: 'absolute',
+                //display: 'none',
+                top: sy,
+                left: sx,
+                //top: y - 40,
+                //left: x - 120,
+                border: '1px solid ' + color,
+                padding: '1px',
+                'font-size': '9px',
+                'border-radius': '5px',
+                'background-color': '#fff',
+                'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+                opacity: 0.9
+            }).appendTo("body").fadeIn(200);
+        }
+
+        function np_fillFlotData(data) {
+            np_flotData = $.parseJSON(data);
+            np_flotHide = [];
+            //var jData = JSON.parse(data);
+            // преобразуем даты в миллисекунды
+            for (var j = 0; j < np_flotData.length; ++j) {
+                np_flotHide.push(false); // не скрываем j-ый ряд. пока что.
+                for (var i = 0; i < np_flotData[j].data.length; ++i)
+                    np_flotData[j].data[i][0] = Date.parse(np_flotData[j].data[i][0]);
+            }
+            $("#legend").empty();
+            plot_conf.legend.show = true;
+            plot_conf.legend.container = $("#legend");
+            np_plotRedraw(true);
+            // легенду рисуем только один раз
+            plot_conf.legend.show = false;
+            plot_conf.legend.container = null;                       
+        }
+
+        function np_plotRedraw(showLegend) {
+            var data = [];
+            for (var j = 0; j < np_flotData.length; ++j)
+                if (!np_flotHide[j]) // что скрываем, а что нет
+                    data.push(np_flotData[j]);            
+            np_plotFlot = $.plot($("#placeholder"), data, plot_conf);
+            var legend = document.getElementById('legend'); // еще IE не умеет заменять innerHTML в table
+            var legend_tbl = legend.getElementsByTagName('table')[0];
+            if (showLegend) {
+            // рисуем чекбоксы в легенде
+                var legend_html = '<table style="font-size: smaller; color: rgb(84, 84, 84);"><tbody>';
+                for (var i = 0; i < legend_tbl.rows.length; i++) {
+                    legend_html += '<tr>' +
+                        '<td><input type="checkbox" onclick="np_flotHide[' + i + ']=!np_flotHide[' + i + '];np_plotRedraw(false);" checked="1"></td>'
+                        + legend_tbl.rows[i].innerHTML
+                        + '</tr>';
+                }
+                legend_html += "</tbody></table>";
+                legend.innerHTML = legend_html;
+            }
+        }
+// отрисовка графиков )
+    </script>
 }

@@ -26,6 +26,12 @@ namespace NotePlot.Models
         public bool Active { get; set; }
     }
 
+    public class ReportJsonArray
+    {
+        public int ID { get; set; }
+        public string JsonArray { get; set; }
+    }
+
     public class AnalyticTools
     {
         string connectionString = null;
@@ -91,6 +97,39 @@ namespace NotePlot.Models
         public Task<DataSet> GetReportPlotDataAsync(long loginId, string MonitorParamsXML, DateTime? db = null, DateTime? de = null)
         {
             return Task.Run(() => GetReportPlotData(loginId, MonitorParamsXML, db, de));
+        }
+
+        // отчет по измерениям монитора - графики
+        public List<ReportJsonArray> GetReportJsonData(long loginId, string MonitorParamsXML, DateTime? db = null, DateTime? de = null)
+        {
+            using (IDbConnection dbс = new SqlConnection(connectionString))
+            {
+                return dbс.Query<ReportJsonArray>("dbo.ReportMonitorParamsPlotGet", new {
+                    MonitorParams = MonitorParamsXML,
+                    DateBegin = db,
+                    @DateEnd = de,
+                    LoginID = loginId,
+                    ReportMode = 0 // по-умолчанию - массив json для Flot
+                }, commandType: CommandType.StoredProcedure).ToList();
+            }
+            /*
+            using (var con = new SqlConnection(connectionString))
+            using (var da = new SqlDataAdapter("dbo.ReportMonitorParamsPlotGet", con))
+            {
+                da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                da.SelectCommand.Parameters.Add("@MonitorParams", SqlDbType.Xml).Value = MonitorParamsXML;
+                da.SelectCommand.Parameters.Add("@DateBegin", SqlDbType.DateTime).Value = db;
+                da.SelectCommand.Parameters.Add("@DateEnd", SqlDbType.DateTime).Value = de;
+                da.SelectCommand.Parameters.Add("@LoginID", SqlDbType.BigInt).Value = loginId;
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                return ds;
+            }
+            */
+        }
+        public Task<List<ReportJsonArray>> GetReportJsonDataAsync(long loginId, string MonitorParamsXML, DateTime? db = null, DateTime? de = null)
+        {
+            return Task.Run(() => GetReportJsonData(loginId, MonitorParamsXML, db, de));
         }
 
     }
