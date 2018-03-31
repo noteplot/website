@@ -173,7 +173,7 @@
             },
             xaxis: {
                 mode: "time",
-                timeformat: "%d.%m.%y",
+                timeformat: "%d.%m.%y %H:%M",
             },
             legend: {
                 container: $("#legend")
@@ -199,14 +199,15 @@
                         //var x = item.datapoint[0];
                         //var y = item.datapoint[1];
 
-                        var x = new Date(item.datapoint[0]).toLocaleString(); // из миллисекунд в нормальный формат
+                        //var x = new Date(item.datapoint[0]).toLocaleString(); // из миллисекунд в нормальный формат
+                        var x = np_getStringDate(new Date(item.datapoint[0]), 'date_time', 'dd:mm:yy','hh:nn', '.', ':');
                         var y = item.datapoint[1];//.toFixed(2);
 
                         var color = item.series.color;
 
                         np_flotShowTooltip(item.pageX, item.pageY, color,
                             "<strong>" + item.series.label + "</strong>" +
-                            " : <strong>" + y + "</strong> ");
+                            " : <strong>" + y + "</br>"+" на " + x + "</strong> ");
                     }
                 } else {
                     $("#tooltip").remove();
