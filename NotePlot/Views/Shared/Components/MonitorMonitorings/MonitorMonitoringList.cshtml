@@ -64,8 +64,12 @@
                         @Html.DisplayFor(modelItem => item.JSON)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "MonitoringEdit", "Monitoring", new { id = item.MonitoringID }) |
-                        <a href="/Monitoring/MonitoringDelete/@item.MonitoringID" class="np_deleteMonitoring" data-monitoring="@item.MonitoringID">Delete</a>
+                        <a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=item.MonitoringID })" class="np_button">
+                            <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                        </a>
+                        <a href="@Url.Action("MonitoringDelete", "Monitoring", new { id = item.MonitoringID })" class="np_deleteMonitoring np_button">
+                            <div class="icon"><i class="fa fa-times"></i></div>
+                        </a>
                     </td>
                 </tr>
             }

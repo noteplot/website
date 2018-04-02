@@ -25,7 +25,7 @@
                 <td>
                     <div class="npRowTools" style="display:none">
                         <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="npRowEdit np_button" np_dialog_title="Группа единиц измерений">
-                            <div class="icon"><i class="fa fa-pencil"></i></div>
+                            <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                         </a>
                         @if (item.LoginID != 0) {
                         <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="npRowDelete np_button" data-deleted-name="@item.UnitGroupShortName">

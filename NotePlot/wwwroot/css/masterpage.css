@@ -16,7 +16,7 @@ input[type="text"], input[type="password"], textarea, select {
 .np_sidebar {
     position: absolute;
     left: 0;
-    top: 46px;
+    top: 0; /*46px;*/
     background: black;
     width: 220px;
     /*min-height: 100%;*/
@@ -272,6 +272,7 @@ table.dataTable tbody td {
 .table .np_button .icon,
 .np_toolbar .np_button .icon {
     border: 1px solid #000;
+    color: #000;
     height: 22px;
     width: 22px;
     margin: 1px;
@@ -281,6 +282,7 @@ table.dataTable tbody td {
 }
 .np_toolbar .np_button .icon {
     border-color: #fff;
+    color: #fff;
     margin: 7px;
 }
 
@@ -312,6 +314,7 @@ table.dataTable tbody td {
 .input-append, .input-prepend {
     display: block;
     margin-bottom: 0px;
+    width: 100%;
 }
 .input-append .add-on, .input-prepend .add-on {
     color: #fff;
@@ -346,4 +349,8 @@ table.dataTable tbody td {
 /*DataTable*/
 .np_numeric {
     text-align: right;
+}
+
+.svg-inline--fa {
+    vertical-align: 0;
 }

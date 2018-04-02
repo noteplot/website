@@ -58,14 +58,6 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a href="@Url.Action("Edit", "Parameter" , new { id=item.ParameterID })" class="np_button">
-                    <div class="icon"><i class="fa fa-pencil"></i></div>
-                </a>
-                <a href="@Url.Action("Delete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
-                    <div class="icon"><i class="fa fa-times"></i></div>
-                </a>
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.ParameterID)
             </td>
             <td>
@@ -106,6 +98,14 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LoginID)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Parameter" , new { id=item.ParameterID })" class="np_button">
+                    <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                </a>
+                <a href="@Url.Action("Delete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
+                    <div class="icon"><i class="fa fa-times"></i></div>
+                </a>
             </td>
         </tr>
 }
