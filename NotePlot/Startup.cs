@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Reflection;
+using log4net.Extensions.AspNetCore;
 
 namespace NotePlot
 {
@@ -105,6 +107,9 @@ namespace NotePlot
                 app.UseExceptionHandler("/Home/Error");
             }
             
+            loggerFactory.AddLog4Net();
+            log4net.Config.BasicConfigurator.Configure(log4net.LogManager.GetRepository(Assembly.GetEntryAssembly()));
+
             app.UseStatusCodePages(); // обработка ошибок HTTP
 
             app.UseStaticFiles();
