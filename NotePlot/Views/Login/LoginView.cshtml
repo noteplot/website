@@ -1,45 +1,40 @@
-﻿@*
-    @section styles{
-        <style>
-        </style>
-    }
-*@
-<div id="loginInputPanel">
+﻿<div id="loginInputPanel" class="np-fVrtLayout">
     <form action="/Login/LoginInput" method="POST" id="loginInput" np_reload="true">
         @Html.AntiForgeryToken()
-        <div class="row-fluid">
-            <div class="row-form">
-                <input type="text" id ="LoginName" name="LoginName" placeholder="имя" />
-            </div>
-            <div class="row-form">
-                <input type="text" name="Password" placeholder="пароль" autocomplete="off" />
-            </div>
-            <div class="row-form">
-                <input type="checkbox" name="RememberMe" /> <span>Запомнить</span>
-                @*@Html.CheckBox("RememberMe", false)*@
-            </div>
-            <div class="row-form">
-                @*<input class="btn" type="submit" value="Вход" />*@
-                <button class="btn" type="submit">Вход<span class="icon-arrow-next icon-white"></span></button>
-            </div>
-        </div>
+        <p>
+            <input type="text" id="LoginName" name="LoginName" placeholder="имя" maxlength=24 class="ui-corner-all np-ui-input" />
+        </p>
+        <p>
+            <input type="text" id="Password" name="Password" placeholder="пароль" autocomplete="off" maxlength=24 class="ui-corner-all np-ui-input" />
+        </p>
     </form>
-    <button id="passwordForget" class="btn1" href="/Login/LoginForget">Забыли пароль<span class="icon-arrow-next icon-white"></span></button>
-    @*<button class="btn1">Регистрация <span class="icon-arrow-next icon-white"></span></button>*@
+    <p class="np-buttons">
+        <button id="btnOk" class="np-left ui-button ui-corner-all">Войти</button>
+        <button id="passwordForget" class="np-left ui-button ui-corner-all" href="/Login/LoginForget">Узнать пароль</button>
+        <button id="btnCancel" class="np-right ui-button ui-corner-all">Отмена</button>
+    </p>
 </div>
 <script type="text/javascript">
     $(function () {
+        $('#btnOk').on('click', function (e) {
+            e.preventDefault();
+            np_AjaxFormInputClick(); // очистка ошибок
+            $('#loginInput').submit();
+        });
+
+        $('#btnCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#loginInputPanel').parents('.dialog').first().attr('id');
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
+            }
+        });
+
         // подписка на submit
-        /*
-        //Пример передачи обработчиков через методы класса
-        var adata = new Object();
-        adata.onSuccess = function (data) {
-            alert('OK');
-        $("#loginInput").bind('submit',adata,np_AjaxFormSubmit);
-        }
-        */
         $("#loginInput").bind('submit', np_AjaxFormSubmit);
-        //Forget
+
+        //Forget password
         var adata = new Object();
         adata.actionPost = "/Login/LoginForget/";
         adata.action = "";
@@ -54,8 +49,7 @@
             $('.errorForm span').html(resp);
         }
 
-        $("#passwordForget").bind('click', adata, passwordForget); // 
-
+        $("#passwordForget").bind('click', adata, passwordForget); //
 
         // очистка сообщений об ошибках по клику
         $("#loginInput input").bind('click', np_AjaxFormInputClick);
@@ -73,15 +67,42 @@
                 }
             });
 
-        function np_AjaxOnSuccess(data) {
-            alert('OK');
-        };
-
         function passwordForget(event) {
-            event.data.action = event.data.actionPost + $("#LoginName").val();
+            e.preventDefault();
+            np_AjaxFormInputClick(); // очистка ошибок
+            event.data.action = event.data.actionPost + $("#LoginName").val();            
             np_AjaxPost(event);
         };
 
     });
 
 </script>
+
+@*<div id="loginInputPanel">
+    <form action="/Login/LoginInput" method="POST" id="loginInput" np_reload="true">
+        @Html.AntiForgeryToken()
+        <div class="row-fluid">
+            <div class="row-form">
+                <input type="text" id="LoginName" name="LoginName" placeholder="имя" />
+            </div>
+            <div class="row-form">
+                <input type="text" name="Password" placeholder="пароль" autocomplete="off" />
+            </div>
+            <div class="row-form">
+                <input type="checkbox" name="RememberMe" /> <span>Запомнить</span>
+            </div>
+            <div class="row-form">
+                <button class="btn" type="submit">Вход<span class="icon-arrow-next icon-white"></span></button>
+            </div>
+        </div>
+    </form>
+    <button id="passwordForget" class="btn1" href="/Login/LoginForget">Забыли пароль<span class="icon-arrow-next icon-white"></span></button>
+</div>*@
+@*/*
+//Пример передачи обработчиков через методы класса
+var adata = new Object();
+adata.onSuccess = function (data) {
+    alert('OK');
+$("#loginInput").bind('submit',adata,np_AjaxFormSubmit);
+}
+*/*@

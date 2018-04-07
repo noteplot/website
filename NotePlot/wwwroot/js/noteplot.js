@@ -116,15 +116,14 @@ function np_AjaxFormSubmit(event) {
             cache: false,
             async: false,
             success: function (data) {
-                //alert(document.location.href); 
-                //event.data.onSuccess(data); // передача ф-ции через класс
-                np_AjaxComplete();             
                 if (event.data && event.data.onSuccess) {
                     event.data.onSuccess(data);
                 }
                 if ($(form_id).attr('np_reload') == "true") {
                     location.reload();
                 }
+                else
+                    np_AjaxComplete();             
             },
             error: function (jqXHR, textStatus, errorThrown) { // панель ошибок формы
                 np_AjaxComplete();

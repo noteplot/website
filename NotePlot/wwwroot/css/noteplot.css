@@ -1,0 +1,60 @@
+﻿/*Валидация*/
+label.error {
+    color: red;
+}
+
+.errorForm span {
+    color: red;
+    font-size: 12px !important;
+    display: inline-block;
+}
+
+/* Стили для диалога с вертикальной компоновкой полей ввода*/
+.np-fVrtLayout *{
+    font-size: 13px;
+}
+
+.np-fVrtLayout input[type=text], textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box; /*запрещает вылезать за панель!!! - ширина блока по границе*/
+    padding: 2px;
+}
+
+.np-fVrtLayout textarea {
+    resize: none;
+}
+
+.np-fVrtLayout label {
+    display: block;
+    padding: 1px;
+}
+
+.np-fVrtLayout button.np-left {
+    float: left;
+}
+
+.np-fVrtLayout button.np-right {
+    float: right;
+}
+
+.np-fVrtLayout p:not(.np-buttons) {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.np-fVrtLayout .np-buttons {
+    margin-top: 1em;
+}
+
+.np-fVrtLayout .np-buttons:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+}
+
+.np-fVrtLayout {
+    margin: 0px 0px 0.7em 0px;
+}

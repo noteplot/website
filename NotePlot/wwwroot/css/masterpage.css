@@ -9,7 +9,8 @@
 .np_capitalized  {
     text-transform: capitalize;
 }
-input[type="text"], input[type="password"], textarea, select {
+
+input[type="text"]:not(.np-ui-input), input[type="password"]:not(.np-ui-input), textarea:not(.np-ui-input), select:not(.np-ui-input) {
     border-color: #CCC;
     border-radius: 0;
 }
