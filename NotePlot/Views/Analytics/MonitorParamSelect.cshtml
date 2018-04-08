@@ -48,20 +48,25 @@
             if ($('#monitorParamSelect tbody tr').hasClass('selected')) {
                 if (typeof np_insertRow != 'undefined') {
                     var template = np_insertRow.rowTemplate;
-                    var value;
+                    var value,paramId;
                     var $tr_sel = $('#monitorParamSelect tbody tr.selected'); //selected row
                     for (var i in np_insertRow.fields) {
                         var name = np_insertRow.fields[i];
                         value = $tr_sel.find('.' + name).text(); // class == name !
+                        if (name == 'ParamID')
+                            paramId = value;
                         name = '{' + np_insertRow.fields[i] + '}';
                         template = template.replace(name, value);
                     }
-
-                    if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
-                        $(np_insertRow.tableId + ' tbody').html(template);
-                    }
-                    else {
-                        $(np_insertRow.tableId + ' tbody tr:last').after(template);
+                    var _paramId = $(np_insertRow.tableId + ' tbody tr input#ParamID').val();
+                    if (!(_paramId && _paramId == paramId))
+                    {
+                        if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
+                            $(np_insertRow.tableId + ' tbody').html(template);
+                        }
+                        else {
+                            $(np_insertRow.tableId + ' tbody tr:last').after(template);
+                        }
                     }
                 }
 

@@ -85,3 +85,11 @@ label.error {
 
     */
 }
+
+.np-fVrtLayout input:focus{
+    /*-webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;*/
+    box-shadow: none;
+    outline: 0;
+    border-color: #AAA;
+}
