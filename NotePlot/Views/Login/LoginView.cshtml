@@ -68,9 +68,8 @@
             });
 
         function passwordForget(event) {
-            e.preventDefault();
             np_AjaxFormInputClick(); // очистка ошибок
-            event.data.action = event.data.actionPost + $("#LoginName").val();            
+            event.data.action = event.data.actionPost + $("#LoginName").val();
             np_AjaxPost(event);
         };
 
