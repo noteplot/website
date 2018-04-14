@@ -7,6 +7,9 @@ using Dapper;
 using System.Data;
 using System.Data.SqlClient;
 
+using Newtonsoft.Json;
+using NotePlot.Tools;
+
 namespace NotePlot.Models
 {
     public class ParameterType
@@ -166,19 +169,28 @@ namespace NotePlot.Models
         public bool SetParameter(Parameter pr, int md)
         {
             bool rt = false;
+            string ParameterRelationXML = null;
             using (IDbConnection db = new SqlConnection(connectionString))
-            {
-                //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
-                //return gr;
+            {                
                 try
                 {
+                    if (!string.IsNullOrEmpty(pr.JSON))
+                    {
+                        var strJson = "[" + pr.JSON + "]";// TO DO: добавлять скобки в js
+                        // в список объектов
+                        List<ParameterRelation> lpr = JsonConvert.DeserializeObject< List<ParameterRelation>>(strJson);
+                        // в XML
+                        ParameterRelationXML = ToolKit.SerializeToStringXML(lpr, "ParameterRelations");
+                    }
+                    
                     db.Execute("dbo.ParameterSet",
                         new { ParameterID = pr.ParameterID, ParamShortName = pr.ParameterShortName, ParamName = pr.ParameterName,
                             ParamUnitID = pr.ParameterUnitID,ParamValueTypeID = pr.ParameterValueTypeID,
                             ParamTypeID = pr.ParameterTypeID,ParameterGroupID = pr.ParameterGroupID,
                             ParamValueMAX = pr.ParameterValueMax,ParamValueMIN = pr.ParameterValueMin,
-                            LoginID = pr.LoginID, Active = pr.Active, Mode = md, JSON = pr.JSON },
-                        commandType: CommandType.StoredProcedure);
+                            LoginID = pr.LoginID, Active = pr.Active, Mode = md,ParameterRelations = ParameterRelationXML
+                        },
+                            commandType: CommandType.StoredProcedure);
                     rt = true;
                 }
                 catch (Exception ex)
