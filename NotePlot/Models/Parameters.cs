@@ -298,12 +298,22 @@ namespace NotePlot.Models
         public bool SetPacket(Packet pt, int md)
         {
             bool rt = false;
+            string PacketParameterXML = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
-                //return gr;
+                //return gr;                
                 try
                 {
+                    if (!string.IsNullOrEmpty(pt.JSON))
+                    {
+                        var strJson = "[" + pt.JSON + "]";// TO DO: добавлять скобки в js
+                        // в список объектов
+                        List<PacketParameter> lpr = JsonConvert.DeserializeObject<List<PacketParameter>>(strJson);
+                        // в XML
+                        PacketParameterXML = ToolKit.SerializeToStringXML(lpr, "PacketParameters");
+                    }
+
                     db.Execute("dbo.PacketSet",
                         new
                         {
@@ -314,7 +324,7 @@ namespace NotePlot.Models
                             LoginID         = pt.LoginID,
                             Active          = pt.Active,
                             Mode            = md,
-                            JSON            = pt.JSON
+                            PacketParameters = PacketParameterXML
                         },
                         commandType: CommandType.StoredProcedure);
                     rt = true;
