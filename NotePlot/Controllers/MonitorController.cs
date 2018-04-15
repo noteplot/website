@@ -48,6 +48,7 @@ namespace NotePlot.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 loginID = LoginController.GetLogin(HttpContext.User);
+                ViewBag.LoginID = loginID;
             }
             Monitor mt = new Monitor() { LoginID = loginID };// {ParameterGroupID = -1, ParameterTypeID = 0, ParameterUnitID = -1, ParameterValueTypeID = -1, LoginID = -1 };
             return View("MonitorEdit", mt);
@@ -74,6 +75,7 @@ namespace NotePlot.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
+                ViewBag.LoginID = loginID;
                 return View("MonitorEdit", await repo.GetMonitorAsync(id, loginID));
             }
             else

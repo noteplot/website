@@ -36,7 +36,7 @@
                         <td>@item.ParameterShortName</td>
                         <td>@item.ParameterTypeName</td>
                         <td hidden><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' value="@item.MonitorParameterValue" /></td>
-                        <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked     } @if (@item.LoginID == 0) { @atr_disabled   } /></td>
+                        <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked     } @if (@ViewBag.LoginID == 0) { @atr_disabled   } /></td>
                     </tr>
                 }
             </tbody>
@@ -75,7 +75,7 @@
                         <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID"/></td>
                         <td>@item.ParameterShortName</td>
                         <td><input type='text' id='MonitorParameterValue' name='MonitorParameterValue' class="np_decimal_format" size="22" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus="true" value="@item.MonitorParameterValue"/></td>
-                        <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked      } @if (@item.LoginID == 0) { @atr_disabled    } /></td>
+                        <td><input type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.MonitorParameterActive" @if (@item.MonitorParameterActive) { @atr_checked      } @if (@ViewBag.LoginID == 0) { @atr_disabled    } /></td>
                     </tr>
                 }
             </tbody>

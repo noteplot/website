@@ -27,6 +27,8 @@ namespace NotePlot.Tools
         public static string SerializeToStringXML(object value, string rootName)
         {
             var emptyNamepsaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            //var emptyNamepsaces = new XmlSerializerNamespaces();
+            //emptyNamepsaces.Add("","");
             XmlRootAttribute xRoot = new XmlRootAttribute();            
             xRoot.ElementName = rootName;
             xRoot.IsNullable = true;

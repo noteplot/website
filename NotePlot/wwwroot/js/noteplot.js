@@ -348,7 +348,6 @@ jQuery.fn.np_serializeForm = function (lName) {
 jQuery.fn.np_serializeTable = function (fs) {
     //cериализация таблицы
     var data = $(this).find("td>input,td>select,td>textarea").npSerializeArray({ checkboxesAsBools: true });
-    //var data1 = $(this).find("td>input,td>select,td>textarea").npSerializeArray({ checkboxesAsBools: true });
     var _jsonT = ''
     s = '';
     var _i = 0; //var fs = 2;

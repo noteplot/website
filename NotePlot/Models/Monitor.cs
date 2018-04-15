@@ -7,6 +7,10 @@ using Dapper;
 using System.Data;
 using System.Data.SqlClient;
 
+using System.Xml.Serialization; 
+using Newtonsoft.Json;
+using NotePlot.Tools;
+
 namespace NotePlot.Models
 {
     [Table("Monitor", Schema = "dbo")]
@@ -20,18 +24,27 @@ namespace NotePlot.Models
         public string JSON { get; set; } // список параметров
     }
 
+    
     public class MonitorParameter
     {
-        public long? MonitorID { get; set; }
+        //public long? MonitorID { get; set; }
         public long ParameterID { get; set; }
-        public byte? ParameterTypeID { get; set; }
+        [System.Xml.Serialization.XmlIgnore()] // исключаем из XML-сериализации ParameterTypeID
+        public byte? ParameterTypeID { get; set; } 
         public string ParameterTypeName { get; set; }
         public string ParameterShortName { get; set; }
         public string ParameterName { get; set; }
-        public short? MonitorParamPosition { get; set; }
+        //public short MonitorParamPosition { get; set; }
+        //[XmlElement(IsNullable = false)] - не работает
         public decimal? MonitorParameterValue { get; set; }
-        public long? LoginID { get; set; }
+        //public long? LoginID { get; set; }
         public bool MonitorParameterActive { get; set; }
+        // ф-ция исключения пустых значений для MonitorParameterActive
+        public bool ShouldSerializeMonitorParameterValue() 
+        {
+            return MonitorParameterValue.HasValue;
+        }
+
     }
 
     public class MonitorTotalParameter : MonitorParameter
@@ -130,12 +143,21 @@ namespace NotePlot.Models
         public bool SetMonitor(Monitor mt, int md)
         {
             bool rt = false;
+            string MonitorParameterXML = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
                 //return gr;
                 try
                 {
+                    if (!string.IsNullOrEmpty(mt.JSON))
+                    {
+                        var strJson = "[" + mt.JSON + "]";// TO DO: добавлять скобки в js
+                        // в список объектов
+                        List<MonitorParameter> lpr = JsonConvert.DeserializeObject<List<MonitorParameter>>(strJson);
+                        // в XML
+                        MonitorParameterXML = ToolKit.SerializeToStringXML(lpr, "MonitorParameters");
+                    }
                     db.Execute("dbo.MonitorSet",
                         new
                         {
@@ -145,7 +167,7 @@ namespace NotePlot.Models
                             LoginID = mt.LoginID,
                             Active = mt.Active,
                             Mode = md,
-                            JSON = mt.JSON
+                            MonitorParameters = MonitorParameterXML
                         },
                         commandType: CommandType.StoredProcedure);
                     rt = true;
