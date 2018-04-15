@@ -98,10 +98,10 @@ namespace NotePlot.Models
 
     public class PacketParameter
     {
-        public long? PacketID { get; set; }
+        //public long? PacketID { get; set; }
         public long ParameterID { get; set; }
         public string ParameterShortName { get; set; }
-        public long? LoginID { get; set; }
+        public long LoginID { get; set; }
         public bool PacketParameterActive { get; set; }
     }
 

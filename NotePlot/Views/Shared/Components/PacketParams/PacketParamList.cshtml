@@ -20,13 +20,16 @@
             <th>Доступен</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody  @if (@ViewBag.LoginID > 0) { @:class="np_enabled"
+     }>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr @if (@ViewBag.LoginID > 0) { 
+                @:class="np_enabled"
+            } >
                 <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
                 <td>@item.ParameterShortName</td>
-                <td><input type="checkbox" id="PacketParameterActive" name="PacketParameterActive" value="@item.PacketParameterActive" @if (@item.PacketParameterActive) { @atr_checked   } @if (@item.LoginID == 0) { @atr_disabled } /></td>                
+                <td><input type="checkbox" id="PacketParameterActive" name="PacketParameterActive" value="@item.PacketParameterActive" @if (@item.PacketParameterActive) { @atr_checked   } @if (@ViewBag.LoginID == 0) { @atr_disabled } /></td>
             </tr>
         }
     </tbody>
@@ -43,8 +46,8 @@
             $('#packetParameters tbody tr.np_selected').remove();
         });
 
-        // Отбор и сортровка строк
-        $("#packetParameters tbody").on('click', 'tr', function (e, d) {
+        // Отбор и сортировка строк
+        $("#packetParameters tbody").on('click', 'tr.np_enabled', function (e, d) {
             if ($(this).hasClass("np_selected")) {
                 // если d.drag != "1" тогда снимаем выделение
                 if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
@@ -57,7 +60,7 @@
         });
 
         //Плагин UI Sortable
-        $("#packetParameters tbody").sortable(
+        $("#packetParameters tbody.np_enabled").sortable(
             {
                 //helper: fixHelper
                 helper: function (e, tr) {
