@@ -45,6 +45,24 @@ namespace NotePlot.Tools
                 return stream.ToString();
             }
         }
+
+        //Оставить в строке только заданный шаблон (subs), удалив все символы до заданной границы(lm)
+        //Например, subs = ParameterValue
+        //в строке есть ParameterValue1,ParameterValue2,ParameterValue123 - оставляем только ParameterValue
+        public static string ClearSuffix(string input, string subs, string lm)
+        {
+            int ind1 = input.IndexOf(subs, 0), ind2 = 0;
+            while (ind1 != -1)
+            {
+                ind1 += subs.Length;            // окончание заданного шаблона
+                ind2 = input.IndexOf(lm, ind1); // индекс ограничивающего символа(строки)
+                if (ind2 <= 0)
+                    return null;
+                input = input.Remove(ind1, ind2 - ind1); // удалаяем суффикс
+                ind1 = input.IndexOf(subs, ind1); // следующий шаблон
+            }
+            return input;
+        }
     }
     public sealed class StringWriterUtf8 : StringWriter
     {

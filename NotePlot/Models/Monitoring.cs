@@ -8,6 +8,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 
+using Newtonsoft.Json;
+using NotePlot.Tools;
+
 namespace NotePlot.Models
 {
     public class Monitoring
@@ -45,6 +48,26 @@ namespace NotePlot.Models
         public decimal? ParameterValueMin { get; set; }
         public DateTime CreationDateUTC { get; }
         public DateTime ModifiedDateUTC { get; }
+    }
+
+    public class MonitoringParam
+    {
+        public long? MonitoringParamID { get; set; }
+        public long MonitorParamID { get; set; }
+        public long ParameterID { get; set; }
+        public int ParameterTypeID { get; set; }
+        public decimal? ParameterValue { get; set; } // не должно быть null
+        // ф-ция исключения пустых значений для MonitoringParamID
+        public bool ShouldSerializeMonitoringParamID()
+        {
+            return MonitoringParamID.HasValue;
+        }
+        // ф-ция исключения пустых значений для ParameterValue
+        public bool ShouldSerializeParameterValue()
+        {
+            return ParameterValue.HasValue;
+        }
+
     }
 
     public class MonitoringFilter
@@ -160,11 +183,33 @@ namespace NotePlot.Models
         public bool SetMonitoring(Monitoring mr, int md)
         {
             bool rt = false;
-
+            string MonitoringParamXML = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 try
                 {
+                    if (!string.IsNullOrEmpty(mr.JSON))
+                    {
+                        var strJson = "[" + mr.JSON + "]";// TO DO: добавлять скобки в js
+                        var strJsonOut = ToolKit.ClearSuffix(strJson, "ParameterValue", "\"");
+                        if (strJsonOut == null)
+                            throw new Exception("Ошибка обработки данных!");
+                        else
+                            strJson = strJsonOut;
+                        // в список объектов
+                        List<MonitoringParam> lpr = JsonConvert.DeserializeObject<List<MonitoringParam>>(strJson);
+                        // Проверка на ввод значений
+                        foreach(var pr in lpr)
+                        {
+                            if (pr.ParameterValue == null)
+                            {
+                                throw new Exception("Для всех параметров нужно указать значения!");
+                            }
+                        }
+                        // в XML
+                        MonitoringParamXML = ToolKit.SerializeToStringXML(lpr, "MonitoringParams");
+                    }
+
                     db.Execute("dbo.MonitoringSet",
                         new
                         {
@@ -172,7 +217,8 @@ namespace NotePlot.Models
                             MonitorID       = mr.MonitorID,
                             MonitoringDate  = mr.MonitoringDate,
                             MonitoringComment = mr.MonitoringComment,
-                            JSON = mr.JSON,
+                            MonitoringParams  = MonitoringParamXML,
+                            //JSON = mr.JSON,
                             Mode = md
                         },
                         commandType: CommandType.StoredProcedure);
