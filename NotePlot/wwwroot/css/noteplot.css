@@ -93,3 +93,50 @@ label.error {
     outline: 0;
     border-color: #AAA;
 }
+
+/*
+СТИЛИ ДЛЯ СПИСКА ПАРАМЕТРОВ ИЗМЕРЕНИЙ: MonitoringParamList + MonitorTotatParamList
+Двух-колоночная таблица, можно добавить третью колонку для рекламы (rowspan)
+*/
+
+.np-param-values * { /* TODO: сделать глобальными*/
+    margin: 0;
+    padding: 0;
+    font-family: Segoe-UI, arial, sans-serif;
+    font-size: 13px;
+}
+
+.np-param-values,
+.np-param-values th,
+.np-param-values td {
+    border: none;
+    background: white;
+}
+
+.np-param-values {
+    min-width: 300px;
+    border-collapse: collapse;
+}
+
+.np-param-values input {
+    width: 100%;
+    min-width: 250px; /*даже при заданной ширине td размер может уменьшаться*/
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.np-param-values td {
+    vertical-align: top;
+    padding: 5px 5px;
+}
+
+.np-param-values td:first-child {
+    width: 260px;
+    text-align: center;
+}
+
+.np-param-values td:first-child + td {
+    max-width: 600px; /*можно изменять максимальную ширину*/
+    min-width: 100px;
+    text-align: left;
+}

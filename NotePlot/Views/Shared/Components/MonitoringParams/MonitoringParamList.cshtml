@@ -17,8 +17,8 @@
     //                                                          select item;
 }
 
-<table class="table" id="monitoringParameters">
-    <thead>
+<table class="np-param-values" cols="2" id="monitoringParameters">
+    @*<thead>
         <tr>
             <th hidden></th>
             <th hidden></th>
@@ -27,7 +27,7 @@
             <th class="col2">Ед.изм.</th>
             <th>Параметр</th>
         </tr>
-    </thead>
+    </thead>*@
     <tbody>
         @foreach (var item in Model1)
         {
@@ -40,32 +40,14 @@
             <td hidden><input type="text" name="ParameterTypeID" value="@item.ParameterTypeID"></td>
             @if (@item.ParameterTypeID == 0)
             {
-            <td><input type="text" class="ParameterValue" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax" @if (item.ParameterValueMin == null || item.ParameterValueMin < 0){ @atr_np_dec_minus}></td>
+            <td><input type="text" class="ParameterValue ui-widget ui-widget-content ui-corner-all np-ui-input" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax" @if (item.ParameterValueMin == null || item.ParameterValueMin < 0){ @atr_np_dec_minus}></td>
             }
             else
             {
-            <td><input type="text" class="ParameterValue" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="28" np_dec_scale="6" data-min="" data-max="" @atr_readonly></td>
+            <td><input type="text" class="ParameterValue ui-widget ui-widget-content ui-corner-all np-ui-input" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="28" np_dec_scale="6" data-min="" data-max="" @atr_readonly></td>
             }
             <td>@item.ParameterUnitShortName</td>
-            <td>@item.ParameterShortName</td>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.ParameterScale)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParameterPrecision)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParameterValueMax)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParameterValueMin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDateUTC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedDateUTC)
-        </td>*@
+            @*<td>@item.ParameterShortName</td>*@
         </tr>
         }
     </tbody>
