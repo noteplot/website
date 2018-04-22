@@ -36,12 +36,14 @@ namespace NotePlot.Models
         public long? MonitoringParamID { get; set; }
         public long  MonitorParamID { get; set; }
         public int ParameterTypeID { get; set; }
+        public string ParameterTypeName { get; set; }
         public long ParameterID { get; set; }
         public decimal? ParameterValue { get; set; }
         public string ParameterShortName { get; set; }
         public string ParameterName { get; set; }
         public long ParameterUnitID { get; set; }
         public string ParameterUnitShortName { get; set; }
+        public string ParameterValueTypeShortName { get; set; }
         public byte ParameterScale { get; set; }
         public int ParameterPrecision { get; set; }
         public decimal? ParameterValueMax { get; set; }

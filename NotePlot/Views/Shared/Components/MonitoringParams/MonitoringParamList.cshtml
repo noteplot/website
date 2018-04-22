@@ -17,7 +17,7 @@
     //                                                          select item;
 }
 
-<table class="np-param-values" cols="2" id="monitoringParameters">
+<table id="monitoringParameters"  class="np-param-values" cols="2">
     @*<thead>
         <tr>
             <th hidden></th>
@@ -40,13 +40,16 @@
             <td hidden><input type="text" name="ParameterTypeID" value="@item.ParameterTypeID"></td>
             @if (@item.ParameterTypeID == 0)
             {
-            <td><input type="text" class="ParameterValue ui-widget ui-widget-content ui-corner-all np-ui-input" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax" @if (item.ParameterValueMin == null || item.ParameterValueMin < 0){ @atr_np_dec_minus}></td>
+            <td class="np-col1"><input type="text" class="ParameterValue ui-widget ui-widget-content ui-corner-all np-ui-input" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="@item.ParameterPrecision" np_dec_scale="@item.ParameterScale" data-min="@item.ParameterValueMin" data-max="@item.ParameterValueMax" @if (item.ParameterValueMin == null || item.ParameterValueMin < 0){ @atr_np_dec_minus}></td>
             }
             else
             {
-            <td><input type="text" class="ParameterValue ui-widget ui-widget-content ui-corner-all np-ui-input" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="28" np_dec_scale="6" data-min="" data-max="" @atr_readonly></td>
+            <td class="np-col1"><input type="text" class="ParameterValue ui-widget ui-widget-content ui-corner-all np-ui-input" name="@ParameterValue" value="@item.ParameterValue" np_dec_precision="28" np_dec_scale="6" data-min="" data-max="" @atr_readonly></td>
             }
-            <td>@item.ParameterShortName @item.ParameterUnitShortName</td>
+            <td class="np-col2">
+                <p>@item.ParameterShortName (@item.ParameterName), <span>Eд.изм.: </span>@item.ParameterUnitShortName</p>
+                <p><span>Тип параметра: </span> @item.ParameterTypeName, <span>Тип значения: </span>@item.ParameterValueTypeShortName</p>
+            </td>
             @*<td>@item.ParameterShortName</td>*@
         </tr>
         }

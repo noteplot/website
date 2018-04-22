@@ -24,7 +24,6 @@ label.error {
 .np-fVrtLayout textarea {
     resize: none;
 }
-
 .np-fVrtLayout label {
     display: block;
     padding: 1px;
@@ -120,9 +119,8 @@ label.error {
 
 .np-param-values input {
     width: 100%;
-    min-width: 250px; /*даже при заданной ширине td размер может уменьшаться*/
+    min-width: 220px; /*даже при заданной ширине td размер может уменьшаться*/
     padding: 2px;
-    box-sizing: border-box;
 }
 
 .np-param-values td {
@@ -130,13 +128,82 @@ label.error {
     padding: 5px 5px;
 }
 
-.np-param-values td:first-child {
-    width: 260px;
+/*.np-param-values td:first-child {*/
+.np-param-values .np-col1{
+    width: 230px;
     text-align: center;
 }
 
-.np-param-values td:first-child + td {
+/*.np-param-values td:first-child + td {*/
+  .np-param-values .np-col2{  
     max-width: 600px; /*можно изменять максимальную ширину*/
     min-width: 100px;
     text-align: left;
+}
+
+/*СТИЛИ ДЛЯ КОЛОНОЧНОГО МАКЕТА ФОРМЫ*/
+.np-inputForm {
+    max-width: 850px; /*Изменить на необходимую ширину*/
+    /*margin: 10px;*/
+    margin: 0px;
+    width: 100%;
+    /*border: 1px solid red;*//*для отладки*/
+}
+
+.form-row {
+    width: 100%;
+}
+
+.column-input {
+    float: left;
+    /*position: relative;*/
+    /*padding: 0.65rem;*/
+    padding :2px;
+    padding-left: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.column-half {
+    width: 50%;
+    /*border: solid 1px green;*//*для отладки*/
+}
+
+.column-full {
+    width: 100%;
+}
+
+.np-clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+}
+
+/*Задаем размеры ввода, блокируем ширину в %*/
+.np-inputForm .np-date {
+    width: 12em;
+}
+
+.np-inputForm .np-time {
+    width: 6em;
+}
+
+.np-inputForm p {
+    margin-bottom: 0.2em;
+    /*border: solid 1px green;*//*для отладки*/
+}
+
+.np-param-values span {
+    font-size: 11px !important;
+    font-style: italic !important;
+}
+
+/*Иконка в поле ввода даты*/
+.np-input-date {
+    background-image: url("/images/ui-icon-calendar.gif");
+    background-position: right center;
+    background-repeat: no-repeat;
 }

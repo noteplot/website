@@ -6,12 +6,14 @@
 
 @section styles{
     <style>
+        /*
         .input_date {
             width:8em !important;
         }
         .input_time {
             width: 5em !important;
         }
+        */
         /*
         #np_monitoring_edit table, #np_monitoring_edit th, #np_monitoring_edit td {
             border: 1px solid black;
@@ -48,25 +50,26 @@
 <p>
     <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if(Model.MonitoringID == null) {<a href="@Url.Action("MonitoringNew", "Monitoring" , new { id=Model.MonitorID })">Новое измерение</a>} else {<a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=Model.MonitoringID })">Текущее измерение</a>}
 </p>
-
 <form id="np_monitoring_edit" method="POST" action="/Monitoring/MonitoringEditJson ">
     @Html.AntiForgeryToken()
     <input type="submit" value="Записать" id="btnMonitoringSave" @atr_disabled />
-    <fieldset>
-        <legend></legend>
+    <div class="np-inputForm np-clearfix">
         <input type="hidden" id="MonitoringID" name="MonitoringID" value="@Model.MonitoringID" />
         <input type="hidden" id="MonitorID" name="MonitorID" value="@Model.MonitorID" />
-        <div>
-            <label for="MonitoringDateDt" class="np_label">Дата измерения</label>
-            <input type="text" class="input_date" id="MonitoringDateDt" name="MonitoringDateDt" value="@Model.MonitoringDateDt" readonly />
-            <label for="MonitoringDateTm" class="np_label">Время измерения</label>
-            <input type="text" class="input_time" id="MonitoringDateTm" name="MonitoringDateTm" value="@Model.MonitoringDateTm" autocomplete="off" />
-        </div>
-        <div>
-            <label for="MonitoringComment" class="np_label">Комментарий</label>
-            <input type="text" id="MonitoringComment" name="MonitoringComment" value="@Model.MonitoringComment" />
-        </div>
-    </fieldset>
+        <p class="np-fVrtLayout column-input np-date column-half"
+            <label for="MonitoringDateDt">Дата</label>
+            <input type="text" id="MonitoringDateDt" class="np-input-date ui-widget ui-widget-content ui-corner-all np-ui-input" name="MonitoringDateDt" value="@Model.MonitoringDateDt" readonly />
+        </p>
+        <p class="np-fVrtLayout column-input np-time column-half"
+            <label for="MonitoringDateTm">Время</label>
+            <input type="text" id="MonitoringDateTm" class="np-input-time ui-widget ui-widget-content ui-corner-all np-ui-input" name="MonitoringDateTm" value="@Model.MonitoringDateTm" autocomplete="off" />
+        </p>
+        <p class="np-fVrtLayout column-input column-full">
+            <label for="MonitoringComment">Комментарий</label>
+            @*<input type="text" id="MonitoringComment" name="MonitoringComment" value="@Model.MonitoringComment" />*@
+            <textarea type="text" rows="2" id="MonitoringComment" class="ui-widget ui-widget-content ui-corner-all np-ui-input" name="MonitoringComment" value="@Model.MonitoringComment" maxlength=128>@Model.MonitoringComment</textarea>
+        </p>
+    </div>
     <div id="monitoringParamList">
         @await Component.InvokeAsync("MonitoringParams", new { MonitoringID = Model.MonitoringID, MonitorID = Model.MonitorID })
     </div>
@@ -74,20 +77,20 @@
         @await Component.InvokeAsync("MonitorTotalParams", new { MonitorID = Model.MonitorID })
     </div>
 </form>
+
 @section scripts{
     <script type="text/javascript">
         $(function () {
             $.datepicker.setDefaults($.datepicker.regional['ru']);
-            $(".input_date").datepicker({
+            $(".np-input-date").datepicker({
                 dateFormat: "dd.mm.yy",
                 showOtherMonths: true,
                 selectOtherMonths: true,
                 changeMonth: true,
-                changeYear: true,
-                showOn: "both",
-                //buttonImage: "calendar16.png",
-                buttonImageOnly: true,
-                buttonText: "выбрать дату"
+                changeYear: true
+                //showOn: "both",
+                //buttonImage: "/images/ui-icon-calendar.gif", /*"http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",*/
+                //buttonImageOnly: true
             });
 
             // инициализация даты и времени для нового измерения
@@ -131,7 +134,7 @@
                 }
             });
 
-            $("#np_monitoring_edit input[type=text]").on('input change keydown', function (e) {
+            $("#np_monitoring_edit input[type=text],textarea").on('input change keydown', function (e) {
                 if ($('#btnMonitoringSave').attr('disabled')) {
                     $('#btnMonitoringSave').removeAttr('disabled');
                 }

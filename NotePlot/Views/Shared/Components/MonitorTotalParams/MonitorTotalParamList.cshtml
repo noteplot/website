@@ -3,21 +3,22 @@
 @if (Model.Count() != 0)
 {
 <h2>Итоговые параметры монитора</h2>
-<table class="table" id="monitorTotalParameters">
-    <thead>
+<table id="monitorTotalParameters" class="np-param-values" cols="2">
+    @*<thead>
         <tr>
             <th class="col1">Значение</th>
             <th class="col2">Ед.изм.</th>
             <th>Параметр</th>
         </tr>
-    </thead>
+    </thead>*@
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td><input type="text" class="ParameterValue" value="@item.MonitorParameterValue" np_dec_precision="28" np_dec_scale="6" readonly></td>
-                <td>@item.ParameterUnitShortName</td>
-                <td>@item.ParameterShortName</td>
+                <td class="np-col1"><input type="text" class="ParameterValue ui-widget ui-widget-content ui-corner-all np-ui-input" value="@item.MonitorParameterValue" np_dec_precision="28" np_dec_scale="6" readonly></td>
+                <td class="np-col2">
+                    <p>@item.ParameterShortName (@item.ParameterName), <span>Eд.изм.: </span>@item.ParameterUnitShortName</p>
+                </td>                
             </tr>
         }
     </tbody>
