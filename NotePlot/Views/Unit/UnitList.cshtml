@@ -10,6 +10,7 @@
     <thead>
         <tr>
             <th hidden>ID</th>
+            <th></th>
             <th>
                 Группа
             </th>
@@ -19,7 +20,6 @@
             <th>
                 Полное название
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,22 +27,22 @@
         {
         <tr np_unit_id=@item.UnitID np_login_id=@item.LoginID>
             <td hidden>@item.UnitID</td>
-            <td>@item.UnitGroupShortName</td>
-            <td class="ShortName">@item.UnitShortName</td>
-            <td>@item.UnitName</td>
             <td>
                 <div class="npRowTools" style="display:none">
                     <a href="@Url.Action("Edit", "Unit" , new { id=item.UnitID })" class="npRowEdit np_button" np_dialog_title="Ед.измерения">
                         <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                     </a>
                     @if (item.LoginID != 0)
-                    {
-                        <a href="@Url.Action("Delete", "Unit", new { id = item.UnitID })" class="npRowDelete np_button" data-deleted-name="@item.UnitShortName">
-                            <div class="icon"><i class="fa fa-times"></i></div>
-                        </a>
-                    }
+            {
+                <a href="@Url.Action("Delete", "Unit", new { id = item.UnitID })" class="npRowDelete np_button" data-deleted-name="@item.UnitShortName">
+                    <div class="icon"><i class="fa fa-times"></i></div>
+                </a>
+    }
                 </div>
             </td>
+            <td>@item.UnitGroupShortName</td>
+            <td class="ShortName">@item.UnitShortName</td>
+            <td>@item.UnitName</td>
         </tr>
         }
     </tbody>

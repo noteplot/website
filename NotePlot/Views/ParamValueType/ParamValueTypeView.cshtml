@@ -3,9 +3,10 @@
 <table id="paramValueType" class="table">
     <thead>
         <tr>
-            <th>
+            <th hidden>
                 @Html.DisplayNameFor(model => model.ParamValueTypeID)
             </th>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.ParamValueTypeCode)
             </th>
@@ -24,27 +25,37 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var Item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => Item.ParamValueTypeID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Item.ParamValueTypeCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Item.ParamValueTypeShortName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Item.IsNumeric)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Item.Scale)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Item.Precision)
-                </td>
-            </tr>
+        @foreach (var item in Model) {
+        <tr>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.ParamValueTypeID)
+            </td>
+            <td>
+                <div class="npRowTools"  style="display:none">
+                    <a href="@Url.Action("Edit", "ListDialog" , new { id=item.ParamValueTypeID })" class="npRowEdit np_button" np_dialog_title="Тип значения">
+                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                    </a>
+                    <a href="@Url.Action("Delete", "ParamValueType", new { id = item.ParamValueTypeID })" class="npRowDelete np_button" data-deleted-name="@item.ParamValueTypeShortName">
+                        <div class="icon"><i class="fa fa-times"></i></div>
+                    </a>
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParamValueTypeCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParamValueTypeShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsNumeric)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Scale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precision)
+            </td>
+        </tr>
            }
     </tbody>
 </table>

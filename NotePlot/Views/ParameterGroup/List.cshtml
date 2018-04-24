@@ -9,37 +9,25 @@
 <table id="parameterGroups" class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ParameterGroupID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ParameterGroupShortName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ParameterGroupName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LoginID)
-                </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.ParameterGroupID)
+            </th>
             <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParameterGroupName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoginID)
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td hidden>
                 @Html.DisplayFor(modelItem => item.ParameterGroupID)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterGroupShortName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterGroupName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoginID)
-            </td>
-            <td>
+            <td style="display:none">
                 <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="openDialog np_button">
                     <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                 </a>
@@ -48,6 +36,12 @@
                 </a>
                 @*Html.ActionLink("Edit", "Edit", new { id = item.ParameterGroupID }, new { @class = "" }) |*@
                 @*Html.ActionLink("Delete", "Delete", new { id = item.ParameterGroupID }, new { @class = "np_deleteGroup np_button red" })*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterGroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoginID)
             </td>
         </tr>
 }

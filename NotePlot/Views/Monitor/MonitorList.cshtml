@@ -10,23 +10,14 @@
     <thead>
         <tr>
             <th></th>
-                <th>
+                <th hidden>
                     @Html.DisplayNameFor(model => model.MonitorID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitorShortName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.MonitorName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LoginID)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Active)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.JSON)
                 </th>
         </tr>
     </thead>
@@ -34,6 +25,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.MonitorID)
+            </td>
+            <td style="display:none">
                 <a href="@Url.Action("MonitorEdit", "Monitor" , new { id=item.MonitorID })" class="np_button">
                     <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                 </a>
@@ -45,22 +39,10 @@
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MonitorID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MonitorShortName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.MonitorName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LoginID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JSON)
             </td>
         </tr>
 }

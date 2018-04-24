@@ -18,15 +18,15 @@ namespace NotePlot.Models
         [Column("ParamValueTypeShortCode")]
         [Display(Name = "Код")]
         public string ParamValueTypeCode { get; set; }
-        [Display(Name = "Название типа")]
+        [Display(Name = "Краткое название")]
         public string ParamValueTypeShortName { get; set; }
-        [Display(Name = "Название типа")]
+        [Display(Name = "Название")]
         public string ParamValueTypeName { get; set; }
-        [Display(Name = "Признак числового значения")]
+        [Display(Name = "Число?")]
         public bool IsNumeric { get; set; }
-        [Display(Name = "Знаков после запятой")]
+        [Display(Name = "После запятой")]
         public byte Scale { get; set; }
-        [Display(Name = "Общее количество цифр/символов")]
+        [Display(Name = "Длина")]
         public int Precision { get; set; }
     }
 

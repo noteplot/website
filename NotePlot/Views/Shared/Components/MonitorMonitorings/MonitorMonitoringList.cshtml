@@ -8,12 +8,7 @@
     <table class="table" id="monitorMonitoringList">
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitoringID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitorID)
-                </th>
+                <th></th>
                 <th>
                     @Html.DisplayNameFor(model => model.MonitoringDate)
                 </th>
@@ -29,49 +24,36 @@
                 <th>
                     @Html.DisplayNameFor(model => model.ModifiedDateUTC)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.JSON)
-                </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr class="@item.MonitoringID">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MonitoringID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MonitorID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MonitoringDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MonitoringComment)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MonitorShortName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreationDateUTC)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ModifiedDateUTC)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.JSON)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=item.MonitoringID })" class="np_button">
-                            <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                        </a>
-                        <a href="@Url.Action("MonitoringDelete", "Monitoring", new { id = item.MonitoringID })" class="np_deleteMonitoring np_button">
-                            <div class="icon"><i class="fa fa-times"></i></div>
-                        </a>
-                    </td>
-                </tr>
+            <tr class="@item.MonitoringID">
+                <td style="display:none">
+                    <a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=item.MonitoringID })" class="np_button">
+                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                    </a>
+                    <a href="@Url.Action("MonitoringDelete", "Monitoring", new { id = item.MonitoringID })" class="np_deleteMonitoring np_button">
+                        <div class="icon"><i class="fa fa-times"></i></div>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonitoringDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonitoringComment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonitorShortName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDateUTC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDateUTC)
+                </td>
+            </tr>
             }
         </tbody>
     </table>
