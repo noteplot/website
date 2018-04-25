@@ -9,25 +9,25 @@
 <table class="table" id="monitorList">
     <thead>
         <tr>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.MonitorID)
+            </th>
             <th></th>
-                <th hidden>
-                    @Html.DisplayNameFor(model => model.MonitorID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitorName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Active)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonitorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td hidden>
                 @Html.DisplayFor(modelItem => item.MonitorID)
             </td>
-            <td style="display:none">
+            <td>
                 <a href="@Url.Action("MonitorEdit", "Monitor" , new { id=item.MonitorID })" class="np_button">
                     <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                 </a>
@@ -51,7 +51,14 @@
     @section scripts {
         <script type="text/javascript">
             $(document).ready(function () {
-                $("#monitorList").DataTable();
+                $("#monitorList").DataTable({
+                    "aoColumns": [
+                        { "sWidth": "0" },
+                        { "sWidth": "100px" },
+                        null,
+                        null
+                    ]
+                });
                 var adata = new Object();
                 // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
                 adata.token = $("[name='__RequestVerificationToken']").val();
