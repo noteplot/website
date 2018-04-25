@@ -47,11 +47,11 @@
     </style>
 }
 
-<p>
-    <a id="np_MonitorList" href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a id="np_Monitoring" href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if (Model.MonitoringID == null)
-    {<a href="@Url.Action("MonitoringNew", "Monitoring" , new { id=Model.MonitorID })">Новое измерение</a>}
+<p class="np-href">
+    <a id="np_MonitorList" href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a id="np_Monitor" href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if (Model.MonitoringID == null)
+    {<a id="np_CurrentMonitiring" href="@Url.Action("MonitoringNew", "Monitoring" , new { id=Model.MonitorID })">Новое измерение</a>}
     else
-    {<a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=Model.MonitoringID })">Текущее измерение</a>}
+    {<a id="np_CurrentMonitiring" href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=Model.MonitoringID })">Текущее измерение</a>}
 </p>
 <div class="np-tool-bar">
     <button id="btnMonitoringSave" class="ui-button ui-corner-all" @atr_disabled>Сохранить</button>
@@ -145,6 +145,9 @@
                 if ($('#btnMonitoringSave').attr('disabled')) {
                     $('#btnMonitoringSave').removeAttr('disabled');
                 }
+                if ($('#btnMonitoringCancel').attr('disabled')) {
+                    $('#btnMonitoringCancel').removeAttr('disabled');
+                }
             });
 
             // события при записи
@@ -157,6 +160,7 @@
                     window.location.replace(loc); // Перенаправление на список измерений + не сохраняем историю
                 };
             }
+
             // adata.lName = 'ParameterRelations'; - это уже не нужно
             $('#btnMonitoringSave').on('click', function (e) {
                 e.preventDefault();
@@ -165,13 +169,14 @@
             });
 
             $('#btnMonitoringCancel').on('click', function (e) {
-                np_AjaxBeforeSend();
-                location.reload();
+                np_LoaderShow();                
+                document.getElementById("np_CurrentMonitiring").click()
+                //location.reload();
             });
 
             $('#btnReturnMonitor').on('click', function (e) {
-                np_AjaxBeforeSend();
-                document.getElementById("np_Monitoring").click()
+                np_LoaderShow();
+                document.getElementById("np_Monitor").click()
             });
 
             $("#np_monitoring_edit").bind('submit', adata, np_AjaxFormSubmitEx);
@@ -238,14 +243,13 @@
                     }
                 })
             });
-            /*
-                        $('#np_monitoring_edit input.ParameterValue').rules('add', {
-                            required: true,
-                            messages: {
-                                required: "Поле не заполнено"
-                            }
-                        });
-            */
+
+            var refs = document.getElementsByTagName("A")
+            for (var i = 0, L = refs.length; i < L; i++) {                
+                refs[i].onclick = function () {
+                    np_LoaderShow();
+                }
+            }
         });
 
     </script>

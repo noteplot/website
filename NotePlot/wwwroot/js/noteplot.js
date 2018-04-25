@@ -148,6 +148,14 @@ function np_AjaxComplete() {
     $('#loader').hide();
 };
 
+function np_LoaderShow() {
+    $('#loader').show();
+};
+
+function np_LoaderHide() {
+    $('#loader').hide();
+};
+
 // простое сообщение, например об ошибке TODO: сделать полноправный диалог
 function np_ShowMessage(mes, tit) {
     if ($('#np_MessageDialog').length > 0)
