@@ -207,3 +207,22 @@ label.error {
     background-position: right center;
     background-repeat: no-repeat;
 }
+
+/*ToolBar ряд кнопок*/
+.np-tool-bar {
+    margin: 5px 0 5px 15px;
+    min-width : 350px;
+    /*border : 1px solid black;*/
+    /*max-width : 600px;*/
+}
+
+.np-tool-bar button {
+    margin-right: 5px;
+}
+
+.np-tool-bar button:disabled,
+.np-tool-bar button[disabled] {
+    /*border: 1px solid #999999;*/
+    background-color: #ccc;
+    color: #666;
+}

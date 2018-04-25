@@ -22,7 +22,7 @@
             border-collapse: collapse;
             padding: 2px;
         }
-        
+
         #np_monitoring_edit table {
             table-layout: fixed;
             width: 100%;
@@ -48,11 +48,18 @@
 }
 
 <p>
-    <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if(Model.MonitoringID == null) {<a href="@Url.Action("MonitoringNew", "Monitoring" , new { id=Model.MonitorID })">Новое измерение</a>} else {<a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=Model.MonitoringID })">Текущее измерение</a>}
+    <a id="np_MonitorList" href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a id="np_Monitoring" href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if (Model.MonitoringID == null)
+    {<a href="@Url.Action("MonitoringNew", "Monitoring" , new { id=Model.MonitorID })">Новое измерение</a>}
+    else
+    {<a href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=Model.MonitoringID })">Текущее измерение</a>}
 </p>
+<div class="np-tool-bar">
+    <button id="btnMonitoringSave" class="ui-button ui-corner-all" @atr_disabled>Сохранить</button>
+    <button id="btnMonitoringCancel" class="ui-button ui-corner-all" @atr_disabled>Отменить</button>
+    <button id="btnReturnMonitor" class="ui-button ui-corner-all">@Model.MonitorShortName</button>
+</div>
 <form id="np_monitoring_edit" method="POST" action="/Monitoring/MonitoringEditJson ">
     @Html.AntiForgeryToken()
-    <input type="submit" value="Записать" id="btnMonitoringSave" @atr_disabled />
     <div class="np-inputForm np-clearfix">
         <input type="hidden" id="MonitoringID" name="MonitoringID" value="@Model.MonitoringID" />
         <input type="hidden" id="MonitorID" name="MonitorID" value="@Model.MonitorID" />
@@ -111,13 +118,13 @@
             $.mask.definitions['M'] = '[012345]';
             $('#MonitoringDateTm').mask('H9:M9', {
                 placeholder: "0"
-                /*		
+                /*
                 completed: function()
                 {
                     var cr = false;
                     var vl = $(this).val().split(':');
                     if ( vl[0]*1 > 23) {vl[0] = '23';cr = true};
-                    if ( vl[1]*1 > 59) {vl[1] = '59';cr = true};						
+                    if ( vl[1]*1 > 59) {vl[1] = '59';cr = true};
                     if (cr){$(this).val( vl.join(':') )};
                     console.log($(this).val());
                 }
@@ -151,6 +158,22 @@
                 };
             }
             // adata.lName = 'ParameterRelations'; - это уже не нужно
+            $('#btnMonitoringSave').on('click', function (e) {
+                e.preventDefault();
+                np_AjaxFormInputClick(); // очистка ошибок
+                $('#np_monitoring_edit').submit();
+            });
+
+            $('#btnMonitoringCancel').on('click', function (e) {
+                np_AjaxBeforeSend();
+                location.reload();
+            });
+
+            $('#btnReturnMonitor').on('click', function (e) {
+                np_AjaxBeforeSend();
+                document.getElementById("np_Monitoring").click()
+            });
+
             $("#np_monitoring_edit").bind('submit', adata, np_AjaxFormSubmitEx);
             // очистка сообщений об ошибках по клику
             //$("#np_monitoring_edit").bind('click', np_AjaxFormInputClick);
@@ -174,29 +197,29 @@
                         }
                     }
                 });
-/*
-            $.validator.addClassRules({
-                ParameterValue: {
-                    required: true,
-                    messages: {
-                        required: "Поле не заполнено"
-                    }
-                }
-            });
-*/
+            /*
+                        $.validator.addClassRules({
+                            ParameterValue: {
+                                required: true,
+                                messages: {
+                                    required: "Поле не заполнено"
+                                }
+                            }
+                        });
+            */
             var _min, _max, _message;
             $('#np_monitoring_edit input.ParameterValue').each(function (index, elem) {
                 _min = parseFloat($(elem).attr("data-min"));
                 _max = parseFloat($(elem).attr("data-max"));
                 if (!isNaN(_min)) {
                     //alert($(elem).attr("name")+' '+_min);
-                    _message = "Не должно быть меньше "+_min
+                    _message = "Не должно быть меньше " + _min
                     $(elem).rules("add", {
                         min: _min,
                         messages: {
                             min: _message
                         }
-                    })                
+                    })
                 }
                 if (!isNaN(_max)) {
                     _message = "Не должно быть больше " + _max
@@ -215,14 +238,14 @@
                     }
                 })
             });
-/*
-            $('#np_monitoring_edit input.ParameterValue').rules('add', {
-                required: true,
-                messages: {
-                    required: "Поле не заполнено"
-                }
-            });
-*/
+            /*
+                        $('#np_monitoring_edit input.ParameterValue').rules('add', {
+                            required: true,
+                            messages: {
+                                required: "Поле не заполнено"
+                            }
+                        });
+            */
         });
 
     </script>
