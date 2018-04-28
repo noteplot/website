@@ -49,8 +49,21 @@
             <td class="np-col2">
                 <p>@item.ParameterShortName (@item.ParameterName), <span>Eд.изм.: </span>@item.ParameterUnitShortName</p>
                 <p><span>Тип параметра: </span> @item.ParameterTypeName, <span>Тип значения: </span>@item.ParameterValueTypeShortName</p>
+                @if (item.ParameterValueMin != null || item.ParameterValueMax != null)
+                {
+                <p>
+                    @if (item.ParameterValueMin != null)
+                    {
+                        <span>Мин.значение: </span>@item.ParameterValueMin
+                    }
+                    @if (item.ParameterValueMin != null)
+                    {
+                        <span>Мaкс.значение: </span>@item.ParameterValueMax
+                    }
+                </p>
+                }
+
             </td>
-            @*<td>@item.ParameterShortName</td>*@
         </tr>
         }
     </tbody>
