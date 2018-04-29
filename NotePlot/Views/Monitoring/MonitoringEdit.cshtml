@@ -141,7 +141,7 @@
                 }
             });
 
-            $("#np_monitoring_edit input[type=text],textarea").on('input change keydown', function (e) {
+            $("#np_monitoring_edit input[type=text],textarea").on('input change keypress', function (e) {
                 if ($('#btnMonitoringSave').attr('disabled')) {
                     $('#btnMonitoringSave').removeAttr('disabled');
                 }
