@@ -15,6 +15,11 @@
     //IEnumerable<NotePlot.Models.MonitoringParameter> Model2 = from item in Model
     //                                                          where item.ParameterTypeID == 2
     //                                                          select item;
+    System.Globalization.CultureInfo ruRU = new System.Globalization.CultureInfo("ru-RU");
+    int id = 0;
+
+    string decSep = ruRU.NumberFormat.NumberDecimalSeparator;
+    char[] toTrim = decSep.ToCharArray();
 }
 
 <table id="monitoringParameters"  class="np-param-values" cols="2">
@@ -54,11 +59,11 @@
                 <p>
                     @if (item.ParameterValueMin != null)
                     {
-                        <span>Мин.значение: </span>@item.ParameterValueMin
+                        <span>Мин.значение: </span>@item.ParameterValueMin.ToString().TrimEnd('0').TrimEnd(toTrim)
                     }
                     @if (item.ParameterValueMin != null)
                     {
-                        <span>Мaкс.значение: </span>@item.ParameterValueMax
+                        <span>Мaкс.значение: </span>@item.ParameterValueMax.ToString().TrimEnd('0').TrimEnd(toTrim)
                     }
                 </p>
                 }
