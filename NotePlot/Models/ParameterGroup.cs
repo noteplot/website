@@ -73,13 +73,20 @@ namespace NotePlot.Models
             bool rt = false;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                //ParameterGroup gr =  db.Query<ParameterGroup>("dbo.ParameterGroupCreate", commandType: CommandType.StoredProcedure).FirstOrDefault();
-                //return gr;
                 try
-                { 
-                db.Execute("dbo.ParameterGroupSet",
-                    new { ParameterGroupID = pg.ParameterGroupID, ParameterGroupShortName = pg.ParameterGroupShortName, ParameterGroupName = pg.ParameterGroupName, LoginID = pg.LoginID, Mode = md },
-                    commandType: CommandType.StoredProcedure);
+                {
+                    var p = new DynamicParameters();
+                    p.Add("@ParameterGroupID", pg.ParameterGroupID, dbType: DbType.Int64, direction: ParameterDirection.InputOutput);
+                    p.Add("@ParameterGroupShortName", pg.ParameterGroupShortName);
+                    p.Add("@ParameterGroupName", pg.ParameterGroupName);
+                    p.Add("@LoginID", pg.LoginID);
+                    p.Add("@Mode", md);
+                    db.Execute("dbo.ParameterGroupSet",
+                        p,
+                        //new { UnitID = ut.UnitID, UnitShortName = ut.UnitShortName, UnitName = ut.UnitName, UnitGroupID = ut.UnitGroupID, LoginID = ut.LoginID, Mode = md },
+                        commandType: CommandType.StoredProcedure);
+                    if (md == 0)
+                        pg.ParameterGroupID = p.Get<long>("@ParameterGroupID");
                     rt = true;
                 }
                 catch (Exception ex)

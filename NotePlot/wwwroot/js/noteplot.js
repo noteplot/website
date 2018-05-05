@@ -282,7 +282,7 @@ function np_AjaxPost(event) {
                 event.data.onError(event, jqXHR.responseText);
             }
             else
-                np_ShowMessage(jqXHR.responseText);
+                np_ShowMessage(jqXHR.responseText,"Ошибка!");
         }
     });
 };

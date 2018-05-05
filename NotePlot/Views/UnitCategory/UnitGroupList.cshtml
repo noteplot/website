@@ -11,7 +11,8 @@
         <tr>
             <th hidden>ID</th>
             <th></th>
-            <th>Название</th>
+            <th>Краткое название группы</th>
+            <th>Полное название группы</th>
         </tr>
     </thead>
     <tbody>
@@ -25,13 +26,14 @@
                         <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                     </a>
                     @if (item.LoginID != 0)
-            {
-                <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="npRowDelete np_button" data-deleted-name="@item.UnitGroupShortName">
-                    <div class="icon"><i class="fa fa-times"></i></div>
-                </a>
-    }
+                    {
+                    <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="npRowDelete np_button" data-deleted-name="@item.UnitGroupShortName">
+                        <div class="icon"><i class="fa fa-times"></i></div>
+                    </a>
+                    }
                 </div>
             </td>
+            <td>@item.UnitGroupShortName</td>
             <td>@item.UnitGroupName</td>
         </tr>
         }
@@ -59,10 +61,10 @@
 
         $(document).ready(function () {
             var adata = new Object();
-            var _formatDialogMessage = 'Вы действительно хотите удалить единицу измерения?';
+            var _formatDialogMessage = 'Вы действительно хотите удалить группу единиц измерения?';
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
-            adata.dialogTitle = 'Внимание!!';
+            adata.dialogTitle = 'Внимание!';
             adata.dialogMessage = _formatDialogMessage;
             adata.onSuccess = function () {
                 table.row('.selected').remove().draw(false);

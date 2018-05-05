@@ -47,16 +47,17 @@
                             var
                                 _tr = _table.row('.selected'),_data = _tr.data();
                             _data[0] = jsn.UnitGroupID;
-                            _data[1] = jsn.UnitGroupShortName;
-                            _data[2] = jsn.UnitGroupName;
+                            //_data[1] == jrowTools;
+                            _data[2] = jsn.UnitGroupShortName;
+                            _data[3] = jsn.UnitGroupName;
                             _tr.data(_data).draw();
                             _table.$('tr.selected').find(".npRowTools").css("display", "block"); // после обновления display:none
                         }
                         else
                             if ($('#unitCategory').attr("data-form-mode") == "new") { // новая строка
                                 rowTools = rowTools.replaceAll("{{UnitGroupID}}", jsn.UnitGroupID).replaceAll("{{UnitGroupShortName}}", jsn.UnitGroupShortName);
-                                _table.row.add([jsn.UnitGroupID, jsn.UnitGroupShortName, jsn.UnitGroupName, rowTools]);//.draw(false);
-                                _table.$('tr.selected').removeClass('selected').css("display", "block"); // снимаем выделение
+                                _table.row.add([jsn.UnitGroupID, rowTools, jsn.UnitGroupShortName, jsn.UnitGroupName]);//.draw(false);
+                                _table.$('tr.selected').removeClass('selected').css("display", "none"); // снимаем выделение, если оно было
                                 _table.order([0, 'desc']).draw(); // первая строка - добавленная
                             }
                             else {
@@ -79,25 +80,25 @@
         $("#unitCategory")
             .validate({
                 rules: {
-                    LoginName: {
+                    UnitGroupShortName: {
                         required: true,
                         minlength: 2
                     },
-                    Password: {
+                    UnitGroupName: {
                         required: true,
                         minlength: 2
-                    },
-                    messages: {
-                        UnitGroupShortName: {
-                            required: "поле должно быть заполнено",
-                            minlength: "в поле должно быть минимум 2 символа"
-                        },
-                        UnitGroupName: {
-                            required: "поле должно быть заполнено",
-                            minlength: "в поле должно быть минимум 2 символа"
-                        }
                     }
-                }
+                },
+                messages: {
+                    UnitGroupShortName: {
+                        required: "поле должно быть заполнено",
+                        minlength: "в поле должно быть минимум 2 символа"
+                    },
+                    UnitGroupName: {
+                        required: "поле должно быть заполнено",
+                        minlength: "в поле должно быть минимум 2 символа"
+                    }
+                }                
             });
     });
 

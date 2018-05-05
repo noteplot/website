@@ -1,48 +1,83 @@
-@model NotePlot.Models.ParameterGroup
+﻿@model NotePlot.Models.ParameterGroup
+@{
+    string atr_disabled = "disabled";
+}
 
-<form action=@ViewBag.Action method="POST" id="group_edit">
+<form action=@ViewBag.Action method="POST" id="group_edit" data-form-mode=@ViewBag.Mode>
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <div class="col-md-10">
-            <input type="hidden" asp-for="ParameterGroupID" class="form-control" />                
+    <div>
+        <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
+        <div class="input-prepend">
+            <label for="ParameterGroupShortName" class="np_label">Краткое название</label>
+            <input type="text" id="ParameterGroupShortName" name="ParameterGroupShortName" placeholder="Краткое название" size="24" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
         </div>
-        <label asp-for="ParameterGroupShortName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ParameterGroupShortName" class="form-control" />                
+        <div class="input-prepend">
+            <label for="ParameterGroupName" class="np_label">Название</label>
+            <input type="text" id="ParameterGroupName" name="ParameterGroupName" placeholder="Название" size="48" value="@Model.ParameterGroupName" @if (Model.LoginID == 0) { @atr_disabled } />
         </div>
-        <label asp-for="ParameterGroupName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ParameterGroupName" class="form-control" />                
-        </div>
-        <div class="col-md-10">
-            <input type="hidden" asp-for="LoginID" class="form-control" />                
-        </div>
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
+        @if (Model.LoginID != 0)
+        {
+            <div class="input-prepend">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        }
     </div>
 </form>
 
 <script type="text/javascript">
     $(function () {
-        // �������� �� submit
-        /*
-        //������ �������� ������������ ����� ������ ������
         var adata = new Object();
-        adata.onSuccess = function (data) {
-            alert('OK');
-        $("#loginInput").bind('submit',adata,np_AjaxFormSubmit);
-        }
-        */
-        //$("#ParameterGroupCreate").bind('submit',np_AjaxFormSubmit);
+        // шаблон кнопок для вставки в журнал групп измерений #group_edit
+        var rowTools =
+            '<div class="npRowTools" style="display:none">'
+            + '<a href="/ParameterGroup/Edit/{{ParameterGroupID}}" class="npRowEdit np_button" np_dialog_title="Группа параметров">'
+            + '<div class="icon"><i class="fa fa-pencil-alt"></i></div>'
+            + '</a>'
+            + '<a href="/ParameterGroup/Delete/{{ParameterGroupID}}" class="npRowDelete np_button" data-deleted-name="{{ParameterGroupShortName}}">'
+            + '<div class="icon"><i class="fa fa-times"></i></div>'
+            + '</a>'
+            + '</div>';
 
-        var adata = new Object();
-        adata.onSuccess = function () {
-            location.reload();
+        adata.onSuccess = function (dta) {
+            if ($.fn.DataTable.isDataTable('#parameterGroups')) {
+                var
+                    jsn = JSON.parse(dta),
+                    _table = $("#parameterGroups").DataTable();
+
+                if ($('#group_edit').attr("data-form-mode") == "edit") { // функция изменения данных в строке после редактирования
+                    var
+                        _tr = _table.row('.selected'), _data = _tr.data();
+                    _data[0] = jsn.ParameterGroupID;
+                    //_date[1] == rowTools
+                    _data[2] = jsn.ParameterGroupShortName;
+                    _data[3] = jsn.ParameterGroupName;
+                    _tr.data(_data).draw();
+                    _table.$('tr.selected').find(".npRowTools").css("display", "block"); // после обновления display:none
+                }
+                else
+                    if ($('#group_edit').attr("data-form-mode") == "new") { // новая строка
+                        rowTools = rowTools.replaceAll("{{ParameterGroupID}}", jsn.ParameterGroupID).replaceAll("{{ParameterGroupShortName}}", jsn.ParameterGroupShortName);
+                        _table.row.add([jsn.ParameterGroupID, rowTools, jsn.ParameterGroupShortName, jsn.ParameterGroupName]);//.draw(false);
+                        _table.$('tr.selected').removeClass('selected').css("display", "none"); // снимаем выделение
+                        _table.order([0, 'desc']).draw(); // первая строка - добавленная
+                    }
+                    else {
+                        location.reload();
+                    }
+                // Находим диалог и закрываем
+                var _md = $('#group_edit').parents('.dialog').first().attr('id');
+                if (_md != undefined) {
+                    $('#' + _md).dialog("close");
+                }
+            }
+            else {
+                location.reload();
+            }
         }
+
         $("#group_edit").bind('submit', adata, np_AjaxFormSubmit);
         //$("#group_edit").bind('submit', np_AjaxFormSubmit);
-        // ������� ��������� �� ������� �� �����
+        // очистка сообщений об ошибках по клику
         $("#group_edit").bind('click', np_AjaxFormInputClick);
         $("#group_edit")
             .validate({
@@ -54,13 +89,18 @@
                     ParameterGroupName: {
                         required: true,
                         minlength: 2
+                    },
+                },
+                messages: {
+                    ParameterGroupShortName: {
+                        required: "поле должно быть заполнено",
+                        minlength: "в поле должно быть минимум 2 символа"
+                    },
+                    ParameterGroupName: {
+                        required: "поле должно быть заполнено",
+                        minlength: "в поле должно быть минимум 2 символа"
                     }
                 }
             });
-
-        function np_AjaxOnSuccess(data) {
-            alert('OK');
-        };
     });
-
 </script>

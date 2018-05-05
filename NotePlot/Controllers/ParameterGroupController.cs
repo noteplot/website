@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using NotePlot.Models;
 using Microsoft.AspNetCore.Http.Authentication;
 using System.Security.Claims;
+using Newtonsoft.Json;
 
 namespace NotePlot.Controllers
 {
@@ -70,8 +71,20 @@ namespace NotePlot.Controllers
         public ActionResult Create()
         {
            ViewBag.Action = "/ParameterGroup/Create";
-           ParameterGroup pg = new ParameterGroup { ParameterGroupID = -1,LoginID = -1 };
-           return PartialView("Edit",pg);
+           ViewBag.Mode = "new";
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    ParameterGroup pg = new ParameterGroup { ParameterGroupID = -1, LoginID = -1 };
+                    return PartialView("Edit", pg);
+                }
+                else
+                    return BadRequest("Нет аутентификации!");
+            }
+            else
+                return BadRequest("Нет аутентификации!");
         }
 
         // POST: ParameterGroup/Create
@@ -132,7 +145,8 @@ namespace NotePlot.Controllers
                         try
                         {
                             await repo.SetParameterGroupAsync(pg, 0);
-                            return Ok(); // ajax диалог просто пустая строка
+                            string jsn = JsonConvert.SerializeObject(pg);
+                            return Ok(jsn); // возвращаем данные
                         }
                         catch (Exception ex)
                         {
@@ -171,11 +185,17 @@ namespace NotePlot.Controllers
 
         public async Task<ActionResult> Edit(long id)
         {
-            long loginID = LoginController.GetLogin(HttpContext.User);
-            if (loginID >= 0)
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                ViewBag.Action = "/ParameterGroup/Edit";
-                return PartialView(await repo.GetParameterGroupAsync(id, loginID));
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    ViewBag.Action = "/ParameterGroup/Edit";
+                    ViewBag.Mode = "edit";
+                    return PartialView(await repo.GetParameterGroupAsync(id, loginID));
+                }
+                else
+                    return BadRequest("Нет аутентификации!");
             }
             else
                 return BadRequest("Нет аутентификации!");
@@ -235,7 +255,8 @@ namespace NotePlot.Controllers
                         try
                         {
                             await repo.SetParameterGroupAsync(pg, 1);
-                            return Ok(); // ajax диалог просто пустая строка
+                            string jsn = JsonConvert.SerializeObject(pg);
+                            return Ok(jsn); // ajax диалог просто пустая строка
                         }
                         catch (Exception ex)
                         {
@@ -300,8 +321,15 @@ namespace NotePlot.Controllers
             if (lgID >= 0)
             {
                 ParameterGroup pg = new ParameterGroup { ParameterGroupID = id, LoginID = lgID };
-                await repo.SetParameterGroupAsync(pg, 2);
-                return Ok();
+                try
+                {
+                    await repo.SetParameterGroupAsync(pg, 2);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }                
             }
             else
                 return BadRequest("Нет аутентификации!");
