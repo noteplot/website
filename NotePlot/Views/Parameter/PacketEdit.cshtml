@@ -22,13 +22,19 @@
         }
     </style>
 }
+<p class="np-href">
+    <a id="np_PacketList" href="@Url.Action("PacketList", "Parameter")">Список пакетов</a> -> @if (Model.PacketID == null)
+    {<a id="np_CurrentPacket" href="@Url.Action("PacketNew", "Parameter" , new { id=Model.PacketID })">Новый пакет</a>}
+    else
+    {<a id="np_CurrentPacket" href="@Url.Action("PacketEdit", "Parameter" , new { id=Model.PacketID })">Текущий пакет</a>}
+</p>
 
 <form id="np_packet_edit" method="POST" action=@ViewBag.Action>
-@Html.AntiForgeryToken()
-@if (Model.LoginID != 0)
-{
-    <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
-}
+    @Html.AntiForgeryToken()
+    @if (Model.LoginID != 0)
+    {
+        <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
+    }
     <fieldset>
         <legend>Пакет</legend>
         <hr />
@@ -57,12 +63,12 @@
         else
         {
             <p>
-                <input type="checkbox" id="Active" name="Active" value="1" hidden checked/>
+                <input type="checkbox" id="Active" name="Active" value="1" hidden checked />
             </p>
         }
     </fieldset>
     <div id="packetParametersPanel">
-        @await Component.InvokeAsync("PacketParams" , new { PacketID = @Model.PacketID, LoginID = @Model.LoginID })        
+        @await Component.InvokeAsync("PacketParams", new { PacketID = @Model.PacketID, LoginID = @Model.LoginID })
     </div>
 </form>
 @section scripts{
@@ -98,7 +104,7 @@
                 "#packetParameters",
                 "<tr class='np_enabled'>" +
                 "<td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
-                "<td>{ParameterShortName}</td>"+
+                "<td>{ParameterShortName}</td>" +
                 "<td><input type='checkbox' id='PacketParameterActive' name='PacketParameterActive' value='1' checked /></td></tr > ",
                 ["ParameterID", "ParameterShortName"]
             )
