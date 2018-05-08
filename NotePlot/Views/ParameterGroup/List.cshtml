@@ -20,7 +20,7 @@
         <tr>
             <td hidden>@item.ParameterGroupID</td>
             <td>
-                <div class="npRowTools" style="display:none">
+                <div class="npRowTools" style="display:block">
                     <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="npRowEdit np_button" np_dialog_title="Группа параметров">
                         <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                     </a>
@@ -54,9 +54,9 @@
         );
         // Выделение строк по клику
         table.on('click.select', 'tr', function () {
-            table.$('tr.selected').not(this).removeClass('selected').find(".npRowTools").css("display", "none");
+            table.$('tr.selected').not(this).removeClass('selected');//.find(".npRowTools").css("display", "none");
             if (!$(this).hasClass('selected')) {
-                $(this).addClass('selected').find(".npRowTools").css("display", "block");
+                $(this).addClass('selected');//.find(".npRowTools").css("display", "block");
             }
         });
 

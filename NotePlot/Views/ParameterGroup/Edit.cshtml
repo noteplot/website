@@ -29,7 +29,7 @@
         var adata = new Object();
         // шаблон кнопок для вставки в журнал групп измерений #group_edit
         var rowTools =
-            '<div class="npRowTools" style="display:none">'
+            '<div class="npRowTools" style="display:block">'
             + '<a href="/ParameterGroup/Edit/{{ParameterGroupID}}" class="npRowEdit np_button" np_dialog_title="Группа параметров">'
             + '<div class="icon"><i class="fa fa-pencil-alt"></i></div>'
             + '</a>'
@@ -52,13 +52,13 @@
                     _data[2] = jsn.ParameterGroupShortName;
                     _data[3] = jsn.ParameterGroupName;
                     _tr.data(_data).draw();
-                    _table.$('tr.selected').find(".npRowTools").css("display", "block"); // после обновления display:none
+                    //_table.$('tr.selected').find(".npRowTools").css("display", "block"); // после обновления display:none
                 }
                 else
                     if ($('#group_edit').attr("data-form-mode") == "new") { // новая строка
                         rowTools = rowTools.replaceAll("{{ParameterGroupID}}", jsn.ParameterGroupID).replaceAll("{{ParameterGroupShortName}}", jsn.ParameterGroupShortName);
                         _table.row.add([jsn.ParameterGroupID, rowTools, jsn.ParameterGroupShortName, jsn.ParameterGroupName]);//.draw(false);
-                        _table.$('tr.selected').removeClass('selected').css("display", "none"); // снимаем выделение
+                        _table.$('tr.selected').removeClass('selected');//.css("display", "none"); // снимаем выделение
                         _table.order([0, 'desc']).draw(); // первая строка - добавленная
                     }
                     else {

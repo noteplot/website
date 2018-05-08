@@ -28,7 +28,7 @@
             var adata = new Object();
             // шаблон кнопок для вставки в журнал групп измерений #unitgroups
             var rowTools =
-                '<div class="npRowTools" style="display:none">'
+                '<div class="npRowTools" style="display:block">'
                 + '<a href="/UnitCategory/Edit/{{UnitGroupID}}" class="npRowEdit np_button" np_dialog_title="Группа единиц измерений">'
                 + '<div class="icon"><i class="fa fa-pencil-alt"></i></div>'
                 + '</a>'
@@ -51,13 +51,13 @@
                             _data[2] = jsn.UnitGroupShortName;
                             _data[3] = jsn.UnitGroupName;
                             _tr.data(_data).draw();
-                            _table.$('tr.selected').find(".npRowTools").css("display", "block"); // после обновления display:none
+                            //_table.$('tr.selected').find(".npRowTools").css("display", "block"); // после обновления display:none
                         }
                         else
                             if ($('#unitCategory').attr("data-form-mode") == "new") { // новая строка
                                 rowTools = rowTools.replaceAll("{{UnitGroupID}}", jsn.UnitGroupID).replaceAll("{{UnitGroupShortName}}", jsn.UnitGroupShortName);
                                 _table.row.add([jsn.UnitGroupID, rowTools, jsn.UnitGroupShortName, jsn.UnitGroupName]);//.draw(false);
-                                _table.$('tr.selected').removeClass('selected').css("display", "none"); // снимаем выделение, если оно было
+                                _table.$('tr.selected').removeClass('selected');//.css("display", "none"); // снимаем выделение, если оно было
                                 _table.order([0, 'desc']).draw(); // первая строка - добавленная
                             }
                             else {
