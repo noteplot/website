@@ -31,13 +31,23 @@
     else
     {<a id="np_CurrentParameter" href="@Url.Action("Edit", "Parameter" , new { id=Model.ParameterID })">Текущий параметр</a>}
 </p>
+<div class="np-tool-bar">
+    @if (Model.LoginID != 0)
+    {
+        <button id="btnParameterSave" class="ui-button ui-corner-all" @atr_disabled>Сохранить</button>
+        <button id="btnParameterCancel" class="ui-button ui-corner-all" @atr_disabled>Отменить</button>
+    }
+    <button id="btnReturnParameterList" class="ui-button ui-corner-all">Список параметров</button>
+</div>
 
 <form id="np_parameter_edit" method="POST" action=@ViewBag.Action>
     @Html.AntiForgeryToken()
-    @if (Model.LoginID != 0)
-    {
-        <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
-    }
+    @*
+        @if (Model.LoginID != 0)
+        {
+            <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
+        }
+    *@
     <fieldset>
         <legend>Параметр</legend>
         <input type="hidden" id="ParameterID" name="ParameterID" value="@Model.ParameterID" />
@@ -154,6 +164,31 @@
                 window.location.replace("/Parameter/ParameterList"); // Перенаправление на список параметров + не сохраняем историю
             }
             //adata.lName = 'ParameterRelations'; - это уже не нужно
+            $("#np_parameter_edit input[type=text],textarea").on('input change keypress', function (e) {
+                if ($('#btnParameterSave').attr('disabled')) {
+                    $('#btnParameterSave').removeAttr('disabled');
+                }
+                if ($('#btnParameterCancel').attr('disabled')) {
+                    $('#btnParameterCancel').removeAttr('disabled');
+                }
+            });
+            $('#btnParameterSave').on('click', function (e) {
+                e.preventDefault();
+                np_AjaxFormInputClick(); // очистка ошибок
+                $('#np_parameter_edit').submit();
+            });
+
+            $('#btnParameterCancel').on('click', function (e) {
+                np_LoaderShow();
+                document.getElementById("np_CurrentParameter").click()
+                //location.reload();
+            });
+
+            $('#btnReturnParameterList').on('click', function (e) {
+                np_LoaderShow();
+                document.getElementById("np_ParameterList").click()
+            });
+
             $("#np_parameter_edit").bind('submit', adata, np_AjaxFormSubmitEx);
             // очистка сообщений об ошибках по клику
             $("#np_parameter_edit").bind('click', np_AjaxFormInputClick);
