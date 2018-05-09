@@ -9,71 +9,41 @@
 <table class="table" id="parameterList">
     <thead>
         <tr>
-            <th hidden>
-                @Html.DisplayNameFor(model => model.ParameterID)
-            </th>
+            <th hidden>ParameterID)</th>
             <th></th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParameterGroupShortName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParameterName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParameterUnitShortName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParameterTypeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParameterValueTypeShortName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParameterValueMax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParameterValueMin)
-            </th>
+            <th>Группа</th>
+            <th>Краткое название</th>
+            <th>Полное название</th>
+            <th>Ед.изм.</th>
+            <th>Тип параметра</th>
+            <th>Тип значения</th>
+            <th>Мин.значение</th>
+            <th>Макс.значение</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td hidden>
-                @Html.DisplayFor(modelItem => item.ParameterID)
-            </td>
+            <td hidden>@item.ParameterID</td>
             <td style="display:block">
                 <a href="@Url.Action("Edit", "Parameter" , new { id=item.ParameterID })" class="np_button">
                     <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                 </a>
                 @if (item.LoginID != 0)
-                {
-                <a href="@Url.Action("Delete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
-                    <div class="icon"><i class="fa fa-times"></i></div>
-                </a>
-                }
+        {
+            <a href="@Url.Action("Delete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
+                <div class="icon"><i class="fa fa-times"></i></div>
+            </a>
+}
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterGroupShortName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterUnitShortName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterTypeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterValueTypeShortName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterValueMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParameterValueMin)
-            </td>
+            <td>@item.ParameterGroupShortName</td>
+            <td>@item.ParameterShortName</td>
+            <td>@item.ParameterName</td>
+            <td>@item.ParameterUnitShortName</td>
+            <td>@item.ParameterTypeName</td>
+            <td>@item.ParameterValueTypeShortName</td>
+            <td>@item.ParameterValueMin</td>
+            <td>@item.ParameterValueMax</td>
         </tr>
 }
     </tbody>
