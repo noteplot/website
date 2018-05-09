@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<NotePlot.Models.Parameter>
 
+@{
+    string atr_checked = "checked";
+}
+
 <div class="np_toolbar">
     <a href="@Url.Action("New", "Parameter")" class="np_button green">
         <div class="icon"><i class="fa fa-plus"></i></div>
@@ -19,33 +23,36 @@
             <th>Тип значения</th>
             <th>Мин.значение</th>
             <th>Макс.значение</th>
+            <th>Доступен</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td hidden>@item.ParameterID</td>
-            <td style="display:block">
-                <a href="@Url.Action("Edit", "Parameter" , new { id=item.ParameterID })" class="np_button">
-                    <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                </a>
-                @if (item.LoginID != 0)
+        @foreach (var item in Model)
         {
-            <a href="@Url.Action("Delete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
-                <div class="icon"><i class="fa fa-times"></i></div>
-            </a>
-}
-            </td>
-            <td>@item.ParameterGroupShortName</td>
-            <td>@item.ParameterShortName</td>
-            <td>@item.ParameterName</td>
-            <td>@item.ParameterUnitShortName</td>
-            <td>@item.ParameterTypeName</td>
-            <td>@item.ParameterValueTypeShortName</td>
-            <td>@item.ParameterValueMin</td>
-            <td>@item.ParameterValueMax</td>
-        </tr>
-}
+            <tr>
+                <td hidden>@item.ParameterID</td>
+                <td style="display:block">
+                    <a href="@Url.Action("Edit", "Parameter" , new { id=item.ParameterID })" class="np_button">
+                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                    </a>
+                    @if (item.LoginID != 0)
+                    {
+                        <a href="@Url.Action("Delete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
+                            <div class="icon"><i class="fa fa-times"></i></div>
+                        </a>
+                    }
+                </td>
+                <td>@item.ParameterGroupShortName</td>
+                <td>@item.ParameterShortName</td>
+                <td>@item.ParameterName</td>
+                <td>@item.ParameterUnitShortName</td>
+                <td>@item.ParameterTypeName</td>
+                <td>@item.ParameterValueTypeShortName</td>
+                <td>@item.ParameterValueMin</td>
+                <td>@item.ParameterValueMax</td>
+                <td><input disabled type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.Active" @if (@item.Active) { @atr_checked } /></td>
+            </tr>
+        }
     </tbody>
 </table>
 @section scripts {

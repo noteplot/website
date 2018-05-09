@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<NotePlot.Models.Packet>
 
 @{
-    ViewData["Title"] = "PacketList";   
+    string atr_checked = "checked";
+    ViewData["Title"] = "PacketList";
 }
 
 <h2>Пакеты параметров</h2>
@@ -15,52 +16,34 @@
 <table class="table" id="packetList">
     <thead>
         <tr>
+            <th hidden></th>
             <th></th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PacketID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PacketShortName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PacketName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LoginID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Active)
-                </th>            
+            <th>Краткое название</th>
+            <th>Полное название</th>
+            <th>Доступен</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a href="@Url.Action("PacketEdit", "Parameter" , new { id=item.PacketID })" class="np_button">
-                    <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                </a>
-                <a href="@Url.Action("PacketDelete", "Parameter", new { id = item.PacketID })" class="np_deletePacket np_button">
-                    <div class="icon"><i class="fa fa-times"></i></div>
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PacketID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PacketShortName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PacketName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoginID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td hidden>@item.PacketID</td>
+                <td>
+                    <a href="@Url.Action("PacketEdit", "Parameter" , new { id=item.PacketID })" class="np_button">
+                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                    </a>
+                    @if (item.LoginID != 0)
+                    {
+                        <a href="@Url.Action("PacketDelete", "Parameter", new { id = item.PacketID })" class="np_deletePacket np_button">
+                            <div class="icon"><i class="fa fa-times"></i></div>
+                        </a>
+                    }
+                </td>
+                <td>@item.PacketShortName</td>
+                <td>@item.PacketName</td>
+                <td><input disabled type="checkbox" id="MonitorParameterActive" name="MonitorParameterActive" value="@item.Active" @if (@item.Active) { @atr_checked } /></td>
+            </tr>
+        }
     </tbody>
 </table>
 @section scripts {
@@ -77,7 +60,7 @@
             }
             //adata.dialogTitle = 'Внимание!';
             adata.dialogMessage = 'Вы действительно хотите удалить пакет?';
-            $(".np_deletePacket").bind("click", adata, np_MessageDialogPost);                                
+            $(".np_deletePacket").bind("click", adata, np_MessageDialogPost);
         });
     </script>
 }
