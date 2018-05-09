@@ -1,7 +1,7 @@
 ﻿@model NotePlot.Models.Parameter
 
 @{
-    string atr_checked = "checked",atr_disabled = "disabled";
+    string atr_checked = "checked", atr_disabled = "disabled";
 }
 
 @section styles{
@@ -25,12 +25,18 @@
     </style>
 }
 
+<p class="np-href">
+    <a id="np_ParameterList" href="@Url.Action("ParameterList", "Parameter")">Список параметров</a> -> @if (Model.ParameterID == null)
+    {<a id="np_CurrentParameter" href="@Url.Action("New", "Parameter" , new { id=Model.ParameterID })">Новый параметр</a>}
+    else
+    {<a id="np_CurrentParameter" href="@Url.Action("Edit", "Parameter" , new { id=Model.ParameterID })">Текущий параметр</a>}
+</p>
 
 <form id="np_parameter_edit" method="POST" action=@ViewBag.Action>
     @Html.AntiForgeryToken()
     @if (Model.LoginID != 0)
     {
-        <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0){ @atr_disabled}/>
+        <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
     }
     <fieldset>
         <legend>Параметр</legend>
@@ -39,24 +45,24 @@
         <input type="hidden" id="ParameterUnitID" name="ParameterUnitID" value="@Model.ParameterUnitID" />
         <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value="@Model.ParameterValueTypeID" />
         <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
-        
+
         <div class="input-prepend">
-            <button type="button" class="add-on openDialog" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0){ @atr_disabled}>Группа</button>
-            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24"  value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0){ @atr_disabled} />
+            <button type="button" class="add-on openDialog" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
+            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
         </div>
         <p>
             <label for="ParameterShortName" class="np_label">Название</label>
-            <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName" @if (Model.LoginID == 0){ @atr_disabled}/>
+            <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName" @if (Model.LoginID == 0) { @atr_disabled } />
         </p>
         <p>
             <label for="ParameterName" class="np_label">Описание</label>
-            <input type="text" id="ParameterName" name="ParameterName" size="48" value="@Model.ParameterName" @if (Model.LoginID == 0){ @atr_disabled}/>
+            <input type="text" id="ParameterName" name="ParameterName" size="48" value="@Model.ParameterName" @if (Model.LoginID == 0) { @atr_disabled } />
         </p>
         <p>
             <label for="ParameterUnitShortName" class="np_label"></label>
-           <div class="input-prepend">
-                <button type="button" class="add-on openDialog" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px" @if (Model.LoginID == 0){ @atr_disabled}>Ед. измерения</button>
-                <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="24" value=@Model.ParameterUnitShortName @if (Model.LoginID == 0){ @atr_disabled} />
+            <div class="input-prepend">
+                <button type="button" class="add-on openDialog" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Ед. измерения</button>
+                <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="24" value=@Model.ParameterUnitShortName @if (Model.LoginID == 0) { @atr_disabled } />
             </div>
         </p>
         @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
@@ -67,23 +73,23 @@
             </p>
         }
         <div class="input-prepend">
-            <button type="button" class="add-on openDialog" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" @if (Model.LoginID == 0){ @atr_disabled}>Тип значения</button>
-            <input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" size="24" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0){ @atr_disabled}/>
+            <button type="button" class="add-on openDialog" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" @if (Model.LoginID == 0) { @atr_disabled }>Тип значения</button>
+            <input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" size="24" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled } />
         </div>
         <p>
             <label for="ParameterValueMax" class="np_label">Макс. значение</label>
-            <input type="text" id="ParameterValueMax" class ="rangeValue np_decimal_format" name="ParameterValueMax" size="28" value="@Model.ParameterValueMax" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
+            <input type="text" id="ParameterValueMax" class="rangeValue np_decimal_format" name="ParameterValueMax" size="28" value="@Model.ParameterValueMax" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0) { @atr_disabled } />
         </p>
         <p>
             <label for="ParameterValueMin" class="np_label">Мин. значение</label>
-            <input type="text" id="ParameterValueMin" class ="rangeValue np_decimal_format" name="ParameterValueMin" size="28" value="@Model.ParameterValueMin" np_dec_precision = "22" np_dec_scale = "6" np_dec_minus @if (Model.LoginID == 0){ @atr_disabled}/>
+            <input type="text" id="ParameterValueMin" class="rangeValue np_decimal_format" name="ParameterValueMin" size="28" value="@Model.ParameterValueMin" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0) { @atr_disabled } />
         </p>
         @if (Model.ParameterID != null)
         {
-        <p>
-            <label for="ParameterActive" class="np_label">Доступен</label>
-            <input type="checkbox" id="ParameterActive" name="Active" value="@Model.Active" @if (@Model.Active) {@atr_checked} @if (Model.LoginID == 0){ @atr_disabled}/>
-        </p>
+            <p>
+                <label for="ParameterActive" class="np_label">Доступен</label>
+                <input type="checkbox" id="ParameterActive" name="Active" value="@Model.Active" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+            </p>
         }
     </fieldset>
     <div id="relationSection">
@@ -102,7 +108,7 @@
                 "<td hidden><input type='text' id='ParameterID' name='ParameterID' value='{ParameterID}'/></td>" +
                 "<td hidden><input type='text' id='MathOperationID' name='MathOperationID' value='{MathOperationID}'/></td>" +
                 "<td>{ParameterShortName}</td><td>{MathOperationName}</td></tr>",
-                ["ParameterID", "MathOperationID", "ParameterShortName","MathOperationName"]
+                ["ParameterID", "MathOperationID", "ParameterShortName", "MathOperationName"]
             )
             // подключение числового формата + удаляем лишние нули в конце после разделителя
             $('#np_parameter_edit .np_decimal_format').npDecimalInput().npDecimalFormat();
@@ -134,7 +140,7 @@
                     //alert($(this).val());
                     var container = $("#relationSection");
                     $.get("/Parameter/LoadRelations", { id: $("#ParameterID").val() }, function (data) { container.html(data); });
-                    $("input.rangeValue").attr("readonly",true).val(""); // чистим для расчетных параметров,т.к. диапазон не имеет смысла
+                    $("input.rangeValue").attr("readonly", true).val(""); // чистим для расчетных параметров,т.к. диапазон не имеет смысла
                 }
                 else //чистим секцию связей
                 {
@@ -149,8 +155,8 @@
             }
             //adata.lName = 'ParameterRelations'; - это уже не нужно
             $("#np_parameter_edit").bind('submit', adata, np_AjaxFormSubmitEx);
-            // очистка сообщений об ошибках по клику 
-            $("#np_parameter_edit").bind('click', np_AjaxFormInputClick); 
+            // очистка сообщений об ошибках по клику
+            $("#np_parameter_edit").bind('click', np_AjaxFormInputClick);
             $("#np_parameter_edit")
                 .validate({
                     rules: {
@@ -203,5 +209,5 @@
             fix();
             $(".lookupField input").triggerHandler("change");
         });
-</script>
+    </script>
 }
