@@ -5,11 +5,13 @@
 
 @if (@ViewBag.LoginID != 0)
 {
-    <a id="np_packet_param_add" href="/Parameter/MeasureParameterListDialog/0" np_dialog_title="Параметры" np_dialog_width="800px">Добавить параметр</a>
-    <a id="np_packet_param_del" href="">Удалить параметр</a>
+    <div class="np-tool-bar">
+        <a id="np_packet_param_add" href="/Parameter/MeasureParameterListDialog/0" np_dialog_title="Параметры" np_dialog_width="800px"><button class='ui-button ui-corner-all'>Добавить параметр</button></a>
+        <a id="np_packet_param_del" href=""><button class='ui-button ui-corner-all np-btn-selected-row' @atr_disabled>Удалить параметр</button></a>
     
-    <button class='np_btn_up'>Вверх</button>
-    <button class='np_btn_down'>Вниз</button>
+        <button class='np_btn_up ui-button ui-corner-all np-btn-selected-row' @atr_disabled>Вверх</button>
+        <button class='np_btn_down ui-button ui-corner-all np-btn-selected-row' @atr_disabled>Вниз</button>
+    </div>
 }
 
 <table id="packetParameters" class="table">
@@ -43,19 +45,28 @@
 
         $('#np_packet_param_del').on('click', function (e) {
             e.preventDefault();
-            $('#packetParameters tbody tr.np_selected').remove();
+            var r = $('#packetParameters tbody tr.np_selected');
+            if (r.length > 0) {
+                r.remove();
+                if (refreshPage) {
+                    refreshPage();
+                }
+            }
         });
 
         // Отбор и сортировка строк
         $("#packetParameters tbody").on('click', 'tr.np_enabled', function (e, d) {
             if ($(this).hasClass("np_selected")) {
                 // если d.drag != "1" тогда снимаем выделение
-                if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
+                if ((d == undefined) || (d.drag == undefined) || (d.drag != "1")) {
                     $(this).removeClass("np_selected");
+                    disableButtons();
+                }
             }
             else {
                 $("#packetParameters tbody tr").not(this).removeClass("np_selected");
                 $(this).addClass("np_selected");
+                enableButtons();
             }
         });
 
@@ -68,6 +79,11 @@
                         $(this).width($(this).width());
                     });
                     return tr;
+                },
+                change: function (event, ui) {
+                    if (refreshPage) {
+                        refreshPage();
+                    }
                 }
             },
             { axis: "y" },
@@ -76,14 +92,41 @@
 
         $(".np_btn_up").on('click', function (e) {
             e.preventDefault();
-            $("#packetParameters tbody tr.np_selected").after($("#packetParameters tbody tr.np_selected").prev());
+            if ($("#packetParameters tbody tr.np_selected").prev().length > 0) {
+                $("#packetParameters tbody tr.np_selected").after($("#packetParameters tbody tr.np_selected").prev());
+                if (refreshPage) {
+                    refreshPage();
+                }
+            }
         });
 
         $(".np_btn_down").on('click', function (e) {
             e.preventDefault();
-            $("#packetParameters tbody tr.np_selected").before($("#packetParameters tbody tr.np_selected").next());
+            if ($("#packetParameters tbody tr.np_selected").next().length > 0) { 
+                $("#packetParameters tbody tr.np_selected").before($("#packetParameters tbody tr.np_selected").next());
+                if (refreshPage) {
+                    refreshPage();
+                }
+            }
         });
     });
+
+    function enableButtons() {
+        $('.np-btn-selected-row').each(function () {
+            if ($(this).attr('disabled')) {
+                $(this).removeAttr('disabled');
+            }
+        });
+    }
+
+    function disableButtons() {
+        $('.np-btn-selected-row').each(function () {
+            if (!$(this).attr('disabled')) {
+                $(this).attr('disabled','disabled');
+            }
+        });
+    }
+
 /*
     //для плагина DataTable
        $("#packetParameters").DataTable({

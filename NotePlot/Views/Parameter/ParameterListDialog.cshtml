@@ -108,7 +108,10 @@
                 }
                 else {
                     $(np_insertRow.tableId + ' tbody tr:last').after(template);
-                }                
+                }
+                if (refreshPage) { 
+                    refreshPage();
+                }
             }
 /*
             var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_parameter_id');

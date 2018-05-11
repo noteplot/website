@@ -4,7 +4,7 @@
     string atr_checked = "checked", atr_disabled = "disabled";
 }
 
-@*для добавляемых паарметров*@
+@*для добавляемых параметров*@
 @section styles{
     <style>
         #packetParameters .np_selected {
@@ -128,7 +128,7 @@
                 window.location.replace("/Parameter/PacketList"); // Перенаправление на список параметров + не сохраняем историю
             }
             //adata.lName = 'ParameterRelations'; - это уже не нужно
-            $("#np_packet_edit input[type=text],textarea").on('input change keypress', function (e) {
+            $("#np_packet_edit input[type=text],input[type=checkbox],textarea").on('input change keypress', function (e) {
                 if ($('#btnPacketSave').attr('disabled')) {
                     $('#btnPacketSave').removeAttr('disabled');
                 }
@@ -185,6 +185,16 @@
                     }
                 });
         });
+
+        function refreshPage() {
+            if ($('#btnPacketSave').attr('disabled')) {
+                $('#btnPacketSave').removeAttr('disabled');
+            }
+            if ($('#btnPacketCancel').attr('disabled')) {
+                $('#btnPacketCancel').removeAttr('disabled');
+            }
+        }
+        
     </script>
 }
 
