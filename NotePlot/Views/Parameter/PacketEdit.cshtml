@@ -23,18 +23,26 @@
     </style>
 }
 <p class="np-href">
-    <a id="np_PacketList" href="@Url.Action("PacketList", "Parameter")">Список пакетов</a> -> @if (Model.PacketID == null)
+    <a id="np_PacketList" href="@Url.Action("PacketList", "Parameter")">Пакеты параметров</a> -> @if (Model.PacketID == null)
     {<a id="np_CurrentPacket" href="@Url.Action("PacketNew", "Parameter" , new { id=Model.PacketID })">Новый пакет</a>}
     else
     {<a id="np_CurrentPacket" href="@Url.Action("PacketEdit", "Parameter" , new { id=Model.PacketID })">Текущий пакет</a>}
 </p>
-
-<form id="np_packet_edit" method="POST" action=@ViewBag.Action>
-    @Html.AntiForgeryToken()
+<div class="np-tool-bar">
     @if (Model.LoginID != 0)
     {
-        <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
+
+        <button id="btnPacketSave" class="ui-button ui-corner-all" @atr_disabled>Сохранить</button>
+        <button id="btnPacketCancel" class="ui-button ui-corner-all" @atr_disabled>Отменить</button>
     }
+        <button id="btnReturnPacketList" class="ui-button ui-corner-all">Пакеты параметров</button>
+    </div>
+<form id="np_packet_edit" method="POST" action=@ViewBag.Action>
+    @Html.AntiForgeryToken()
+    @*@if (Model.LoginID != 0)
+    {
+        <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
+    }*@
     <fieldset>
         <legend>Пакет</legend>
         <hr />
@@ -115,6 +123,31 @@
                 window.location.replace("/Parameter/PacketList"); // Перенаправление на список параметров + не сохраняем историю
             }
             //adata.lName = 'ParameterRelations'; - это уже не нужно
+            $("#np_packet_edit input[type=text],textarea").on('input change keypress', function (e) {
+                if ($('#btnPacketSave').attr('disabled')) {
+                    $('#btnPacketSave').removeAttr('disabled');
+                }
+                if ($('#btnPacketCancel').attr('disabled')) {
+                    $('#btnPacketCancel').removeAttr('disabled');
+                }
+            });
+            $('#btnPacketSave').on('click', function (e) {
+                e.preventDefault();
+                np_AjaxFormInputClick(); // очистка ошибок
+                $('#np_packet_edit').submit();
+            });
+
+            $('#btnPacketCancel').on('click', function (e) {
+                np_LoaderShow();
+                document.getElementById("np_CurrentPacket").click()
+                //location.reload();
+            });
+
+            $('#btnReturnPacketList').on('click', function (e) {
+                np_LoaderShow();
+                document.getElementById("np_PacketList").click()
+            });
+
             $("#np_packet_edit").bind('submit', adata, np_AjaxFormSubmitEx);
             // очистка сообщений об ошибках по клику
             $("#np_packet_edit").bind('click', np_AjaxFormInputClick);
