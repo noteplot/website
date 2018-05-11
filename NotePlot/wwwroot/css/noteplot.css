@@ -14,7 +14,7 @@ label.error {
     font-size: 13px;
 }
 
-.np-fVrtLayout input[type=text], input[type="password"], textarea {
+.np-fVrtLayout input[type=text], .np-fVrtLayout input[type="password"], .np-fVrtLayout textarea {
     display: block;
     width: 100%;
     box-sizing: border-box; /*запрещает вылезать за панель!!! - ширина блока по границе*/
@@ -208,10 +208,42 @@ label.error {
     background-repeat: no-repeat;
 }
 
+.np-column-left {
+    float: left;
+    /*position: relative;*/
+    padding-left: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+textarea.np-column-left{
+    resize:none;
+}
+
+.np-column-1 {
+    width: 150px; /*размер первой колонки*/
+}
+
+.np-short-name {
+    width: 24em; /*краткое название*/
+}
+
+.np-name {
+    width: 48em; /*полное название*/
+}
+
+#np_packet_edit .np-inputForm {
+    max-width: 850px; /*Изменить на необходимую ширину*/
+    /*margin: 10px;*/
+    margin: 0px;
+    width: 100%;
+}
+
 /*ToolBar ряд кнопок*/
 .np-tool-bar {
     margin: 5px 0 5px 15px;
-    min-width : 350px;
+    min-width: 350px;
     /*border : 1px solid black;*/
     /*max-width : 600px;*/
 }
