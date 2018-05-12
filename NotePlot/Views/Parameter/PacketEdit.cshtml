@@ -57,7 +57,7 @@
                 <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" class = "np-column-left np-short-name np-ui-input" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled }>
             </div>
             <div class="np-clearfix">
-                <label for="PacketShortName" class = "np-column-left np-column-1 np-ui-input" >Краткое название</label>
+                <label for="PacketShortName" class = "np-column-left np-column-1 np-ui-input">Краткое название</label>
                 <input type="text" id="PacketShortName" name="PacketShortName" class = "np-column-left np-short-name np-ui-input" maxlength="24" value="@Model.PacketShortName" @if (Model.LoginID == 0) { @atr_disabled } />
             </div>
             <div class="np-clearfix">
@@ -129,12 +129,15 @@
             }
             //adata.lName = 'ParameterRelations'; - это уже не нужно
             $("#np_packet_edit input[type=text],input[type=checkbox],textarea").on('input change keypress', function (e) {
+                /*
                 if ($('#btnPacketSave').attr('disabled')) {
                     $('#btnPacketSave').removeAttr('disabled');
                 }
                 if ($('#btnPacketCancel').attr('disabled')) {
                     $('#btnPacketCancel').removeAttr('disabled');
                 }
+                */
+                refreshPage();
             });
             $('#btnPacketSave').on('click', function (e) {
                 e.preventDefault();

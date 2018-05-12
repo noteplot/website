@@ -4,110 +4,128 @@
     string atr_checked = "checked", atr_disabled = "disabled";
 }
 
-@section styles{
-    <style>
-        #np_parameter_edit fieldset {
-            border: 1px solid #ccc;
-            background: #f8f8f8;
-        }
+    @section styles{
+        <style>
+            #np_parameter_edit fieldset {
+                border: 1px solid #ccc;
+                background: #f8f8f8;
+            }
 
             #np_parameter_edit fieldset legend {
                 font-weight: bold;
             }
 
-        .np_label {
-            display: block;
-        }
+            /*.np_label {
+                display: block;
+            }*/
 
-        #np_parameter_edit p {
-            margin: 0;
-        }
-    </style>
-}
-
-<p class="np-href">
-    <a id="np_ParameterList" href="@Url.Action("ParameterList", "Parameter")">Список параметров</a> -> @if (Model.ParameterID == null)
-    {<a id="np_CurrentParameter" href="@Url.Action("New", "Parameter" , new { id=Model.ParameterID })">Новый параметр</a>}
-    else
-    {<a id="np_CurrentParameter" href="@Url.Action("Edit", "Parameter" , new { id=Model.ParameterID })">Текущий параметр</a>}
-</p>
-<div class="np-tool-bar">
-    @if (Model.LoginID != 0)
-    {
-        <button id="btnParameterSave" class="ui-button ui-corner-all" @atr_disabled>Сохранить</button>
-        <button id="btnParameterCancel" class="ui-button ui-corner-all" @atr_disabled>Отменить</button>
+            #np_parameter_edit p {
+                margin: 0;
+            }
+        </style>
     }
-    <button id="btnReturnParameterList" class="ui-button ui-corner-all">Список параметров</button>
-</div>
-
-<form id="np_parameter_edit" method="POST" action=@ViewBag.Action>
-    @Html.AntiForgeryToken()
-    @*
+    <p class="np-href">
+        <a id="np_ParameterList" href="@Url.Action("ParameterList", "Parameter")">Список параметров</a> -> @if (Model.ParameterID == null)
+        {<a id="np_CurrentParameter" href="@Url.Action("New", "Parameter" , new { id=Model.ParameterID })">Новый параметр</a>}
+        else
+        {<a id="np_CurrentParameter" href="@Url.Action("Edit", "Parameter" , new { id=Model.ParameterID })">Текущий параметр</a>}
+    </p>
+    <div class="np-tool-bar">
         @if (Model.LoginID != 0)
         {
-            <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
+            <button id="btnParameterSave" class="ui-button ui-corner-all" @atr_disabled>Сохранить</button>
+            <button id="btnParameterCancel" class="ui-button ui-corner-all" @atr_disabled>Отменить</button>
         }
-    *@
-    <fieldset>
-        <legend>Параметр</legend>
+        <button id="btnReturnParameterList" class="ui-button ui-corner-all">Список параметров</button>
+    </div>
+
+    <form id="np_parameter_edit" method="POST" action=@ViewBag.Action>
+        @Html.AntiForgeryToken()
+        @*
+            @if (Model.LoginID != 0)
+            {
+                <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
+            }
+*@
+<fieldset>
+    <legend>Параметр</legend>
+    <div class="np-inputForm">
         <input type="hidden" id="ParameterID" name="ParameterID" value="@Model.ParameterID" />
         <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
         <input type="hidden" id="ParameterUnitID" name="ParameterUnitID" value="@Model.ParameterUnitID" />
         <input type="hidden" id="ParameterValueTypeID" name="ParameterValueTypeID" value="@Model.ParameterValueTypeID" />
         <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
 
-        <div class="input-prepend">
-            <button type="button" class="add-on openDialog" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
-            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" size="24" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
-        </div>
-        <p>
-            <label for="ParameterShortName" class="np_label">Название</label>
-            <input type="text" id="ParameterShortName" name="ParameterShortName" placeholder="Название" size="24" value="@Model.ParameterShortName" @if (Model.LoginID == 0) { @atr_disabled } />
-        </p>
-        <p>
-            <label for="ParameterName" class="np_label">Описание</label>
-            <input type="text" id="ParameterName" name="ParameterName" size="48" value="@Model.ParameterName" @if (Model.LoginID == 0) { @atr_disabled } />
-        </p>
-        <p>
-            <label for="ParameterUnitShortName" class="np_label"></label>
-            <div class="input-prepend">
-                <button type="button" class="add-on openDialog" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Ед. измерения</button>
-                <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" size="24" value=@Model.ParameterUnitShortName @if (Model.LoginID == 0) { @atr_disabled } />
+        <div class="np-clearfix">
+            <div class="np-column-left np-column-1 np-clearfix">
+                <button type="button" class="openDialog ui-button ui-corner-all" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
             </div>
-        </p>
-        @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
-        {
-            <p>
-                <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value="@pt.ParameterTypeID" @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
-                <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
-            </p>
-        }
-        <div class="input-prepend">
-            <button type="button" class="add-on openDialog" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" @if (Model.LoginID == 0) { @atr_disabled }>Тип значения</button>
-            <input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" size="24" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+            <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" class="np-column-left np-short-name np-ui-input" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
         </div>
-        <p>
-            <label for="ParameterValueMax" class="np_label">Макс. значение</label>
-            <input type="text" id="ParameterValueMax" class="rangeValue np_decimal_format" name="ParameterValueMax" size="28" value="@Model.ParameterValueMax" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0) { @atr_disabled } />
-        </p>
-        <p>
-            <label for="ParameterValueMin" class="np_label">Мин. значение</label>
-            <input type="text" id="ParameterValueMin" class="rangeValue np_decimal_format" name="ParameterValueMin" size="28" value="@Model.ParameterValueMin" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0) { @atr_disabled } />
-        </p>
+        <div class="np-clearfix">
+            <label for="ParameterShortName" class="np-column-left np-column-1 np-ui-input">Краткое название</label>
+            <input type="text" id="ParameterShortName" name="ParameterShortName" class="np-column-left np-short-name np-ui-input" maxlength="24" value="@Model.ParameterShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+        </div>
+        <div class="np-clearfix">
+            <label for="ParameterName" class="np-column-left np-column-1 np-ui-input">Полное название</label>
+            @*<input type="text" id="ParameterName" name="ParameterName" maxlength="48" value="@Model.ParameterName" @if (Model.LoginID == 0) { @atr_disabled } />*@
+            <textarea class="np-column-left np-short-name np-ui-input" id="ParameterName" name="ParameterName" maxlength=48 value="@Model.ParameterName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterName</textarea>
+        </div>
+        <div class="np-clearfix">
+            @*<label for="ParameterUnitShortName" class="np_label"></label>*@
+            <div class="np-column-left np-column-1 np-clearfix">
+                <button type="button" class="openDialog ui-button ui-corner-all" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Ед. измерения</button>
+            </div>
+            <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" class="np-column-left np-short-name np-ui-input" value=@Model.ParameterUnitShortName @if (Model.LoginID == 0) { @atr_disabled } />
+        </div>
+        <div class="np-clearfix">
+            <label class="np-column-left np-column-1 np-ui-input">Тип параметра</label>
+            <div class="np-column-left np-clearfix">
+                @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
+            {
+                <p>
+                    <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value="@pt.ParameterTypeID" @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+                    <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
+                </p>
+        }
+            </div>
+        </div>
+        <div class="np-clearfix">
+            <div class="np-column-left np-column-1 np-clearfix">
+                <button type="button" class="openDialog ui-button ui-corner-all" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" @if (Model.LoginID == 0) { @atr_disabled }>Тип значения</button>
+            </div>
+            @*<input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" class="np-column-left np-short-name np-ui-input" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled } />*@
+            <textarea class="np-column-left np-short-name np-ui-input" id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" maxlength=48 value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterValueTypeShortName</textarea>
+        </div>
+        <div class="np-clearfix">
+            <label for="ParameterValueMin" class="np-column-left np-column-1 np-ui-input">Мин. значение</label>
+            <input type="text" id="ParameterValueMin" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMin" maxlength="28" value="@Model.ParameterValueMin" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0) { @atr_disabled } />
+        </div>
+        <div class="np-clearfix">
+            <label for="ParameterValueMax" class="np-column-left np-column-1 np-ui-input">Макс. значение</label>
+            <input type="text" id="ParameterValueMax" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMax" maxlength="28" value="@Model.ParameterValueMax" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0) { @atr_disabled } />
+        </div>
         @if (Model.ParameterID != null)
         {
-            <p>
-                <label for="ParameterActive" class="np_label">Доступен</label>
-                <input type="checkbox" id="ParameterActive" name="Active" value="@Model.Active" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
-            </p>
+            <div>
+                <label for="ParameterActive" class="np-column-left np-column-1 np-ui-input">Доступен</label>
+                <input type="checkbox" id="ParameterActive" name="Active" class="np-column-left np-ui-input" value="@Model.Active" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+            </div>
         }
-    </fieldset>
-    <div id="relationSection">
-        @if (Model.ParameterTypeID > 0)
+        else
         {
-            @await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID, LoginID = @Model.LoginID, })
+            <div class="np-clearfix">
+                <input class="np-column-left np-ui-input" type="checkbox" id="Active" name="Active" value="1" hidden checked />
+            </div>
         }
     </div>
+</fieldset>
+<div id="relationSection">
+    @if (Model.ParameterTypeID > 0)
+    {
+        @await Component.InvokeAsync("ParamRelations", new { ParameterID = @Model.ParameterID, LoginID = @Model.LoginID, })
+    }
+</div>
 </form>
 @section scripts{
     <script type="text/javascript">
@@ -164,13 +182,16 @@
                 window.location.replace("/Parameter/ParameterList"); // Перенаправление на список параметров + не сохраняем историю
             }
             //adata.lName = 'ParameterRelations'; - это уже не нужно
-            $("#np_parameter_edit input[type=text],textarea").on('input change keypress', function (e) {
+            $("#np_parameter_edit input[type=text],input[type=checkbox],input[type=radio],textarea").on('input change keypress', function (e) {
+                /*
                 if ($('#btnParameterSave').attr('disabled')) {
                     $('#btnParameterSave').removeAttr('disabled');
                 }
                 if ($('#btnParameterCancel').attr('disabled')) {
                     $('#btnParameterCancel').removeAttr('disabled');
                 }
+                */
+                refreshPage();
             });
             $('#btnParameterSave').on('click', function (e) {
                 e.preventDefault();
@@ -244,5 +265,14 @@
             fix();
             $(".lookupField input").triggerHandler("change");
         });
+
+        function refreshPage() {
+            if ($('#btnParameterSave').attr('disabled')) {
+                $('#btnParameterSave').removeAttr('disabled');
+            }
+            if ($('#btnParameterCancel').attr('disabled')) {
+                $('#btnParameterCancel').removeAttr('disabled');
+            }
+        }
     </script>
 }
