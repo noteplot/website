@@ -107,7 +107,7 @@
         </div>
         @if (Model.ParameterID != null)
         {
-            <div>
+            <div class="np-clearfix">
                 <label for="ParameterActive" class="np-column-left np-column-1 np-ui-input">Доступен</label>
                 <input type="checkbox" id="ParameterActive" name="Active" class="np-column-left np-ui-input" value="@Model.Active" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
             </div>

@@ -1,4 +1,8 @@
-﻿ @model IEnumerable<NotePlot.Models.Monitor>
+﻿@model IEnumerable<NotePlot.Models.Monitor>
+
+@{
+    string atr_checked = "checked";
+}
 
 <div class="np_toolbar">
     <a href="@Url.Action("MonitorNew", "Monitor")" class="np_button green">
@@ -9,68 +13,62 @@
 <table class="table" id="monitorList">
     <thead>
         <tr>
-            <th hidden>
-                @Html.DisplayNameFor(model => model.MonitorID)
-            </th>
+            <th hidden>@Html.DisplayNameFor(model => model.MonitorID)</th>
             <th></th>
-            <th>
-                @Html.DisplayNameFor(model => model.MonitorName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Active)
-            </th>
+            <th>Краткое название</th>
+            <th>Полное название</th>
+            <th>Доступен</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td hidden>
-                @Html.DisplayFor(modelItem => item.MonitorID)
-            </td>
-            <td>
-                <a href="@Url.Action("MonitorEdit", "Monitor" , new { id=item.MonitorID })" class="np_button">
-                    <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                </a>
-                <a href="@Url.Action("MonitorDelete", "Monitor", new { id = item.MonitorID })" class="np_deleteMonitor np_button">
-                    <div class="icon"><i class="fa fa-times"></i></div>
-                </a>
-                <a href="@Url.Action("MonitoringList", "Monitoring", new { id = item.MonitorID })" class="np_button">
-                    <div class="icon"><i class="fa fa-chart-line"></i></div>
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MonitorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td hidden></td>
+                <td>
+                    <a href="@Url.Action("MonitorEdit", "Monitor" , new { id=item.MonitorID })" class="np_button">
+                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                    </a>
+                    @if (item.LoginID != 0)
+                    {
+                    <a href="@Url.Action("MonitorDelete", "Monitor", new { id = item.MonitorID })" class="np_deleteMonitor np_button">
+                        <div class="icon"><i class="fa fa-times"></i></div>
+                    </a>
+                    }
+                    <a href="@Url.Action("MonitoringList", "Monitoring", new { id = item.MonitorID })" class="np_button">
+                        <div class="icon"><i class="fa fa-chart-line"></i></div>
+                    </a>
+                </td>
+                <td>@item.MonitorShortName</td>
+                <td>@item.MonitorName</td>
+                <td><input disabled type="checkbox" value="@item.Active" @if (@item.Active) { @atr_checked } /></td>
+            </tr>
+        }
     </tbody>
 </table>
-    @section scripts {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#monitorList").DataTable({
-                    "aoColumns": [
-                        { "sWidth": "0" },
-                        { "sWidth": "100px" },
-                        null,
-                        null
-                    ]
-                });
-                var adata = new Object();
-                // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
-                adata.token = $("[name='__RequestVerificationToken']").val();
-                // привязываем событие к Post Request
-                //$(".np_deleteMonitor").bind("click", adata, np_AjaxPost);
-                adata.onSuccess = function () {
-                    //location.reload();
-                    window.location.replace("/Monitor/MonitorList"); // Перенаправление на список + не сохраняем историю
-                }
-                adata.dialogTitle = 'Внимание!!';
-                adata.dialogMessage = 'Вы действительно хотите удалить монитор?';
-                $(".np_deleteMonitor").bind("click", adata, np_MessageDialogPost);                                
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#monitorList").DataTable({
+                "aoColumns": [
+                    { "sWidth": "0" },
+                    { "sWidth": "100px" },
+                    null,
+                    null
+                ]
             });
-        </script>
-    }
+            var adata = new Object();
+            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+            adata.token = $("[name='__RequestVerificationToken']").val();
+            // привязываем событие к Post Request
+            //$(".np_deleteMonitor").bind("click", adata, np_AjaxPost);
+            adata.onSuccess = function () {
+                //location.reload();
+                window.location.replace("/Monitor/MonitorList"); // Перенаправление на список + не сохраняем историю
+            }
+            adata.dialogTitle = 'Внимание!!';
+            adata.dialogMessage = 'Вы действительно хотите удалить монитор?';
+            $(".np_deleteMonitor").bind("click", adata, np_MessageDialogPost);
+        });
+    </script>
+}
