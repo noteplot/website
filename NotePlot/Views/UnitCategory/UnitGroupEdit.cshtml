@@ -3,26 +3,29 @@
     string atr_disabled = "disabled";
 }
 
-<form id="unitCategory" method="POST" action=@ViewBag.Action data-form-mode=@ViewBag.Mode>
-    @Html.AntiForgeryToken()
-    <div>
+<div class="np-fVrtLayout" id="unitCategoryPanel">
+    <form id="unitCategory" method="POST" action=@ViewBag.Action data-form-mode=@ViewBag.Mode>
+        @Html.AntiForgeryToken()
         <input type="hidden" id="UnitGroupID" name="UnitGroupID" value="@Model.UnitGroupID" />
-        <div class="input-prepend">
-            <label for="UnitGroupShortName" class="np_label">Краткое название</label>
-            <input type="text" id="UnitGroupShortName" name="UnitGroupShortName" placeholder="Краткое название" size="24" value="@Model.UnitGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
-        </div>
-        <div class="input-prepend">
-            <label for="UnitGroupName" class="np_label">Название</label>
-            <input type="text" id="UnitGroupName" name="UnitGroupName" placeholder="Название" size="48" value="@Model.UnitGroupName" @if (Model.LoginID == 0) { @atr_disabled } />
-        </div>
+        <p>
+            <label for="UnitGroupShortName" class="np_label">Краткое наименование</label>
+            <input class="ui-widget ui-widget-content ui-corner-all np-ui-input" type="text" id="UnitGroupShortName" name="UnitGroupShortName" placeholder="Краткое название" maxlength=24 value="@Model.UnitGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+        </p>
+        <p>
+            <label for="UnitGroupName" class="np_label">Полное наименование</label>
+            @*<input class="ui-corner-all np-ui-input" type="text" id="UnitGroupName" name="UnitGroupName" placeholder="Название" maxlength=48 value="@Model.UnitGroupName" @if (Model.LoginID == 0) { @atr_disabled } />*@
+            <textarea type="text" rows="2" id="UnitGroupName" class="ui-widget ui-widget-content ui-corner-all np-ui-input" name="UnitGroupName" value="@Model.UnitGroupName" maxlength=48 @if (Model.LoginID == 0) { @atr_disabled }>@Model.UnitGroupName</textarea>
+        </p>
+    </form>
+    <div class="np-buttons">
         @if (Model.LoginID != 0)
         {
-        <div class="input-prepend">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
+            <button id="btnOk" class="np-left ui-button ui-corner-all">Да</button>
         }
+        <button id="btnCancel" class="np-right ui-button ui-corner-all">Отмена</button>
     </div>
-</form>
+</div>
+
 <script type="text/javascript">
     $(function () {
             var adata = new Object();
@@ -36,13 +39,13 @@
                 + '<div class="icon"><i class="fa fa-times"></i></div>'
                 + '</a>'
                 + '</div>';
-                
+
             adata.onSuccess = function (dta) {
                     if ($.fn.DataTable.isDataTable('#unitgroups')) {
                         var
                             jsn = JSON.parse(dta),
                             _table = $("#unitgroups").DataTable();
-                        
+
                         if ($('#unitCategory').attr("data-form-mode") == "edit") { // функция изменения данных в строке после редактирования
                             var
                                 _tr = _table.row('.selected'),_data = _tr.data();
@@ -74,6 +77,21 @@
                     }
             }
 
+            $('#btnOk').on('click', function (e) {
+                e.preventDefault();
+                np_AjaxFormInputClick(); // очистка ошибок
+                $('#unitCategory').submit();
+            });
+
+            $('#btnCancel').on('click', function (e) {
+                e.preventDefault();
+                // Находим диалог и закрываем
+                var _md = $('#unitCategoryPanel').parents('.dialog').first().attr('id');
+                if (_md != undefined) {
+                    $('#' + _md).dialog("close");
+                }
+            });
+
         $("#unitCategory").bind('submit', adata, np_AjaxFormSubmit);
         // очистка сообщений об ошибках по клику
         $("#unitCategory input").bind('click', np_AjaxFormInputClick);
@@ -98,7 +116,7 @@
                         required: "поле должно быть заполнено",
                         minlength: "в поле должно быть минимум 2 символа"
                     }
-                }                
+                }
             });
     });
 

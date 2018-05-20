@@ -3,39 +3,33 @@
 @{
     string atr_disabled = "disabled";
 }
-
-<form id="unit" method="POST" action=@ViewBag.Action data-form-mode=@ViewBag.Mode>
-    @Html.AntiForgeryToken()
-    <input type="hidden" id="UnitID" name="UnitID" value="@Model.UnitID"/>
-    <input type="hidden" id="UnitGroupID" name="UnitGroupID" value="@Model.UnitGroupID" data-target="UnitGroupID" data-target-value=""/>
-    <div class="input-prepend">
-        <label for="UnitShortName" class="np_label">Краткое наименование</label>
-        <input type="text" id="UnitShortName" name="UnitShortName" placeholder="Краткое наименование" value="@Model.UnitShortName" @if (Model.LoginID == 0) { @atr_disabled } />
-    </div>
-    <div class="input-prepend">
-        <label for="UnitName" class="np_label">Полное наименование</label>
-        <input type="text" id="UnitName" name="UnitName" placeholder="Полное наименование" value="@Model.UnitName" @if (Model.LoginID == 0) { @atr_disabled } />
-    </div>
-    <div class="input-prepend">
-        <div class="input-prepend">
-            <button type="button" id="btnSelectGroup" class="add-on openDialog" href="/UnitCategory/SelectUnitCategoryList" np_dialog_title="Выбор группы" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
-            <input type="text" readonly id="UnitGroupShortName" name="UnitGroupShortName" size="24" value="@Model.UnitGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } data-target="UnitGroupShortName" data-target-value=""/>
+<div class="np-fVrtLayout" id="unitPanel">
+    <form id="unit" method="POST" action=@ViewBag.Action data-form-mode=@ViewBag.Mode>
+        @Html.AntiForgeryToken()
+        <input type="hidden" id="UnitID" name="UnitID" value="@Model.UnitID" />
+        <input type="hidden" id="UnitGroupID" name="UnitGroupID" value="@Model.UnitGroupID" data-target="UnitGroupID" data-target-value="" />
+        <p>
+            <label for="UnitShortName" class="np_label">Краткое наименование</label>
+            <input class="ui-widget ui-widget-content ui-corner-all np-ui-input" type="text" id="UnitShortName" name="UnitShortName" placeholder="Краткое наименование" value="@Model.UnitShortName" maxlength=24 @if (Model.LoginID == 0) { @atr_disabled } />
+        </p>
+        <p>
+            <label for="UnitName" class="np_label">Полное наименование</label>
+            @*<input class="ui-widget ui-widget-content ui-corner-all np-ui-input" type="text" id="UnitName" name="UnitName" placeholder="Полное наименование" value="@Model.UnitName" maxlength=48 @if (Model.LoginID == 0) { @atr_disabled } />*@
+            <textarea type="text" rows="2" id="UnitGroupName" class="ui-widget ui-widget-content ui-corner-all np-ui-input" name="UnitName" value="@Model.UnitName" maxlength=48 @if (Model.LoginID == 0) { @atr_disabled }>@Model.UnitName</textarea>
+        </p>
+        <div>
+            <button type="button" id="btnSelectGroup" class="openDialog ui-button ui-corner-all" href="/UnitCategory/SelectUnitCategoryList" np_dialog_title="Выбор группы" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
+            <input class="ui-widget ui-widget-content ui-corner-all np-ui-input" type="text" readonly id="UnitGroupShortName" name="UnitGroupShortName" value="@Model.UnitGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } data-target="UnitGroupShortName" data-target-value="" />
         </div>
-
-        @*<select id="UnitGroupID" name="UnitGroupID">
-                @foreach (var item in @ViewBag.UnitGroups)
-                {
-                    <option value="@item.UnitGroupID" selected="@if (item.UnitGroupID == Model.UnitGroupID) { @atr_selected }"> @item.UnitGroupShortName</option>
-                }
-            </select>*@
+    </form>
+    <div class="np-buttons">
+        @if (Model.LoginID != 0)
+        {
+            <button id="btnOk" class="np-left ui-button ui-corner-all">Да</button>
+        }
+        <button id="btnCancel" class="np-right ui-button ui-corner-all">Отмена</button>
     </div>
-    @if (Model.LoginID != 0)
-    {
-        <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    }
-</form>
+</div>
 <script type="text/javascript">
     $(function () {
         $('#btnSelectGroup').on('click', function (e) {
@@ -102,6 +96,20 @@
                 location.reload();
             }
         }
+        $('#btnOk').on('click', function (e) {
+            e.preventDefault();
+            np_AjaxFormInputClick(); // очистка ошибок
+            $('#unit').submit();
+        });
+
+        $('#btnCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#unitPanel').parents('.dialog').first().attr('id');
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
+            }
+        });
 
         $("#unit").bind('submit', adata, np_AjaxFormSubmit);
         // очистка сообщений об ошибках по клику 
@@ -111,11 +119,11 @@
                 rules: {
                     UnitShortName: {
                         required: true,
-                        maxlength: 16
+                        maxlength: 24
                     },
                     UnitName: {
                         required: true,
-                        maxlength: 32
+                        maxlength: 48
                     },
                     UnitGroupShortName: {
                         required: true

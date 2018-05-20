@@ -2,28 +2,30 @@
 @{
     string atr_disabled = "disabled";
 }
-
-<form action=@ViewBag.Action method="POST" id="group_edit" data-form-mode=@ViewBag.Mode>
-    @Html.AntiForgeryToken()
-    <div>
-        <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
-        <div class="input-prepend">
-            <label for="ParameterGroupShortName" class="np_label">Краткое название</label>
-            <input type="text" id="ParameterGroupShortName" name="ParameterGroupShortName" placeholder="Краткое название" size="24" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+<div class="np-fVrtLayout" id="groupPanel">
+    <form action=@ViewBag.Action method="POST" id="group_edit" data-form-mode=@ViewBag.Mode>
+        @Html.AntiForgeryToken()
+        <div>
+            <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
+            <p class="input-prepend">
+                <label for="ParameterGroupShortName" class="np_label">Краткое название</label>
+                <input class="ui-widget ui-widget-content ui-corner-all np-ui-input" type="text" id="ParameterGroupShortName" name="ParameterGroupShortName" placeholder="Краткое название" maxlength=24 value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+            </p>
+            <p>
+                <label for="ParameterGroupName" class="np_label">Название</label>
+                @*<input type="text" id="ParameterGroupName" name="ParameterGroupName" placeholder="Название" size="48" value="@Model.ParameterGroupName" @if (Model.LoginID == 0) { @atr_disabled } />*@
+                <textarea type="text" rows="2" id="ParameterGroupName" class="ui-widget ui-widget-content ui-corner-all np-ui-input" name="ParameterGroupName" value="@Model.ParameterGroupName" maxlength=48 @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterGroupName</textarea>
+            </p>
         </div>
-        <div class="input-prepend">
-            <label for="ParameterGroupName" class="np_label">Название</label>
-            <input type="text" id="ParameterGroupName" name="ParameterGroupName" placeholder="Название" size="48" value="@Model.ParameterGroupName" @if (Model.LoginID == 0) { @atr_disabled } />
-        </div>
+    </form>
+    <div class="np-buttons">
         @if (Model.LoginID != 0)
         {
-            <div class="input-prepend">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+            <button id="btnOk" class="np-left ui-button ui-corner-all">Да</button>
         }
+        <button id="btnCancel" class="np-right ui-button ui-corner-all">Отмена</button>
     </div>
-</form>
-
+</div>
 <script type="text/javascript">
     $(function () {
         var adata = new Object();
@@ -74,6 +76,20 @@
                 location.reload();
             }
         }
+        $('#btnOk').on('click', function (e) {
+            e.preventDefault();
+            np_AjaxFormInputClick(); // очистка ошибок
+            $('#group_edit').submit();
+        });
+
+        $('#btnCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#groupPanel').parents('.dialog').first().attr('id');
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
+            }
+        });
 
         $("#group_edit").bind('submit', adata, np_AjaxFormSubmit);
         //$("#group_edit").bind('submit', np_AjaxFormSubmit);

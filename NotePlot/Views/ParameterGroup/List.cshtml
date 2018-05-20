@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<NotePlot.Models.ParameterGroup>
 
 <div class="np_toolbar">
-    <a href="@Url.Action("Create", "ParameterGroup")" class="openDialog np_button green" np_dialog_title="Группа параметров и пакетов">
+    <a href="@Url.Action("Create", "ParameterGroup")" class="openDialog np_button green" np_dialog_title="Группа параметров и пакетов" np_dialog_width="320px">
         <div class="icon"><i class="fa fa-plus"></i></div>
     </a>
 </div>
@@ -21,7 +21,7 @@
             <td hidden>@item.ParameterGroupID</td>
             <td>
                 <div class="npRowTools" style="display:block">
-                    <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="npRowEdit np_button" np_dialog_title="Группа параметров">
+                    <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="npRowEdit np_button" np_dialog_title="Группа параметров" np_dialog_width="320px">
                         <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                     </a>
                     @if (item.LoginID != 0)
