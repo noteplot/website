@@ -43,43 +43,42 @@
     {
         <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
     }*@
-    <fieldset>
-        <legend>Пакет</legend>
-        <hr />
-        <div class="np-inputForm">
-            <input type="hidden" id="PacketID" name="PacketID" value="@Model.PacketID" />
-            <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
-            <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
-            <div class="np-clearfix">
-                <div class = "np-column-left np-column-1 np-clearfix">
-                    <button type="button" class="openDialog ui-button ui-corner-all" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
-                </div>
-                <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" class = "np-column-left np-short-name np-ui-input" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled }>
-            </div>
-            <div class="np-clearfix">
-                <label for="PacketShortName" class = "np-column-left np-column-1 np-ui-input">Краткое название</label>
-                <input type="text" id="PacketShortName" name="PacketShortName" class = "np-column-left np-short-name np-ui-input" maxlength="24" value="@Model.PacketShortName" @if (Model.LoginID == 0) { @atr_disabled } />
-            </div>
-            <div class="np-clearfix">
-                <label for="PacketName" class = "np-column-left np-column-1 np-ui-input">Полное название</label>
-                @*<input type="text" id="PacketName" name="PacketName" placeholder="Название" maxlength="48" value="@Model.PacketName" @if (Model.LoginID == 0) { @atr_disabled } />*@
-                <textarea class="np-column-left np-short-name np-ui-input" id="PacketName" name="PacketName" maxlength=48 value="@Model.PacketName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.PacketName</textarea>
-            </div>
-            @if (Model.PacketID != null)
-            {
+    <div class="np-inputForm">
+        <fieldset>
+            <legend>Пакет</legend>
+                <input type="hidden" id="PacketID" name="PacketID" value="@Model.PacketID" />
+                <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
+                <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
                 <div class="np-clearfix">
-                    <label for="Active" class = "np-column-left np-column-1 np-ui-input">Доступен</label>
-                    <input class="np-column-left np-ui-input" type="checkbox" id="Active" name="Active" value="@Model.Active" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+                    <div class = "np-column-left np-column-1 np-clearfix">
+                        <button type="button" class="openDialog ui-button ui-corner-all" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
+                    </div>
+                    <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" class = "np-column-left np-short-name np-ui-input" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled }>
                 </div>
-            }
-            else
-            {
                 <div class="np-clearfix">
-                    <input class="np-column-left np-ui-input" type="checkbox" id="Active" name="Active" value="1" hidden checked />
+                    <label for="PacketShortName" class = "np-column-left np-column-1 np-ui-input">Краткое название</label>
+                    <input type="text" id="PacketShortName" name="PacketShortName" class = "np-column-left np-short-name np-ui-input" maxlength="24" value="@Model.PacketShortName" @if (Model.LoginID == 0) { @atr_disabled } />
                 </div>
-            }
-        </div>
-    </fieldset>
+                <div class="np-clearfix">
+                    <label for="PacketName" class = "np-column-left np-column-1 np-ui-input">Полное название</label>
+                    @*<input type="text" id="PacketName" name="PacketName" placeholder="Название" maxlength="48" value="@Model.PacketName" @if (Model.LoginID == 0) { @atr_disabled } />*@
+                    <textarea class="np-column-left np-short-name np-ui-input" id="PacketName" name="PacketName" maxlength=48 value="@Model.PacketName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.PacketName</textarea>
+                </div>
+                @if (Model.PacketID != null)
+                {
+                    <div class="np-clearfix">
+                        <label for="Active" class = "np-column-left np-column-1 np-ui-input">Доступен</label>
+                        <input class="np-column-left np-ui-input" type="checkbox" id="Active" name="Active" value="@Model.Active" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+                    </div>
+                }
+                else
+                {
+                    <div class="np-clearfix">
+                        <input class="np-column-left np-ui-input" type="checkbox" id="Active" name="Active" value="1" hidden checked />
+                    </div>
+                }
+        </fieldset>
+    </div>
     <div id="packetParametersPanel">
         @await Component.InvokeAsync("PacketParams", new { PacketID = @Model.PacketID, LoginID = @Model.LoginID })
     </div>

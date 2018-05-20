@@ -47,35 +47,35 @@
         {
             <input type="submit" value="Записать" id="np_monitor_save" @if (Model.LoginID == 0) { @atr_disabled } />
         }*@
-    <fieldset>
-        <legend>Шаблон измерений</legend>
-        <div class="np-inputForm">        
-            <input type="hidden" id="MonitorID" name="MonitorID" value="@Model.MonitorID" />
-            <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
-            <div class="np-clearfix">
-                <label for="MonitorShortName" class="np-column-left np-column-1 np-ui-input">Краткое название</label>
-                <input type="text" id="MonitorShortName" name="MonitorShortName" class="np-column-left np-short-name np-ui-input" maxlength="24" value="@Model.MonitorShortName" />
-            </div>
-            <div class="np-clearfix">
-                <label for="MonitorName" class="np-column-left np-column-1 np-ui-input">Полное название</label>
-                @*<input type="text" id="MonitorName" name="MonitorName" value="@Model.MonitorName" />*@
-                <textarea class="np-column-left np-short-name np-ui-input" id="MonitorName" name="MonitorName" maxlength=48 value="@Model.MonitorName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.MonitorName</textarea>
-            </div>
-            @if (Model.MonitorID != null)
-            {
-               <div class="np-clearfix">
-                    <label for="Active" class="np-column-left np-column-1 np-ui-input">Доступен</label>
-                    <input type="checkbox" id="Active" name="Active" value="@Model.Active" class="np-column-left np-ui-input" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+    <div class="np-inputForm">        
+        <fieldset>
+            <legend>Шаблон измерений</legend>
+                <input type="hidden" id="MonitorID" name="MonitorID" value="@Model.MonitorID" />
+                <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
+                <div class="np-clearfix">
+                    <label for="MonitorShortName" class="np-column-left np-column-1 np-ui-input">Краткое название</label>
+                    <input type="text" id="MonitorShortName" name="MonitorShortName" class="np-column-left np-short-name np-ui-input" maxlength="24" value="@Model.MonitorShortName" />
                 </div>
-            }
-            else
-            {
-               <div class="np-clearfix">
-                   <input type="checkbox" id="Active" name="Active" class="np-column-left np-ui-input" value="1" hidden checked />
-               </div>
-            }
-        </div>
-    </fieldset>
+                <div class="np-clearfix">
+                    <label for="MonitorName" class="np-column-left np-column-1 np-ui-input">Полное название</label>
+                    @*<input type="text" id="MonitorName" name="MonitorName" value="@Model.MonitorName" />*@
+                    <textarea class="np-column-left np-short-name np-ui-input" id="MonitorName" name="MonitorName" maxlength=48 value="@Model.MonitorName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.MonitorName</textarea>
+                </div>
+                @if (Model.MonitorID != null)
+                {
+                   <div class="np-clearfix">
+                        <label for="Active" class="np-column-left np-column-1 np-ui-input">Доступен</label>
+                        <input type="checkbox" id="Active" name="Active" value="@Model.Active" class="np-column-left np-ui-input" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+                    </div>
+                }
+                else
+                {
+                   <div class="np-clearfix">
+                       <input type="checkbox" id="Active" name="Active" class="np-column-left np-ui-input" value="1" hidden checked />
+                   </div>
+                }
+        </fieldset>
+    </div>
     <div id="monitorParametersPanel">
         @await Component.InvokeAsync("MonitorParams", new { MonitorID = @Model.MonitorID, LoginID = @Model.LoginID })
     </div>
