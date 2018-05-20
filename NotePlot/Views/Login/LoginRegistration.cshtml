@@ -1,45 +1,50 @@
 ﻿@model NotePlot.Models.LoginRegistration
 
-<form action="/Login/RegisterLogin" method="POST" id="loginRegistration">
-    @Html.AntiForgeryToken()
-    <div class="input_card">
-        <div>
-            <div>
-                <label for="Email" class="np_label">Логин(email)</label>
-            </div>
-            <div>
-                <input type="text" id="Email" name="Email" />
-            </div>
-        </div>
-        <div>
-            <label for="Password" class="np_label">Пароль</label>
-            <div>
-                <input type="password" id="Password" name="Password" />
-            </div>
-        </div>
-        <div>
-            <label for="ConfirmPassword" class="np_label">Повторите пароль</label>
-            <div>
-                <input type="password" id="ConfirmPassword" name="ConfirmPassword" />
-            </div>
-        </div>
-        <div>
-            <label for="Captcha" class="np_label">Введите число с картинки</label>
-            <div>
-                <input type="text" id="Captcha" name="Captcha" />
-            </div>
-        </div>
-        <img src="@Url.Action("Captcha", "Login")" alt="captcha" />
-        <div>
-            <div>
-                <input type="submit" value="OK" class="btn" />
-            </div>
-        </div>
+<div id="loginRegistrationPanel" class="np-fVrtLayout">
+    <form action="/Login/RegisterLogin" method="POST" id="loginRegistration">
+        @Html.AntiForgeryToken()
+            <p>
+                <label for="Email">Логин(email)</label>
+                <input class="ui-corner-all np-ui-input" type="text" id="Email" name="Email" maxlength=32/>
+            </p>
+            <p>
+                <label for="Password">Пароль</label>
+                <input class="ui-corner-all np-ui-input" type="password" id="Password" name="Password" maxlength=32/>
+            </p>
+            <p>
+                <label for="ConfirmPassword">Повторите пароль</label>
+                <input class="ui-corner-all np-ui-input" type="password" id="ConfirmPassword" name="ConfirmPassword" maxlength=32/>
+            </p>
+            <p>
+                <label for="Captcha">Введите число с картинки</label>
+                <input class="ui-corner-all np-ui-input" type="text" id="Captcha" name="Captcha"  maxlength=4/>
+            </p>
+            <img src="@Url.Action("Captcha", "Login")" alt="captcha" />
+    </form>
+    <div class="np-buttons">
+        <button id="btnOk" class="np-left ui-button ui-corner-all">Да</button>
+        <button id="btnCancel" class="np-right ui-button ui-corner-all">Отмена</button>
     </div>
-</form>
+</div>
 <script type="text/javascript">
     $(function () {
-        // подписка на submit        
+        $('#btnOk').on('click', function (e) {
+            e.preventDefault();
+            np_AjaxFormInputClick(); // очистка ошибок
+            $('#loginRegistration').submit();
+        });
+
+        $('#btnCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#loginRegistrationPanel').parents('.dialog').first().attr('id');
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
+            }
+        });
+
+
+        // подписка на submit
         //Пример передачи обработчиков через методы класса
         var adata = new Object();
         adata.onSuccess = function (mes) {
@@ -58,22 +63,22 @@
                 rules: {
                     Email: {
                         required: true,
-                        email : true,
+                        email: true,
                         minlength: 2
                     },
                     Password: {
                         required: true,
                         minlength: 2
                     },
-                   ConfirmPassword: {
+                    ConfirmPassword: {
                         required: true,
                         minlength: 2
                     },
-                   Captcha: {
-                       required: true,
-                       minlength: 4,
-                       maxlength: 4                        
-                   }
+                    Captcha: {
+                        required: true,
+                        minlength: 4,
+                        maxlength: 4
+                    }
                 },
                 messages: {
                     Email: {

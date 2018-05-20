@@ -4,44 +4,37 @@
     string atr_checked = "checked";
 }
 
-<div id="userAccountPanel">
+<div id="userAccountPanel" class="np-fVrtLayout">
     <form action="/Login/UserAccountEdit" method="POST" id="userAccountEdit" np_reload="true">
         @Html.AntiForgeryToken()
         <input type="hidden" id="LoginID" name="LoginID" value="@Model.LoginID" />
         <input type="hidden" id="Email" name="Email" value="@Model.Email" />
         <input type="hidden" id="IsConfirmed" name="IsConfirmed" value="@Model.IsConfirmed" />
-        <div class="row-form">
-            <p><label for="LoginName" class="np_label" readonly>Имя учетной записи(логин)</label></p>
-            <p><input type="text" id="LoginName" name="LoginName" value="@Model.LoginName" /></p>
-        </div>
+        <p>
+            <label for="LoginName">Имя учетной записи(логин)</label>
+            <input class="ui-corner-all np-ui-input" type="text" id="LoginName" name="LoginName" value="@Model.LoginName" autocomplete="off" readonly />
+        </p>
         <p><span>Тип учетной записи: </span><span>@Model.LoginRoleName</span></p>
-        <div class="row-form">
-            <p><label for="Password" class="np_label">Пароль</label></p>
-            <p><input type="password" id="Password" name="Password" value="@Model.Password" /></p>
-        </div>
-        <div id="сonfirmPasswordPanel" class="row-form" hidden>
-            <p><label for="ConfirmPassword" class="np_label">Подтвердить пароль</label></p>
-            <p><input type="password" id="ConfirmPassword" name="ConfirmPassword" value="@Model.Password" /></p>
-        </div>
-        @*<div class="row-form">
-                <p><label for="Email" class="np_label">email</label></p>
-                <p><input type="text" id="Email" name="Email" value="@Model.Email" readonly /></p>
-            </div>*@
-        <div class="row-form">
-            <p><label for="ScreenName" class="np_label">Псевдоним учетной записи</label></p>
-            <p><input type="text" id="ScreenName" name="ScreenName" value="@Model.ScreenName"/></p>
-        </div>
-        <div class="row-form">
+        <p>
+            <label for="Password">Пароль</label>
+            <input class="ui-corner-all np-ui-input" type="password" id="Password" name="Password" value="@Model.Password" autocomplete="off" />
+        </p>
+        <p id="сonfirmPasswordPanel" class="row-form" hidden>
+            <label for="ConfirmPassword">Подтвердить пароль</label>
+            <input class="ui-corner-all np-ui-input" type="password" id="ConfirmPassword" name="ConfirmPassword" value="@Model.Password" autocomplete="off" />
+        </p>
+        <p>
+            <label for="ScreenName" class="np_label">Псевдоним учетной записи</label>
+            <input class="ui-corner-all np-ui-input" type="text" id="ScreenName" name="ScreenName" value="@Model.ScreenName" />
+        </p>
+        <p>
             <input type="checkbox" id="ShowScreenName" name="ShowScreenName" value="@Model.ShowScreenName" @if (@Model.ShowScreenName) { @atr_checked } /><span>Показывать псевдоним</span>
-        </div>
+        </p>
+        <div id="limits" hidden></div>
     </form>
-</div>
-<div id="limits" hidden>
-</div>
-<div>
-    <div class="row-form">
-        <button id="btnOk" class="np_btn-left">Сохранить<span class="icon-arrow-next icon-white"></span></button>
-        <button id="btnCancel" class="np_btn-right">Выйти<span class="icon-arrow-next icon-white"></span></button>
+    <div class="np-buttons">
+        <button id="btnOk" class="np-left ui-button ui-corner-all">Да</button>
+        <button id="btnCancel" class="np-right ui-button ui-corner-all">Отмена</button>
     </div>
 </div>
 <script type="text/javascript">

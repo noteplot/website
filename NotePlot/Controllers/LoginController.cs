@@ -380,7 +380,7 @@ namespace NotePlot.Controllers
                         // очистка cookies
                         await HttpContext.SignOutAsync("NotePlotCookies");
                         // новая аутентификация
-                        await Authenticate(ua.LoginID, ua.LoginName, ua.ScreenName, true); // аутентификация TO DO: сделать асинхронным
+                        await Authenticate(ua.LoginID, ua.LoginName, ua.LoginView, true); // аутентификация TO DO: сделать асинхронным
                         return Ok(); // ajax диалог просто пустая строка
                     }
                     else

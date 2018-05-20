@@ -204,6 +204,26 @@ namespace NotePlot.Models
             {
                 try
                 {
+                    var p = new DynamicParameters();
+                    p.Add("@LoginID",ua.LoginID);
+                    p.Add("@Password", ua.Password);
+                    p.Add("@ScreenName", ua.ScreenName);
+                    p.Add("@ShowScreenName", ua.ShowScreenName);
+                    p.Add("@LoginView", ua.LoginView, dbType: DbType.String, size:128, direction: ParameterDirection.InputOutput);
+                    db.Execute("dbo.LoginSet",
+                        p,
+                        //new { UnitID = ut.UnitID, UnitShortName = ut.UnitShortName, UnitName = ut.UnitName, UnitGroupID = ut.UnitGroupID, LoginID = ut.LoginID, Mode = md },
+                        commandType: CommandType.StoredProcedure);
+                        ua.LoginView = p.Get<string>("@LoginView");
+                    rt = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                /*
+                try
+                {
                     var affectedRows = db.Execute("dbo.LoginSet", 
                         new { LoginID = ua.LoginID,Password = ua.Password,ScreenName = ua.ScreenName,ShowScreenName = ua.ShowScreenName}, 
                         commandType: CommandType.StoredProcedure);
@@ -214,6 +234,7 @@ namespace NotePlot.Models
                 {
                     throw new Exception(ex.Message);
                 }
+                */
             }
             return rt;
         }

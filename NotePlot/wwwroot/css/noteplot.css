@@ -58,7 +58,7 @@ label.error {
     margin: 0px 0px 0.7em 0px;
 }
 
-.np-fVrtLayout input[type="text"], .np-fVrtLayoutinput [type="password"] {
+.np-fVrtLayout input[type="text"], .np-fVrtLayout input[type="password"], .np-fVrtLayout textarea {
     color: #4C4C4C;
     box-shadow: none;
     border: 1px solid #ccc;
@@ -67,22 +67,22 @@ label.error {
     transition: border linear .2s,box-shadow linear .2s;
     color: #555;
     vertical-align: middle;
-        /*
-    height: 20px;
-    padding: 4px 6px;
-    line-height: 20px;
-    */
-        /*
-    border-radius: 4px;
-    margin-bottom: 2px;
-   */
-        /*
-    font-size: 12px;
-    box-sizing: border-box;
-    height: 30px;
-        width: 100%;
+    /*
+height: 20px;
+padding: 4px 6px;
+line-height: 20px;
+*/
+    /*
+border-radius: 4px;
+margin-bottom: 2px;
+*/
+    /*
+font-size: 12px;
+box-sizing: border-box;
+height: 30px;
+    width: 100%;
 
-    */
+*/
 }
 
 .np-fVrtLayout input:focus{
