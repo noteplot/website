@@ -48,6 +48,7 @@
             var r = $('#packetParameters tbody tr.np_selected');
             if (r.length > 0) {
                 r.remove();
+                disableButtons();
                 if (refreshPage) {
                     refreshPage();
                 }

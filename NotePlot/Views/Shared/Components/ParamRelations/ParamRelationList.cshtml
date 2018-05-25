@@ -68,6 +68,7 @@
         var r = $('#parameterRelations tbody tr.selected');
         if (r.length > 0) {
             r.remove();
+            disableButtons();
             if (refreshPage) {
                 refreshPage();
             }

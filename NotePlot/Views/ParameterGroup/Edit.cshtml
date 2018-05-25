@@ -8,11 +8,11 @@
         <div>
             <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
             <p class="input-prepend">
-                <label for="ParameterGroupShortName" class="np_label">Краткое название</label>
+                <label for="ParameterGroupShortName" class="np_label">Краткое наименование</label>
                 <input class="ui-widget ui-widget-content ui-corner-all np-ui-input" type="text" id="ParameterGroupShortName" name="ParameterGroupShortName" placeholder="Краткое название" maxlength=24 value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
             </p>
             <p>
-                <label for="ParameterGroupName" class="np_label">Название</label>
+                <label for="ParameterGroupName" class="np_label">Полное наименование</label>
                 @*<input type="text" id="ParameterGroupName" name="ParameterGroupName" placeholder="Название" size="48" value="@Model.ParameterGroupName" @if (Model.LoginID == 0) { @atr_disabled } />*@
                 <textarea type="text" rows="2" id="ParameterGroupName" class="ui-widget ui-widget-content ui-corner-all np-ui-input" name="ParameterGroupName" value="@Model.ParameterGroupName" maxlength=48 @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterGroupName</textarea>
             </p>
