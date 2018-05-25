@@ -206,6 +206,7 @@ height: 30px;
     background-image: url("/images/ui-icon-calendar.gif");
     background-position: right center;
     background-repeat: no-repeat;
+    cursor : pointer;
 }
 
 .np-column-left {
@@ -231,6 +232,11 @@ textarea.np-column-left{
 
 .np-name {
     width: 48em; /*полное название*/
+}
+
+.np-form-row { /*TODO: */
+    margin-bottom: 0.2em;
+    /*border : solid 1px green;*/ 
 }
 
 #np_packet_edit .np-inputForm {

@@ -7,21 +7,39 @@
 </p>
 
 @Html.AntiForgeryToken()
-<div id="report">
+<div id="report" class="np-inputForm">
     <input type="hidden" id="MonitorID" name="MonitorID" data-target="MonitorID" data-target-value=""/>
-    <div><input type="text" name="DateFrom" class="input_date" @*value="@Model.DateFrom.ToString("d", ruRU)"*@ readonly size="10"></div>
-    <div><input type="text" name="DateTo" class="input_date" @*value="@Model.DateTo.ToString("d", ruRU)"*@ readonly size="10"></div>
-    <div class="input-prepend">
-        <button type="button" id="btnSelectMonitor" class="add-on openDialog" href="/Monitor/SelectMonitor" np_dialog_title="Выбор монитора">Монитор</button>
-        <input type="text" readonly id="MonitorShortName" name="MonitorShortName" size="24" data-target="MonitorShortName" data-target-value="" />
+    <div class="np-form-row np-clearfix">
+        <p class="np-column-left np-column-1">
+            <label>Период отчета</label>
+        </p>
+        <p class="np-column-left">
+            <input type="text" id="DateFrom" name="DateFrom" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" @*value="@Model.DateFrom.ToString(" d", ruRU)"*@ readonly>
+        </p>
+        <p class="np-column-left">
+            <input type="text" id="DateTo" name="DateTo" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" @*value="@Model.DateTo.ToString(" d", ruRU)"*@ readonly>
+        </p>
     </div>
-    <div>
-        <input type="radio" id="Mode1" name="Mode" value=0 checked />
-        <label for="Mode1">Все параметры монитора</label>
-        <input type="radio" id="Mode2" name="Mode" value=1 />
-        <label for="Mode2">Только активные</label>
+    <div class="np-form-row np-clearfix">
+        <p class="np-column-left np-column-1">
+            <button type="button" id="btnSelectMonitor" class="openDialog ui-button ui-corner-all" href="/Monitor/SelectMonitor" np_dialog_title="Выбор монитора">Монитор</button>
+        </p>
+        <p class="np-column-left">
+            <input class="np-short-name ui-widget ui-widget-content ui-corner-all np-ui-input" type="text" readonly id="MonitorShortName" name="MonitorShortName" data-target="MonitorShortName" data-target-value="" />
+        </p>
     </div>
-    <button id="btn_select">Найти</button>
+    <div class="np-form-row np-clearfix">
+        <p class="np-column-left np-column-1">
+            <label>Выбор параметров</label>
+        </p>
+        <div class="np-column-left">
+            <input type="radio" id="Mode1" name="Mode" value=0 checked />
+            <label for="Mode1">Все параметры монитора</label>
+            <input type="radio" id="Mode2" name="Mode" value=1 />
+            <label for="Mode2">Только активные</label>
+        </div>
+    </div>
+    <button id="btn_select" class="ui-button ui-corner-all">Список измерений</button>
 </div>
 <div id="paramValues">
 </div>
@@ -53,16 +71,16 @@
         });
 
         $.datepicker.setDefaults($.datepicker.regional['ru']);
-        $(".input_date").datepicker({
+        $(".np-input-date").datepicker({
             dateFormat: "dd.mm.yy",
             showOtherMonths: true,
             selectOtherMonths: true,
             changeMonth: true,
-            changeYear: true,
-            showOn: "both",
+            changeYear: true
+            //showOn: "both"
             //buttonImage: "calendar16.png",
-            buttonImageOnly: true,
-            buttonText: "выбрать дату"
+            //buttonImageOnly: true
+            //buttonText: "выбрать дату"
         });
         //Перезагрузка списка
         $('#btn_select').on('click', function (e) {

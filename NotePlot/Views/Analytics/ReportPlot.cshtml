@@ -1,5 +1,6 @@
 ﻿@{
     System.Globalization.CultureInfo ruRU = new System.Globalization.CultureInfo("ru-RU");
+    string atr_disabled = "disabled";
 }
 
 @section styles{
@@ -21,15 +22,23 @@
 }
 
 <div id="report">
-    <div><input type="text" name="DateFrom" class="input_date" @*value="@Model.DateFrom.ToString(" d", ruRU)"*@ readonly size="10"></div>
-    <div><input type="text" name="DateTo" class="input_date" @*value="@Model.DateTo.ToString(" d", ruRU)"*@ readonly size="10"></div>
-
-    <div class="input-prepend">
-        <button type="button" id="btnSelectParam" class="add-on openDialog" href="/Analytics/SelectMonitorParam" np_dialog_title="Выбор параметра">Добавить параметр</button>
-        <button type="button" id="btnDeleteParam" class="add-on">Удалить параметр</button>
+    <div class="np-form-row np-clearfix">
+        <p class="np-column-left np-column-1">
+            <label>Период отчета</label>
+        </p>
+        <p class="np-column-left">
+            <input type="text" id="DateFrom" name="DateFrom" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" @*value="@Model.DateFrom.ToString(" d", ruRU)"*@ readonly>
+        </p>
+        <p class="np-column-left">
+            <input type="text" id="DateTo" name="DateTo" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" @*value="@Model.DateTo.ToString(" d", ruRU)"*@ readonly>
+        </p>
+    </div>
+    <h4>Параметры измерения</h4>
+    <div class="np-tool-bar">
+        <button type="button" id="btnSelectParam" class="openDialog ui-button ui-corner-all" href="/Analytics/SelectMonitorParam" np_dialog_title="Выбор параметра">Добавить параметр</button>
+        <button type="button" id="btnDeleteParam" class="ui-button ui-corner-all np-btn-selected-row" @atr_disabled>Удалить параметр</button>
     </div>
 
-    <h4>Параметры измерения</h4>
     <table id="monitorParams" class="table parameters" width="100%">
         <thead>
             <tr>
@@ -43,7 +52,9 @@
         <tbody></tbody>
     </table>
 </div>
-<button id="btnPlot">График</button>
+<div class="np-tool-bar">
+    <button id="btnPlot" class="ui-button ui-corner-all">График</button>
+</div>
 <div id="plots">
 </div>
 
@@ -68,16 +79,16 @@
             //});
 
             $.datepicker.setDefaults($.datepicker.regional['ru']);
-            $(".input_date").datepicker({
+            $(".np-input-date").datepicker({
                 dateFormat: "dd.mm.yy",
                 showOtherMonths: true,
                 selectOtherMonths: true,
                 changeMonth: true,
-                changeYear: true,
-                showOn: "both",
+                changeYear: true
+                //showOn: "both",
                 //buttonImage: "calendar16.png",
-                buttonImageOnly: true,
-                buttonText: "выбрать дату"
+                //buttonImageOnly: true
+                //buttonText: "выбрать дату"
             });
 
             //=================================
@@ -100,20 +111,27 @@
                     // если d.drag != "1" тогда снимаем выделение
                     //if ((d == undefined) || (d.drag == undefined) || (d.drag != "1"))
                     $(this).removeClass("np_selected");
+                    disableButtons();
                 }
                 else {
                     $("#monitorParams tbody tr").not(this).removeClass("np_selected");
                     $(this).addClass("np_selected");
+                    enableButtons();
                 }
             });
 
             $('#btnDeleteParam').on('click', function (e) {
-                e.preventDefault();
-                $('#monitorParams tbody tr.np_selected').remove();
+                e.preventDefault();                
+                var r = $('#monitorParams tbody tr.np_selected');
+                if (r.length > 0) {
+                    r.remove();
+                    disableButtons();
+                }
             });
 
             $('#btnPlot').on('click', function (e) {
                 e.preventDefault();
+
                 if (!$('input[name="DateFrom"]').val()) {
                     np_ShowMessage('Необходимо указать дату начала периода!', 'Внимание!');
                     return;
@@ -126,7 +144,7 @@
                     np_ShowMessage('Необходимо выбрать параметры измерения!', 'Внимание!');
                     return;
                 }
-                var data = $("#report input.input_date").serialize();
+                var data = $("#report input.np-input-date").serialize();
                 var dataJson1 = data.replaceAll('&', '","').replaceAll('=', '":"') + '"';
                 var dataJson2 = '"Params":[' + $('#monitorParams').np_serializeTable(2) + "]";
                 var dataJson = '{"' + dataJson1 + "," + dataJson2 + '}';
@@ -200,14 +218,14 @@
                         //var y = item.datapoint[1];
 
                         //var x = new Date(item.datapoint[0]).toLocaleString(); // из миллисекунд в нормальный формат
-                        var x = np_getStringDate(new Date(item.datapoint[0]), 'date_time', 'dd:mm:yy','hh:nn', '.', ':');
+                        var x = np_getStringDate(new Date(item.datapoint[0]), 'date_time', 'dd:mm:yy', 'hh:nn', '.', ':');
                         var y = item.datapoint[1];//.toFixed(2);
 
                         var color = item.series.color;
 
                         np_flotShowTooltip(item.pageX, item.pageY, color,
                             "<strong>" + item.series.label + "</strong>" +
-                            " : <strong>" + y + "</br>"+" на " + x + "</strong> ");
+                            " : <strong>" + y + "</br>" + " на " + x + "</strong> ");
                     }
                 } else {
                     $("#tooltip").remove();
@@ -252,19 +270,19 @@
             np_plotRedraw(true);
             // легенду рисуем только один раз
             plot_conf.legend.show = false;
-            plot_conf.legend.container = null;                       
+            plot_conf.legend.container = null;
         }
 
         function np_plotRedraw(showLegend) {
             var data = [];
             for (var j = 0; j < np_flotData.length; ++j)
                 if (!np_flotHide[j]) // что скрываем, а что нет
-                    data.push(np_flotData[j]);            
+                    data.push(np_flotData[j]);
             np_plotFlot = $.plot($("#placeholder"), data, plot_conf);
             var legend = document.getElementById('legend'); // еще IE не умеет заменять innerHTML в table
             var legend_tbl = legend.getElementsByTagName('table')[0];
             if (showLegend) {
-            // рисуем чекбоксы в легенде
+                // рисуем чекбоксы в легенде
                 var legend_html = '<table style="font-size: smaller; color: rgb(84, 84, 84);"><tbody>';
                 for (var i = 0; i < legend_tbl.rows.length; i++) {
                     legend_html += '<tr>' +
@@ -277,5 +295,37 @@
             }
         }
 // отрисовка графиков )
+        //TODO: вынести в файл
+        function enableButtons() {
+            $('.np-btn-selected-row').each(function () {
+                if ($(this).attr('disabled')) {
+                    $(this).removeAttr('disabled');
+                }
+            });
+        }
+
+        function disableButtons() {
+            $('.np-btn-selected-row').each(function () {
+                if (!$(this).attr('disabled')) {
+                    $(this).attr('disabled', 'disabled');
+                }
+            });
+        }
+        /*
+        function refreshPage() {
+            // кнопка удаления параметра из таблицы
+            var t_mp = document.getElementById('monitorParams');
+            if (t_mp.rows.length > 0) {
+                if ($('#btnDeleteParam').attr('disabled')) {
+                    $('#btnDeleteParam').removeAttr('disabled');
+                }
+            }
+            else { 
+                if (!$('#btnDeleteParam').attr('disabled')) {
+                    $('#btnDeleteParam').attr('disabled', 'disabled');
+                }
+            }
+        }
+        */
     </script>
 }

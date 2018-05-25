@@ -71,21 +71,28 @@ namespace NotePlot.Controllers
                 int id = 1;
                 long loginID = LoginController.GetLogin(HttpContext.User);
                 var MonitorParamsXML = ToolKit.SerializeToStringXML(Params, "Report");
-                List<ReportJsonArray> jList = await repo.GetReportJsonDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo);
-                // строим массив для Flot
-                if (jList.Count() > 0)
+                try
                 {
-                    foreach (var ja in jList)
+                    List<ReportJsonArray> jList = await repo.GetReportJsonDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo);
+                    // строим массив для Flot
+                    if (jList.Count() > 0)
                     {
-                        if (id == 1)
-                            jsonArray += ja.JsonArray;
-                        else
-                            jsonArray += ',' + ja.JsonArray;
-                        id += 1;
+                        foreach (var ja in jList)
+                        {
+                            if (id == 1)
+                                jsonArray += ja.JsonArray;
+                            else
+                                jsonArray += ',' + ja.JsonArray;
+                            id += 1;
+                        }
+                        jsonArray = "[" + jsonArray + "]";
                     }
-                    jsonArray = "[" + jsonArray + "]";
+                    return Ok(jsonArray);
                 }
-                return Ok(jsonArray);
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
                 //return Ok("LOAD TEST");                
                 //return PartialView("PlotParameterValues", await repo.GetReportPlotDataAsync(loginID, MonitorParamsXML, DateFrom, DateTo));
             }
