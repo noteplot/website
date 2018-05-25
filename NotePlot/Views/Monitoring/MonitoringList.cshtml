@@ -10,22 +10,31 @@
     <a href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a>
 </p>
 <p>
-    Поиcк по параметрам
+    Условия формирования списка измерений
 </p>
 @Html.AntiForgeryToken()
-<div id="tabs">
+<div id="tabs" class="np-inputForm">
     <ul>
-        <li><a href="#tabs_tops">Выбрать измерения</a></li>
+        <li><a href="#tabs_tops">Выбрать последние</a></li>
         <li><a href="#tabs_period">За период</a></li>
     </ul>
-    <div id="tabs_tops">
-        <p><input type="text" name="Tops" value="@Model.Tops"></p>
+    <div id="tabs_tops" class="np-form-row np-clearfix">
+        <p class="np-column-left">
+            <input type="text" name="Tops" value="@Model.Tops" class="np-short-name ui-widget ui-widget-content ui-corner-all np-ui-input np-number-quant" maxlength="3">
+        </p>
+        <p class="np-column-left">
+            <label>записей</label>
+        </p>
     </div>
-    <div id="tabs_period">
-        <p><input type="text" name="DateFrom" class="input_date" value="@Model.DateFrom.ToString("d", ruRU)" readonly size="10"></p>
-        <p><input type="text" name="DateTo" class="input_date" value="@Model.DateTo.ToString("d", ruRU)" readonly size="10"></p>
+    <div id="tabs_period" class="np-form-row np-clearfix">
+        <p class="np-column-left">
+            <input type="text" name="DateFrom" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" value="@Model.DateFrom.ToString("d", ruRU)" readonly>
+        </p>
+        <p class="np-column-left">
+            <input type="text" name="DateTo" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" value="@Model.DateTo.ToString("d", ruRU)" readonly>
+        </p>
     </div>
-    <button id="btn_select">Выбрать</button>
+    <button id="btn_select" class="ui-button ui-corner-all">Показать список</button>
 </div>
 <div class="np_toolbar">
     <a href="@Url.Action("MonitoringNew", "Monitoring",new { id = Model.MonitorID })" class="np_button blue">
@@ -42,7 +51,7 @@
         $("#monitorMonitoringList").DataTable();
         //
         $.datepicker.setDefaults($.datepicker.regional['ru']);
-        $(".input_date").datepicker({
+        $(".np-input-date").datepicker({
             dateFormat: "dd.mm.yy",
             showOtherMonths: true,
             selectOtherMonths: true,

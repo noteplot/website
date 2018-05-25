@@ -264,3 +264,14 @@ textarea.np-column-left{
     background-color: #ccc;
     color: #666;
 }
+
+/*Фильтр в списке измерений по монитору*/
+#tabs.np-inputForm {
+    max-width: 400px; /*Изменить на необходимую ширину*/
+    /*margin: 10px;*/
+    margin: 0px;
+    width: 100%;
+}
+.np-number-quant {
+    width : 3em;
+}

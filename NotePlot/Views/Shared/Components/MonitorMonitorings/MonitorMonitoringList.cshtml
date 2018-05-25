@@ -59,8 +59,8 @@
     </table>
 </div>
     <script type="text/javascript">
+        $("#monitorMonitoringList").DataTable();
         $(document).ready(function () {
-            $("#monitorMonitoringList").DataTable();
             $('#monitorMonitoringList').on('page.dt order.dt search.dt', function () {
                 $('#monitorMonitoringList tbody tr.selected').removeClass('selected');
             });
