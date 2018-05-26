@@ -6,11 +6,10 @@
         <li>
             <a href="#" class="button">
                 <div class="icon"><span class="ico-home"></span></div>
-                <div class="name">Монитор</div>
+                <div class="name">Измерения</div>
             </a>
             <ul>
-                <li><a href="#">Новый</a></li>
-                <li><a href="#">Открыть</a></li>
+                <li>@Html.ActionLink("Шаблоны измерений", "MonitorList", "Monitor")</li>
             </ul>
         </li>
         <li>
@@ -19,13 +18,10 @@
                 <div class="name">Справочники</div>
             </a>
             <ul>
-                @*<li><a href="#">Параметры измерения</a></li>*@
-                <li>@Html.ActionLink("Шаблоны измерений", "MonitorList", "Monitor")</li>
-                <li>@Html.ActionLink("Параметры измерения", "ParameterList", "Parameter")</li>
                 <li>@Html.ActionLink("Пакеты параметров", "PacketList", "Parameter")</li>
-                @*<li>@Html.ActionLink("Новый параметр", "New", "Parameter")</li>*@
+                <li>@Html.ActionLink("Параметры измерений", "ParameterList", "Parameter")</li>
                 <li>@Html.ActionLink("Группы параметров", "List", "ParameterGroup")</li>
-                <li>@Html.ActionLink("Ед.измерения", "UnitList", "Unit")</li>                
+                <li>@Html.ActionLink("Ед.измерения", "UnitList", "Unit")</li>
                 <li>@Html.ActionLink("Группы ед.измерения", "UnitCategoryList", "UnitCategory")</li>
                 <li>@Html.ActionLink("Типы значений", "Index", "ParamValueType")</li>
             </ul>
