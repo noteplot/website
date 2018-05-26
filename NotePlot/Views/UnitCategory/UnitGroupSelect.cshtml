@@ -17,29 +17,36 @@
         }
     </tbody>
 </table>
-<button class="np_select">выбрать</button>
-<script type="text/javascript">
+<div class="np-dialog-buttons">
+    <button class="np_select ui-button ui-corner-all np-left np-btn-selected-row" disabled>Да</button>
+    <button id="btnSelectCancel" class="ui-button ui-corner-all np-right">Отмена</button>
+    <div class="np-clear"></div>
+</div>
+<script type="text/javascript">    
     $("#unitSelectGroups").DataTable();
     $(document).ready(function () {
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#unitSelectGroups').on('page.dt order.dt search.dt', function () {
             $('#unitSelectGroups tbody tr.selected').removeClass('selected');
+            np_disableButtons();
         });
 
         //$('#parameterGroups tbody tr').on('click', function () {
         $('#unitSelectGroups tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
+                np_disableButtons();
             }
             else {
                 $('#unitSelectGroups tbody tr.selected').removeClass('selected');
                 $(this).addClass('selected');
+                np_enableButtons();
             }
         });
         $("button.np_select").on('click', function () {
             if ($('#unitSelectGroups tbody tr').hasClass('selected')) {
                 // Изменяем значения связанных атрибутов по схеме sourсe -> target
-                $('#unitSelectGroups tbody tr.selected td[data-source]').each(function () { 
+                $('#unitSelectGroups tbody tr.selected td[data-source]').each(function () {
                     var tg = $('[data-target=' + '"' + $(this).attr("data-source") + '"]');
                     if (tg) {
                         tg.SetTargetValue($(this).text());
@@ -52,7 +59,15 @@
                     $('#' + _md).dialog("close");
                 }
             }
-        })
+        });
 
+        $('#btnSelectCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#unitSelectGroups').parents('.dialog').first().attr('id');
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
+            }
+        });
     });
 </script>

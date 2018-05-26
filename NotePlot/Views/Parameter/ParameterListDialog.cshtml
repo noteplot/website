@@ -2,38 +2,26 @@
 @if (@ViewBag != null && @ViewBag.operations != null)
 {
     <p>
-        Выберите операцию: 
+        Выберите операцию:
         <select id="mathOperation" name="mathOperation">
             @*<option value="">Выберите операцию</option>*@
-    @foreach (NotePlot.Models.MathOperation mo in @ViewBag.operations)
-    {
-            <option value="@mo.MathOperationID">@mo.MathOperationFullName</option>
-    }
-        </select>       
+            @foreach (NotePlot.Models.MathOperation mo in @ViewBag.operations)
+            {
+                <option value="@mo.MathOperationID">@mo.MathOperationFullName</option>
+            }
+        </select>
     </p>
 }
 
 <table class="table" id="parameterListDialog" width="100%">
     <thead>
         <tr>
-            <th>
-                Группа
-            </th>
-            <th>
-                Параметр
-            </th>
-            <th>
-                Ед.изм.
-            </th>
-            <th>
-                Тип
-            </th>
-            <th hidden>
-                ParameterID
-            </th>
-            <th hidden>
-                LoginID
-            </th>
+            <th>Группа</th>
+            <th>Параметр</th>
+            <th>Ед.изм.</th>
+            <th>Тип</th>
+            <th hidden>ParameterID</th>
+            <th hidden>LoginID</th>
         </tr>
     </thead>
     <tbody>
@@ -50,11 +38,15 @@
         }
     </tbody>
 </table>
-<button class="np_select">выбрать</button>
+<div class="np-dialog-buttons">
+    <button class="np_select ui-button ui-corner-all np-left np-btn-selected-row" disabled>Да</button>
+    <button id="btnSelectCancel" class="ui-button ui-corner-all np-right">Отмена</button>
+    <div class="np-clear"></div>
+</div>
 <script type="text/javascript">
     $("#parameterListDialog").DataTable();
     //    { // это hidden !!! для hidden всегда нужно width=100% в противном случае, не удаляет место
-    //        "columnDefs": [  
+    //        "columnDefs": [
     //            {
     //                "targets": [4],
     //                "visible": false,
@@ -69,16 +61,19 @@
     // при переключении страниц + сортировка + фильтр сбрасываем selected
     $('#parameterListDialog').on('page.dt order.dt search.dt', function () {
         $('#parameterListDialog tbody tr.selected').removeClass('selected');
+        np_disableButtons();
     });
 
     //$('#parameterGroups tbody tr').on('click', function () {
     $('#parameterListDialog tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
+            np_disableButtons();
         }
         else {
             $('#parameterListDialog tbody tr.selected').removeClass('selected');
             $(this).addClass('selected');
+            np_enableButtons();
         }
     });
     //кнопка выбора группы
@@ -97,53 +92,62 @@
                         if (name == 'MathOperationName') {
                             value = $("#mathOperation option:selected").text();
                         }
-                    else
-                        value = $tr_sel.find('.' + name).text();
+                        else
+                            value = $tr_sel.find('.' + name).text();
                     name = '{' + np_insertRow.fields[i] + '}';
                     template = template.replace(name, value);
-                }   
-                                
+                }
+
                 if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
                     $(np_insertRow.tableId + ' tbody').html(template);
                 }
                 else {
                     $(np_insertRow.tableId + ' tbody tr:last').after(template);
                 }
-                if (refreshPage) { 
+                if (refreshPage) {
                     refreshPage();
                 }
             }
-/*
-            var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_parameter_id');
-            var _MathOperationID = $('#mathOperation').val();
-            var _MathOperationName = $("#mathOperation option:selected").text();
-            //var _ParameterID = $('#parameterListDialog tbody tr.selected td]').text();
-            var _ParameterShortName = $('#parameterListDialog tbody tr.selected td[np_col="2"]').text();            
-            if ((_ParameterID != undefined) && (_ParameterShortName != undefined)) {
-                // ВСТАВКА НА ФОРМУ!!!
-                var _add_tr = "<tr>"
-                var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='ParameterID' name='ParameterID' value='" + _ParameterID + "'/></td>";
-                var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='MathOperationID' name='MathOperationID' value='" + _MathOperationID + "'/></td>"
-                var _add_tr = _add_tr + "<td>" + _ParameterShortName + "</td>"
-                var _add_tr = _add_tr + "<td>" + _MathOperationName + "</td>"
-                var _add_tr = _add_tr + "</tr>";                
-                if ($("#parameterRelations tr:last") == undefined)
-                {
-                    $("#parameterRelations tbody").html = _add_tr
-                }
-                else
-                {
-                    $("#parameterRelations tr:last").after(_add_tr);
-                }
+            /*
+                        var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_parameter_id');
+                        var _MathOperationID = $('#mathOperation').val();
+                        var _MathOperationName = $("#mathOperation option:selected").text();
+                        //var _ParameterID = $('#parameterListDialog tbody tr.selected td]').text();
+                        var _ParameterShortName = $('#parameterListDialog tbody tr.selected td[np_col="2"]').text();
+                        if ((_ParameterID != undefined) && (_ParameterShortName != undefined)) {
+                            // ВСТАВКА НА ФОРМУ!!!
+                            var _add_tr = "<tr>"
+                            var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='ParameterID' name='ParameterID' value='" + _ParameterID + "'/></td>";
+                            var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='MathOperationID' name='MathOperationID' value='" + _MathOperationID + "'/></td>"
+                            var _add_tr = _add_tr + "<td>" + _ParameterShortName + "</td>"
+                            var _add_tr = _add_tr + "<td>" + _MathOperationName + "</td>"
+                            var _add_tr = _add_tr + "</tr>";
+                            if ($("#parameterRelations tr:last") == undefined)
+                            {
+                                $("#parameterRelations tbody").html = _add_tr
+                            }
+                            else
+                            {
+                                $("#parameterRelations tr:last").after(_add_tr);
+                            }
+                        }
+            */
+            // определяем контейнер диалога
+            var _md = $('#parameterListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+            //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
             }
-*/                
-                // определяем контейнер диалога
-                var _md = $('#parameterListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
-                //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
-                if (_md != undefined) {
-                    $('#' + _md).dialog("close");
-                }
-                //$('#masterDialog').dialog("close");
+            //$('#masterDialog').dialog("close");
         }
-    })
+    });
+
+    $('#btnSelectCancel').on('click', function (e) {
+        e.preventDefault();
+        // Находим диалог и закрываем
+        var _md = $('#parameterListDialog').parents('.dialog').first().attr('id');
+        if (_md != undefined) {
+            $('#' + _md).dialog("close");
+        }
+    });
 </script>

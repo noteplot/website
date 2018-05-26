@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<NotePlot.Models.ReportParamPick>
 
-<table id="monitorParamSelect" class="table"  width="100%">
+<table id="monitorParamSelect" class="table" width="100%">
     <thead>
         <tr>
             <th>Параметр</th>
@@ -11,36 +11,42 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
-        <tr data-np_login_id=@item.LoginID>
-            <td class="ParamShortName">@item.ParamShortName</td>
-            <td class="MonitorShortName">@item.MonitorShortName</td>
-            <td class="UnitShortName">@item.UnitShortName</td>
-            <td hidden class="ParamID">@item.ParamID</td>
-            <td hidden class="MonitorID">@item.MonitorID</td>
-        </tr>
+        @foreach (var item in Model)
+        {
+            <tr data-np_login_id=@item.LoginID>
+                <td class="ParamShortName">@item.ParamShortName</td>
+                <td class="MonitorShortName">@item.MonitorShortName</td>
+                <td class="UnitShortName">@item.UnitShortName</td>
+                <td hidden class="ParamID">@item.ParamID</td>
+                <td hidden class="MonitorID">@item.MonitorID</td>
+            </tr>
         }
     </tbody>
 </table>
-<button class="np_select">выбрать</button>
-
+<div class="np-dialog-buttons">
+    <button class="np_select ui-button ui-corner-all np-left np-btn-selected-row" disabled>Да</button>
+    <button id="btnSelectCancel" class="ui-button ui-corner-all np-right">Отмена</button>
+    <div class="np-clear"></div>
+</div>
 <script type="text/javascript">
     $("#monitorParamSelect").DataTable();
-
     $(document).ready(function () {
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#monitorParamSelect').on('page.dt order.dt search.dt', function () {
             $('#monitorSelect tbody tr.selected').removeClass('selected');
+            np_disableButtons();
         });
 
         //$('#parameterGroups tbody tr').on('click', function () {
         $('#monitorParamSelect tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
+                np_disableButtons();
             }
             else {
                 $('#monitorParamSelect tbody tr.selected').removeClass('selected');
                 $(this).addClass('selected');
+                np_enableButtons();
             }
         });
         // вставляем по шаблону выбранные строки
@@ -48,7 +54,7 @@
             if ($('#monitorParamSelect tbody tr').hasClass('selected')) {
                 if (typeof np_insertRow != 'undefined') {
                     var template = np_insertRow.rowTemplate;
-                    var value,paramId;
+                    var value, paramId;
                     var $tr_sel = $('#monitorParamSelect tbody tr.selected'); //selected row
                     for (var i in np_insertRow.fields) {
                         var name = np_insertRow.fields[i];
@@ -59,8 +65,7 @@
                         template = template.replace(name, value);
                     }
                     var _paramId = $(np_insertRow.tableId + ' tbody tr input#ParamID').val();
-                    if (!(_paramId && _paramId == paramId))
-                    {
+                    if (!(_paramId && _paramId == paramId)) {
                         if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
                             $(np_insertRow.tableId + ' tbody').html(template);
                         }
@@ -76,6 +81,15 @@
                     $('#' + _md).dialog("close");
                 }
             }
-        })
+        });
+
+        $('#btnSelectCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#monitorParamSelect').parents('.dialog').first().attr('id');
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
+            }
+        });
     });
 </script>

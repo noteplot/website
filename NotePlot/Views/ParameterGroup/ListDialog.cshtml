@@ -3,43 +3,48 @@
 <table class="table" id="parameterGroups">
     <thead>
         <tr>
-                <th>
-                    Группа
-                </th>
+            <th>Группа</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr np_group_id =@item.ParameterGroupID np_login_id= @item.LoginID>
-            <td>@item.ParameterGroupShortName</td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr np_group_id=@item.ParameterGroupID np_login_id=@item.LoginID>
+                <td>@item.ParameterGroupShortName</td>
+            </tr>
+        }
     </tbody>
 </table>
-<button class="np_select">выбрать</button>
+<div class="np-dialog-buttons">
+    <button class="np_select ui-button ui-corner-all np-left np-btn-selected-row" disabled>Да</button>
+    <button id="btnSelectCancel" class="ui-button ui-corner-all np-right">Отмена</button>
+    <div class="np-clear"></div>
+</div>
 <script type="text/javascript">
     $("#parameterGroups").DataTable();
     // при переключении страниц + сортировка + фильтр сбрасываем selected
     $('#parameterGroups').on('page.dt order.dt search.dt', function () {
         $('#parameterGroups tbody tr.selected').removeClass('selected');
+        np_disableButtons();
     });
-    
+
     //$('#parameterGroups tbody tr').on('click', function () {
     $('#parameterGroups tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
+            np_disableButtons();
         }
         else {
             $('#parameterGroups tbody tr.selected').removeClass('selected');
             $(this).addClass('selected');
+            np_enableButtons();
         }
     });
     //кнопка выбора группы
-    $("button.np_select").on('click', function () {                
-        if ($('#parameterGroups tbody tr').hasClass('selected')) {        
+    $("button.np_select").on('click', function () {
+        if ($('#parameterGroups tbody tr').hasClass('selected')) {
             var _ParameterGroupID = $('#parameterGroups tbody tr.selected').attr('np_group_id');
             var _ParameterGroupShortName = $('#parameterGroups tbody tr.selected td').text();
-            //alert(_ParameterGroupShortName); 
             if ((_ParameterGroupID != undefined) && (_ParameterGroupShortName != undefined)) {
                 $('#ParameterGroupID').val(_ParameterGroupID);
                 $('#ParameterGroupShortName').val(_ParameterGroupShortName);
@@ -47,11 +52,19 @@
                 var _md = $('#parameterGroups').parentsUntil('.dialog').parent('.dialog').first().attr('id');
                 //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
                 if (_md != undefined) {
-                    $('#'+_md).dialog("close");
+                    $('#' + _md).dialog("close");
                 }
-                //$('#masterDialog').dialog("close");
             }
         }
-    })
+    });
+
+    $('#btnSelectCancel').on('click', function (e) {
+        e.preventDefault();
+        // Находим диалог и закрываем
+        var _md = $('#parameterGroups').parents('.dialog').first().attr('id');
+        if (_md != undefined) {
+            $('#' + _md).dialog("close");
+        }
+    });
 </script>
 

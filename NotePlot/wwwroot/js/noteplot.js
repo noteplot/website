@@ -644,3 +644,20 @@ $.fn.dataTableExt.oSort['ru-date-desc'] = function (a, b) {
     b = b.split(/\D+/).reverse().join('');
     return ((a > b) ? -1 : ((a < b) ? 1 : 0));
 };
+
+// обработка для кнопок в диалогах выбора из списка
+function np_enableButtons() { // при выделении строк
+    $('.np-btn-selected-row').each(function () {
+        if ($(this).attr('disabled')) {
+            $(this).removeAttr('disabled');
+        }
+    });
+}
+
+function np_disableButtons() {// при снятии выделения строк
+    $('.np-btn-selected-row').each(function () {
+        if (!$(this).attr('disabled')) {
+            $(this).attr('disabled', 'disabled');
+        }
+    });
+}

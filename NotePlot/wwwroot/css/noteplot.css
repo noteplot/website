@@ -268,9 +268,29 @@ textarea.np-column-left{
 /*Для всех кнопок стиля ui*/
 .ui-button:disabled,
 .ui-button[disabled] {
-    /*border: 1px solid #999999;*/
+    /*border: 1px solid #999999;*/ 
     background-color: #ccc;
     color: #666;
+}
+
+/*блок кнопок диалога выбора*/
+.np-dialog-buttons button.np-left {
+    float: left;
+}
+.np-dialog-buttons button.np-right {
+    float: right;
+}
+
+.np-dialog-buttons {
+    margin-top: 1em;
+}
+
+/*для диалога выбора, добавочный блок для блока кнопок внизу , 
+псевдоэлемент :after работает некорректно в диалоге - полосы прокрутки
+т.е. некорректно определяются размеры контента
+*/
+.np-clear { 
+    clear: both;
 }
 
 /*Фильтр в списке измерений по монитору*/
