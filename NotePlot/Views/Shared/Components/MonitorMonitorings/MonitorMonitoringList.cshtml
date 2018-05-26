@@ -9,21 +9,10 @@
         <thead>
             <tr>
                 <th></th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitoringDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitoringComment)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MonitorShortName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreationDateUTC)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ModifiedDateUTC)
-                </th>
+                <th>Дата измерения</th>
+                <th>Комментарий</th>
+                <th>Дата создания UTC</th>
+                <th>Дата изменения UTC</th>
             </tr>
         </thead>
         <tbody>
@@ -38,21 +27,10 @@
                         <div class="icon"><i class="fa fa-times"></i></div>
                     </a>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MonitoringDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MonitoringComment)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MonitorShortName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDateUTC)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedDateUTC)
-                </td>
+                <td>@item.MonitoringDate</td>
+                <td>@item.MonitoringComment</td>
+                <td>@item.CreationDateUTC</td>
+                <td>@item.ModifiedDateUTC</td>
             </tr>
             }
         </tbody>
