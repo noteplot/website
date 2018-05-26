@@ -265,6 +265,14 @@ textarea.np-column-left{
     color: #666;
 }
 
+/*Для всех кнопок стиля ui*/
+.ui-button:disabled,
+.ui-button[disabled] {
+    /*border: 1px solid #999999;*/
+    background-color: #ccc;
+    color: #666;
+}
+
 /*Фильтр в списке измерений по монитору*/
 #tabs.np-inputForm {
     max-width: 400px; /*Изменить на необходимую ширину*/
