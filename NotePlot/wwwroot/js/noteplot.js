@@ -228,7 +228,7 @@ function np_MessageDialogPost(event) {
             */
             buttons: [
                 {
-                    text: "Ok",
+                    text: "Да",
                     //icon: "ui-icon-heart",
                     click: function () {
                         $(this).dialog("close");                        
@@ -236,7 +236,7 @@ function np_MessageDialogPost(event) {
                     }
                 },
                 {
-                    text: "Cancel",
+                    text: "Нет",
                     //icon: "ui-icon-heart",
                     click: function () {
                         $(this).dialog("close");
