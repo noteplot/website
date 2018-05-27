@@ -44,110 +44,112 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
-    $("#parameterListDialog").DataTable();
-    //    { // это hidden !!! для hidden всегда нужно width=100% в противном случае, не удаляет место
-    //        "columnDefs": [
-    //            {
-    //                "targets": [4],
-    //                "visible": false,
-    //            },
-    //            {
-    //                "targets": [5],
-    //                "visible": false
-    //            }
-    //        ]
-    //    }
-    //);
-    // при переключении страниц + сортировка + фильтр сбрасываем selected
-    $('#parameterListDialog').on('page.dt order.dt search.dt', function () {
-        $('#parameterListDialog tbody tr.selected').removeClass('selected');
-        np_disableButtons();
-    });
-
-    //$('#parameterGroups tbody tr').on('click', function () {
-    $('#parameterListDialog tbody').on('click', 'tr', function () {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-            np_disableButtons();
-        }
-        else {
+    $(function () {
+        $("#parameterListDialog").DataTable({ "language": dtLanguage });
+        //    { // это hidden !!! для hidden всегда нужно width=100% в противном случае, не удаляет место
+        //        "columnDefs": [
+        //            {
+        //                "targets": [4],
+        //                "visible": false,
+        //            },
+        //            {
+        //                "targets": [5],
+        //                "visible": false
+        //            }
+        //        ]
+        //    }
+        //);
+        // при переключении страниц + сортировка + фильтр сбрасываем selected
+        $('#parameterListDialog').on('page.dt order.dt search.dt', function () {
             $('#parameterListDialog tbody tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-            np_enableButtons();
-        }
-    });
-    //кнопка выбора группы
-    $("button.np_select").on('click', function () {
-        if ($('#parameterListDialog tbody tr').hasClass('selected')) {
-            if (typeof np_insertRow != "undefined") {
-                var template = np_insertRow.rowTemplate;
-                var value;
-                var $tr_sel = $('#parameterListDialog tbody tr.selected'); //selected row
-                for (var i in np_insertRow.fields) {
-                    var name = np_insertRow.fields[i];
-                    if (name == 'MathOperationID') {
-                        value = $('#mathOperation').val();
-                    }
-                    else
-                        if (name == 'MathOperationName') {
-                            value = $("#mathOperation option:selected").text();
+            np_disableButtons();
+        });
+
+        //$('#parameterGroups tbody tr').on('click', function () {
+        $('#parameterListDialog tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                np_disableButtons();
+            }
+            else {
+                $('#parameterListDialog tbody tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                np_enableButtons();
+            }
+        });
+        //кнопка выбора группы
+        $("button.np_select").on('click', function () {
+            if ($('#parameterListDialog tbody tr').hasClass('selected')) {
+                if (typeof np_insertRow != "undefined") {
+                    var template = np_insertRow.rowTemplate;
+                    var value;
+                    var $tr_sel = $('#parameterListDialog tbody tr.selected'); //selected row
+                    for (var i in np_insertRow.fields) {
+                        var name = np_insertRow.fields[i];
+                        if (name == 'MathOperationID') {
+                            value = $('#mathOperation').val();
                         }
                         else
-                            value = $tr_sel.find('.' + name).text();
-                    name = '{' + np_insertRow.fields[i] + '}';
-                    template = template.replace(name, value);
-                }
-
-                if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
-                    $(np_insertRow.tableId + ' tbody').html(template);
-                }
-                else {
-                    $(np_insertRow.tableId + ' tbody tr:last').after(template);
-                }
-                if (refreshPage) {
-                    refreshPage();
-                }
-            }
-            /*
-                        var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_parameter_id');
-                        var _MathOperationID = $('#mathOperation').val();
-                        var _MathOperationName = $("#mathOperation option:selected").text();
-                        //var _ParameterID = $('#parameterListDialog tbody tr.selected td]').text();
-                        var _ParameterShortName = $('#parameterListDialog tbody tr.selected td[np_col="2"]').text();
-                        if ((_ParameterID != undefined) && (_ParameterShortName != undefined)) {
-                            // ВСТАВКА НА ФОРМУ!!!
-                            var _add_tr = "<tr>"
-                            var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='ParameterID' name='ParameterID' value='" + _ParameterID + "'/></td>";
-                            var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='MathOperationID' name='MathOperationID' value='" + _MathOperationID + "'/></td>"
-                            var _add_tr = _add_tr + "<td>" + _ParameterShortName + "</td>"
-                            var _add_tr = _add_tr + "<td>" + _MathOperationName + "</td>"
-                            var _add_tr = _add_tr + "</tr>";
-                            if ($("#parameterRelations tr:last") == undefined)
-                            {
-                                $("#parameterRelations tbody").html = _add_tr
+                            if (name == 'MathOperationName') {
+                                value = $("#mathOperation option:selected").text();
                             }
                             else
-                            {
-                                $("#parameterRelations tr:last").after(_add_tr);
+                                value = $tr_sel.find('.' + name).text();
+                        name = '{' + np_insertRow.fields[i] + '}';
+                        template = template.replace(name, value);
+                    }
+
+                    if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
+                        $(np_insertRow.tableId + ' tbody').html(template);
+                    }
+                    else {
+                        $(np_insertRow.tableId + ' tbody tr:last').after(template);
+                    }
+                    if (refreshPage) {
+                        refreshPage();
+                    }
+                }
+                /*
+                            var _ParameterID = $('#parameterListDialog tbody tr.selected').attr('np_parameter_id');
+                            var _MathOperationID = $('#mathOperation').val();
+                            var _MathOperationName = $("#mathOperation option:selected").text();
+                            //var _ParameterID = $('#parameterListDialog tbody tr.selected td]').text();
+                            var _ParameterShortName = $('#parameterListDialog tbody tr.selected td[np_col="2"]').text();
+                            if ((_ParameterID != undefined) && (_ParameterShortName != undefined)) {
+                                // ВСТАВКА НА ФОРМУ!!!
+                                var _add_tr = "<tr>"
+                                var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='ParameterID' name='ParameterID' value='" + _ParameterID + "'/></td>";
+                                var _add_tr = _add_tr + "<td hidden>" + "<input type='text' id='MathOperationID' name='MathOperationID' value='" + _MathOperationID + "'/></td>"
+                                var _add_tr = _add_tr + "<td>" + _ParameterShortName + "</td>"
+                                var _add_tr = _add_tr + "<td>" + _MathOperationName + "</td>"
+                                var _add_tr = _add_tr + "</tr>";
+                                if ($("#parameterRelations tr:last") == undefined)
+                                {
+                                    $("#parameterRelations tbody").html = _add_tr
+                                }
+                                else
+                                {
+                                    $("#parameterRelations tr:last").after(_add_tr);
+                                }
                             }
-                        }
-            */
-            // определяем контейнер диалога
-            var _md = $('#parameterListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
-            //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
+                */
+                // определяем контейнер диалога
+                var _md = $('#parameterListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+                //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
+                if (_md != undefined) {
+                    $('#' + _md).dialog("close");
+                }
+                //$('#masterDialog').dialog("close");
+            }
+        });
+
+        $('#btnSelectCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#parameterListDialog').parents('.dialog').first().attr('id');
             if (_md != undefined) {
                 $('#' + _md).dialog("close");
             }
-            //$('#masterDialog').dialog("close");
-        }
-    });
-
-    $('#btnSelectCancel').on('click', function (e) {
-        e.preventDefault();
-        // Находим диалог и закрываем
-        var _md = $('#parameterListDialog').parents('.dialog').first().attr('id');
-        if (_md != undefined) {
-            $('#' + _md).dialog("close");
-        }
+        });
     });
 </script>

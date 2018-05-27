@@ -32,61 +32,63 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
-    $("#packetListDialog").DataTable();
-    //    { // это hidden !!! для hidden всегда нужно table width=100% в противном случае, не удаляет место
-    // при переключении страниц + сортировка + фильтр сбрасываем selected
-    $('#packetListDialog').on('page.dt order.dt search.dt', function () {
-        $('#packetListDialog tbody tr.selected').removeClass('selected');
-        np_disableButtons();
-    });
-
-    $('#packetListDialog tbody').on('click', 'tr', function () {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-            np_disableButtons();
-        }
-        else {
+    $(function () {
+        $("#packetListDialog").DataTable({ "language": dtLanguage });
+        //    { // это hidden !!! для hidden всегда нужно table width=100% в противном случае, не удаляет место
+        // при переключении страниц + сортировка + фильтр сбрасываем selected
+        $('#packetListDialog').on('page.dt order.dt search.dt', function () {
             $('#packetListDialog tbody tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-            np_enableButtons();
-        }
-    });
+            np_disableButtons();
+        });
 
-    //кнопка выбора группы
-    $("button.np_select").on('click', function () {
-        if ($('#packetListDialog tbody tr').hasClass('selected')) {
-            if (typeof np_insertRow != "undefined") {
-                var template = np_insertRow.rowTemplate;
-                var value;
-                var $tr_sel = $('#packetListDialog tbody tr.selected'); //selected row
-                for (var i in np_insertRow.fields) {
-                    var name = np_insertRow.fields[i];
-                    value = $tr_sel.find('.' + name).text();
-                    name = '{' + np_insertRow.fields[i] + '}';
-                    template = template.replace(name, value);
-                }
+        $('#packetListDialog tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                np_disableButtons();
+            }
+            else {
+                $('#packetListDialog tbody tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                np_enableButtons();
+            }
+        });
 
-                if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
-                    $(np_insertRow.tableId + ' tbody').html(template);
+        //кнопка выбора группы
+        $("button.np_select").on('click', function () {
+            if ($('#packetListDialog tbody tr').hasClass('selected')) {
+                if (typeof np_insertRow != "undefined") {
+                    var template = np_insertRow.rowTemplate;
+                    var value;
+                    var $tr_sel = $('#packetListDialog tbody tr.selected'); //selected row
+                    for (var i in np_insertRow.fields) {
+                        var name = np_insertRow.fields[i];
+                        value = $tr_sel.find('.' + name).text();
+                        name = '{' + np_insertRow.fields[i] + '}';
+                        template = template.replace(name, value);
+                    }
+
+                    if ($(np_insertRow.tableId + ' tbody tr').length == 0) {
+                        $(np_insertRow.tableId + ' tbody').html(template);
+                    }
+                    else {
+                        $(np_insertRow.tableId + ' tbody tr:last').after(template);
+                    }
                 }
-                else {
-                    $(np_insertRow.tableId + ' tbody tr:last').after(template);
+                // определяем контейнер диалога
+                var _md = $('#packetListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+                if (_md != undefined) {
+                    $('#' + _md).dialog("close");
                 }
             }
-            // определяем контейнер диалога
-            var _md = $('#packetListDialog').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+        });
+
+        $('#btnSelectCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#packetListDialog').parents('.dialog').first().attr('id');
             if (_md != undefined) {
                 $('#' + _md).dialog("close");
             }
-        }
-    });
-
-    $('#btnSelectCancel').on('click', function (e) {
-        e.preventDefault();
-        // Находим диалог и закрываем
-        var _md = $('#packetListDialog').parents('.dialog').first().attr('id');
-        if (_md != undefined) {
-            $('#' + _md).dialog("close");
-        }
+        });
     });
 </script>

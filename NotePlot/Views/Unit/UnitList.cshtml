@@ -11,15 +11,9 @@
         <tr>
             <th hidden>ID</th>
             <th></th>
-            <th>
-                Группа
-            </th>
-            <th>
-                Краткое название
-            </th>
-            <th>
-                Полное название
-            </th>
+            <th>Группа</th>
+            <th>Краткое наименование</th>
+            <th>Полное наименование</th>
         </tr>
     </thead>
     <tbody>
@@ -49,25 +43,28 @@
 </table>
  @section scripts {
     <script type="text/javascript">
-        table = $("#units").DataTable(
-            {
-                "columnDefs": [
-                    {
-                        "targets": [0],
-                        "visible": false
-                    }
-                ]
-            }
-        );
-        // Выделение строк по клику
-        table.on('click.select', 'tr', function () {
-            table.$('tr.selected').not(this).removeClass('selected');//.find(".npRowTools").css("display", "none");
-            if (!$(this).hasClass('selected')) {
-                $(this).addClass('selected');//.find(".npRowTools").css("display", "block");;
-            }
-        });
         var adata = new Object();
-        $(document).ready(function () {            
+        $(function () {
+            table = $("#units").DataTable(
+                {
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false
+                        }
+                    ],
+                    "language": dtLanguage
+                }
+            );
+            // Выделение строк по клику
+            table.on('click.select', 'tr', function () {
+                table.$('tr.selected').not(this).removeClass('selected');//.find(".npRowTools").css("display", "none");
+                if (!$(this).hasClass('selected')) {
+                    $(this).addClass('selected');//.find(".npRowTools").css("display", "block");;
+                }
+            });
+        //});        
+        //$(document).ready(function () {
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             var _formatDialogMessage = 'Вы действительно хотите удалить единицу измерения?';
             adata.token = $("[name='__RequestVerificationToken']").val();
@@ -125,6 +122,5 @@
                     }
                 });
             */
-     
     </script>
 }

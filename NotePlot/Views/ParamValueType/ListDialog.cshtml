@@ -23,53 +23,55 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
-    $("#parameterValueTypes").DataTable({ rowReorder: true });
-    // при переключении страниц + сортировка + фильтр сбрасываем selected
-    $('#parameterValueTypes').on('page.dt order.dt search.dt', function (e) {
-        $('#parameterValueTypes tbody tr.selected').removeClass('selected');
-        np_disableButtons();
-    });
-
-    //$('#parameterUnits tbody tr').on('click', function () { -- работает не корректно при пагинации и сортировке
-    $('#parameterValueTypes tbody').on('click', 'tr', function () {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-            np_disableButtons();
-        }
-        else {
+    $(function () {
+        $("#parameterValueTypes").DataTable({ rowReorder: true, "language": dtLanguage });
+        // при переключении страниц + сортировка + фильтр сбрасываем selected
+        $('#parameterValueTypes').on('page.dt order.dt search.dt', function (e) {
             $('#parameterValueTypes tbody tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-            np_enableButtons();
-        }
-    });
+            np_disableButtons();
+        });
 
-    //кнопка выбора типа значения
-    $("button.np_select").on('click', function () {
-        if ($('#parameterValueTypes tbody tr').hasClass('selected')) {
-            var _ParameterValueTypeID = $('#parameterValueTypes tbody tr.selected').attr('np_value_type_id');
-            var _ParameterValueTypeShortName = $('#parameterValueTypes tbody tr.selected td.ShortName').text();
-            //alert(_ParameterValueTypeID+' '+_ParameterValueTypeShortName);
-            if ((_ParameterValueTypeID != undefined) && (_ParameterValueTypeShortName != undefined)) {
-                $('#ParameterValueTypeID').val(_ParameterValueTypeID);
-                $('#ParameterValueTypeShortName').val(_ParameterValueTypeShortName);
-                // определяем контейнер диалога
-                var _md = $('#parameterValueTypes').parentsUntil('.dialog').parent('.dialog').first().attr('id');
-                //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
-                if (_md != undefined) {
-                    $('#' + _md).dialog("close");
-                }
-                //$('#masterDialog').dialog("close");
+        //$('#parameterUnits tbody tr').on('click', function () { -- работает не корректно при пагинации и сортировке
+        $('#parameterValueTypes tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                np_disableButtons();
             }
-        }
-    });
+            else {
+                $('#parameterValueTypes tbody tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                np_enableButtons();
+            }
+        });
 
-    $('#btnSelectCancel').on('click', function (e) {
-        e.preventDefault();
-        // Находим диалог и закрываем
-        var _md = $('#parameterValueTypes').parents('.dialog').first().attr('id');
-        if (_md != undefined) {
-            $('#' + _md).dialog("close");
-        }
+        //кнопка выбора типа значения
+        $("button.np_select").on('click', function () {
+            if ($('#parameterValueTypes tbody tr').hasClass('selected')) {
+                var _ParameterValueTypeID = $('#parameterValueTypes tbody tr.selected').attr('np_value_type_id');
+                var _ParameterValueTypeShortName = $('#parameterValueTypes tbody tr.selected td.ShortName').text();
+                //alert(_ParameterValueTypeID+' '+_ParameterValueTypeShortName);
+                if ((_ParameterValueTypeID != undefined) && (_ParameterValueTypeShortName != undefined)) {
+                    $('#ParameterValueTypeID').val(_ParameterValueTypeID);
+                    $('#ParameterValueTypeShortName').val(_ParameterValueTypeShortName);
+                    // определяем контейнер диалога
+                    var _md = $('#parameterValueTypes').parentsUntil('.dialog').parent('.dialog').first().attr('id');
+                    //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так
+                    if (_md != undefined) {
+                        $('#' + _md).dialog("close");
+                    }
+                    //$('#masterDialog').dialog("close");
+                }
+            }
+        });
+
+        $('#btnSelectCancel').on('click', function (e) {
+            e.preventDefault();
+            // Находим диалог и закрываем
+            var _md = $('#parameterValueTypes').parents('.dialog').first().attr('id');
+            if (_md != undefined) {
+                $('#' + _md).dialog("close");
+            }
+        });
     });
 </script>
 

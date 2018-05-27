@@ -36,9 +36,9 @@
         </tbody>
     </table>
 </div>
-    <script type="text/javascript">
-        $("#monitorMonitoringList").DataTable();
+    <script type="text/javascript">        
         $(document).ready(function () {
+            $("#monitorMonitoringList").DataTable({ "language": dtLanguage});
             $('#monitorMonitoringList').on('page.dt order.dt search.dt', function () {
                 $('#monitorMonitoringList tbody tr.selected').removeClass('selected');
             });

@@ -1,69 +1,48 @@
 ﻿@model IEnumerable<NotePlot.Models.ParamValueType>
-
-<table id="paramValueType" class="table">
+@{
+    string atr_checked = "checked";
+}
+<table id="paramValueType" class="table" width="100%">
     <thead>
         <tr>
-            <th hidden>
-                @Html.DisplayNameFor(model => model.ParamValueTypeID)
-            </th>
+            <th hidden></th>
             <th></th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParamValueTypeCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParamValueTypeShortName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsNumeric)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Scale)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Precision)
-            </th>
+            <th>Код</th>
+            <th>Наименование</th>
+            <th>Число</th>
+            <th>Знаков после запятой</th>
+            <th>Кол-во символов</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
-        <tr>
-            <td hidden>
-                @Html.DisplayFor(modelItem => item.ParamValueTypeID)
-            </td>
-            <td>
-                <div class="npRowTools"  style="display:none">
-                    <a href="@Url.Action("Edit", "ListDialog" , new { id=item.ParamValueTypeID })" class="npRowEdit np_button" np_dialog_title="Тип значения">
-                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                    </a>
-                    <a href="@Url.Action("Delete", "ParamValueType", new { id = item.ParamValueTypeID })" class="npRowDelete np_button" data-deleted-name="@item.ParamValueTypeShortName">
-                        <div class="icon"><i class="fa fa-times"></i></div>
-                    </a>
-                </div>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParamValueTypeCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParamValueTypeShortName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsNumeric)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Scale)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precision)
-            </td>
-        </tr>
-           }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td hidden>@item.ParamValueTypeID</td>
+                <td>
+                    <div class="npRowTools" style="display:none">
+                        <a href="@Url.Action("Edit", "ListDialog" , new { id=item.ParamValueTypeID })" class="npRowEdit np_button" np_dialog_title="Тип значения">
+                            <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                        </a>
+                        <a href="@Url.Action("Delete", "ParamValueType", new { id = item.ParamValueTypeID })" class="npRowDelete np_button" data-deleted-name="@item.ParamValueTypeShortName">
+                            <div class="icon"><i class="fa fa-times"></i></div>
+                        </a>
+                    </div>
+                </td>
+                <td>@item.ParamValueTypeCode</td>
+                <td>@item.ParamValueTypeShortName</td>
+                <td><input disabled type="checkbox" id="ParameterActive" name="ParameterActive" value="@item.IsNumeric" @if (@item.IsNumeric) { @atr_checked } /></td>
+                <td>@item.Scale</td>
+                <td>@item.Precision</td>
+            </tr>
+        }
     </tbody>
 </table>
 
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#paramValueType").DataTable();
+            $("#paramValueType").DataTable({ "language": dtLanguage });
         });
     </script>
 }

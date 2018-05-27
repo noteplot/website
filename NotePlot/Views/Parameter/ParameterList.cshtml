@@ -58,7 +58,7 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#parameterList").DataTable();
+            $("#parameterList").DataTable({ "language": dtLanguage });
             var adata = new Object();
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();

@@ -23,8 +23,8 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
-    $("#monitorSelect").DataTable();
     $(document).ready(function () {
+        $("#monitorSelect").DataTable({ "language": dtLanguage });
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#monitorSelect').on('page.dt order.dt search.dt', function () {
             $('#monitorSelect tbody tr.selected').removeClass('selected');

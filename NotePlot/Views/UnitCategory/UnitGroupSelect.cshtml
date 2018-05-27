@@ -22,9 +22,9 @@
     <button id="btnSelectCancel" class="ui-button ui-corner-all np-right">Отмена</button>
     <div class="np-clear"></div>
 </div>
-<script type="text/javascript">    
-    $("#unitSelectGroups").DataTable();
+<script type="text/javascript">        
     $(document).ready(function () {
+        $("#unitSelectGroups").DataTable({"language": dtLanguage});
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#unitSelectGroups').on('page.dt order.dt search.dt', function () {
             $('#unitSelectGroups tbody tr.selected').removeClass('selected');
