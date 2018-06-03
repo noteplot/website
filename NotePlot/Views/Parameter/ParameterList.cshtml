@@ -58,12 +58,18 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#parameterList").DataTable({ "language": dtLanguage });
             var adata = new Object();
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
             // привязываем событие к Post Request
-            $(".np_deleteParameter").bind("click", adata, np_AjaxPost);
+            //$(".np_deleteParameter").bind("click", adata, np_AjaxPost);
+            adata.onSuccess = function () {
+                //location.reload();
+                window.location.replace("/Parameter/ParameterList"); // Перенаправление на список + не сохраняем историю
+            }
+            adata.dialogMessage = 'Вы действительно хотите удалить параметр?';
+            $(".np_deleteParameter").bind("click", adata, np_MessageDialogPost);
+            $("#parameterList").DataTable({ "language": dtLanguage });
         });
     </script>
 }

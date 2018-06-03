@@ -395,9 +395,9 @@ namespace NotePlot.Controllers
                 {
                     try
                     {
-                        repo.DeleteParameter(id, loginID);
-                        return View("ParameterList", await repo.GetParametersAsync(loginID));
-                        //return Ok(); // ajax диалог просто пустая строка
+                        await repo.DeleteParameterAsync(id, loginID);
+                        //return View("ParameterList", await repo.GetParametersAsync(loginID));
+                        return Ok(); // ajax диалог просто пустая строка
                     }
                     catch (Exception ex)
                     {
@@ -637,9 +637,9 @@ namespace NotePlot.Controllers
                 {
                     try
                     {
-                        repo.DeletePacket(id, loginID);
-                        return View("PacketList", await repo.GetPacketsAsync(loginID));
-                        //return Ok(); // ajax диалог просто пустая строка
+                        await repo.DeletePacketAsync(id, loginID);
+                        //return View("PacketList", await repo.GetPacketsAsync(loginID));
+                        return Ok(); // ajax диалог просто пустая строка
                     }
                     catch (Exception ex)
                     {

@@ -48,19 +48,19 @@
 </table>
 @section scripts {
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#packetList").DataTable({ "language": dtLanguage });
+        $(document).ready(function () {            
             var adata = new Object();
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
             // привязываем событие к Post Request
             adata.onSuccess = function () {
                 //location.reload();
-                window.location.replace("/Parameter/PacketList"); // Перенаправление на список + не сохраняем историю
+                window.location.replace("/Parameter/ParameterList"); // Перенаправление на список + не сохраняем историю
             }
             //adata.dialogTitle = 'Внимание!';
             adata.dialogMessage = 'Вы действительно хотите удалить пакет?';
             $(".np_deletePacket").bind("click", adata, np_MessageDialogPost);
+            $("#packetList").DataTable({ "language": dtLanguage });
         });
     </script>
 }
