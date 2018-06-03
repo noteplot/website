@@ -133,7 +133,8 @@
             $('#btnMonitorSave').on('click', function (e) {
                 e.preventDefault();
                 np_AjaxFormInputClick(); // очистка ошибок
-                $('#np_monitor_edit').submit();
+                if ($('#np_monitor_edit').valid())
+                    $('#np_monitor_edit').submit();
             });
 
             $('#btnMonitorCancel').on('click', function (e) {

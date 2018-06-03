@@ -141,7 +141,8 @@
             $('#btnPacketSave').on('click', function (e) {
                 e.preventDefault();
                 np_AjaxFormInputClick(); // очистка ошибок
-                $('#np_packet_edit').submit();
+                if ($('#np_packet_edit').valid())
+                    $('#np_packet_edit').submit();
             });
 
             $('#btnPacketCancel').on('click', function (e) {

@@ -303,3 +303,9 @@ textarea.np-column-left{
 .np-number-quant {
     width : 3em;
 }
+
+/*Сообщение валидации*/
+.np-clearfix label.error {
+    display: block;
+    clear: both;
+}

@@ -80,7 +80,8 @@
             $('#btnOk').on('click', function (e) {
                 e.preventDefault();
                 np_AjaxFormInputClick(); // очистка ошибок
-                $('#unitCategory').submit();
+                if ($('#unitCategory').valid())
+                    $('#unitCategory').submit();
             });
 
             $('#btnCancel').on('click', function (e) {

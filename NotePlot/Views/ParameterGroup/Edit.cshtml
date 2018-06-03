@@ -79,7 +79,8 @@
         $('#btnOk').on('click', function (e) {
             e.preventDefault();
             np_AjaxFormInputClick(); // очистка ошибок
-            $('#group_edit').submit();
+            if ($('#group_edit').valid())
+                $('#group_edit').submit();
         });
 
         $('#btnCancel').on('click', function (e) {

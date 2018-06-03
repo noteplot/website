@@ -17,7 +17,8 @@
         $('#btnOk').on('click', function (e) {
             e.preventDefault();
             np_AjaxFormInputClick(); // очистка ошибок
-            $('#loginInput').submit();
+            if ($('#loginInput').valid())
+                $('#loginInput').submit();
         });
 
         $('#btnCancel').on('click', function (e) {

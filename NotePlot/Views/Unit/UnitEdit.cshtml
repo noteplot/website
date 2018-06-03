@@ -99,7 +99,8 @@
         $('#btnOk').on('click', function (e) {
             e.preventDefault();
             np_AjaxFormInputClick(); // очистка ошибок
-            $('#unit').submit();
+            if ($('#unit').valid())
+                $('#unit').submit();
         });
 
         $('#btnCancel').on('click', function (e) {

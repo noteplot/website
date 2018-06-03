@@ -41,7 +41,8 @@
     $(function () {
         $('#btnOk').on('click', function (e) {
             e.preventDefault();
-            $('#userAccountEdit').submit();
+            if ($('#userAccountEdit').valid())
+                $('#userAccountEdit').submit();
         });
         $('#btnCancel').on('click', function (e) {
             e.preventDefault();

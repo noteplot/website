@@ -31,6 +31,7 @@
         $('#btnOk').on('click', function (e) {
             e.preventDefault();
             np_AjaxFormInputClick(); // очистка ошибок
+            if ($('#loginRegistration').valid())
             $('#loginRegistration').submit();
         });
 

@@ -165,7 +165,8 @@
             $('#btnMonitoringSave').on('click', function (e) {
                 e.preventDefault();
                 np_AjaxFormInputClick(); // очистка ошибок
-                $('#np_monitoring_edit').submit();
+                if ($('#np_monitoring_edit').valid())
+                    $('#np_monitoring_edit').submit();
             });
 
             $('#btnMonitoringCancel').on('click', function (e) {

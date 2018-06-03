@@ -95,7 +95,7 @@
                     <button type="button" class="openDialog ui-button ui-corner-all" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" @if (Model.LoginID == 0) { @atr_disabled }>Тип значения</button>
                 </div>
                 @*<input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" class="np-column-left np-short-name np-ui-input" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled } />*@
-                <textarea class="np-column-left np-short-name np-ui-input" id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" maxlength=48 value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterValueTypeShortName</textarea>
+                <textarea class="np-column-left np-short-name np-ui-input" id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterValueTypeShortName</textarea>
             </div>
             <div class="np-clearfix">
                 <label for="ParameterValueMin" class="np-column-left np-column-1 np-ui-input">Мин. значение</label>
@@ -196,7 +196,8 @@
             $('#btnParameterSave').on('click', function (e) {
                 e.preventDefault();
                 np_AjaxFormInputClick(); // очистка ошибок
-                $('#np_parameter_edit').submit();
+                if ($('#np_parameter_edit').valid())
+                    $('#np_parameter_edit').submit();
             });
 
             $('#btnParameterCancel').on('click', function (e) {
@@ -224,7 +225,8 @@
                             minlength: 2
                         },
                         ParameterName: {
-                            required: true
+                            required: true,
+                            minlength: 2
                         },
                         ParameterUnitShortName: {
                             required: true
