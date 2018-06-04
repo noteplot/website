@@ -44,8 +44,9 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        $("#parameterListDialog").DataTable({ "language": dtLanguage });
+    $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
+    $("#parameterListDialog").DataTable({ "language": dtLanguage });
+    $(function () {        
         //    { // это hidden !!! для hidden всегда нужно width=100% в противном случае, не удаляет место
         //        "columnDefs": [
         //            {

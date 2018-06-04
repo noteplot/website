@@ -32,8 +32,9 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
+    $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
+    $("#packetListDialog").DataTable({ "language": dtLanguage });
     $(function () {
-        $("#packetListDialog").DataTable({ "language": dtLanguage });
         //    { // это hidden !!! для hidden всегда нужно table width=100% в противном случае, не удаляет место
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#packetListDialog').on('page.dt order.dt search.dt', function () {

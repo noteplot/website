@@ -29,6 +29,7 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
+    $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
     $("#monitorParamSelect").DataTable();
     $(document).ready(function () {
         // при переключении страниц + сортировка + фильтр сбрасываем selected

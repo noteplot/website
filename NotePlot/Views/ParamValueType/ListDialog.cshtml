@@ -23,8 +23,9 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        $("#parameterValueTypes").DataTable({ rowReorder: true, "language": dtLanguage });
+    $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
+    $("#parameterValueTypes").DataTable({ rowReorder: true, "language": dtLanguage });
+    $(function () {        
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#parameterValueTypes').on('page.dt order.dt search.dt', function (e) {
             $('#parameterValueTypes tbody tr.selected').removeClass('selected');

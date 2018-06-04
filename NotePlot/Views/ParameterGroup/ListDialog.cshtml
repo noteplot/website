@@ -21,8 +21,9 @@
     <div class="np-clear"></div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        $("#parameterGroups").DataTable({"language": dtLanguage});
+    $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
+    $("#parameterGroups").DataTable({ "language": dtLanguage });
+    $(function () {        
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#parameterGroups').on('page.dt order.dt search.dt', function () {
             $('#parameterGroups tbody tr.selected').removeClass('selected');
