@@ -201,12 +201,13 @@ namespace NotePlot.Controllers
             {
                 return BadRequest("Неверный формат даты и времени!");
             }
-
+            /*
             if (mr.JSON != null)
             {
                 mr.JSON = mr.JSON.Substring(1);
                 mr.JSON = mr.JSON.Substring(0, mr.JSON.Length - 1);
             }
+            */
             //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
             if (HttpContext.User.Identity.IsAuthenticated)
             {

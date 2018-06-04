@@ -170,13 +170,15 @@ namespace NotePlot.Models
         {
             bool rt = false;
             string ParameterRelationXML = null;
+            string pr_json = pr.JSON;
             using (IDbConnection db = new SqlConnection(connectionString))
             {                
                 try
                 {
-                    if (!string.IsNullOrEmpty(pr.JSON))
+                    if (!string.IsNullOrEmpty(pr_json))
                     {
-                        var strJson = "[" + pr.JSON + "]";// TO DO: добавлять скобки в js
+                        //var strJson = "[" + pr.JSON + "]";// TO DO: добавлять скобки в js
+                        string strJson = String.Format("[{0}]", pr_json);
                         // в список объектов
                         List<ParameterRelation> lpr = JsonConvert.DeserializeObject< List<ParameterRelation>>(strJson);
                         // в XML

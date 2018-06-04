@@ -141,11 +141,13 @@ namespace NotePlot.Controllers
         {
             //Parameter pr = new Parameter();
             //return Ok();
+            /*
             if (mt.JSON != null)
             {
                 mt.JSON = mt.JSON.Substring(1);
                 mt.JSON = mt.JSON.Substring(0, mt.JSON.Length - 1);
             }
+            */
             //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
             if (HttpContext.User.Identity.IsAuthenticated)
             {

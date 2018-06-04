@@ -303,11 +303,13 @@ namespace NotePlot.Controllers
         {
             //Parameter pr = new Parameter();
             //return Ok();
+            /*
             if (pr.JSON != null)
             {
                 pr.JSON = pr.JSON.Substring(1);
                 pr.JSON = pr.JSON.Substring(0, pr.JSON.Length - 1);
             }
+            */
             //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
             if (HttpContext.User.Identity.IsAuthenticated)
             {
@@ -548,11 +550,13 @@ namespace NotePlot.Controllers
         {
             //Parameter pr = new Parameter();
             //return Ok();
+            /*
             if (pt.JSON != null)
             {
                 pt.JSON = pt.JSON.Substring(1);
                 pt.JSON = pt.JSON.Substring(0, pt.JSON.Length - 1);
             }
+            */
             //Parameter pr = JsonConvert.DeserializeObject<Parameter>(JSON);
             if (HttpContext.User.Identity.IsAuthenticated)
             {

@@ -425,7 +425,8 @@ function np_AjaxFormSubmitEx(event) {
         _data = _data + "&" + token.name + '=' + token.value;
     }
     if (_sJson !== null) {
-        _data = _data + "&" +  'JSON=' + '"' + _sJson + '"';
+        //_data = _data + "&" + 'JSON=' + '"' + _sJson + '"';
+        _data = _data + "&" + 'JSON=' + _sJson;
     }
 
     if ($(form_id + ' input').valid()) {
