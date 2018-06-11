@@ -203,7 +203,7 @@ namespace NotePlot.Models
                         // Проверка на ввод значений
                         foreach(var pr in lpr)
                         {
-                            if (pr.ParameterValue == null)
+                            if (pr.ParameterValue == null && pr.ParameterTypeID == 0) 
                             {
                                 throw new Exception("Для всех параметров нужно указать значения!");
                             }

@@ -57,7 +57,8 @@
 			$(this).bind('keypress.noteplot' , function(e){
 				var 
 					val = $(this).val(),
-					point 		= ($(this).attr('np_dec_point') && ($(this).attr('np_dec_point') == '.' || $(this).attr('np_dec_point') == ',')) ? $(this).attr('np_dec_point') : DecPointDefault(),
+                    point = ($(this).attr('np_dec_point') && ($(this).attr('np_dec_point') == '.' || $(this).attr('np_dec_point') == ',')) ? $(this).attr('np_dec_point') : DecPointDefault(),
+                    scale = $(this).attr('np_dec_scale') ? parseInt($(this).attr('np_dec_scale')) : 0,
 					precision 	= $(this).attr('np_dec_precision') ? parseInt($(this).attr('np_dec_precision')) : 1,
 					minus 		= $(this).get(0).hasAttribute('np_dec_minus') ? true : false,			
 					key = (e.keyCode ? e.keyCode : e.which);
