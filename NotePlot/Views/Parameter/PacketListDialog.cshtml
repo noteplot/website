@@ -34,23 +34,24 @@
 <script type="text/javascript">
     $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
     $("#packetListDialog").DataTable({ "language": dtLanguage });
+    var bt = $(".np-dialog-buttons");
     $(function () {
         //    { // это hidden !!! для hidden всегда нужно table width=100% в противном случае, не удаляет место
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#packetListDialog').on('page.dt order.dt search.dt', function () {
             $('#packetListDialog tbody tr.selected').removeClass('selected');
-            np_disableButtons();
+            np_disableButtons(bt);
         });
 
         $('#packetListDialog tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
-                np_disableButtons();
+                np_disableButtons(bt);
             }
             else {
                 $('#packetListDialog tbody tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                np_enableButtons();
+                np_enableButtons(bt);
             }
         });
 

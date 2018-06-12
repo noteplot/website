@@ -25,23 +25,24 @@
 <script type="text/javascript">    
     $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
     $("#unitSelectGroups").DataTable({ "language": dtLanguage });
+    var bt = $(".np-dialog-buttons");
     $(document).ready(function () {
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#unitSelectGroups').on('page.dt order.dt search.dt', function () {
             $('#unitSelectGroups tbody tr.selected').removeClass('selected');
-            np_disableButtons();
+            np_disableButtons(bt);
         });
 
         //$('#parameterGroups tbody tr').on('click', function () {
         $('#unitSelectGroups tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
-                np_disableButtons();
+                np_disableButtons(bt);
             }
             else {
                 $('#unitSelectGroups tbody tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                np_enableButtons();
+                np_enableButtons(bt);
             }
         });
         $("button.np_select").on('click', function () {

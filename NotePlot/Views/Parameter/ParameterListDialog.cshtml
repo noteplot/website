@@ -46,6 +46,7 @@
 <script type="text/javascript">
     $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
     $("#parameterListDialog").DataTable({ "language": dtLanguage });
+    var bt = $(".np-dialog-buttons");
     $(function () {        
         //    { // это hidden !!! для hidden всегда нужно width=100% в противном случае, не удаляет место
         //        "columnDefs": [
@@ -63,19 +64,19 @@
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#parameterListDialog').on('page.dt order.dt search.dt', function () {
             $('#parameterListDialog tbody tr.selected').removeClass('selected');
-            np_disableButtons();
+            np_disableButtons(bt);
         });
 
         //$('#parameterGroups tbody tr').on('click', function () {
         $('#parameterListDialog tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
-                np_disableButtons();
+                np_disableButtons(bt);
             }
             else {
                 $('#parameterListDialog tbody tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                np_enableButtons();
+                np_enableButtons(bt);
             }
         });
         //кнопка выбора группы

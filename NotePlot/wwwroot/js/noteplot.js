@@ -647,16 +647,16 @@ $.fn.dataTableExt.oSort['ru-date-desc'] = function (a, b) {
 };
 
 // обработка для кнопок в диалогах выбора из списка
-function np_enableButtons() { // при выделении строк
-    $('.np-btn-selected-row').each(function () {
+function np_enableButtons(bt) { // при выделении строк
+    bt.find('.np-btn-selected-row').each(function () {
         if ($(this).attr('disabled')) {
             $(this).removeAttr('disabled');
         }
     });
 }
 
-function np_disableButtons() {// при снятии выделения строк
-    $('.np-btn-selected-row').each(function () {
+function np_disableButtons(bt) {// при снятии выделения строк
+    bt.find('.np-btn-selected-row').each(function () {
         if (!$(this).attr('disabled')) {
             $(this).attr('disabled', 'disabled');
         }

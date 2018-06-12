@@ -27,24 +27,25 @@
 <script type="text/javascript">
     $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
     $("#parameterUnits").DataTable({ rowReorder: true });
+    var bt = $(".np-dialog-buttons");
     $(function () {        
         //$("#parameterUnits").DataTable({ rowReorder: true, "language": dtLanguage });
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#parameterUnits').on('page.dt order.dt search.dt', function (e) {
             $('#parameterUnits tbody tr.selected').removeClass('selected');
-            np_disableButtons();
+            np_disableButtons(bt);
         });
 
         //$('#parameterUnits tbody tr').on('click', function () { -- работает не корректно при пагинации и сортировке
         $('#parameterUnits tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
-                np_disableButtons();
+                np_disableButtons(bt);
             }
             else {
                 $('#parameterUnits tbody tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                np_enableButtons();
+                np_enableButtons(bt);
             }
         });
         //кнопка выбора ед.изм

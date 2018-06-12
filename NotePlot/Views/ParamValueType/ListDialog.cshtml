@@ -25,23 +25,24 @@
 <script type="text/javascript">
     $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
     $("#parameterValueTypes").DataTable({ rowReorder: true, "language": dtLanguage });
+    var bt = $(".np-dialog-buttons");
     $(function () {        
         // при переключении страниц + сортировка + фильтр сбрасываем selected
         $('#parameterValueTypes').on('page.dt order.dt search.dt', function (e) {
             $('#parameterValueTypes tbody tr.selected').removeClass('selected');
-            np_disableButtons();
+            np_disableButtons(bt);
         });
 
         //$('#parameterUnits tbody tr').on('click', function () { -- работает не корректно при пагинации и сортировке
         $('#parameterValueTypes tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
-                np_disableButtons();
+                np_disableButtons(bt);
             }
             else {
                 $('#parameterValueTypes tbody tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                np_enableButtons();
+                np_enableButtons(bt);
             }
         });
 
