@@ -1,7 +1,7 @@
 ﻿@model NotePlot.Models.Parameter
 
 @{
-    string atr_checked = "checked", atr_disabled = "disabled";
+    string atr_checked = "checked", atr_disabled = "disabled", atr_hidden="hidden";
 }
 
     @section styles{
@@ -49,7 +49,7 @@
 *@
     <div class="np-inputForm">
         <fieldset>
-        <legend>Параметр</legend>
+            <legend>Параметр</legend>
             <input type="hidden" id="ParameterID" name="ParameterID" value="@Model.ParameterID" />
             <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
             <input type="hidden" id="ParameterUnitID" name="ParameterUnitID" value="@Model.ParameterUnitID" />
@@ -82,12 +82,12 @@
                 <label class="np-column-left np-column-1 np-ui-input">Тип параметра</label>
                 <div class="np-column-left np-clearfix">
                     @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
-                {
-                    <p>
-                        <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value="@pt.ParameterTypeID" @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
-                        <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
-                    </p>
-            }
+                    {
+                        <p>
+                            <input type="radio" id="ParameterTypeID_@pt.ParameterTypeID" name="ParameterTypeID" value="@pt.ParameterTypeID" @if (pt.ParameterTypeID == Model.ParameterTypeID) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
+                            <label for="ParameterTypeID_@pt.ParameterTypeID">@pt.ParameterTypeName</label>
+                        </p>
+                    }
                 </div>
             </div>
             <div class="np-clearfix">
@@ -97,13 +97,17 @@
                 @*<input type="text" readonly id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" class="np-column-left np-short-name np-ui-input" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled } />*@
                 <textarea class="np-column-left np-short-name np-ui-input" id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterValueTypeShortName</textarea>
             </div>
-            <div class="np-clearfix">
-                <label for="ParameterValueMin" class="np-column-left np-column-1 np-ui-input">Мин. значение</label>
-                <input type="text" id="ParameterValueMin" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMin" maxlength="28" value="@Model.ParameterValueMin" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0) { @atr_disabled } />
-            </div>
-            <div class="np-clearfix">
-                <label for="ParameterValueMax" class="np-column-left np-column-1 np-ui-input">Макс. значение</label>
-                <input type="text" id="ParameterValueMax" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMax" maxlength="28" value="@Model.ParameterValueMax" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0) { @atr_disabled } />
+            <div class="rangePanel" @if (Model.ParameterTypeID != 0) { @atr_hidden}>
+                <div class="np-clearfix">
+                    <label for="ParameterValueMin" class="np-column-left np-column-1 np-ui-input">Мин. значение</label>
+                    <input type="text" id="ParameterValueMin" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMin" maxlength="28" value="@Model.ParameterValueMin" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0)
+                    { @atr_disabled } />
+                </div>
+                <div class="np-clearfix">
+                    <label for="ParameterValueMax" class="np-column-left np-column-1 np-ui-input">Макс. значение</label>
+                    <input type="text" id="ParameterValueMax" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMax" maxlength="28" value="@Model.ParameterValueMax" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0)
+                    { @atr_disabled } />
+                </div>
             </div>
             @if (Model.ParameterID != null)
             {
@@ -118,7 +122,7 @@
                     <input class="np-column-left np-ui-input" type="checkbox" id="Active" name="Active" value="1" hidden checked />
                 </div>
             }
-        </fieldset>
+         </fieldset>
     </div>
 <div id="relationSection">
     @if (Model.ParameterTypeID > 0)
@@ -169,11 +173,13 @@
                     var container = $("#relationSection");
                     $.get("/Parameter/LoadRelations", { id: $("#ParameterID").val() }, function (data) { container.html(data); });
                     $("input.rangeValue").attr("readonly", true).val(""); // чистим для расчетных параметров,т.к. диапазон не имеет смысла
+                    $(".rangePanel").attr("hidden", "hidden");
                 }
                 else //чистим секцию связей
                 {
                     $("#relationSection").empty();
                     $("input.rangeValue").removeAttr("readonly"); // убираем для простых
+                    $(".rangePanel").removeAttr("hidden"); 
                 }
             });
             var adata = new Object();
