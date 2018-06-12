@@ -57,6 +57,12 @@
     <button id="btnMonitoringSave" class="ui-button ui-corner-all" @atr_disabled>Сохранить</button>
     <button id="btnMonitoringCancel" class="ui-button ui-corner-all" @atr_disabled>Отменить</button>
     <button id="btnReturnMonitor" class="ui-button ui-corner-all">@Model.MonitorShortName</button>
+    @if (Model.MonitoringID != null)
+    {
+        <a href="@Url.Action("MonitoringNew", "Monitoring", new { id = Model.MonitorID })" class="ui-button ui-corner-all" title="Новое измерение">
+            <div class="icon"><i class="fa fa-plus"></i></div>
+        </a>
+    }
 </div>
 <form id="np_monitoring_edit" method="POST" action="/Monitoring/MonitoringEditJson ">
     @Html.AntiForgeryToken()
