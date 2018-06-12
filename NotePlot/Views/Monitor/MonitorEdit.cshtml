@@ -40,6 +40,12 @@
         <button id="btnMonitorCancel" class="ui-button ui-corner-all" @atr_disabled>Отменить</button>
     }
     <button id="btnReturnMonitorList" class="ui-button ui-corner-all">Шаблоны измерений</button>
+    @if (Model.MonitorID!= null)
+    {
+        <a href="@Url.Action("MonitorNew", "Monitor")" class="ui-button ui-corner-all" title="Новый монитор">
+            <div class="icon"><i class="fa fa-plus"></i></div>
+        </a>
+    }
 </div>
 <form id="np_monitor_edit" method="POST" action=@ViewBag.Action>
     @Html.AntiForgeryToken()

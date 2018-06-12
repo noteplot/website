@@ -37,6 +37,12 @@
             <button id="btnParameterCancel" class="ui-button ui-corner-all" @atr_disabled>Отменить</button>
         }
         <button id="btnReturnParameterList" class="ui-button ui-corner-all">Список параметров</button>
+        @if (Model.ParameterID != null)
+        {
+            <a href="@Url.Action("New", "Parameter")" class="ui-button ui-corner-all" title="Новый параметр">
+                <div class="icon"><i class="fa fa-plus"></i></div>
+            </a>
+        }
     </div>
 
     <form id="np_parameter_edit" method="POST" action=@ViewBag.Action>
