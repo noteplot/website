@@ -8,8 +8,8 @@
                 <div class="icon"><span class="ico-home"></span></div>
                 <div class="name">Измерения</div>
             </a>
-            <ul>
-                <li>@Html.ActionLink("Мониторы измерений", "MonitorList", "Monitor")</li>
+            <ul class="navigation">
+                <li navigation-active-for="/Monitor/MonitorList">@Html.ActionLink("Мониторы измерений", "MonitorList", "Monitor")</li>
             </ul>
         </li>
         <li>
@@ -17,13 +17,13 @@
                 <div class="icon"><span class="ico-home"></span></div>
                 <div class="name">Справочники</div>
             </a>
-            <ul>
-                <li>@Html.ActionLink("Пакеты параметров", "PacketList", "Parameter")</li>
-                <li>@Html.ActionLink("Параметры измерений", "ParameterList", "Parameter")</li>
-                <li>@Html.ActionLink("Группы параметров", "List", "ParameterGroup")</li>
-                <li>@Html.ActionLink("Ед.измерения", "UnitList", "Unit")</li>
-                <li>@Html.ActionLink("Группы ед.измерения", "UnitCategoryList", "UnitCategory")</li>
-                <li>@Html.ActionLink("Типы значений", "Index", "ParamValueType")</li>
+            <ul class="navigation">
+                <li navigation-active-for="/Parameter/PacketList">@Html.ActionLink("Пакеты параметров", "PacketList", "Parameter")</li>
+                <li navigation-active-for="/Parameter/ParameterList">@Html.ActionLink("Параметры измерений", "ParameterList", "Parameter")</li>
+                <li navigation-active-for="/ParameterGroup/">@Html.ActionLink("Группы параметров", "List", "ParameterGroup")</li>
+                <li navigation-active-for="/Unit/UnitList">@Html.ActionLink("Ед.измерения", "UnitList", "Unit")</li>
+                <li navigation-active-for="/UnitCategory/UnitCategoryList">@Html.ActionLink("Группы ед.измерения", "UnitCategoryList", "UnitCategory")</li>
+                <li navigation-active-for="/ParamValueType/Index">@Html.ActionLink("Типы значений", "Index", "ParamValueType")</li>
             </ul>
         </li>
         <li>
@@ -31,10 +31,10 @@
                 <div class="icon"><span class="ico-home"></span></div>
                 <div class="name">Аналитика</div>
             </a>
-            <ul>
+            <ul class="navigation">
                 @*<li><a href="#">Параметры измерения</a></li>*@
-                <li>@Html.ActionLink("Измерения по монитору", "ReportMonitor", "Analytics")</li>
-                <li>@Html.ActionLink("Динамика изменения параметров", "ReportPlot", "Analytics")</li>
+                <li navigation-active-for="/Analytics/ReportMonitor">@Html.ActionLink("Измерения по монитору", "ReportMonitor", "Analytics")</li>
+                <li navigation-active-for="/Analytics/ReportPlot">@Html.ActionLink("Динамика изменения параметров", "ReportPlot", "Analytics")</li>
             </ul>
         </li>
     </ul>

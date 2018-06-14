@@ -121,7 +121,7 @@ button.dropdown-main-menu {
     text-decoration: none;
 }
 
-.np_sidebar .navigation > li > a.active, .np_sidebar .navigation > li > a:hover {
+.np_sidebar .navigation > li.active > a, .np_sidebar .navigation > li > a:hover {
     color: #FFFFFF;
 }
 
