@@ -31,23 +31,27 @@ namespace NotePlot.TagHelpers
             var currentControllerName = ViewContext.RouteData.Values["controller"].ToString();
             var currentActionName = ViewContext.RouteData.Values["action"].ToString();
 
-
-            if (String.Equals(ControllerName, currentControllerName, StringComparison.InvariantCultureIgnoreCase))
+            Char delimiter = ',';
+            String[] СontrollerNames = ControllerName.Split(delimiter);
+            foreach (var controllerName in СontrollerNames)
             {
-                if (ActionName.Equals("*", StringComparison.InvariantCultureIgnoreCase))
+                if (String.Equals(controllerName.Trim(), currentControllerName, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    output.Attributes.Add("class", "active");
-                }
-                else if (ActionName.EndsWith("*"))
-                {
-                    if (currentActionName.StartsWith(ActionName.TrimEnd('*'), StringComparison.InvariantCultureIgnoreCase))
+                    if (ActionName.Equals("*", StringComparison.InvariantCultureIgnoreCase))
                     {
                         output.Attributes.Add("class", "active");
                     }
-                }
-                else if (ActionName.Equals(currentActionName, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    output.Attributes.Add("class", "active");
+                    else if (ActionName.EndsWith("*"))
+                    {
+                        if (currentActionName.StartsWith(ActionName.TrimEnd('*'), StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            output.Attributes.Add("class", "active");
+                        }
+                    }
+                    else if (ActionName.Equals(currentActionName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        output.Attributes.Add("class", "active");
+                    }
                 }
             }
         }
