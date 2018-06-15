@@ -20,7 +20,7 @@ namespace NotePlot.Controllers
         }
 
         // GET: Create
-        public ActionResult New()
+        public ActionResult ParameterNew()
         {
             long? loginID = null;
             ViewBag.Action = "/Parameter/Edit";
@@ -137,7 +137,7 @@ namespace NotePlot.Controllers
         }
         */
 
-        public async Task<ActionResult> Edit(long id)
+        public async Task<ActionResult> ParameterEdit(long id)
         {
             ViewBag.Action = "/Parameter/EditJson";
             ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
@@ -200,7 +200,7 @@ namespace NotePlot.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Parameter pr)
+        public async Task<ActionResult> ParameterEdit(Parameter pr)
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
@@ -388,7 +388,7 @@ namespace NotePlot.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(long id)
+        public async Task<ActionResult> ParameterDelete(long id)
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {

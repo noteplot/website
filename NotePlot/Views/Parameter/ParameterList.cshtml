@@ -5,7 +5,7 @@
 }
 
 <div class="np_toolbar">
-    <a href="@Url.Action("New", "Parameter")" class="np_button green">
+    <a href="@Url.Action("ParameterNew", "Parameter")" class="np_button green">
         <div class="icon"><i class="fa fa-plus"></i></div>
     </a>
 </div>
@@ -13,7 +13,6 @@
 <table class="table" id="parameterList">
     <thead>
         <tr>
-            <th hidden>ParameterID)</th>
             <th></th>
             <th>Группа</th>
             <th>Краткое название</th>
@@ -30,14 +29,13 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td hidden>@item.ParameterID</td>
                 <td style="display:block">
-                    <a href="@Url.Action("Edit", "Parameter" , new { id=item.ParameterID })" class="np_button">
+                    <a href="@Url.Action("ParameterEdit", "Parameter" , new { id=item.ParameterID })" class="np_button">
                         <div class="icon"><i class="fa fa-pencil-alt"></i></div>
                     </a>
                     @if (item.LoginID != 0)
                     {
-                        <a href="@Url.Action("Delete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
+                        <a href="@Url.Action("ParameterDelete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
                             <div class="icon"><i class="fa fa-times"></i></div>
                         </a>
                     }
@@ -69,7 +67,21 @@
             }
             adata.dialogMessage = 'Вы действительно хотите удалить параметр?';
             $(".np_deleteParameter").bind("click", adata, np_MessageDialogPost);
-            $("#parameterList").DataTable({ "language": dtLanguage });
+            $("#parameterList").removeAttr("width").DataTable({
+                language: dtLanguage,
+                columns: [
+                    { width: "200px", orderable: false },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                ]
+            });
         });
     </script>
 }

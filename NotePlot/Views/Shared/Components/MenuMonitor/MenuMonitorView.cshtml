@@ -5,36 +5,36 @@
     <ul class="navigation">
         <li>
             <a href="#" class="button">
-                <div class="icon"><span class="ico-home"></span></div>
+                <div class="icon"><span class="fa fa-sliders-h"></span></div>
                 <div class="name">Измерения</div>
             </a>
             <ul class="navigation">
-                <li navigation-active-for="/Monitor/MonitorList">@Html.ActionLink("Мониторы измерений", "MonitorList", "Monitor")</li>
+                <li controller-name="Monitor" action-name="Monitor*">@Html.ActionLink("Мониторы измерений", "MonitorList", "Monitor")</li>
             </ul>
         </li>
         <li>
             <a href="#" class="button">
-                <div class="icon"><span class="ico-home"></span></div>
+                <div class="icon"><span class="fa fa-cog"></span></div>
                 <div class="name">Справочники</div>
             </a>
             <ul class="navigation">
-                <li navigation-active-for="/Parameter/PacketList">@Html.ActionLink("Пакеты параметров", "PacketList", "Parameter")</li>
-                <li navigation-active-for="/Parameter/ParameterList">@Html.ActionLink("Параметры измерений", "ParameterList", "Parameter")</li>
-                <li navigation-active-for="/ParameterGroup/">@Html.ActionLink("Группы параметров", "List", "ParameterGroup")</li>
-                <li navigation-active-for="/Unit/UnitList">@Html.ActionLink("Ед.измерения", "UnitList", "Unit")</li>
-                <li navigation-active-for="/UnitCategory/UnitCategoryList">@Html.ActionLink("Группы ед.измерения", "UnitCategoryList", "UnitCategory")</li>
-                <li navigation-active-for="/ParamValueType/Index">@Html.ActionLink("Типы значений", "Index", "ParamValueType")</li>
+                <li controller-name="Parameter" action-name="Packet*">@Html.ActionLink("Пакеты параметров", "PacketList", "Parameter")</li>
+                <li controller-name="Parameter" action-name="Parameter*">@Html.ActionLink("Параметры измерений", "ParameterList", "Parameter")</li>
+                <li controller-name="ParameterGroup" action-name="*">@Html.ActionLink("Группы параметров", "List", "ParameterGroup")</li>
+                <li controller-name="Unit" action-name="Unit*">@Html.ActionLink("Ед.измерения", "UnitList", "Unit")</li>
+                <li controller-name="UnitCategory" action-name="UnitCategory*">@Html.ActionLink("Группы ед.измерения", "UnitCategoryList", "UnitCategory")</li>
+                <li controller-name="ParamValueType" action-name="*">@Html.ActionLink("Типы значений", "Index", "ParamValueType")</li>
             </ul>
         </li>
         <li>
             <a href="#" class="button">
-                <div class="icon"><span class="ico-home"></span></div>
+                <div class="icon"><span class="fa fa-chart-line"></span></div>
                 <div class="name">Аналитика</div>
             </a>
             <ul class="navigation">
                 @*<li><a href="#">Параметры измерения</a></li>*@
-                <li navigation-active-for="/Analytics/ReportMonitor">@Html.ActionLink("Измерения по монитору", "ReportMonitor", "Analytics")</li>
-                <li navigation-active-for="/Analytics/ReportPlot">@Html.ActionLink("Динамика изменения параметров", "ReportPlot", "Analytics")</li>
+                <li controller-name="Analytics" action-name="ReportMonitor">@Html.ActionLink("Измерения по монитору", "ReportMonitor", "Analytics")</li>
+                <li controller-name="Analytics" action-name="ReportPlot">@Html.ActionLink("Динамика изменения параметров", "ReportPlot", "Analytics")</li>
             </ul>
         </li>
     </ul>

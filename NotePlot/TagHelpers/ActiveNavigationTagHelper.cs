@@ -8,13 +8,14 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace NotePlot.TagHelpers
 {
 
-    [HtmlTargetElement("li", Attributes = _for)]
+    [HtmlTargetElement("li", Attributes = attributes)]
     public class ActiveNavigationTagHelper : TagHelper
     {
         private readonly IUrlHelperFactory _UrlHelper;
-        private const string _for = "navigation-active-for";
+        private const string attributes = "controller-name,action-name";
 
-        public string NavigationActiveFor { get; set; }
+        public string ControllerName { get; set; }
+        public string ActionName { get; set; }
 
         [ViewContext]
         public ViewContext ViewContext { get; set; }
@@ -27,16 +28,27 @@ namespace NotePlot.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var urlHelper = _UrlHelper.GetUrlHelper(ViewContext);
-            var currentPage = urlHelper.Action();
-            if (NavigationActiveFor.EndsWith("*"))
+            var currentControllerName = ViewContext.RouteData.Values["controller"].ToString();
+            var currentActionName = ViewContext.RouteData.Values["action"].ToString();
+
+
+            if (String.Equals(ControllerName, currentControllerName, StringComparison.InvariantCultureIgnoreCase))
             {
-                if (currentPage.StartsWith(NavigationActiveFor.TrimEnd('*'), StringComparison.InvariantCultureIgnoreCase))
+                if (ActionName.Equals("*", StringComparison.InvariantCultureIgnoreCase))
+                {
                     output.Attributes.Add("class", "active");
-            }
-            else
-            {
-                if (currentPage.Equals(NavigationActiveFor, StringComparison.InvariantCultureIgnoreCase))
+                }
+                else if (ActionName.EndsWith("*"))
+                {
+                    if (currentActionName.StartsWith(ActionName.TrimEnd('*'), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        output.Attributes.Add("class", "active");
+                    }
+                }
+                else if (ActionName.Equals(currentActionName, StringComparison.InvariantCultureIgnoreCase))
+                {
                     output.Attributes.Add("class", "active");
+                }
             }
         }
     }
