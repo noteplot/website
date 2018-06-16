@@ -5,15 +5,15 @@
         @Html.AntiForgeryToken()
             <p>
                 <label for="Email">Логин(email)</label>
-                <input class="ui-corner-all np-ui-input" type="text" id="Email" name="Email" maxlength=32/>
+                <input class="ui-corner-all np-ui-input" type="text" id="Email" name="Email" maxlength=48/>
             </p>
             <p>
                 <label for="Password">Пароль</label>
-                <input class="ui-corner-all np-ui-input" type="password" id="Password" name="Password" maxlength=32/>
+                <input class="ui-corner-all np-ui-input" type="password" id="Password" name="Password" maxlength=64/>
             </p>
             <p>
                 <label for="ConfirmPassword">Повторите пароль</label>
-                <input class="ui-corner-all np-ui-input" type="password" id="ConfirmPassword" name="ConfirmPassword" maxlength=32/>
+                <input class="ui-corner-all np-ui-input" type="password" id="ConfirmPassword" name="ConfirmPassword" maxlength=64/>
             </p>
             <p>
                 <label for="Captcha">Введите число с картинки</label>
@@ -65,15 +65,18 @@
                     Email: {
                         required: true,
                         email: true,
-                        minlength: 2
+                        minlength: 2,
+                        maxlength: 48
                     },
                     Password: {
                         required: true,
-                        minlength: 2
+                        minlength: 2,
+                        maxlength: 64
                     },
                     ConfirmPassword: {
                         required: true,
-                        minlength: 2
+                        minlength: 2,
+                        maxlength: 64
                     },
                     Captcha: {
                         required: true,
@@ -86,19 +89,22 @@
                         required: "поле не заполнено или заполнено не верно",
                         email: "должен быть введен ваш электронный адрес",
                         minlength: "в поле должно быть минимум 2 символа",
+                        maxlength: "в поле должно быть не более 48 символов"
                     },
                     Password: {
                         required: "поле не заполнено или заполнено не верно",
                         minlength: "в поле должно быть минимум 2 символа",
+                        maxlength: "в поле должно быть не более 64 символов"
                     },
                     ConfirmPassword: {
                         required: "поле не заполнено или заполнено не верно",
                         minlength: "в поле должно быть минимум 2 символа",
+                        maxlength: "в поле должно быть не более 64 символов"
                     },
                     Captcha: {
                         required: "поле не заполнено или заполнено не верно",
                         minlength: "в поле должно быть 4 символа",
-                        maxlength: "в поле должно быть 4 символа",
+                        maxlength: "в поле должно быть 4 символа"
                     }
                 }
             });
