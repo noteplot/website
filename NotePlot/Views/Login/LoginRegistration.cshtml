@@ -4,20 +4,20 @@
     <form action="/Login/RegisterLogin" method="POST" id="loginRegistration">
         @Html.AntiForgeryToken()
             <p>
-                <label for="Email">Логин(email)</label>
-                <input class="ui-corner-all np-ui-input" type="text" id="Email" name="Email" maxlength=48/>
+                <label for="Email">Пользователь(email)</label>
+                <input class="ui-corner-all np-ui-input" type="text" id="Email" name="Email" maxlength=48 autocomplete="off"/>
             </p>
             <p>
                 <label for="Password">Пароль</label>
-                <input class="ui-corner-all np-ui-input" type="password" id="Password" name="Password" maxlength=64/>
+                <input class="ui-corner-all np-ui-input" type="password" id="Password" name="Password" maxlength=64 autocomplete="off"/>
             </p>
             <p>
                 <label for="ConfirmPassword">Повторите пароль</label>
-                <input class="ui-corner-all np-ui-input" type="password" id="ConfirmPassword" name="ConfirmPassword" maxlength=64/>
+                <input class="ui-corner-all np-ui-input" type="password" id="ConfirmPassword" name="ConfirmPassword" maxlength=64 autocomplete="off"/>
             </p>
             <p>
                 <label for="Captcha">Введите число с картинки</label>
-                <input class="ui-corner-all np-ui-input" type="text" id="Captcha" name="Captcha"  maxlength=4/>
+                <input class="ui-corner-all np-ui-input" type="text" id="Captcha" name="Captcha"  maxlength=4 autocomplete="off"/>
             </p>
             <img src="@Url.Action("Captcha", "Login")" alt="captcha" />
     </form>

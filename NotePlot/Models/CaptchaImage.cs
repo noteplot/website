@@ -30,8 +30,9 @@ namespace NotePlot.Models
             // отрисовка строки
             RectangleF r = new RectangleF(0, 0, width, height);
             g.FillRectangle(Brushes.DarkGray, r);
-            g.DrawString(text, new Font("Arial", height / 2, FontStyle.Bold),
-                                Brushes.WhiteSmoke, r);
+            RectangleF r2 = new RectangleF(0, 5, width, height);//здесь выводим текст
+            g.DrawString(text, new Font("Arial", height/2, FontStyle.Bold),
+                                Brushes.WhiteSmoke, r2);
 
             g.Dispose();
 
