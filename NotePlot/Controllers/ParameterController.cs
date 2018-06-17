@@ -23,14 +23,14 @@ namespace NotePlot.Controllers
         public ActionResult ParameterNew()
         {
             long? loginID = null;
-            ViewBag.Action = "/Parameter/Edit";
+            ViewBag.Action = "/Parameter/ParameterEdit";
             ViewBag.ListType = ParameterType.ParameterTypeList; // для отображения типа параметра
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 loginID = LoginController.GetLogin(HttpContext.User);
             }
             Parameter pr = new Parameter() { ParameterTypeID = 0, LoginID = loginID };// {ParameterGroupID = -1, ParameterTypeID = 0, ParameterUnitID = -1, ParameterValueTypeID = -1, LoginID = -1 };
-            return View("Edit",pr);
+            return View("ParameterEdit",pr);
         }
 
         // GET:
@@ -144,7 +144,7 @@ namespace NotePlot.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 long loginID = LoginController.GetLogin(HttpContext.User);
-                return View("Edit", await repo.GetParameterAsync(id, loginID));
+                return View("ParameterEdit", await repo.GetParameterAsync(id, loginID));
             }
             else
                 return BadRequest("Нет аутентификации!");

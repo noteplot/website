@@ -26,9 +26,9 @@
     }
     <p class="np-href">
         <a id="np_ParameterList" href="@Url.Action("ParameterList", "Parameter")">Параметры измерения</a> -> @if (Model.ParameterID == null)
-        {<a id="np_CurrentParameter" href="@Url.Action("New", "Parameter" , new { id=Model.ParameterID })">Новый параметр</a>}
+        {<a id="np_CurrentParameter" href="@Url.Action("ParameterNew", "Parameter" , new { id=Model.ParameterID })">Новый параметр</a>}
         else
-        {<a id="np_CurrentParameter" href="@Url.Action("Edit", "Parameter" , new { id=Model.ParameterID })">Текущий параметр</a>}
+        {<a id="np_CurrentParameter" href="@Url.Action("ParameterEdit", "Parameter" , new { id=Model.ParameterID })">Текущий параметр</a>}
     </p>
     <div class="np-tool-bar">
         @if (Model.LoginID != 0)
@@ -39,7 +39,7 @@
         <button id="btnReturnParameterList" class="ui-button ui-corner-all">Список параметров</button>
         @if (Model.ParameterID != null)
         {
-            <a href="@Url.Action("New", "Parameter")" class="ui-button ui-corner-all" title="Новый параметр">
+            <a href="@Url.Action("ParameterNew", "Parameter")" class="ui-button ui-corner-all" title="Новый параметр">
                 <div class="icon"><i class="fa fa-plus"></i></div>
             </a>
         }
