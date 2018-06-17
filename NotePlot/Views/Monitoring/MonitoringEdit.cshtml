@@ -48,7 +48,7 @@
 }
 
 <p class="np-href">
-    <a id="np_MonitorList" href="@Url.Action("MonitorList", "Monitor")">Список шаблонов</a> -> <a id="np_Monitor" href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if (Model.MonitoringID == null)
+    <a id="np_MonitorList" href="@Url.Action("MonitorList", "Monitor")">Мониторы измерений</a> -> <a id="np_Monitor" href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a> -> @if (Model.MonitoringID == null)
     {<a id="np_CurrentMonitiring" href="@Url.Action("MonitoringNew", "Monitoring" , new { id=Model.MonitorID })">Новое измерение</a>}
     else
     {<a id="np_CurrentMonitiring" href="@Url.Action("MonitoringEdit", "Monitoring" , new { id=Model.MonitoringID })">Текущее измерение</a>}

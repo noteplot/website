@@ -25,7 +25,7 @@
         </style>
     }
     <p class="np-href">
-        <a id="np_ParameterList" href="@Url.Action("ParameterList", "Parameter")">Список параметров</a> -> @if (Model.ParameterID == null)
+        <a id="np_ParameterList" href="@Url.Action("ParameterList", "Parameter")">Параметры измерения</a> -> @if (Model.ParameterID == null)
         {<a id="np_CurrentParameter" href="@Url.Action("New", "Parameter" , new { id=Model.ParameterID })">Новый параметр</a>}
         else
         {<a id="np_CurrentParameter" href="@Url.Action("Edit", "Parameter" , new { id=Model.ParameterID })">Текущий параметр</a>}

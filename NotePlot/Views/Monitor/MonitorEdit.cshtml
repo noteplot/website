@@ -27,10 +27,10 @@
 }
 
 <p class="np-href">
-    <a id="np_MonitorList" href="@Url.Action("MonitorList", "Monitor")">Шаблоны измерений</a> -> @if (Model.MonitorID == null)
-    {<a id="np_CurrentMonitor" href="@Url.Action("MonitorNew", "Monitor" , new { id=Model.MonitorID })">Новый шаблон</a>}
+    <a id="np_MonitorList" href="@Url.Action("MonitorList", "Monitor")">Мониторы измерений</a> -> @if (Model.MonitorID == null)
+    {<a id="np_CurrentMonitor" href="@Url.Action("MonitorNew", "Monitor" , new { id=Model.MonitorID })">Новый монитор</a>}
     else
-    {<a id="np_CurrentMonitor" href="@Url.Action("MonitorEdit", "Monitor" , new { id=Model.MonitorID })">Текущий шаблон</a>}
+    {<a id="np_CurrentMonitor" href="@Url.Action("MonitorEdit", "Monitor" , new { id=Model.MonitorID })">Текущий монитор</a>}
 </p>
 <div class="np-tool-bar">
     @if (Model.LoginID != 0)
