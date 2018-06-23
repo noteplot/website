@@ -120,21 +120,13 @@
                 $('#MonitoringDateTm').val(tm);
             }
             // маска для ввода времени
+            $('#MonitoringDateTm').npTimeInput();
+/*
+            // старый плагин маски времени   
             $.mask.definitions['H'] = '[012]';
             $.mask.definitions['M'] = '[012345]';
             $('#MonitoringDateTm').mask('H9:M9', {
                 placeholder: "0"
-                /*
-                completed: function()
-                {
-                    var cr = false;
-                    var vl = $(this).val().split(':');
-                    if ( vl[0]*1 > 23) {vl[0] = '23';cr = true};
-                    if ( vl[1]*1 > 59) {vl[1] = '59';cr = true};
-                    if (cr){$(this).val( vl.join(':') )};
-                    console.log($(this).val());
-                }
-                */
             }
             );
             $("#MonitoringDateTm").on('keypress', function (e) {
@@ -146,6 +138,7 @@
                     $(this).mask('H9:M9', { placeholder: "0" });
                 }
             });
+*/
 
             $("#np_monitoring_edit input[type=text],textarea").on('input change keypress', function (e) {
                 if ($('#btnMonitoringSave').attr('disabled')) {
