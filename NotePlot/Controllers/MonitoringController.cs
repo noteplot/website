@@ -315,7 +315,6 @@ namespace NotePlot.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                ViewBag.MonitorID = id;
                 return PartialView("MonitoringsDelete", id);
                 
             }
