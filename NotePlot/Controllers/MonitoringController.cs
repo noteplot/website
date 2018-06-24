@@ -311,5 +311,48 @@ namespace NotePlot.Controllers
             }
         }
 
+        public IActionResult MonitoringDeleteByDate(long id)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                ViewBag.MonitorID = id;
+                return PartialView("MonitoringsDelete", id);
+                
+            }
+            else
+                return BadRequest("Нет аутентификации!"); // TODO: обработать ошибку аутентификации
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> MonitoringDeleteByDate(MonitoringFilter mf)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                long loginID = LoginController.GetLogin(HttpContext.User);
+                if (loginID >= 0)
+                {
+                    try
+                    {
+                        var dRows = await repo.DeleteMonitoringByDateAsync(mf);
+                        string dMes = String.Format("Удалено {0} записей", dRows);
+                        return Ok(dMes); // ajax диалог просто пустая строка
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Нет аутентификации");
+                }
+            }
+            else
+            {
+                return BadRequest("Нет аутентификации");
+            }
+        }
+
     }
 }

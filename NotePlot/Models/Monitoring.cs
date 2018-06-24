@@ -100,6 +100,8 @@ namespace NotePlot.Models
         Task<bool> SetMonitoringAsync(Monitoring mr, int md);
         bool DeleteMonitoring(long mId);
         Task<bool> DeleteMonitoringAsync(long mId);
+        int DeleteMonitoringByDate(MonitoringFilter mf);
+        Task<int> DeleteMonitoringByDateAsync(MonitoringFilter mf);
     }
 
     public class RepositoryMonitoring : IRepositoryMonitoring
@@ -267,6 +269,34 @@ namespace NotePlot.Models
         public Task<bool> DeleteMonitoringAsync(long mId)
         {
             return Task.Run(() => DeleteMonitoring(mId));
+        }
+
+        public int DeleteMonitoringByDate(MonitoringFilter mf)
+        {
+            int rt = 0;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("@MonitorID", mf.MonitorID);
+                    p.Add("@DateFrom", mf.DateFrom);
+                    p.Add("@DateTo", mf.DateTo);
+                    p.Add("@DeletedRows", dbType: DbType.Int16, direction: ParameterDirection.Output);
+                    db.Execute("dbo.MonitoringsByDateDelete", p, commandType: CommandType.StoredProcedure);
+                    rt = p.Get<int>("@DeletedRows");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return rt;
+        }
+
+        public Task<int> DeleteMonitoringByDateAsync(MonitoringFilter mf)
+        {
+            return Task.Run(() => DeleteMonitoringByDate(mf));
         }
 
     }

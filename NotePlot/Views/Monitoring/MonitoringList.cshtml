@@ -5,7 +5,7 @@
 }
 @section styles{
     <style>
-        .ui-widget-header {
+        #tabs .ui-widget-header {
             border: none; /*1px solid #a3a3a3;*/ 
             background: none; /*#333333 url("images/ui-bg_diagonals-thick_8_333333_40x40.png") 50% 50% repeat;*/
         }
@@ -59,6 +59,7 @@
     <a href="@Url.Action("MonitoringNew", "Monitoring",new { id = Model.MonitorID })" class="ui-button ui-corner-all" title="Новое измерение">
         <div class="icon"><i class="fa fa-plus"></i></div>
     </a>
+    <button id="btn_delete" class="openDialog ui-button ui-corner-all" np_dialog_title="Удалить за период" title="Удалить за период" href="@Url.Action("MonitoringDeleteByDate", "Monitoring",new { id = Model.MonitorID })"><i class="fa fa-minus"></i></button>
     @*
         <a href="@Url.Action("MonitoringNew", "Monitoring",new { id = Model.MonitorID })" class="np_button blue">
             <div class="icon"><i class="fa fa-plus"></i></div>
@@ -77,7 +78,8 @@
             showOtherMonths: true,
             selectOtherMonths: true,
             changeMonth: true,
-            changeYear: true
+            changeYear: true,
+            onClose: function () { this.blur(); } // если не терять фокус после esс не работает
             //showOn: "both",
             //buttonImage: "calendar16.png",
             //buttonImageOnly: true,
@@ -100,6 +102,10 @@
             //alert(data1);
             var json = $.parseJSON(data1);
             $('#monitoringList').load('/Monitoring/MonitorMonitoringList', json);
+        });
+        $('#btn_select').on('click', function (e) {
+            e.preventDefault();
+
         });
     });
 </script>
