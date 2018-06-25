@@ -282,7 +282,7 @@ namespace NotePlot.Models
                     p.Add("@MonitorID", mf.MonitorID);
                     p.Add("@DateFrom", mf.DateFrom);
                     p.Add("@DateTo", mf.DateTo);
-                    p.Add("@DeletedRows", dbType: DbType.Int16, direction: ParameterDirection.Output);
+                    p.Add("@DeletedRows", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     db.Execute("dbo.MonitoringsByDateDelete", p, commandType: CommandType.StoredProcedure);
                     rt = p.Get<int>("@DeletedRows");
                 }
