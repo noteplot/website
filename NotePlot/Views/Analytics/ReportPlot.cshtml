@@ -84,13 +84,23 @@
                 showOtherMonths: true,
                 selectOtherMonths: true,
                 changeMonth: true,
-                changeYear: true
+                changeYear: true,
+                onClose: function () { this.blur(); }, // если не терять фокус после esс не работает
+                showButtonPanel: true
                 //showOn: "both",
                 //buttonImage: "calendar16.png",
                 //buttonImageOnly: true
                 //buttonText: "выбрать дату"
             });
-
+            var original_gotoToday = $.datepicker._gotoToday;
+            //переопределяем функцию , т.к. кнопка ToDay не работает как должна
+            $.datepicker._gotoToday = function (id) {
+                //original_gotoToday.call(this, id);		
+                $(id)
+                    .blur()
+                    .datepicker("hide")
+                    .datepicker('setDate', new Date());
+            }
             //=================================
             // глобальный класс для добавления строки(параметров)
             np_insertRow = new np_InsertRow(

@@ -100,11 +100,22 @@
                 showOtherMonths: true,
                 selectOtherMonths: true,
                 changeMonth: true,
-                changeYear: true
+                changeYear: true,
+                onClose: function () { this.blur(); }, // если не терять фокус после esс не работает
+                showButtonPanel: true
                 //showOn: "both",
                 //buttonImage: "/images/ui-icon-calendar.gif", /*"http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",*/
                 //buttonImageOnly: true
             });
+            var original_gotoToday = $.datepicker._gotoToday;
+            //переопределяем функцию , т.к. кнопка ToDay не работает как должна
+            $.datepicker._gotoToday = function (id) {
+                //original_gotoToday.call(this, id);		
+                $(id)
+                    .blur()
+                    .datepicker("hide")
+                    .datepicker('setDate', new Date());
+            }
 
             // инициализация даты и времени для нового измерения
             //var monId = $('#MonitoringID').val();

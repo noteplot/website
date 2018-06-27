@@ -4,40 +4,45 @@
     <form action='/Monitoring/MonitoringDeleteByDate' method="POST" id="monitoringDelete">
         @Html.AntiForgeryToken()
         <div>
-            <p class="input-prepend">
+            <input type="text" id ="hidFoc" style="width: 0; height: 0; top: -100px; position: absolute;" />
+            <p>
                 <label for="DateFrom" class="np_label">C</label>
-                <input type="text" name="DateFrom" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" readonly tabindex="-1">
+                <input type="text" id="DateFrom" name="DateFrom" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" readonly>
             </p>
             <p>
-                <label for="DateFrom" class="np_label">По</label>
-                <input type="text" name="DateTo" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" readonly tabindex="-1">
+                <label for="DateTo" class="np_label">По</label>
+                <input type="text" name="DateTo" class="ui-widget ui-widget-content ui-corner-all np-input-date np-date np-ui-input" readonly>
             </p>
-            <input type="hidden" name="MonitorID" value="@Model"/>
+            <input type="hidden" name="MonitorID" value="@Model" />
         </div>
     </form>
     <div class="np-buttons">
         <button id="btnOk" class="np-left ui-button ui-corner-all">Да</button>
-        <button id="btnCancel" class="np-right ui-button ui-corner-all">Отмена</button>
+        <button id="btnCancel" class="np-right ui-button ui-corner-all" tabindex="1">Отмена</button>
     </div>
 </div>
 <script type="text/javascript">
     $(function () {
-        $.datepicker.setDefaults($.datepicker.regional['ru']);
-        $(".np-input-date").datepicker({
-            dateFormat: "dd.mm.yy",
-            showOtherMonths: true,
-            selectOtherMonths: true,
-            changeMonth: true,
-            changeYear: true,
-            onClose: function () {this.blur();}
-            //showOn: "both",
-            //buttonImage: "calendar16.png",
-            //buttonImageOnly: true,
-            //buttonText: "выбрать дату"
-        });
-
+        //$.datepicker.setDefaults($.datepicker.regional['ru']); //уже загружено
+        //$(".np-input-date").datepicker({
+        $('#monitoringDeletePanel .np-input-date').each(function () {
+            $(this).datepicker({
+                dateFormat: 'dd.mm.yy',
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                onClose: function () { /*$(this).blur(); */$('#hidFoc').focus()}, // для IE
+                showButtonPanel: true
+            });
+            //$(this).datepicker($.datepicker.regional["ru"]);
+        });	
         var adata = new Object();
-        adata.onSuccess = function (dta) {
+        adata.onSuccess = function (mes) {
+            if ($('#masterDialog').length > 0)
+                $('#masterDialog').dialog("close");
+            // сообщение
+            np_ShowMessage(mes, "Внимание!");
             location.reload();
         }
 
