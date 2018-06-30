@@ -37,14 +37,6 @@
             });
             //$(this).datepicker($.datepicker.regional["ru"]);
         });	
-        var adata = new Object();
-        adata.onSuccess = function (mes) {
-            if ($('#masterDialog').length > 0)
-                $('#masterDialog').dialog("close");
-            // сообщение
-            np_ShowMessage(mes, "Внимание!");
-            location.reload();
-        }
 
         $('#btnOk').on('click', function (e) {
             e.preventDefault();
@@ -61,6 +53,19 @@
                 $('#' + _md).dialog("close");
             }
         });
+
+        var adata = new Object();
+        adata.onSuccess = function (mes) {
+            if ($('#masterDialog').length > 0)
+                $('#masterDialog').dialog("close");
+            // сообщение
+
+            var onClose = function () {
+                np_LoadMonitoringList();
+                //$('#btn_select').trigger("сlick");
+            }
+            np_ShowMessageEx(onClose, mes);
+        }
 
         $("#monitoringDelete").bind('submit', adata, np_AjaxFormSubmit);
         $("#monitoringDelete").bind('click', np_AjaxFormInputClick);

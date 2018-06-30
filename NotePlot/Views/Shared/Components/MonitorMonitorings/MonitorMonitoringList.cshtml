@@ -37,8 +37,8 @@
     </table>
 </div>
     <script type="text/javascript">        
+        $("#monitorMonitoringList").DataTable({ "language": dtLanguage }); // если в $(document).ready - то дергается, т.е. видна отрисовка стилей
         $(document).ready(function () {
-            $("#monitorMonitoringList").DataTable({ "language": dtLanguage});
             $('#monitorMonitoringList').on('page.dt order.dt search.dt', function () {
                 $('#monitorMonitoringList tbody tr.selected').removeClass('selected');
             });

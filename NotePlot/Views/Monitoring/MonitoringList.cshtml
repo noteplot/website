@@ -99,24 +99,25 @@
         //Перезагрузка списка
         $('#btn_select').on('click', function (e) {
             e.preventDefault();
-            var data = $("#tabs input").serialize();
-            var active = $("#tabs").tabs("option", "active");
-            if (active == 0) {
-                data += "&Mode=0";
-            }
-            else {
-                data += "&Mode=1";
-            };
-            var mId = $('#monitoringList').attr('data-np_monitorId');
-            data += "&MonitorID=" + mId;
-            var data1 = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
-            //alert(data1);
-            var json = $.parseJSON(data1);
-            $('#monitoringList').load('/Monitoring/MonitorMonitoringList', json);
+            np_LoadMonitoringList();
         });
-        $('#btn_select').on('click', function (e) {
-            e.preventDefault();
 
-        });
     });
+
+    //+ вызываем после удаления
+    function np_LoadMonitoringList() {
+        var data = $("#tabs input").serialize();
+        var active = $("#tabs").tabs("option", "active");
+        if (active == 0) {
+            data += "&Mode=0";
+        }
+        else {
+            data += "&Mode=1";
+        };
+        var mId = $('#monitoringList').attr('data-np_monitorId');
+        data += "&MonitorID=" + mId;
+        var data1 = '{"' + data.replaceAll('&', '","').replaceAll('=', '":"') + '"}';
+        var json = $.parseJSON(data1);
+        $('#monitoringList').load('/Monitoring/MonitorMonitoringList', json);
+    };
 </script>
