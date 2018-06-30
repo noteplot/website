@@ -215,13 +215,10 @@ function np_ShowMessageEx(onClose,mes, tit) {
                     onClose();
                 }
             },
-            /*
-            buttons: {
-                Ok: function () {
-                    $(this).dialog("close");
-                }
+            create: function (event, ui) {
+                if (tit == '') // удаляем titlebar
+                    $('#np_MessageDialog').prev(".ui-widget-header").hide();
             },
-            */
             buttons: [
                 {
                     text: "Ok",
@@ -235,7 +232,7 @@ function np_ShowMessageEx(onClose,mes, tit) {
         }).append(mes);
 };
 
-function np_MessageDialogPost(event) {
+function np_MessageDialogPost(event,onOk) {
     event.preventDefault();
     if (event.data.action == undefined)
     event.data.action = $(this).attr("href");
@@ -272,7 +269,11 @@ function np_MessageDialogPost(event) {
                     text: "Да",
                     //icon: "ui-icon-heart",
                     click: function () {
-                        $(this).dialog("close");                        
+                        $(this).dialog("close");
+                        if (onOk) {
+                            onOk();
+                        } 
+                        else
                         np_AjaxPost(event);
                     }
                 },

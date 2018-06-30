@@ -37,12 +37,16 @@
             });
             //$(this).datepicker($.datepicker.regional["ru"]);
         });	
-
-        $('#btnOk').on('click', function (e) {
+        var adataDelete = new Object();
+        //adataDelete.dialogTitle = 'Привет'; 
+        $('#btnOk').on('click', adataDelete, function (e) {
             e.preventDefault();
             np_AjaxFormInputClick(); // очистка ошибок
-            if ($('#monitoringDelete').valid())
-                $('#monitoringDelete').submit();
+            if ($('#monitoringDelete').valid()) {
+                np_MessageDialogPost(e, function () { 
+                    $('#monitoringDelete').submit();
+                });
+            }
         });
 
         $('#btnCancel').on('click', function (e) {
@@ -55,15 +59,15 @@
         });
 
         var adata = new Object();
+        var onClose = function () {
+            np_LoadMonitoringList();
+        }
         adata.onSuccess = function (mes) {
             if ($('#masterDialog').length > 0)
                 $('#masterDialog').dialog("close");
+            np_LoadMonitoringList();
+            return;
             // сообщение
-
-            var onClose = function () {
-                np_LoadMonitoringList();
-                //$('#btn_select').trigger("сlick");
-            }
             np_ShowMessageEx(onClose, mes);
         }
 

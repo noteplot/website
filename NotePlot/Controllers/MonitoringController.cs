@@ -334,7 +334,7 @@ namespace NotePlot.Controllers
                     try
                     {
                         var dRows = await repo.DeleteMonitoringByDateAsync(mf);
-                        string dMes = String.Format("Удалено записей: {0}", dRows);
+                        string dMes = String.Format("Удалено измерений: {0}", dRows);
                         return Ok(dMes); // ajax диалог просто пустая строка
                     }
                     catch (Exception ex)
