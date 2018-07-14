@@ -69,11 +69,11 @@
                 <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" class="np-column-left np-short-name np-ui-input" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
             </div>
             <div class="np-clearfix">
-                <label for="ParameterShortName" class="np-column-left np-column-1 np-ui-input">Краткое название</label>
+                <label for="ParameterShortName" class="np-column-left np-column-1 np-ui-input">Краткое наименование</label>
                 <input type="text" id="ParameterShortName" name="ParameterShortName" class="np-column-left np-short-name np-ui-input" maxlength="24" value="@Model.ParameterShortName" @if (Model.LoginID == 0) { @atr_disabled } />
             </div>
             <div class="np-clearfix">
-                <label for="ParameterName" class="np-column-left np-column-1 np-ui-input">Полное название</label>
+                <label for="ParameterName" class="np-column-left np-column-1 np-ui-input">Полное наименование</label>
                 @*<input type="text" id="ParameterName" name="ParameterName" maxlength="48" value="@Model.ParameterName" @if (Model.LoginID == 0) { @atr_disabled } />*@
                 <textarea class="np-column-left np-short-name np-ui-input" id="ParameterName" name="ParameterName" maxlength=48 value="@Model.ParameterName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterName</textarea>
             </div>

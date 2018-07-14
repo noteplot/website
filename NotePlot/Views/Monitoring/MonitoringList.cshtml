@@ -19,7 +19,7 @@
 }
 
 <p>
-    Измерения по шаблону: @Model.MonitorShortName
+    Измерения по монитору: @Model.MonitorShortName
 </p>
 <p>
     <a href="@Url.Action("MonitorList", "Monitor")">Мониторы измерений</a> -> <a href="@Url.Action("MonitoringList", "Monitoring" , new { id=Model.MonitorID })">@Model.MonitorShortName</a>
@@ -51,7 +51,7 @@
     </div>    
 </div>
 <div class="np_toolbar">
-    <button id="btn_select" class="ui-button ui-corner-all">Показать список</button>
+    <button id="btn_select" class="ui-button ui-corner-all">Измерения</button>
     <a href="@Url.Action("MonitoringNew", "Monitoring",new { id = Model.MonitorID })" class="ui-button ui-corner-all" title="Новое измерение">
         <div class="icon"><i class="fa fa-plus"></i></div>
     </a>
