@@ -364,3 +364,7 @@ table.dataTable tbody td {
 .svg-inline--fa {
     vertical-align: 0;
 }
+
+.npNoJs {
+    display: none;
+}

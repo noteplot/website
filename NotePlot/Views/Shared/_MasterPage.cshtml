@@ -60,50 +60,56 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
-    @Html.Partial("LoaderView")
-    <div class="np_bar">
-        <button class="dropdown-main-menu" type="button">|||</button>
-        @await Component.InvokeAsync("PanelLogin");
-    </div>
-    <div class="np_sidebar">
-        <button class="dropdown-main-menu" type="button">|||</button>
-        <div class="top"></div>
-        <div class="navContainer">
-            <ul class="navigation">
-                <li controller-name="home" action-name="index">
-                    <a href="/home/index" class="button">
-                        <div class="icon"><span class="fa fa-home"></span></div>
-                        <div class="name">Главная...</div>
-                    </a>
-                </li>
-                <li controller-name="home" action-name="help">
-                    <a href="/home/help" class="button">
-                        <div class="icon"><span class="fa fa-question"></span></div>
-                        <div class="name">Справка</div>
-                    </a>
-                </li>
-            </ul>
-            <div id="menuMonitor">
-                @await Component.InvokeAsync("MenuMonitor");
+    <div id="np_master_page" class="npNoJs">
+        @Html.Partial("LoaderView")
+        <div class="np_bar">
+            <button class="dropdown-main-menu" type="button">|||</button>
+            @await Component.InvokeAsync("PanelLogin");
+        </div>
+        <div class="np_sidebar">
+            <button class="dropdown-main-menu" type="button">|||</button>
+            <div class="top"></div>
+            <div class="navContainer">
+                <ul class="navigation">
+                    <li controller-name="home" action-name="index">
+                        <a href="/home/index" class="button">
+                            <div class="icon"><span class="fa fa-home"></span></div>
+                            <div class="name">Главная...</div>
+                        </a>
+                    </li>
+                    <li controller-name="home" action-name="help">
+                        <a href="/home/help" class="button">
+                            <div class="icon"><span class="fa fa-question"></span></div>
+                            <div class="name">Справка</div>
+                        </a>
+                    </li>
+                </ul>
+                <div id="menuMonitor">
+                    @await Component.InvokeAsync("MenuMonitor");
+                </div>
             </div>
         </div>
-    </div>
-    <div class="np_body">
-        <div class="np_content">
-            @RenderBody()
+        <div class="np_body">
+            <div class="np_content">
+                @RenderBody()
+            </div>
         </div>
+        @RenderSection("scripts", required: false)
     </div>
-    @RenderSection("scripts", required: false)
-    <script>
-        // Гашения значка загрузки
-        $(document).ready(function () {
-            $('#loader').hide();
-            $('.np_content').show();
-        });
+    <div id="np_no_script">
+        В вашем браузере не включена поддержка скриптов(JavaScript).
+    </div>
+</body>
+</html>
+<script>
+    $('#np_no_script').addClass('npNoJs');
+    $('#np_master_page').removeClass('npNoJs');
+    // Гашения значка загрузки
+    $(document).ready(function () {
+        $('#loader').hide();
+        $('.np_content').show();
+    });
         // вешаем колбэки для всех jQuery.ajax-запросов
         //$('#loader').ajaxSend(function () { $(this).show() })
         //    .ajaxStop(function () { $(this).hide() });
-
-    </script>
-</body>
-</html>
+</script>
