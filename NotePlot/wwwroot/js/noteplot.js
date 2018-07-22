@@ -493,8 +493,9 @@ function np_AjaxFormSubmitEx(event) {
             },
             error: function (jqXHR, textStatus, errorThrown) { // панель ошибок формы
                 np_AjaxComplete();
-                $(form_id).after("<div class='errorForm'><span></span></div>");
-                $('.errorForm span').html(jqXHR.responseText);
+                //$(form_id).after("<div class='errorForm'><span></span></div>");
+                //$('.errorForm span').html(jqXHR.responseText);
+                np_ShowMessage(jqXHR.responseText, "Ошибка!");
             }
         });
     };
