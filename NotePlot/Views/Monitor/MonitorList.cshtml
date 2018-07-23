@@ -50,12 +50,13 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#monitorList").DataTable({
-                "aoColumns": [
-                    { "sWidth": "0" },
-                    { "sWidth": "100px" },
+                "autoWidth": false,
+                "columns": [
+                    { "width": "0" },
+                    { "width": "100px" },
+                    { "width": "300px" },
                     null,
-                    null,
-                    null
+                    { "width": "100px" }
                 ],"language": dtLanguage
             });
             var adata = new Object();
