@@ -42,7 +42,12 @@
         $("#monitorings").DataTable({
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
+                //'copy','csv','excel','pdf','print'
+                { extend: 'copy', text: 'Копировать' },
+                { extend: 'csv', text: 'Сохранить в csv' },
+                { extend: 'excel', text: 'Сохранить в excel' },
+                { extend: 'pdf', text: 'Сохранить в pdf' },
+                { extend: 'print', text: 'Печать' },
             ],
             "language": dtLanguage // см. MasterPage.js
             , aaSorting: [[0, 'asc']] // см. http://vyachet.ru/sort-by-russian-date-datatable/
