@@ -68,11 +68,12 @@
             adata.dialogMessage = 'Вы действительно хотите удалить параметр?';
             $(".np_deleteParameter").bind("click", adata, np_MessageDialogPost);
             $("#parameterList").removeAttr("width").DataTable({
+                "autoWidth": false,
                 language: dtLanguage,
                 columns: [
-                    { width: "200px", orderable: false },
-                    null,
-                    null,
+                    { width: "100px", orderable: false },
+                    { "width": "100px" },
+                    { "width": "300px" },
                     null,
                     null,
                     null,

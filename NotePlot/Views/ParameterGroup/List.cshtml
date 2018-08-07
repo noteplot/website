@@ -45,11 +45,12 @@
         $(document).ready(function () {
             var table = $("#parameterGroups").DataTable(
                 {
-                    "columnDefs": [
-                        {
-                            "targets": [0],
-                            "visible": false
-                        }
+                    "autoWidth": false,
+                    "columns": [
+                        { "width": "0" },
+                        { "width": "100px" },
+                        { "width": "300px" },
+                        null
                     ], "language": dtLanguage
                 }
             );
