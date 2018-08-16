@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace NotePlot.Controllers
 {
@@ -29,7 +30,13 @@ namespace NotePlot.Controllers
 
         public IActionResult Error()
         {
-            return View();
+            string errorMessage = string.Empty;
+            var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            if (exceptionFeature.Error is System.Data.SqlClient.SqlException)
+                errorMessage = "Cервер базы данных";
+            else
+                errorMessage = "Web-сервер";
+            return View("Error", errorMessage);
         }
 
         public IActionResult Help()

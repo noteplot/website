@@ -1,0 +1,38 @@
+﻿@model string
+
+@section styles{
+    <style>
+        #error, #errorHelp, #errorInfo {
+            margin: auto;
+            width: 300px;
+            /*border: 1px red solid;*/
+            margin-bottom: 10px;
+        }
+
+        #error {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #errorHelp {
+            font-style: italic;
+            text-align: center;
+            border: 1px black solid;
+        }
+
+        #errorInfo {
+            /*font-style: italic;*/
+            text-align: center;
+        }
+    </style>
+}
+<div id="error">
+    Уупс... Что-то пошло не так...
+</div>
+<div id="errorHelp">
+    Попробуйте еще раз переоткрыть страницу. Информация об ошибке зафиксирована, мы работаем над ее исправлением.
+</div>
+<div id="errorInfo">
+    Источник ошибки: @Model
+</div>
