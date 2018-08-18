@@ -14,6 +14,7 @@ namespace NotePlot.Controllers
             return View();
         }
 
+        [NonAction]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -21,6 +22,7 @@ namespace NotePlot.Controllers
             return View();
         }
 
+        [NonAction]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
