@@ -9,7 +9,14 @@ namespace NotePlot.Controllers
 {
     public class HomeController : Controller
     {
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 3600)]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 3600)]
+        public IActionResult Help()
         {
             return View();
         }
@@ -39,11 +46,6 @@ namespace NotePlot.Controllers
             else
                 errorMessage = "Web-сервер";
             return View("Error", errorMessage);
-        }
-
-        public IActionResult Help()
-        {
-            return View();
         }
 
     }

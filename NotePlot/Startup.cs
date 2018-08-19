@@ -113,6 +113,17 @@ namespace NotePlot
             app.UseStatusCodePages(); // обработка ошибок HTTP
 
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx => 
+                {
+                    //ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600"); //???
+                    // static files: css,js & etc.
+                    const int durationInSeconds = 3600; //???
+                    ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+                }
+            });
+
             app.UseSession();         // встраивание сессий в конвейер обработки запроса  
             // устанавливаем культуру по-умолчанию
             var supportedCultures = new[]

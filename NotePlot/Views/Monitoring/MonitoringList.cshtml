@@ -65,7 +65,7 @@
 <div id="monitoringList" data-np_monitorId="@Model.MonitorID">
     @await Component.InvokeAsync("MonitorMonitorings", new { MonitorID = Model.MonitorID, Tops = Model.Tops })
 </div>
-<script>
+<script type="text/javascript">
     $(function () {
         $("#tabs").tabs();
         $.datepicker.setDefaults($.datepicker.regional['ru']);
@@ -85,12 +85,12 @@
         var original_gotoToday = $.datepicker._gotoToday;
         //переопределяем функцию , т.к. кнопка ToDay не работает как должна
         $.datepicker._gotoToday = function (id) {
-            //original_gotoToday.call(this, id);		
+            //original_gotoToday.call(this, id);
             $(id)
                 .blur()
                 .datepicker("hide")
                 .datepicker('setDate', new Date());
-        }		
+        }
 
         //Перезагрузка списка
         $('#btn_select').on('click', function (e) {
