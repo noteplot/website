@@ -100,17 +100,5 @@
     <div id="np_no_script">
         В вашем браузере не включена поддержка скриптов(JavaScript).
     </div>
-    <script type="text/javascript">
-        $('#np_no_script').addClass('npNoJs');
-        $('#np_master_page').removeClass('npNoJs');
-        // Гашения значка загрузки
-        $(document).ready(function () {
-            $('#loader').hide();
-            $('.np_content').show();
-        });
-                // вешаем колбэки для всех jQuery.ajax-запросов
-                //$('#loader').ajaxSend(function () { $(this).show() })
-                //    .ajaxStop(function () { $(this).hide() });
-    </script>
 </body>
 </html>

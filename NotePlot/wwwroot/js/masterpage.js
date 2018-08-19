@@ -14,9 +14,16 @@
         $('.np_sidebar').attr('style', '');
         $('.np_body').attr('style', '');
     });
-    // Перенесен в MasterPage - в Хроме не срабатывает, исколючается из исполнения
-    //$('#loader').hide();
-    //$('.np_content').show();
+
+    // Гашения значка загрузки
+    $(document).ready(function () {
+        $('#loader').hide();
+        $('.np_content').show();
+    });
+
+    // Анализ поддержки JS
+    $('#np_no_script').addClass('npNoJs');
+    $('#np_master_page').removeClass('npNoJs');
 });
 // Русификация DataTable
 var dtLanguage = {
