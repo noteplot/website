@@ -6,7 +6,7 @@
     <thead>
         <tr>
             <th hidden></th>
-            <th></th>
+            @*<th></th>*@
             <th>Код</th>
             <th>Наименование</th>
             <th>Число</th>
@@ -17,42 +17,43 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td hidden>@item.ParamValueTypeID</td>
-                <td>
-                    <div class="npRowTools" style="display:none">
-                        <a href="@Url.Action("Edit", "ListDialog" , new { id=item.ParamValueTypeID })" class="npRowEdit np_button" np_dialog_title="Тип значения">
-                            <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                        </a>
-                        <a href="@Url.Action("Delete", "ParamValueType", new { id = item.ParamValueTypeID })" class="npRowDelete np_button" data-deleted-name="@item.ParamValueTypeShortName">
-                            <div class="icon"><i class="fa fa-times"></i></div>
-                        </a>
-                    </div>
-                </td>
-                <td>@item.ParamValueTypeCode</td>
-                <td>@item.ParamValueTypeShortName</td>
-                <td><input disabled type="checkbox" id="ParameterActive" name="ParameterActive" value="@item.IsNumeric" @if (@item.IsNumeric) { @atr_checked } /></td>
-                <td>@item.Scale</td>
-                <td>@item.Precision</td>
-            </tr>
+        <tr>
+            <td hidden>@item.ParamValueTypeID</td>
+      @*<td>
+            <div class="npRowTools" style="display:none">
+                <a href="@Url.Action("Edit", "ListDialog" , new { id=item.ParamValueTypeID })" class="npRowEdit np_button" np_dialog_title="Тип значения">
+                    <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                </a>
+                <a href="@Url.Action("Delete", "ParamValueType", new { id = item.ParamValueTypeID })" class="npRowDelete np_button" data-deleted-name="@item.ParamValueTypeShortName">
+                    <div class="icon"><i class="fa fa-times"></i></div>
+                </a>
+            </div>
+        </td>*@
+            <td>@item.ParamValueTypeCode</td>
+            <td>@item.ParamValueTypeShortName</td>
+            <td><input disabled type="checkbox" id="ParameterActive" name="ParameterActive" value="@item.IsNumeric" @if (@item.IsNumeric) { @atr_checked } /></td>
+            <td>@item.Scale</td>
+            <td>@item.Precision</td>
+        </tr>
         }
     </tbody>
 </table>
 
 @section scripts {
     <script type="text/javascript">
-        $(document).ready(function () {
+        //$(document).ready(function () {
             $("#paramValueType").DataTable({
                 "autoWidth": false,
                 "columns": [
-                    { "width": "0" },
-                    { "width": "300" },
+                    { "visible": false },
+                    { "width": "30" },
                     null,
                     null,
-                    null
+                    null,
+                    null,
                 ],
                 "language": dtLanguage
             });
-        });
+        //});
     </script>
 }

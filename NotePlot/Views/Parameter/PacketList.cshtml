@@ -60,14 +60,16 @@
             //adata.dialogTitle = 'Внимание!';
             adata.dialogMessage = 'Вы действительно хотите удалить пакет?';
             $(".np_deletePacket").bind("click", adata, np_MessageDialogPost);
-            $("#packetList").DataTable({
-                "autoWidth": false,
-                "columns": [
-                    { "width": "0" },
-                    { "width": "100px" },
-                    { "width": "300px" }
-                ], "language": dtLanguage
-            });
+        });
+        $("#packetList").DataTable({
+            "autoWidth": false,
+            "columns": [
+                { "visible": false },
+                { "width": "100px" },
+                { "width": "300px" },
+                null,
+                null
+            ], "language": dtLanguage
         });
     </script>
 }

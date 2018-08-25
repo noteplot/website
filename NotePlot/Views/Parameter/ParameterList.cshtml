@@ -67,22 +67,22 @@
             }
             adata.dialogMessage = 'Вы действительно хотите удалить параметр?';
             $(".np_deleteParameter").bind("click", adata, np_MessageDialogPost);
-            $("#parameterList").removeAttr("width").DataTable({
-                "autoWidth": false,
-                language: dtLanguage,
-                columns: [
-                    { width: "100px", orderable: false },
-                    { "width": "100px" },
-                    { "width": "300px" },
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                ]
-            });
+        });
+        $("#parameterList").removeAttr("width").DataTable({
+            "autoWidth": false,
+            language: dtLanguage,
+            columns: [
+                { width: "100px", orderable: false },
+                { "width": "100px" },
+                { "width": "300px" },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            ]
         });
     </script>
 }
