@@ -127,7 +127,8 @@ namespace NotePlot.Controllers
         {
             await HttpContext.SignOutAsync("NotePlotCookies"/*CookieAuthenticationDefaults.AuthenticationScheme*/);// CORE 2.0
             //await HttpContext.Authentication.SignOutAsync("NotePlotCookies"); //CORE 1.0
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home"); // для кэшируемых страниц это не работает(атрибут ResponseCache)
+            return Redirect("/Home/Index"); // Это работает
         }
 
         public static long GetLogin(ClaimsPrincipal cp) //HttpContext.User

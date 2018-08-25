@@ -16,14 +16,11 @@
     });
 
     // Гашения значка загрузки
-    $(document).ready(function () {
-        $('#loader').hide();
-        $('.np_content').show();
-    });
+    //$(document).ready(function () {
+    $('#loader').hide();
+    $('.np_content').show();
+    //});
 
-    // Анализ поддержки JS
-    $('#np_no_script').addClass('npNoJs');
-    $('#np_master_page').removeClass('npNoJs');
 });
 // Русификация DataTable
 var dtLanguage = {
