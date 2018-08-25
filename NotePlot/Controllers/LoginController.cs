@@ -64,8 +64,8 @@ namespace NotePlot.Controllers
                             }
                             await Authenticate(us.LoginID, lg.LoginName, us.LoginView,lg.RememberMe); // аутентификация TO DO: сделать асинхронным
 
-                            return RedirectToAction("Index", "Home");
-                            //return Ok();
+                            //return RedirectToAction("Index", "Home");
+                            return Ok(); // reload в AJAX
                         }
                         catch (Exception ex)
                         {
@@ -127,8 +127,8 @@ namespace NotePlot.Controllers
         {
             await HttpContext.SignOutAsync("NotePlotCookies"/*CookieAuthenticationDefaults.AuthenticationScheme*/);// CORE 2.0
             //await HttpContext.Authentication.SignOutAsync("NotePlotCookies"); //CORE 1.0
-            //return RedirectToAction("Index", "Home"); // для кэшируемых страниц это не работает(атрибут ResponseCache)
-            return Redirect("/Home/Index"); // Это работает
+            return RedirectToAction("Index", "Home"); // для кэшируемых страниц это не работает(атрибут ResponseCache)
+            //return Redirect("/Home/Index"); // Это работает
         }
 
         public static long GetLogin(ClaimsPrincipal cp) //HttpContext.User
