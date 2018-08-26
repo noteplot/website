@@ -31,10 +31,6 @@
     <Content Remove="wwwroot\js\jquery.maskedinput.js" />
     <Content Remove="wwwroot\js\jquery.maskedinput.min.js" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\css\login.css" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="log4net" Version="2.0.8" />

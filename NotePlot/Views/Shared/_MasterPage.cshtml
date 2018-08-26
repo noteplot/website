@@ -52,7 +52,7 @@
     <script src="~/js/jquery.npSerialize.js" asp-append-version="true"></script>
 
     @* ресурсы сайта*@
-    <link href="~/css/login.css" rel="stylesheet" asp-append-version="true" />
+    @*<link href="~/css/login.css" rel="stylesheet" asp-append-version="true" />*@
     <link href="~/css/masterpage.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/noteplot.css" rel="stylesheet" asp-append-version="true" />
     <script src="~/js/noteplot.js" asp-append-version="true"></script>
@@ -95,6 +95,10 @@
                 @RenderBody()
             </div>
         </div>
+        <script type="text/javascript">
+            // Анализ поддержки JS
+            $('#np_master_page').removeClass('npNoJs');
+        </script>
         @RenderSection("scripts", required: false)
     </div>
     <div id="np_no_script">
@@ -103,7 +107,6 @@
     <script type="text/javascript">
         // Анализ поддержки JS
         $('#np_no_script').addClass('npNoJs');
-        $('#np_master_page').removeClass('npNoJs');
     </script>
 </body>
 </html>
