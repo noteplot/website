@@ -17,15 +17,19 @@ input[type="text"]:not(.np-ui-input), input[type="password"]:not(.np-ui-input), 
     border-color: #CCC;
     border-radius: 0;
 }
+
+#np_master_page {
+    position: relative;
+    min-height: 100%;
+}
+
 .np_sidebar {
     position: absolute;
     left: 0;
     top: 0; /*46px;*/
     background: black;
     width: 220px;
-    /*min-height: 100%;*/
-    /*border: solid 1px red;*/
-    height: 100%;
+    min-height: 100%;
 }
 
 .np_body {
@@ -368,9 +372,4 @@ table.dataTable tbody td {
 
 .npNoJs {
     display: none;
-}
-
-#np_master_page {
-    position: relative;
-    min-height: 100%;
 }
