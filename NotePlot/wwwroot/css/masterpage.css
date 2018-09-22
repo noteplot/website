@@ -32,6 +32,20 @@ input[type="text"]:not(.np-ui-input), input[type="password"]:not(.np-ui-input), 
     min-height: 100%;
 }
 
+.navContainer{
+    padding-bottom: 20px;
+}
+
+/* Правила для подвала сайта */
+.np_sidebar_footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 8px;
+}
+
 .np_body {
     position: relative;
     margin-left: 220px;

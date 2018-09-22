@@ -68,9 +68,8 @@
             @await Component.InvokeAsync("PanelLogin");
         </div>
         <div class="np_sidebar">
+            <div class="navContainer np-clearfix">
             <button class="dropdown-main-menu" type="button">|||</button>
-            <div class="top"></div>
-            <div class="navContainer"> 
                 <ul class="navigation">
                     <li controller-name="home" action-name="index">
                         <a href="/home/index" class="button">
@@ -88,6 +87,9 @@
                 <div id="menuMonitor">
                     @await Component.InvokeAsync("MenuMonitor");
                 </div>
+            </div>
+            <div class="np_sidebar_footer">
+                <span>ABOS &copy; 2018</span>
             </div>
         </div>
         <div class="np_body">
