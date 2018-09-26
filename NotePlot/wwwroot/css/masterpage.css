@@ -154,6 +154,10 @@ button.dropdown-main-menu {
     text-decoration: none !important;
 }
 
+.no-href{
+    cursor:default;
+}
+
 .np_sidebar .navigation li ul {
     width: 200px;
     padding-left: 20px;
