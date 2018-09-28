@@ -63,40 +63,45 @@ input[type="text"]:not(.np-ui-input), input[type="password"]:not(.np-ui-input), 
     padding-right: 20px
 }
 
-    .np_bar .login, button.dropdown-main-menu, a.login {
-        background-color: #000;
-        border: 1px solid #333;
-        border-radius: 4px;
-        color: #c9c9c9;
-        display: inline-block;
-        float: right;
-        margin: 8px 15px 8px 10px;
-    }
+.np_bar .login, /*button.dropdown-main-menu,*/ a.login {
+    background-color: #000;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #c9c9c9;
+    display: inline-block;
+    float: right;
+    margin: 8px 15px 8px 10px;
+}
 
-    a.login {
-        padding: 4px 12px;
-        line-height: 20px;
-        font-size: 14px;
-    }
+a.login {
+    padding: 4px 12px;
+    line-height: 20px;
+    font-size: 14px;
+}
 
 button.dropdown-main-menu {
+    background-color: #000;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #c9c9c9;
+    display: inline-block;
     margin-left: 3px;
     float: left;
-    display: none;
+    display: block;
+    cursor: pointer;
+    padding-top: 3px;
+    font-size: 15px;
 }
 
 .np_bar .login:hover, button.dropdown-main-menu:hover, a.login:hover {
     color: #fff;
     border-color: #fff;
 }
+
 .np_content {
     /*border: 1px solid red;*/
     padding: 10px;
     overflow:auto;
-}
-
-.navbar-btn {
-    display: none;http://localhost:11613/Login/UserAccountEdit
 }
 
 @media only screen and (max-width: 1024px) {
@@ -106,13 +111,6 @@ button.dropdown-main-menu {
     .np_body {
         margin-left: 0;
     }
-}
-
-button.dropdown-main-menu {
-    display: block;
-    cursor: pointer;
-    padding-top: 2px;
-    font-size: 15px;
 }
 
 .np_sidebar .navigation {
