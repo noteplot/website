@@ -64,7 +64,7 @@
     <div id="np_master_page" class="npNoJs">
         @Html.Partial("LoaderView")
         <div class="np_bar">
-            <button class="dropdown-main-menu" type="button"><span class="fa fa-bars"></span></button>
+            <button class="dropdown-main-menu" type="button"><span class="fa fa-bars"></span></button>            
             @await Component.InvokeAsync("PanelLogin");
         </div>
         <div class="np_sidebar">
@@ -74,7 +74,7 @@
                     <li controller-name="home" action-name="index">
                         <a href="/home/index" class="button">
                             <div class="icon"><span class="fa fa-home"></span></div>
-                            <div class="name">Главная...</div>
+                            <div class="name">Главная</div>
                         </a>
                     </li>
                     <li controller-name="home" action-name="help">

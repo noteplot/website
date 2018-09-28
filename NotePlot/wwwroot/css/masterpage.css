@@ -96,7 +96,7 @@ button.dropdown-main-menu {
 }
 
 .navbar-btn {
-    display: none;
+    display: none;http://localhost:11613/Login/UserAccountEdit
 }
 
 @media only screen and (max-width: 1024px) {
@@ -110,6 +110,9 @@ button.dropdown-main-menu {
 
 button.dropdown-main-menu {
     display: block;
+    cursor: pointer;
+    padding-top: 2px;
+    font-size: 15px;
 }
 
 .np_sidebar .navigation {
