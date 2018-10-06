@@ -2,8 +2,8 @@
 @{
     string atr_checked = "checked";
 }
-<div style="max-width:800px;min-width:650px">
-<table id="paramValueType" class="table" style="width:100%">
+<div style="max-width:700px;min-width:500px">
+<table id="paramValueType" class="table cell-border" style="width:100%">
     <thead>
         <tr>
             <th hidden></th>
@@ -52,7 +52,10 @@
                     { "width": "10em" },
                     { "width": "10em" }
                 ],
-                "language": dtLanguage
+                "language": dtLanguage,
+                "paging": false,
+                "ordering": false,
+                "sDom": ''  // поиск
             });
         //});
     </script>

@@ -209,8 +209,10 @@ button.dropdown-main-menu {
     position: relative;
     top: 50%;
 }
+
 table.dataTable.no-footer {
-    border-bottom: none;
+    /*border-bottom: none;*/
+    border-bottom: 1px solid #dddddd;
 }
 
 table.dataTable thead th,
@@ -257,18 +259,19 @@ table.dataTable tbody td {
     -webkit-border-radius: 2px;
     border-radius: 2px;
 }
-    .paginate_enabled_next, .paginate_enabled_previous, .paginate_active, .paginate_active:hover, .paginate_button, .paginate_button:hover, .paginate_enabled_next:hover, .paginate_enabled_previous:hover {
-        cursor: pointer;
-        text-decoration: none;
-    }
+.paginate_enabled_next, .paginate_enabled_previous, .paginate_active, .paginate_active:hover, .paginate_button, .paginate_button:hover, .paginate_enabled_next:hover, .paginate_enabled_previous:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
 
-   .paginate_button_disabled, .paginate_button_disabled:hover, .paginate_disabled_previous, .paginate_disabled_previous:hover, .paginate_disabled_next, .paginate_disabled_next:hover {
-        color: #999;
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        text-decoration: none;
-    }
+.paginate_button_disabled, .paginate_button_disabled:hover, .paginate_disabled_previous, .paginate_disabled_previous:hover, .paginate_disabled_next, .paginate_disabled_next:hover {
+    color: #999;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-decoration: none;
+}
+
 .dataTables_wrapper {
     padding-top: 10px;
 }
@@ -311,6 +314,7 @@ table.dataTable tbody td {
     text-align: center;
     border-radius: 50%;
 }
+
 .np_toolbar .np_button .icon {
     border-color: #fff;
     color: #fff;
@@ -350,7 +354,8 @@ table.dataTable tbody td {
 }
 
 .table th {
-    text-align: left;    
+    text-align: left;
+    padding-left: 0px !important;
 }
 
 .input-append, .input-prepend {
