@@ -12,12 +12,12 @@
 .np_capitalized  {
     text-transform: capitalize;
 }
-
+/*
 input[type="text"]:not(.np-ui-input), input[type="password"]:not(.np-ui-input), textarea:not(.np-ui-input), select:not(.np-ui-input) {
     border-color: #CCC;
     border-radius: 0;
 }
-
+*/
 #np_master_page {
     position: relative;
     min-height: 100%;
@@ -43,6 +43,10 @@ input[type="text"]:not(.np-ui-input), input[type="password"]:not(.np-ui-input), 
     width: 100%;
     color: #FFFFFF;
     text-align: center;
+    padding-bottom:3px;
+}
+
+.np_sidebar_footer span {
     font-size: 8px;
 }
 
@@ -80,17 +84,17 @@ a.login {
 }
 
 button.dropdown-main-menu {
-    background-color: #000;
+    background-color: #000 !important;
     border: 1px solid #333;
     border-radius: 4px;
     color: #c9c9c9;
-    display: inline-block;
     margin-left: 3px;
     float: left;
     display: block;
     cursor: pointer;
-    padding-top: 3px;
-    font-size: 15px;
+    font-size: 24px;
+    margin-top: 7px;
+    padding-top: 5px;
 }
 
 .np_bar .login:hover, button.dropdown-main-menu:hover, a.login:hover {
@@ -101,7 +105,7 @@ button.dropdown-main-menu {
 .np_content {
     /*border: 1px solid red;*/
     padding: 10px;
-    overflow:auto;
+    overflow: auto;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -276,26 +280,25 @@ table.dataTable tbody td {
     padding: 5px;
 }
 
-    .dataTables_filter input[type='text'] {
-        display: inline-block;
-        width: auto;
-        height: 26px;
-        line-height: 14px;
-    }
+.dataTables_filter input[type='text'] {
+    display: inline-block;
+    width: auto;
+    height: 26px;
+    line-height: 14px;
+}
 
-    .dataTables_length select {
-        display: inline-block;
-        font-size: 12px;
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-        -moz-border-radius: 0px;
-        -webkit-border-radius: 0px;
-        border-radius: 0px;
-        color: #4C4C4C;
-    }
-
+.dataTables_length select {
+    display: inline-block;
+    font-size: 12px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    color: #4C4C4C;
+}
 
 .table .np_button .icon,
 .np_toolbar .np_button .icon {
@@ -338,13 +341,18 @@ table.dataTable tbody td {
     background: #009AD7 !important;
 }
 .table th {
-    line-height: 30px;
+    /*line-height: 30px;*/
     background: #E9E9E9;
     padding: 0px 10px;
     margin: 0px;
     font-size: 11px;
     color: #666;
 }
+
+.table th {
+    text-align: left;    
+}
+
 .input-append, .input-prepend {
     display: block;
     margin-bottom: 0px;
@@ -391,4 +399,9 @@ table.dataTable tbody td {
 
 .npNoJs {
     display: none;
+}
+
+.np_nav_shift {
+    height:10px;
+    clear:both;
 }

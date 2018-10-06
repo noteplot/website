@@ -2,16 +2,17 @@
 @{
     string atr_checked = "checked";
 }
-<table id="paramValueType" class="table" width="100%">
+<div style="max-width:800px;min-width:650px">
+<table id="paramValueType" class="table" style="width:100%">
     <thead>
         <tr>
             <th hidden></th>
             @*<th></th>*@
-            <th>Код</th>
-            <th>Наименование</th>
-            <th>Число</th>
-            <th>Знаков после запятой</th>
-            <th>Кол-во символов</th>
+            <th style="text-align:center">Код</th>
+            <th style="min-width:100px">Наименование</th>
+            @*<th>Число</th>*@
+            <th style="text-align:center">Знаков после запятой</th>
+            <th style="text-align:center">Количество символов</th>
         </tr>
     </thead>
     <tbody>
@@ -29,16 +30,16 @@
                 </a>
             </div>
         </td>*@
-            <td>@item.ParamValueTypeCode</td>
+            <td style="text-align:center">@item.ParamValueTypeCode</td>
             <td>@item.ParamValueTypeShortName</td>
-            <td><input disabled type="checkbox" id="ParameterActive" name="ParameterActive" value="@item.IsNumeric" @if (@item.IsNumeric) { @atr_checked } /></td>
-            <td>@item.Scale</td>
-            <td>@item.Precision</td>
+            @*<td><input disabled type="checkbox" id="ParameterActive" name="ParameterActive" value="@item.IsNumeric" @if (@item.IsNumeric) { @atr_checked } /></td>*@
+            <td style="text-align:center">@item.Scale</td>
+            <td style="text-align:center">@item.Precision</td>
         </tr>
         }
     </tbody>
 </table>
-
+</div>
 @section scripts {
     <script type="text/javascript">
         //$(document).ready(function () {
@@ -48,9 +49,8 @@
                     { "visible": false },
                     { "width": "30" },
                     null,
-                    null,
-                    null,
-                    null,
+                    { "width": "10em" },
+                    { "width": "10em" }
                 ],
                 "language": dtLanguage
             });
