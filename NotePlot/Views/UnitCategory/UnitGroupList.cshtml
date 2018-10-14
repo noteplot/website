@@ -6,94 +6,96 @@
     </a>
 </div>
 @Html.AntiForgeryToken()
-<table id="unitgroups" class="table" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <th hidden>ID</th>
-            <th></th>
-            <th>Краткое наименование группы</th>
-            <th>Полное наименование группы</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td hidden>@item.UnitGroupID</td>
-            <td>
-                <div class="npRowTools" style="display:block">
-                    <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="npRowEdit np_button" np_dialog_title="Группа единиц измерений" np_dialog_width="320px">
-                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                    </a>
-                    @if (item.LoginID != 0)
-                    {
-                    <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="npRowDelete np_button" data-deleted-name="@item.UnitGroupShortName">
-                        <div class="icon"><i class="fa fa-times"></i></div>
-                    </a>
-                    }
-                </div>
-            </td>
-            <td>@item.UnitGroupShortName</td>
-            <td>@item.UnitGroupName</td>
-        </tr>
-        }
-    </tbody>
-</table>
-@section scripts {
-    <script type="text/javascript">
-        var table = $("#unitgroups").DataTable(
+<div style="max-width:700px;min-width:400px">
+    <table id="unitgroups" class="table cell-border" cellspacing="0" style="table-layout:fixed">
+        <thead>
+            <tr>
+                <th hidden>ID</th>
+                <th></th>
+                <th>Краткое наименование группы</th>
+                <th>Полное наименование группы</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-                "autoWidth": false,
-                "columns": [
-                    { "width": "0" },
-                    { "width": "100px" },
-                    { "width": "300px" },
-                    null
-                ],
-                "language": dtLanguage
+                <tr>
+                    <td hidden>@item.UnitGroupID</td>
+                    <td>
+                        <div class="npRowTools" style="display:block">
+                            <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="npRowEdit np_button" np_dialog_title="Группа единиц измерений" np_dialog_width="320px">
+                                <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                            </a>
+                            @if (item.LoginID != 0)
+                            {
+                                <a href="@Url.Action("Delete", "UnitCategory", new { id = item.UnitGroupID })" class="npRowDelete np_button" data-deleted-name="@item.UnitGroupShortName">
+                                    <div class="icon"><i class="fa fa-times"></i></div>
+                                </a>
+                            }
+                        </div>
+                    </td>
+                    <td>@item.UnitGroupShortName</td>
+                    <td>@item.UnitGroupName</td>
+                </tr>
             }
-        );
-        $(document).ready(function () {
-            // Выделение строк по клику
-            table.on('click.select', 'tr', function () {
-                table.$('tr.selected').not(this).removeClass('selected');//.find(".npRowTools").css("display", "none");
-                if (!$(this).hasClass('selected')) {
-                    $(this).addClass('selected');//.find(".npRowTools").css("display", "block");
+        </tbody>
+    </table>
+</div>
+    @section scripts {
+        <script type="text/javascript">
+            var table = $("#unitgroups").DataTable(
+                {
+                    "autoWidth": false,
+                    "columns": [
+                        { "visible": false },
+                        { "width": "5em" },
+                        null,
+                        null
+                    ],
+                    "language": dtLanguage
+                }
+            );
+            $(document).ready(function () {
+                // Выделение строк по клику
+                table.on('click.select', 'tr', function () {
+                    table.$('tr.selected').not(this).removeClass('selected');//.find(".npRowTools").css("display", "none");
+                    if (!$(this).hasClass('selected')) {
+                        $(this).addClass('selected');//.find(".npRowTools").css("display", "block");
+                    }
+                });
+
+                var adata = new Object();
+                var _formatDialogMessage = 'Вы действительно хотите удалить группу единиц измерения?';
+                // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
+                adata.token = $("[name='__RequestVerificationToken']").val();
+                adata.dialogTitle = 'Внимание!';
+                adata.dialogMessage = _formatDialogMessage;
+                adata.onSuccess = function () {
+                    table.row('.selected').remove().draw(false);
+                }
+
+                // Редактирование по двойному клику
+                table.on('dblclick', 'tr.selected', function () {
+                    $(this).find(".npRowEdit").trigger("click");
+                });
+
+                // События редактирования и удаления записи
+                $("#unitgroups tbody").on("click", ".npRowEdit", function (e) {         // не зависит от DOM для DataTable
+                    e.preventDefault();
+                    OpenDialog(this);
+                });
+                // привязываем событие к Post Request с диалогом подтверждения
+                $("#unitgroups tbody").on("click", ".npRowDelete", adata, np_DeletePost);  // не зависит от DOM для DataTable
+                //$(".np_deleteGroup").bind("click", adata, np_DeletePost);
+                function np_DeletePost(event) {
+                    event.data.action = $(this).attr("href"); // указываем на конкретную кнопку, а не на первую в списке
+                    var _deleted_name = $(this).attr("data-deleted-name");
+                    if (_deleted_name) {
+                        event.data.dialogMessage = _formatDialogMessage;
+                        event.data.dialogMessage = event.data.dialogMessage.replace('?', ' "' + _deleted_name + '" ?');
+                    }
+                    np_MessageDialogPost(event);
                 }
             });
-
-            var adata = new Object();
-            var _formatDialogMessage = 'Вы действительно хотите удалить группу единиц измерения?';
-            // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
-            adata.token = $("[name='__RequestVerificationToken']").val();
-            adata.dialogTitle = 'Внимание!';
-            adata.dialogMessage = _formatDialogMessage;
-            adata.onSuccess = function () {
-                table.row('.selected').remove().draw(false);
-            }
-
-            // Редактирование по двойному клику
-            table.on('dblclick', 'tr.selected', function () {
-                $(this).find(".npRowEdit").trigger("click");
-            });
-
-            // События редактирования и удаления записи
-            $("#unitgroups tbody").on("click", ".npRowEdit", function (e) {         // не зависит от DOM для DataTable
-                e.preventDefault();
-                OpenDialog(this);
-            });
-            // привязываем событие к Post Request с диалогом подтверждения
-            $("#unitgroups tbody").on("click", ".npRowDelete", adata, np_DeletePost);  // не зависит от DOM для DataTable
-            //$(".np_deleteGroup").bind("click", adata, np_DeletePost);
-            function np_DeletePost(event) {
-                event.data.action = $(this).attr("href"); // указываем на конкретную кнопку, а не на первую в списке
-                var _deleted_name = $(this).attr("data-deleted-name");
-                if (_deleted_name) {
-                    event.data.dialogMessage = _formatDialogMessage;
-                    event.data.dialogMessage = event.data.dialogMessage.replace('?', ' "'+_deleted_name+'" ?');
-                }
-                np_MessageDialogPost(event);
-            }
-        });
-    </script>
-}
+        </script>
+    }

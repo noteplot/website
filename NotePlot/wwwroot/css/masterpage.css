@@ -353,9 +353,10 @@ table.dataTable tbody td {
     color: #666;
 }
 
-.table th {
+.table th, .table td {
     text-align: left;
-    padding-left: 0px !important;
+    padding-left: 5px !important;
+    word-wrap:break-word;
 }
 
 .input-append, .input-prepend {
