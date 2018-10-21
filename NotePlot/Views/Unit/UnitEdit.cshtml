@@ -78,7 +78,7 @@
                 }
                 else
                     if ($('#unit').attr("data-form-mode") == "new") {
-                        rowTools = rowTools.replaceAll("{{UnitID}}", jsn.UnitGroupID).replaceAll("{{UnitShortName}}", jsn.UnitGroupShortName);
+                        rowTools = rowTools.replaceAll("{{UnitID}}", jsn.UnitID).replaceAll("{{UnitShortName}}", jsn.UnitShortName);
                         _table.row.add([jsn.UnitID, rowTools, jsn.UnitGroupShortName, jsn.UnitShortName, jsn.UnitName]);//.draw(false);
                         _table.order([0, 'desc']).draw(); // первая строка - добавленная
                         _table.$('tr.selected').removeClass('selected');//.css("display", "none"); // снимаем выделение

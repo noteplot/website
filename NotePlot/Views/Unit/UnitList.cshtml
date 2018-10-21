@@ -6,7 +6,8 @@
     </a>
 </div>
 @Html.AntiForgeryToken()
-<table class="table" id="units" cellspacing="0" width="100%">
+<div style="max-width:900px;min-width:600px">
+<table id="units" class="table cell-border" cellspacing="0" style="table-layout:fixed">
     <thead>
         <tr>
             <th hidden>ID</th>
@@ -41,22 +42,51 @@
         }
     </tbody>
 </table>
+</div>
  @section scripts {
     <script type="text/javascript">
         var adata = new Object();
+        var groupColumn = 2;
         table = $("#units").DataTable(
             {
                 "autoWidth": false,
                 "columns": [
-                    { "width": "0" },
-                    { "width": "100px" },
-                    { "width": "300px" },
-                    { "width": "300px" },
+                    { "visible": false },
+                    { "width": "5em" },
+                    { "visible": false, "targets": groupColumn },
+                    null,
                     null
-                ],
-                "language": dtLanguage
+                ]/*,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+
+                    api.column(groupColumn, { page: 'current' }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                                '<tr class="group"><td colspan="5">' + group + '</td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    });
+                },*/
+                //"language": dtLanguage
             }
         );
+        /*
+        // Order by the grouping
+        $('#units tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            }
+            else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+        */
         $(function () {
             // Выделение строк по клику
             table.on('click.select', 'tr', function () {

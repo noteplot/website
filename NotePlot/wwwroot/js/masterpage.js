@@ -1,27 +1,4 @@
-﻿$(document).ready(function () {
-    $('button.dropdown-main-menu').click(function () {
-        if ($('.np_sidebar').css('display') == 'block') {
-            $('.np_sidebar').css('display', 'none');
-            $('.np_body').css('margin-left', 0);
-        }
-        else {
-            $('.np_sidebar').css('display', 'block');
-            $('.np_body').css('margin-left', '220px');
-        }
-    })
-
-    $(window).resize(function (event) {
-        $('.np_sidebar').attr('style', '');
-        $('.np_body').attr('style', '');
-    });
-
-    // Гашения значка загрузки
-    //$(document).ready(function () {
-    $('#loader').hide();
-    $('.np_content').show();
-    //});
-
-});
+﻿// DataTables значения по-умолчанию
 // Русификация DataTable
 var dtLanguage = {
     "processing": "Подождите...",
@@ -45,3 +22,28 @@ var dtLanguage = {
         "sortDescending": ": активировать для сортировки столбца по убыванию"
     }
 }
+$.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
+
+$(document).ready(function () {
+    $('button.dropdown-main-menu').click(function () {
+        if ($('.np_sidebar').css('display') == 'block') {
+            $('.np_sidebar').css('display', 'none');
+            $('.np_body').css('margin-left', 0);
+        }
+        else {
+            $('.np_sidebar').css('display', 'block');
+            $('.np_body').css('margin-left', '220px');
+        }
+    })
+
+    $(window).resize(function (event) {
+        $('.np_sidebar').attr('style', '');
+        $('.np_body').attr('style', '');
+    });
+
+    // Гашения значка загрузки
+    //$(document).ready(function () {
+    $('#loader').hide();
+    $('.np_content').show();
+    //});
+});

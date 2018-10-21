@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<NotePlot.Models.UnitCategory>
 
-<table id="unitSelectGroups" class="table" width="100%">
+<style>
+    .dataTables_filter {
+        padding-right: 0 !important;
+    }
+</style>
+<table id="unitSelectGroups" class="table cell-border" cellspacing="0" style="table-layout:fixed">
     <thead>
         <tr>
             <th hidden></th>
@@ -22,9 +27,17 @@
     <button id="btnSelectCancel" class="ui-button ui-corner-all np-right">Отмена</button>
     <div class="np-clear"></div>
 </div>
-<script type="text/javascript">    
-    $.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
-    $("#unitSelectGroups").DataTable({ "language": dtLanguage });
+<script type="text/javascript">
+    //$.extend(true, $.fn.dataTable.defaults, { language: dtLanguage });
+    $("#unitSelectGroups").DataTable({
+        "autoWidth": false,
+        "columns": [
+            { "width": 0 },
+            { "width": "20em" },
+        ],
+        "lengthChange": false
+        //"language": dtLanguage
+    });
     var bt = $(".np-dialog-buttons");
     $(document).ready(function () {
         // при переключении страниц + сортировка + фильтр сбрасываем selected
