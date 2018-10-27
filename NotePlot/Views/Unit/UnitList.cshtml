@@ -7,43 +7,43 @@
 </div>
 @Html.AntiForgeryToken()
 <div style="max-width:900px;min-width:600px">
-<table id="units" class="table cell-border" cellspacing="0" style="table-layout:fixed">
-    <thead>
-        <tr>
-            <th hidden>ID</th>
-            <th></th>
-            <th>Группа</th>
-            <th>Краткое наименование</th>
-            <th>Полное наименование</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr np_unit_id=@item.UnitID np_login_id=@item.LoginID>
-            <td hidden>@item.UnitID</td>
-            <td>
-                <div class="npRowTools" style="display:block">
-                    <a href="@Url.Action("Edit", "Unit" , new { id=item.UnitID })" class="npRowEdit np_button" np_dialog_title="Ед.измерения" np_dialog_width="320px">
-                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                    </a>
-                @if (item.LoginID != 0)
-                {
-                    <a href="@Url.Action("Delete", "Unit", new { id = item.UnitID })" class="npRowDelete np_button" data-deleted-name="@item.UnitShortName">
-                        <div class="icon"><i class="fa fa-times"></i></div>
-                    </a>
-                }
-                </div>
-            </td>
-            <td>@item.UnitGroupShortName</td>
-            <td class="ShortName">@item.UnitShortName</td>
-            <td>@item.UnitName</td>
-        </tr>
-        }
-    </tbody>
-</table>
+    <table id="units" class="table cell-border" cellspacing="0" style="table-layout:fixed">
+        <thead>
+            <tr>
+                <th hidden>ID</th>
+                <th></th>
+                <th>Группа</th>
+                <th>Краткое наименование</th>
+                <th>Полное наименование</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr np_unit_id=@item.UnitID np_login_id=@item.LoginID>
+                    <td hidden>@item.UnitID</td>
+                    <td class ="np_cell_tools">
+                        <div class="npRowTools" style="display:block">
+                            <a href="@Url.Action("Edit", "Unit" , new { id=item.UnitID })" class="npRowEdit np_button" np_dialog_title="Ед.измерения" np_dialog_width="320px">
+                                <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                            </a>
+                            @if (item.LoginID != 0)
+                            {
+                                <a href="@Url.Action("Delete", "Unit", new { id = item.UnitID })" class="npRowDelete np_button" data-deleted-name="@item.UnitShortName">
+                                    <div class="icon"><i class="fa fa-times"></i></div>
+                                </a>
+                            }
+                        </div>
+                    </td>
+                    <td>@item.UnitGroupShortName</td>
+                    <td class="ShortName">@item.UnitShortName</td>
+                    <td>@item.UnitName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
- @section scripts {
+@section scripts {
     <script type="text/javascript">
         var adata = new Object();
         var groupColumn = 2;
@@ -52,41 +52,13 @@
                 "autoWidth": false,
                 "columns": [
                     { "visible": false },
-                    { "width": "5em" },
-                    { "visible": false, "targets": groupColumn },
-                    null,
-                    null
-                ]/*,
-                "drawCallback": function (settings) {
-                    var api = this.api();
-                    var rows = api.rows({ page: 'current' }).nodes();
-                    var last = null;
-
-                    api.column(groupColumn, { page: 'current' }).data().each(function (group, i) {
-                        if (last !== group) {
-                            $(rows).eq(i).before(
-                                '<tr class="group"><td colspan="5">' + group + '</td></tr>'
-                            );
-
-                            last = group;
-                        }
-                    });
-                },*/
-                //"language": dtLanguage
+                    { "width": "5em", "orderable": false },
+                    { "width": "20%" },
+                    { "width": "35%" },
+                    { "width": "45%" }
+                ]//"language": dtLanguage
             }
         );
-        /*
-        // Order by the grouping
-        $('#units tbody').on('click', 'tr.group', function () {
-            var currentOrder = table.order()[0];
-            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
-                table.order([groupColumn, 'desc']).draw();
-            }
-            else {
-                table.order([groupColumn, 'asc']).draw();
-            }
-        });
-        */
         $(function () {
             // Выделение строк по клику
             table.on('click.select', 'tr', function () {
@@ -95,8 +67,8 @@
                     $(this).addClass('selected');//.find(".npRowTools").css("display", "block");;
                 }
             });
-        //});        
-        //$(document).ready(function () {
+            //});
+            //$(document).ready(function () {
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             var _formatDialogMessage = 'Вы действительно хотите удалить единицу измерения?';
             adata.token = $("[name='__RequestVerificationToken']").val();
@@ -129,30 +101,30 @@
             }
         });
 
-        /*
-        $('#units').on('draw.dt', function () {
-            $(".openDialog").off("click").on("click", function (e) {
-                e.preventDefault();
-                OpenDialog(this);
-            });
-            $(".np_deleteUnit").off("click").bind("click", adata, np_DeletePost);       
-        });
-        */
             /*
-            //более корректные метод, но в данном случае все элементы новые
-            $(".openDialog").each(function () {
-                if (!np_checkEvent($(this), 'click')) {
-                    $(this).on("click", function (e) {
-                        e.preventDefault();
-                        OpenDialog(this);
-                    });
-                }
+            $('#units').on('draw.dt', function () {
+                $(".openDialog").off("click").on("click", function (e) {
+                    e.preventDefault();
+                    OpenDialog(this);
+                });
+                $(".np_deleteUnit").off("click").bind("click", adata, np_DeletePost);
             });
-            $(".np_deleteUnit").each(function () {
-                    if (!np_checkEvent(this, 'click')) {
-                        this.bind("click", adata, np_DeletePost);
+            */
+                /*
+                //более корректные метод, но в данном случае все элементы новые
+                $(".openDialog").each(function () {
+                    if (!np_checkEvent($(this), 'click')) {
+                        $(this).on("click", function (e) {
+                            e.preventDefault();
+                            OpenDialog(this);
+                        });
                     }
                 });
-            */
+                $(".np_deleteUnit").each(function () {
+                        if (!np_checkEvent(this, 'click')) {
+                            this.bind("click", adata, np_DeletePost);
+                        }
+                    });
+                */
     </script>
 }

@@ -13,42 +13,44 @@
     </a>
 </div>
 @Html.AntiForgeryToken()
-<table class="table" id="packetList">
-    <thead>
-        <tr>
-            <th hidden></th>
-            <th></th>
-            <th>Краткое наименование</th>
-            <th>Полное наименование</th>
-            <th>Доступен</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div style="max-width:800px;min-width:500px">
+    <table class="table cell-border" id="packetList" cellspacing="0" style="table-layout:fixed">
+        <thead>
             <tr>
-                <td hidden>@item.PacketID</td>
-                <td>
-                    <a href="@Url.Action("PacketEdit", "Parameter" , new { id=item.PacketID })" class="np_button">
-                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                    </a>
-                    @if (item.LoginID != 0)
-                    {
-                        <a href="@Url.Action("PacketDelete", "Parameter", new { id = item.PacketID })" class="np_deletePacket np_button">
-                            <div class="icon"><i class="fa fa-times"></i></div>
-                        </a>
-                    }
-                </td>
-                <td>@item.PacketShortName</td>
-                <td>@item.PacketName</td>
-                <td><input disabled type="checkbox" id="PacketActive" name="PacketActive" value="@item.Active" @if (@item.Active) { @atr_checked } /></td>
+                <th hidden></th>
+                <th></th>
+                <th>Краткое наименование</th>
+                <th>Полное наименование</th>
+                <th>Доступен</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td hidden>@item.PacketID</td>
+                    <td class ="np_cell_tools">
+                        <a href="@Url.Action("PacketEdit", "Parameter" , new { id=item.PacketID })" class="np_button">
+                            <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                        </a>
+                        @if (item.LoginID != 0)
+                        {
+                            <a href="@Url.Action("PacketDelete", "Parameter", new { id = item.PacketID })" class="np_deletePacket np_button">
+                                <div class="icon"><i class="fa fa-times"></i></div>
+                            </a>
+                        }
+                    </td>
+                    <td>@item.PacketShortName</td>
+                    <td>@item.PacketName</td>
+                    <td class ="np_cell_controls" style = "text-align: center" ><input disabled type="checkbox" id="PacketActive" name="PacketActive" value="@item.Active" @if (@item.Active) { @atr_checked } /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 @section scripts {
     <script type="text/javascript">
-        $(document).ready(function () {            
+        $(document).ready(function () {
             var adata = new Object();
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
             adata.token = $("[name='__RequestVerificationToken']").val();
@@ -65,11 +67,12 @@
             "autoWidth": false,
             "columns": [
                 { "visible": false },
-                { "width": "100px" },
-                { "width": "300px" },
-                null,
-                null
-            ], "language": dtLanguage
+                { "width": "5em" },
+                { "width": "40%" },
+                { "width": "60%" },
+                { "width": "6em" }
+            ]
+            //, "language": dtLanguage
         });
     </script>
 }

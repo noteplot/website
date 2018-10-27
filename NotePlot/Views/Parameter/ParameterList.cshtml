@@ -10,49 +10,51 @@
     </a>
 </div>
 @Html.AntiForgeryToken()
-<table class="table" id="parameterList">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Группа</th>
-            <th>Краткое наименование</th>
-            <th>Полное наименование</th>
-            <th>Ед.изм.</th>
-            <th>Тип параметра</th>
-            <th>Тип значения</th>
-            <th>Мин.значение</th>
-            <th>Макс.значение</th>
-            <th>Доступен</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div style="max-width:1200px;min-width:900px">
+    <table class="table cell-border" id="parameterList" cellspacing="0" style="table-layout:fixed">
+        <thead>
             <tr>
-                <td style="display:block">
-                    <a href="@Url.Action("ParameterEdit", "Parameter" , new { id=item.ParameterID })" class="np_button">
-                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                    </a>
-                    @if (item.LoginID != 0)
-                    {
-                        <a href="@Url.Action("ParameterDelete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
-                            <div class="icon"><i class="fa fa-times"></i></div>
-                        </a>
-                    }
-                </td>
-                <td>@item.ParameterGroupShortName</td>
-                <td>@item.ParameterShortName</td>
-                <td>@item.ParameterName</td>
-                <td>@item.ParameterUnitShortName</td>
-                <td>@item.ParameterTypeName</td>
-                <td>@item.ParameterValueTypeShortName</td>
-                <td>@item.ParameterValueMin</td>
-                <td>@item.ParameterValueMax</td>
-                <td><input disabled type="checkbox" id="ParameterActive" name="ParameterActive" value="@item.Active" @if (@item.Active) { @atr_checked } /></td>
+                <th></th>
+                <th>Группа</th>
+                <th>Краткое наименование</th>
+                <th>Полное наименование</th>
+                <th>Ед. изм.</th>
+                <th>Тип параметра</th>
+                <th>Тип значения</th>
+                <th>Мин. значение</th>
+                <th>Макс. значение</th>
+                <th>Доступен</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class ="np_cell_tools">
+                        <a href="@Url.Action("ParameterEdit", "Parameter" , new { id=item.ParameterID })" class="np_button">
+                            <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                        </a>
+                        @if (item.LoginID != 0)
+                        {
+                            <a href="@Url.Action("ParameterDelete", "Parameter", new { id = item.ParameterID })" class="np_deleteParameter np_button">
+                                <div class="icon"><i class="fa fa-times"></i></div>
+                            </a>
+                        }
+                    </td>
+                    <td>@item.ParameterGroupShortName</td>
+                    <td>@item.ParameterShortName</td>
+                    <td>@item.ParameterName</td>
+                    <td>@item.ParameterUnitShortName</td>
+                    <td>@item.ParameterTypeName</td>
+                    <td>@item.ParameterValueTypeShortName</td>
+                    <td>@item.ParameterValueMin</td>
+                    <td>@item.ParameterValueMax</td>
+                    <td class ="np_cell_controls"><input disabled type="checkbox" id="ParameterActive" name="ParameterActive" value="@item.Active" @if (@item.Active) { @atr_checked } /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
@@ -70,18 +72,18 @@
         });
         $("#parameterList").removeAttr("width").DataTable({
             "autoWidth": false,
-            language: dtLanguage,
+            //language: dtLanguage,
             columns: [
-                { width: "100px", orderable: false },
-                { "width": "100px" },
-                { "width": "300px" },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
+                { width: "5em", orderable: false },
+                { "width": "10%" },
+                { "width": "15%" },
+                { "width": "20%" },
+                { "width": "8%" },
+                { "width": "10%" },
+                { "width": "12%" },
+                { "width": "9%" },
+                { "width": "9%" },
+                { "width": "7%" }
             ]
         });
     </script>

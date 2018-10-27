@@ -6,51 +6,55 @@
     </a>
 </div>
 @Html.AntiForgeryToken()
-<table id="parameterGroups" class="table" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <th hidden>ID</th>
-            <th></th>
-            <th>Краткое наименование группы</th>
-            <th>Полное наименование группы</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-        <tr>
-            <td hidden>@item.ParameterGroupID</td>
-            <td>
-                <div class="npRowTools" style="display:block">
-                    <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="npRowEdit np_button" np_dialog_title="Группа параметров" np_dialog_width="320px">
-                        <div class="icon"><i class="fa fa-pencil-alt"></i></div>
-                    </a>
-                    @if (item.LoginID != 0)
-                    {
-                        <a href="@Url.Action("Delete", "ParameterGroup", new { id = item.ParameterGroupID })" class="npRowDelete np_button" data-deleted-name="@item.ParameterGroupShortName">
-                            <div class="icon"><i class="fa fa-times"></i></div>
-                        </a>
-                    }
-                </div>
-            @*Html.ActionLink("Edit", "Edit", new { id = item.ParameterGroupID }, new { @class = "" }) |*@
-            @*Html.ActionLink("Delete", "Delete", new { id = item.ParameterGroupID }, new { @class = "np_deleteGroup np_button red" })*@
-            </td>
-            <td>@item.ParameterGroupShortName</td>
-            <td>@item.ParameterGroupName</td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div style="max-width:700px;min-width:400px">
+    <table id="parameterGroups" class="table cell-border" cellspacing="0" style="table-layout:fixed">
+        <thead>
+            <tr>
+                <th hidden>ID</th>
+                <th></th>
+                <th>Краткое наименование группы</th>
+                <th>Полное наименование группы</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td hidden>@item.ParameterGroupID</td>
+                    <td class ="np_cell_tools">
+                        <div class="npRowTools" style="display:block">
+                            <a href="@Url.Action("Edit", "ParameterGroup" , new { id=item.ParameterGroupID })" class="npRowEdit np_button" np_dialog_title="Группа параметров" np_dialog_width="320px">
+                                <div class="icon"><i class="fa fa-pencil-alt"></i></div>
+                            </a>
+                            @if (item.LoginID != 0)
+                            {
+                                <a href="@Url.Action("Delete", "ParameterGroup", new { id = item.ParameterGroupID })" class="npRowDelete np_button" data-deleted-name="@item.ParameterGroupShortName">
+                                    <div class="icon"><i class="fa fa-times"></i></div>
+                                </a>
+                            }
+                        </div>
+                        @*Html.ActionLink("Edit", "Edit", new { id = item.ParameterGroupID }, new { @class = "" }) |*@
+                        @*Html.ActionLink("Delete", "Delete", new { id = item.ParameterGroupID }, new { @class = "np_deleteGroup np_button red" })*@
+                    </td>
+                    <td>@item.ParameterGroupShortName</td>
+                    <td>@item.ParameterGroupName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 @section scripts {
     <script type="text/javascript">
         var table = $("#parameterGroups").DataTable(
             {
                 "autoWidth": false,
                 "columns": [
-                    { "width": "0" },
-                    { "width": "100px" },
-                    { "width": "300px" },
-                    null
-                ], "language": dtLanguage
+                    { "visible": false },
+                    { "width": "5em", "orderable": false },
+                    { "width": "40%" },
+                    { "width": "60%" }
+                ]
+                //, "language": dtLanguage
             }
         );
         $(document).ready(function () {
@@ -65,7 +69,7 @@
             var adata = new Object();
             var _formatDialogMessage = 'Вы действительно хотите удалить группу параметров?';
             // передаем token через объект события, если атрибут [ValidateAntiForgeryToken] указан в контроллере
-            adata.token = $("[name='__RequestVerificationToken']").val(); 
+            adata.token = $("[name='__RequestVerificationToken']").val();
             adata.dialogTitle = 'Внимание!';
             adata.dialogMessage = _formatDialogMessage;
             adata.onSuccess = function () {
@@ -97,6 +101,6 @@
 
             // привязываем событие к Post Request
             //$(".np_deleteGroup").bind("click", adata, np_AjaxPost);
-        });       
+        });
     </script>
 }

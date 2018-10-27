@@ -21,7 +21,7 @@
             {
                 <tr>
                     <td hidden>@item.UnitGroupID</td>
-                    <td>
+                    <td class ="np_cell_tools">
                         <div class="npRowTools" style="display:block">
                             <a href="@Url.Action("Edit", "UnitCategory" , new { id=item.UnitGroupID })" class="npRowEdit np_button" np_dialog_title="Группа единиц измерений" np_dialog_width="320px">
                                 <div class="icon"><i class="fa fa-pencil-alt"></i></div>
@@ -48,9 +48,9 @@
                     "autoWidth": false,
                     "columns": [
                         { "visible": false },
-                        { "width": "5em" },
-                        null,
-                        null
+                        { "width": "5em", "orderable": false  },
+                        { "width": "40%" },
+                        { "width": "60%" }
                     ]
                     //"language": dtLanguage
                 }
