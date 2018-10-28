@@ -150,6 +150,10 @@ height: 30px;
     /*border: 1px solid red;*//*для отладки*/
 }
 
+.np-inputForm .np-row-div {
+    margin-top : 5px;
+}
+
 .form-row {
     width: 100%;
 }
@@ -248,7 +252,7 @@ textarea.np-column-left{
 
 /*ToolBar ряд кнопок*/
 .np-tool-bar {
-    margin: 5px 0 5px 15px;
+    margin: 5px 0;
     min-width: 350px;
     /*border : 1px solid black;*/
     /*max-width : 600px;*/

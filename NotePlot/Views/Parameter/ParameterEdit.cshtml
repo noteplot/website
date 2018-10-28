@@ -70,25 +70,25 @@
                 <div class="np-column-left np-column-1 np-clearfix">
                     <button type="button" class="openDialog ui-button ui-corner-all" href="/ParameterGroup/ListDialog" np_dialog_title="Выбор группы" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Группа</button>
                 </div>
-                <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" class="np-column-left np-short-name np-ui-input" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
+                <input type="text" readonly id="ParameterGroupShortName" name="ParameterGroupShortName" class="np-column-left np-short-name np-ui-input np-row-div" value="@Model.ParameterGroupShortName" @if (Model.LoginID == 0) { @atr_disabled } />
             </div>
-            <div class="np-clearfix">
+            <div class="np-clearfix np-row-div">
                 <label for="ParameterShortName" class="np-column-left np-column-1 np-ui-input">Краткое наименование</label>
                 <input type="text" id="ParameterShortName" name="ParameterShortName" class="np-column-left np-short-name np-ui-input" maxlength="24" value="@Model.ParameterShortName" @if (Model.LoginID == 0) { @atr_disabled } />
             </div>
-            <div class="np-clearfix">
+            <div class="np-clearfix np-row-div">
                 <label for="ParameterName" class="np-column-left np-column-1 np-ui-input">Полное наименование</label>
                 @*<input type="text" id="ParameterName" name="ParameterName" maxlength="48" value="@Model.ParameterName" @if (Model.LoginID == 0) { @atr_disabled } />*@
                 <textarea class="np-column-left np-short-name np-ui-input" id="ParameterName" name="ParameterName" maxlength=48 value="@Model.ParameterName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterName</textarea>
             </div>
-            <div class="np-clearfix">
+            <div class="np-clearfix np-row-div">
                 @*<label for="ParameterUnitShortName" class="np_label"></label>*@
                 <div class="np-column-left np-column-1 np-clearfix">
                     <button type="button" class="openDialog ui-button ui-corner-all" href="/Unit/ListDialog" np_dialog_title="Выбор ед.изменения" np_dialog_width="500px" @if (Model.LoginID == 0) { @atr_disabled }>Ед. измерения</button>
                 </div>
                 <input type="text" readonly id="ParameterUnitShortName" name="ParameterUnitShortName" class="np-column-left np-short-name np-ui-input" value=@Model.ParameterUnitShortName @if (Model.LoginID == 0) { @atr_disabled } />
             </div>
-            <div class="np-clearfix">
+            <div class="np-clearfix np-row-div">
                 <label class="np-column-left np-column-1 np-ui-input">Тип параметра</label>
                 <div class="np-column-left np-clearfix">
                     @foreach (NotePlot.Models.ParameterType pt in @ViewBag.ListType)
@@ -100,7 +100,7 @@
                     }
                 </div>
             </div>
-            <div class="np-clearfix">
+            <div class="np-clearfix np-row-div">
                 <div class="np-column-left np-column-1 np-clearfix">
                     <button type="button" class="openDialog ui-button ui-corner-all" href="/ParamValueType/ListDialog" np_dialog_title="Выбор типа значения" np_dialog_width="600px" @if (Model.LoginID == 0) { @atr_disabled }>Тип значения</button>
                 </div>
@@ -108,12 +108,12 @@
                 <textarea class="np-column-left np-short-name np-ui-input" id="ParameterValueTypeShortName" name="ParameterValueTypeShortName" value="@Model.ParameterValueTypeShortName" @if (Model.LoginID == 0) { @atr_disabled }>@Model.ParameterValueTypeShortName</textarea>
             </div>
             <div class="rangePanel" @if (Model.ParameterTypeID != 0) { @atr_hidden}>
-                <div class="np-clearfix">
+                <div class="np-clearfix np-row-div">
                     <label for="ParameterValueMin" class="np-column-left np-column-1 np-ui-input">Мин. значение</label>
                     <input type="text" id="ParameterValueMin" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMin" maxlength="28" value="@Model.ParameterValueMin" np_dec_precision="@Model.ParameterPrecision" np_dec_scale="@Model.ParameterScale" np_dec_minus @if (Model.LoginID == 0)
                     { @atr_disabled } />
                 </div>
-                <div class="np-clearfix">
+                <div class="np-clearfix np-row-div">
                     <label for="ParameterValueMax" class="np-column-left np-column-1 np-ui-input">Макс. значение</label>
                     <input type="text" id="ParameterValueMax" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMax" maxlength="28" value="@Model.ParameterValueMax" np_dec_precision="@Model.ParameterPrecision" np_dec_scale="@Model.ParameterScale" np_dec_minus @if (Model.LoginID == 0)
                     { @atr_disabled } />
@@ -121,14 +121,14 @@
             </div>
             @if (Model.ParameterID != null)
             {
-                <div class="np-clearfix">
+                <div class="np-clearfix np-row-div">
                     <label for="ParameterActive" class="np-column-left np-column-1 np-ui-input">Доступен</label>
                     <input type="checkbox" id="ParameterActive" name="Active" class="np-column-left np-ui-input" value="@Model.Active" @if (@Model.Active) { @atr_checked } @if (Model.LoginID == 0) { @atr_disabled } />
                 </div>
             }
             else
             {
-                <div class="np-clearfix">
+                <div class="np-clearfix np-row-div">
                     <input class="np-column-left np-ui-input" type="checkbox" id="Active" name="Active" value="1" hidden checked />
                 </div>
             }
