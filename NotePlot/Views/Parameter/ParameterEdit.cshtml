@@ -2,6 +2,10 @@
 
 @{
     string atr_checked = "checked", atr_disabled = "disabled", atr_hidden="hidden";
+
+    System.Globalization.CultureInfo ruRU = new System.Globalization.CultureInfo("ru-RU");
+    string decSep = ruRU.NumberFormat.NumberDecimalSeparator;
+    char[] toTrim = decSep.ToCharArray();
 }
 
     @section styles{
@@ -53,9 +57,9 @@
                 <input type="submit" value="Записать" id="np_parameter_save" @if (Model.LoginID == 0) { @atr_disabled } />
             }
 *@
-    <div class="np-inputForm">
-        <fieldset>
-            <legend>Параметр</legend>
+    <div class="np-inputForm" style="overflow:hidden">
+        @*<fieldset>*@
+            @*<legend>Параметр</legend>*@
             <input type="hidden" id="ParameterID" name="ParameterID" value="@Model.ParameterID" />
             <input type="hidden" id="ParameterGroupID" name="ParameterGroupID" value="@Model.ParameterGroupID" />
             <input type="hidden" id="ParameterUnitID" name="ParameterUnitID" value="@Model.ParameterUnitID" />
@@ -106,12 +110,12 @@
             <div class="rangePanel" @if (Model.ParameterTypeID != 0) { @atr_hidden}>
                 <div class="np-clearfix">
                     <label for="ParameterValueMin" class="np-column-left np-column-1 np-ui-input">Мин. значение</label>
-                    <input type="text" id="ParameterValueMin" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMin" maxlength="28" value="@Model.ParameterValueMin" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0)
+                    <input type="text" id="ParameterValueMin" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMin" maxlength="28" value="@Model.ParameterValueMin" np_dec_precision="@Model.ParameterPrecision" np_dec_scale="@Model.ParameterScale" np_dec_minus @if (Model.LoginID == 0)
                     { @atr_disabled } />
                 </div>
                 <div class="np-clearfix">
                     <label for="ParameterValueMax" class="np-column-left np-column-1 np-ui-input">Макс. значение</label>
-                    <input type="text" id="ParameterValueMax" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMax" maxlength="28" value="@Model.ParameterValueMax" np_dec_precision="22" np_dec_scale="6" np_dec_minus @if (Model.LoginID == 0)
+                    <input type="text" id="ParameterValueMax" class="rangeValue np_decimal_format np-column-left np-short-name np-ui-input" name="ParameterValueMax" maxlength="28" value="@Model.ParameterValueMax" np_dec_precision="@Model.ParameterPrecision" np_dec_scale="@Model.ParameterScale" np_dec_minus @if (Model.LoginID == 0)
                     { @atr_disabled } />
                 </div>
             </div>
@@ -128,7 +132,7 @@
                     <input class="np-column-left np-ui-input" type="checkbox" id="Active" name="Active" value="1" hidden checked />
                 </div>
             }
-         </fieldset>
+         @*</fieldset>*@
     </div>
 <div id="relationSection">
     @if (Model.ParameterTypeID > 0)
@@ -171,7 +175,9 @@
             inp.change(function () {
                 var i = 0;
             }).change();
-
+            $('#ParameterValueTypeID').on('change',function () {
+                $("input.rangeValue").val('');
+            });
             $('input:radio[name = "ParameterTypeID"]').on('change', function (e) {
                 e.preventDefault();
                 if ($(this).val() > 0) {

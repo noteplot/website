@@ -65,7 +65,7 @@
 					
                 // здесь unicode - пропускаем только установленный разделитель
                 // point minus comma  numbers    				
-                if (!CheckLength(val, point, precision, minus) || (!CheckNumber(e, val, scale, point, minus)))//( ( key != 44 && key != 46 && key != 45) && ( key < 48 || key > 57 ) ) )
+                if (!CheckLength(val, point, precision, minus)) //|| (!CheckNumber(e, val, scale, point, minus)))//( ( key != 44 && key != 46 && key != 45) && ( key < 48 || key > 57 ) ) )
                 {
                     e.preventDefault();
                 }                

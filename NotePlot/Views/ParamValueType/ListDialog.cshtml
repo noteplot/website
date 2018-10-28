@@ -10,10 +10,10 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr np_value_type_id=@item.ParamValueTypeID>
-                <td>@item.ParamValueTypeCode</td>
-                <td class="ShortName">@item.ParamValueTypeShortName</td>
-            </tr>
+        <tr np_value_type_id=@item.ParamValueTypeID np_value_precision =@item.Precision np_value_scale =@item.Scale>
+            <td>@item.ParamValueTypeCode</td>
+            <td class="ShortName">@item.ParamValueTypeShortName</td>
+        </tr>
         }
     </tbody>
 </table>
@@ -51,10 +51,18 @@
             if ($('#parameterValueTypes tbody tr').hasClass('selected')) {
                 var _ParameterValueTypeID = $('#parameterValueTypes tbody tr.selected').attr('np_value_type_id');
                 var _ParameterValueTypeShortName = $('#parameterValueTypes tbody tr.selected td.ShortName').text();
+                var _ParameterValuePrecision = $('#parameterValueTypes tbody tr.selected').attr('np_value_precision');
+                var _ParameterValueScale = $('#parameterValueTypes tbody tr.selected').attr('np_value_scale');
+
                 //alert(_ParameterValueTypeID+' '+_ParameterValueTypeShortName);
-                if ((_ParameterValueTypeID != undefined) && (_ParameterValueTypeShortName != undefined)) {
+                if ((_ParameterValueTypeID != undefined) && (_ParameterValueTypeShortName != undefined) && (_ParameterValueTypeShortName != $('#ParameterValueTypeID').val())) {
                     $('#ParameterValueTypeID').val(_ParameterValueTypeID);
+                    if ($("input.np_decimal_format")) {
+                        $("input.np_decimal_format").attr('np_dec_precision', _ParameterValuePrecision);
+                        $("input.np_decimal_format").attr('np_dec_scale', _ParameterValueScale);
+                    };
                     $('#ParameterValueTypeShortName').val(_ParameterValueTypeShortName);
+                    $('#ParameterValueTypeID').change();
                     // определяем контейнер диалога
                     var _md = $('#parameterValueTypes').parentsUntil('.dialog').parent('.dialog').first().attr('id');
                     //var _md = $('#parameterGroups').parents('.dialog').first().attr('id'); можно и так

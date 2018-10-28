@@ -52,7 +52,8 @@ namespace NotePlot.Models
         [Required(ErrorMessage = "Тип значение параметра должен быть установлен")]
         public int? ParameterValueTypeID { get; set; }
         public string ParameterValueTypeShortName { get; set; }
-
+        public byte? ParameterScale { get; set; }
+        public int? ParameterPrecision { get; set; }
         public decimal? ParameterValueMax { get; set; }
         public decimal? ParameterValueMin { get; set; }
         public bool Active { get; set; }
