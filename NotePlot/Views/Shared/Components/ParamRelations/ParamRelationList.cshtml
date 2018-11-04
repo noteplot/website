@@ -5,40 +5,50 @@
 }
 @*<button id="np_relation_add"  href="/Parameter/ParameterListDialog" np_dialog_title = "Параметры" np_dialog_width ="800px">Добавить параметр</button>
     <button id="np_relation_del">Удалить параметр</button>*@
+<span class="np-section">Параметры для расчета</span><i class="fa fa-info-circle" title="Параметры для расчета значения текущего параметра"></i>
 @if (@ViewBag.LoginID != 0)
 {
-    <div class="np-tool-bar">
-        <a id="np_relation_add" href="/Parameter/ParameterListDialog" np_dialog_title="Параметры" np_dialog_width="800px"><button class='ui-button ui-corner-all'>Добавить параметр</button></a>
-        <a id="np_relation_del" href=""><button class='ui-button ui-corner-all np-btn-selected-row' @atr_disabled>Удалить параметр</button></a>
+    <div class="np-tool-bar" style="min-width:24em">
+        <button id="np_relation_add" class='ui-button ui-corner-all' href="/Parameter/ParameterListDialog" np_dialog_title="Параметры" np_dialog_width="800px" title="Добавить параметр"><i class="fa  fa-plus-circle"></i></button>
+        <button id="np_relation_del" class='ui-button ui-corner-all np-btn-selected-row' @atr_disabled title="Удалить параметр"><i class="fa  fa-minus-circle"></i></button>
     </div>
 }
-<table id="parameterRelations" class="table" width="100%">
-    <thead>
-        <tr>
-            <th hidden>ParameterID</th>
-            <th hidden>MathOperationID</th>
-            <th>Параметр</th>
-            <th>Действие</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div style="max-width:37em;min-width:24em">
+    <table id="parameterRelations" class="table cell-border" cellspacing="0" style="table-layout:fixed">
+        <thead>
             <tr>
-                <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
-                <td hidden><input type="text" id="MathOperationID" name="MathOperationID" value="@item.MathOperationID"/></td>
-                <td>@item.ParameterShortName</td>
-                <td>@item.MathOperationFullName</td>
+                <th hidden>ParameterID</th>
+                <th hidden>MathOperationID</th>
+                <th>Параметр</th>
+                <th>Действие</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
+                    <td hidden><input type="text" id="MathOperationID" name="MathOperationID" value="@item.MathOperationID" /></td>
+                    <td>@item.ParameterShortName</td>
+                    <td>@item.MathOperationFullName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <script type="text/javascript">
     $("#parameterRelations").DataTable({
+        "autoWidth": false,
         "paging": false,
         "ordering": false,
         "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }, //убрать сообщение о пусто таблице
-        "sDom": ''  // поиск
+        "sDom": '',  // поиск
+        "columns": [
+                    { "visible": false },
+                    { "visible": false },
+                    { "width": "100%" },
+                    { "width": "10em" }
+                ]
     });
     $('#parameterRelations').on('page.dt order.dt search.dt', function () {
         $('#parameterRelations tbody tr.selected').removeClass('selected');

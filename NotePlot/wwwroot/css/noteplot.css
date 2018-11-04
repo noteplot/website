@@ -143,11 +143,10 @@ height: 30px;
 
 /*СТИЛИ ДЛЯ КОЛОНОЧНОГО МАКЕТА ФОРМЫ*/
 .np-inputForm {
-    max-width: 850px; /*Изменить на необходимую ширину*/
+    /*max-width: 850px;*/ /*Изменить на необходимую ширину*/
     /*margin: 10px;*/
     margin: 0px;
-    width: 100%;
-    /*border: 1px solid red;*//*для отладки*/
+    width: 100%;    
 }
 
 .np-inputForm .np-row-div {
@@ -227,7 +226,7 @@ textarea.np-column-left{
 }
 
 .np-column-1 {
-    width: 150px; /*размер первой колонки*/
+    width: 13em; /*размер первой колонки*/
 }
 
 .np-short-name {
@@ -312,4 +311,18 @@ textarea.np-column-left{
 .np-clearfix label.error {
     display: block;
     clear: both;
+}
+
+.np-section {
+    font-size: 1em;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 5px;
+}
+
+#np_parameter_edit .np-button-edit {
+    width:10em;
+    text-align:left;
+    padding-left:5px;
 }
