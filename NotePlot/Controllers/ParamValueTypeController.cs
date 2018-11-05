@@ -16,7 +16,7 @@ namespace NotePlot.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult ParamValueTypeList()
         {
             return View("ParamValueTypeView", repo.GetParamValueTypes());
         }

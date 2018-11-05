@@ -322,7 +322,11 @@ textarea.np-column-left{
 }
 
 #np_parameter_edit .np-button-edit {
-    width:10em;
+    width:9em;
     text-align:left;
     padding-left:5px;
+}
+
+.navContainer {
+    padding-left:0.5em;
 }
