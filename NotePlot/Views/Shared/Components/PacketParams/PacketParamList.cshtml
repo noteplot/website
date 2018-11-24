@@ -16,29 +16,30 @@
     <button class='np_btn_down ui-button ui-corner-all np-btn-selected-row' @atr_disabled title="Вниз"><i class="fa fa-arrow-circle-down"></i></button>
 </div>
 }
-
-<table id="packetParameters" class="table">
-    <thead>
-        <tr>
-            <th hidden>ParameterID</th>
-            <th>Параметр</th>
-            <th>Доступен</th>
-        </tr>
-    </thead>
-    <tbody  @if (@ViewBag.LoginID > 0) { @:class="np_enabled"
-     }>
-        @foreach (var item in Model)
-        {
-            <tr @if (@ViewBag.LoginID > 0) { 
-                @:class="np_enabled"
-            } >
-                <td hidden><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
-                <td>@item.ParameterShortName</td>
-                <td><input type="checkbox" id="PacketParameterActive" name="PacketParameterActive" value="@item.PacketParameterActive" @if (@item.PacketParameterActive) { @atr_checked   } @if (@ViewBag.LoginID == 0) { @atr_disabled } /></td>
+<div style="max-width:37em;min-width:24em">
+    <table id="packetParameters" class="table">
+        <thead>
+            <tr>
+                <th hidden>ParameterID</th>
+                <th>Параметр</th>
+                <th class="np-column-flag">Доступен</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody  @if (@ViewBag.LoginID > 0) { @:class="np_enabled"
+         }>
+            @foreach (var item in Model)
+            {
+                <tr @if (@ViewBag.LoginID > 0) { 
+                    @:class="np_enabled"
+                } >
+                    <td hidden ><input type="text" id="ParameterID" name="ParameterID" value="@item.ParameterID" /></td>
+                    <td>@item.ParameterShortName</td>
+                    <td class="np-column-flag"><input type="checkbox" id="PacketParameterActive" name="PacketParameterActive" value="@item.PacketParameterActive" @if (@item.PacketParameterActive) { @atr_checked   } @if (@ViewBag.LoginID == 0) { @atr_disabled } /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <script type="text/javascript">
     $(function () {        
         $('#np_packet_param_add').on('click', function (e) {
@@ -77,7 +78,6 @@
         //Плагин UI Sortable
         $("#packetParameters tbody.np_enabled").sortable(
             {
-                //helper: fixHelper
                 helper: function (e, tr) {
                     tr.children().each(function () {
                         $(this).width($(this).width());
@@ -88,6 +88,13 @@
                     if (refreshPage) {
                         refreshPage();
                     }
+                },
+                sort: function (e, ui) { // чтобы не показывать скрытые столбцы
+                    ui.placeholder.find('td').each(function (key, value) {
+                        //alternative: if (!ui.item.find('td').hasClass('hidden')) $(this).show();
+                        if (ui.helper.find('td').eq(key).is(':visible')) $(this).show();
+                        else $(this).hide();
+                    });
                 }
             },
             { axis: "y" },

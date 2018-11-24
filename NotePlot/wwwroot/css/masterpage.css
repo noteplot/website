@@ -423,3 +423,43 @@ table.dataTable thead th, table.dataTable tbody td {
     height:10px;
     clear:both;
 }
+
+#np_master_page{
+    background : #fff;
+}
+/*
+#np_master_page::after {
+    content: "";
+    background: url('../images/splash2.jpg');
+    background-repeat: repeat;
+    opacity: 0.25;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+.np_help {
+    background : #eee;
+    margin-top:20px 20px 0 20px;
+}
+*/
+
+#packetParameters {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#packetParameters td, th{
+    border: 1px solid #ddd;
+}
+
+.np-column-flag {
+    width: 5em;
+    text-align:center;
+}
+
+#packetParameters th {
+    line-height: 2em;
+}
